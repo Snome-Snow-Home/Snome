@@ -1,5 +1,5 @@
 <p align="center">
-  [logo]
+  <img src="https://slack-files.com/T02J87KGU0Y-F02HM43UBS8-53a62141e5">
 </p>
 <p align="center">
   Sharing winter experiences. A home exchange platform for skiers and snowboarders.
