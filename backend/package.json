@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API service for FearNoMore",
+  "main": "config.example.js",
+  "scripts": {
+    "server": "nodemon server/index.js",
+    "database": "sudo -u postgres psql < database/schema.sql",
+    "server-deploy": "forever start server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dior-2/Backend.git"
+  },
+  "author": "Bruno Berastain, Joseph Peck, Sam Schnaible",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dior-2/Backend/issues"
+  },
+  "homepage": "https://github.com/Dior-2/Backend#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "forever": "^4.0.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "pg-promise": "^10.11.0"
+  }
+}
