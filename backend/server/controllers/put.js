@@ -1,15 +1,9 @@
 const { put } = require('../models');
 
+/* define put request handlers here */
+
 module.exports = {
-  profile: async(req, res) => {
-    try {
-      let data = await put.profile(req.body);
-      res.send(data);
-    } catch(err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
+  
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
@@ -19,4 +13,5 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
+
 }
