@@ -1,14 +1,10 @@
 const express = require('express');
-const app = express();
-const Router = express.Router(); // is this necessary?
-const port = 3000;
-const compression = require('compression');
-const morgan = require('morgan');
-const db = require('../database/index.js'); // is this necessary?
 const router = require('./routes.js');
+
+const app = express();
+const port = 3000;
+
 app.use(express.json());
-app.use(compression());
-app.use(morgan('tiny'));
 app.use((req, res, next) => {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -22,8 +18,7 @@ app.use((req, res, next) => {
   next();
 })
 
-app.use('/api', router);
-
+app.use('/', router);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
