@@ -1,15 +1,8 @@
 /* instatiate database connection to AWS RDS postgres instance */
-
 const pgp = require('pg-promise')();
 const config = require('../config.js');
 
-const cn = {
-  host: config.host,
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: config.password
-};
+const cn = config.db;
 
 const db = pgp(cn);
 

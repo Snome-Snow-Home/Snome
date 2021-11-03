@@ -4,6 +4,16 @@ const { get } = require('../models');
 
 module.exports = {
 
+  getAllSnomes: async (req, res) => {
+    try {
+      let data = await get.getAll(req.query);
+      res.status(200).send(data);
+    } catch(err) {
+      console.log(`SERVER SIDE ERROR: ${err}`)
+      res.status(400).send(err);
+    }
+  }
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
@@ -14,4 +24,4 @@ module.exports = {
   //   }
   // },
 
-}
+};
