@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "snome",
   "version": "1.0.0",
-  "description": "API service for FearNoMore",
+  "description": "Express API for Snome",
   "main": "config.example.js",
   "scripts": {
     "server": "nodemon server/index.js",
@@ -11,14 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dior-2/Backend.git"
+    "url": ""
   },
-  "author": "Bruno Berastain, Joseph Peck, Sam Schnaible",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dior-2/Backend/issues"
-  },
-  "homepage": "https://github.com/Dior-2/Backend#readme",
+  "homepage": "",
   "dependencies": {
     "axios": "^0.21.1",
     "compression": "^1.7.4",
