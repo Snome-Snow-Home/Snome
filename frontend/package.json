@@ -38,6 +38,7 @@
     "babel-preset-react-native": "^4.0.1",
     "jest": "^27.3.1",
     "jest-expo": "^43.0.1",
+    "prettier": "2.4.1",
     "react-test-renderer": "^17.0.2"
   },
   "private": true
