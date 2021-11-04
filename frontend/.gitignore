@@ -106,3 +106,6 @@ dist
 # Jest files
 cache
 coverage
+
+# Expo files
+.expo

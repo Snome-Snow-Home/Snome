@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watch --no-cache"
+    "test": "jest --watchAll --no-cache"
   },
   "jest": {
     "preset": "jest-expo",
@@ -33,11 +33,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@testing-library/react": "^12.1.2",
     "babel-jest": "^27.3.1",
     "babel-preset-react-native": "^4.0.1",
     "jest": "^27.3.1",
     "jest-expo": "^43.0.1",
-    "jest-react-native": "^18.0.0",
     "react-test-renderer": "^17.0.2"
   },
   "private": true
