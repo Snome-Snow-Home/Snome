@@ -1,1 +1,1 @@
--- SQL to create and index database tables here
+-- SQL to seed database here
