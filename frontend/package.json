@@ -5,9 +5,25 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --watch --no-cache"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
   },
   "dependencies": {
+    "@babel/preset-env": "^7.16.0",
     "expo": "~43.0.0",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
@@ -16,7 +32,13 @@
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "babel-preset-react-native": "^4.0.1",
+    "jest": "^27.3.1",
+    "jest-expo": "^43.0.1",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "^17.0.2"
   },
   "private": true
 }
