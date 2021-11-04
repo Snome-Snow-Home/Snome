@@ -4,15 +4,17 @@ const { get } = require('../models');
 
 module.exports = {
 
-  getAllSnomes: async (req, res) => {
+  getAll: async (req, res) => {
     try {
-      let data = await get.getAll(req.query);
-      res.status(200).send(data);
+      const model = req.path.slice(1);
+      res.status(200).send(model);  // DUMMY RESPONSE
+      // let data = await get.getAll(model);
+      // res.status(200).send(data);
     } catch(err) {
-      console.log(`SERVER SIDE ERROR: ${err}`)
+      console.log(`SERVER ERROR: ${err}`)
       res.status(400).send(err);
     }
-  }
+}
 
   // <TEMPLATE>: async (req, res) => {
   //   try {
