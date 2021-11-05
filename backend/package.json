@@ -24,8 +24,5 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "pg-promise": "^10.11.0"
-  },
-  "devDependencies": {
-    "psql": "^0.0.1"
   }
 }
