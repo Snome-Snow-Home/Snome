@@ -7,11 +7,12 @@
     "server": "nodemon server/index.js",
     "database": "sudo -u postgres psql < database/schema.sql",
     "server-deploy": "forever start server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config ./tests/unit_tests/jest.config.json",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Snome-Snow-Home/Snome"
   },
   "author": "",
   "license": "ISC",
@@ -24,5 +25,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "pg-promise": "^10.11.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
   }
 }
