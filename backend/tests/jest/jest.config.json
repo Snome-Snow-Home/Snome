@@ -7,6 +7,6 @@
         "!**/node_modules/**",
         "!**/coverage/**",
         "!**/jest.config.js"
-    ]
-
+    ],
+    "rootDir": "../../."
 }
