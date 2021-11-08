@@ -7,8 +7,20 @@
     "server": "nodemon server/index.js",
     "database": "sudo -u postgres psql < database/schema.sql",
     "server-deploy": "forever start server/index.js",
-    "test": "jest --config ./tests/jest/jest.config.json",
-    "test:watch": "npm run test -- --watch"
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*spec.js"],
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "**/*.js",
+        "!**/node_modules/**",
+        "!**/coverage/**",
+        "!**/jest.config.js"
+    ],
+    "coverageDirectory": "tests/jest/coverage"
   },
   "repository": {
     "type": "git",
