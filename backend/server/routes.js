@@ -5,6 +5,7 @@ const router = require('express').Router();
 
 /* FOR BAREBONES TESTING ONLY */
 router.get('/snome', controller.get.getAll);
+router.get('/match', controller.get.getAll);
 // router.post('/snomes', controller.post.create);
 
 module.exports = router;
