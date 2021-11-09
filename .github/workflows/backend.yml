@@ -6,10 +6,14 @@ on:
     branches: 
       - main 
       - backend
+    paths:
+        - "backend/**"
   pull_request:
     branches:
       - main 
       - backend
+    paths:
+        - "backend/**"
 
 jobs:
   run-express-server-and-tests:
