@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
 import SnomeIcon from '../assets/Snome.png'
+import ErrorMessage from './ErrorMessage'
 
 const styles = StyleSheet.create({
   form: {
@@ -55,9 +56,11 @@ export default function CreateUser(props) {
     <div style={{
       display: "flex",
       flexDirection: "column",
+      justifyContent: "center",
       width: "95%",
     }}>
       <img src={SnomeIcon}/>
+      <h2>New User? Sign up here</h2>
       <form
         // style={{
         //   display: "flex",
@@ -78,9 +81,8 @@ export default function CreateUser(props) {
           value={form.values.name}
           autoCorrect="false"
           onChange={(event) => form.setFieldValue('name', event.target.value)}
-          error={form.errors.name ? 'First Name includes invalid characters' : undefined}
         />
-        {form.errors.name ? <Text id="name-errorBox" style={styles.errorBox}>includes invalid characters<br/></Text> : <br/>}
+        <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
 
         <label htmlFor="email">Email: </label>
         <TextInput
@@ -91,7 +93,7 @@ export default function CreateUser(props) {
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
         />
-        {form.errors.email ? <Text id="email-errorBox">invalid email address</Text> : <br/>}
+        <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} />
 
         <label htmlFor="address">Address: </label>
         <TextInput
@@ -104,8 +106,7 @@ export default function CreateUser(props) {
             form.setFieldValue('address', event.target.value)
           }
         />
-        {form.errors.address ? <Text id="address-errorBox">invalid address</Text> : <br/>}
-
+        <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} />
 
         <label htmlFor="city">City: </label>
         <TextInput
@@ -116,7 +117,7 @@ export default function CreateUser(props) {
           value={form.values.city}
           onChange={(event) => form.setFieldValue('city', event.target.value)}
         />
-        {form.errors.city ? <Text id="city-errorBox">invalid city name</Text> : <br/>}
+        <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} />
 
         <label htmlFor="state">State: </label>
         <TextInput
@@ -129,7 +130,8 @@ export default function CreateUser(props) {
           value={(form.values.state).toUpperCase()}
           onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
         />
-        {form.errors.state ? <Text id="state-errorBox">Not a valid US state </Text> : <br/>}
+        <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
+
 
         <label htmlFor="zipCode">Zip Code: </label>
         <TextInput
@@ -142,7 +144,8 @@ export default function CreateUser(props) {
             form.setFieldValue('zipCode', event.target.value)
           }
         />
-        {form.errors.zipCode ? <Text id="zipCode-errorBox">Must be a 5- or 9-digit number </Text> : <br/>}
+        <ErrorMessage errorName={form.errors.zipCode} errorId={"zipCode-errorBox"} errorMessage={"Must be a 5- or 9-digit number"} />
+
 
         <label htmlFor="password">Password: </label>
         <TextInput
@@ -158,9 +161,8 @@ export default function CreateUser(props) {
             form.setFieldValue('password', event.target.value)
           }
         />
-        <div>
-        {form.errors.password ? <Text id="password-errorBox">Password should contain 1 number, 1 letter and 8-16 characters</Text> : <br/>}
-        </div>
+        <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"Password should contain 1 number, 1 letter and 8-16 characters"} />
+
 
         <label htmlFor="confirmPassword">Confirm Password: </label>
         <TextInput
@@ -174,7 +176,7 @@ export default function CreateUser(props) {
             form.setFieldValue('confirmPassword', event.target.value)
           }
         />
-        {form.errors.confirmPassword ? <Text id="confirmPassword-errorBox">Passwords must match </Text> : <br/>}
+        <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
 
         <button type="submit" title="Submit">Submit</button>
       </form>
