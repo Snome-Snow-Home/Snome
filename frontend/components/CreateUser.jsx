@@ -1,78 +1,152 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
+import SnomeIcon from '../assets/Snome.png'
 
-export default function CreateUser (props) {
+const styles = StyleSheet.create({
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: "95%",
+  }, //why won't this work?
+  errorBox: {
+    color: 'red',
+  },
+})
+
+
+export default function CreateUser(props) {
+  const [error, setError] = useState(null);
+
   const form = useForm({
     initialValues: {
-      name: "",
-      email: "",
-      address: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      password: '',
+      confirmPassword: '',
     },
     validationRules: {
       name: (value) => /^[a-z ,.'-]+$/i.test(value),
       email: (value) => /^\S+@\S+$/.test(value),
-      city: (value) => /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(value),
+      city: (value) =>
+        /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(
+          value
+        ),
       state: (value) => value.trim().length >= 2,
       zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
-    }
-  })
+      password: (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/.test(value),
+      confirmPassword: (val, values) => val === values.password,
+    },
+  });
+
+  function handleSubmit(values) {
+    console.log("values: ",values)
+    form.validate()
+    console.log("errors: ", form.errors)
+  }
 
   return (
-    <div>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      width: "95%",
+    }}>
+      <img src={SnomeIcon}/>
+      <form
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   // flex: 1,
+        //   width: "95%",
+        // }}
+        onSubmit={form.onSubmit((values) => handleSubmit(values))}
+        // onChange={()=> console.log(form.errors)}
+      >
+
         <label htmlFor="name">Name: </label>
-        <input id="name"
+        <TextInput
+          id="name"
           placeholder="Name"
           type="text"
-          required
+          // required
           value={form.values.name}
+          autoCorrect="false"
           onChange={(event) => form.setFieldValue('name', event.target.value)}
+          error={form.errors.name ? 'First Name includes invalid characters' : undefined}
         />
+        {form.errors.name ? <Text id="name-errorBox" style={styles.errorBox}>includes invalid characters<br/></Text> : <br/>}
+
         <label htmlFor="email">Email: </label>
-        <input id="email"
+        <TextInput
+          id="email"
           placeholder="Email"
           type="text"
-          required
+          // required
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
         />
-        <input id="address"
+        {form.errors.email ? <Text id="email-errorBox">invalid email address</Text> : <br/>}
+
+        <label htmlFor="address">Address: </label>
+        <TextInput
+          id="address"
           placeholder="Address"
           type="text"
           required
           value={form.values.address}
-          onChange={(event) => form.setFieldValue('address', event.target.value)}
+          onChange={(event) =>
+            form.setFieldValue('address', event.target.value)
+          }
         />
-        <input id="city"
+        {form.errors.address ? <Text id="address-errorBox">invalid address</Text> : <br/>}
+
+
+        <label htmlFor="city">City: </label>
+        <TextInput
+          id="city"
           placeholder="City"
           type="text"
           required
           value={form.values.city}
           onChange={(event) => form.setFieldValue('city', event.target.value)}
         />
-        <input id="state"
+        {form.errors.city ? <Text id="city-errorBox">invalid city name</Text> : <br/>}
+
+        <label htmlFor="state">State: </label>
+        <TextInput
+          id="state"
           placeholder="State"
           type="text"
           required
-          value={form.values.state}
-          onChange={(event) => form.setFieldValue('state', event.target.value)}
+          maxLength="2"
+          autoCapitalize="characters" // why doesn't this work?
+          value={(form.values.state).toUpperCase()}
+          onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
         />
-        <input id="zipCode"
+        {form.errors.state ? <Text id="state-errorBox">Not a valid US state </Text> : <br/>}
+
+        <label htmlFor="zipCode">Zip Code: </label>
+        <TextInput
+          id="zipCode"
           placeholder="Zip Code"
           type="text"
           required
           value={form.values.zipCode}
-          onChange={(event) => form.setFieldValue('zipCode', event.target.value)}
+          onChange={(event) =>
+            form.setFieldValue('zipCode', event.target.value)
+          }
         />
-        <input id="password"
+        {form.errors.zipCode ? <Text id="zipCode-errorBox">Must be a 5- or 9-digit number </Text> : <br/>}
+
+        <label htmlFor="password">Password: </label>
+        <TextInput
+          id="password"
           placeholder="Password (must be 8-16 chars)"
           type="password"
           required
@@ -80,18 +154,30 @@ export default function CreateUser (props) {
           maxLength="16"
           autoComplete="new-password"
           value={form.values.password}
-          onChange={(event) => form.setFieldValue('password', event.target.value)}
+          onChange={(event) =>
+            form.setFieldValue('password', event.target.value)
+          }
         />
-        <input id="confirmPassword"
+        <div>
+        {form.errors.password ? <Text id="password-errorBox">Password should contain 1 number, 1 letter and 8-16 characters</Text> : <br/>}
+        </div>
+
+        <label htmlFor="confirmPassword">Confirm Password: </label>
+        <TextInput
+          id="confirmPassword"
           placeholder="Confirm Password"
           type="password"
           required
           autoComplete="new-password"
           value={form.values.confirmPassword}
-          onChange={(event) => form.setFieldValue('confirmPassword', event.target.value)}
+          onChange={(event) =>
+            form.setFieldValue('confirmPassword', event.target.value)
+          }
         />
-      <button type="submit">Submit</button>
+        {form.errors.confirmPassword ? <Text id="confirmPassword-errorBox">Passwords must match </Text> : <br/>}
+
+        <button type="submit" title="Submit">Submit</button>
       </form>
     </div>
-  )
+  );
 }
