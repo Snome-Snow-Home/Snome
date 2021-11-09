@@ -3,9 +3,13 @@ name: Backend CI workflow
 # trigger this workflow for backend and main branches
 on:
   push:
-    branches: [ main, backend ]
+    branches: 
+      - main 
+      - backend
   pull_request:
-    branches: [ main, backend ]
+    branches:
+      - main 
+      - backend
 
 jobs:
   run-express-server-and-tests:
