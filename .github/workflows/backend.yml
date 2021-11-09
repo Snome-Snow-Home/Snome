@@ -1,0 +1,43 @@
+name: Backend CI workflow
+
+# trigger this workflow for backend and main branches
+on:
+  push:
+    branches: [ main, backend ]
+  pull_request:
+    branches: [ main, backend ]
+
+jobs:
+  run-express-server-and-tests:
+    name: Run server, mock database and execute tests
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 15.x, 16.x, 17.x]  # https://nodejs.org/en/about/releases/
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: backend     
+
+    steps:
+      - name: checkout git repo  # get entire monorepo so workflow can access it
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2  # use each different node version
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+       # run commands using os shell     
+      - name: Install dependencies  # from backend/package-lock.json
+        run: npm ci
+
+      - name: Run server and tests
+        run: |
+          npm run server
+          npm test
