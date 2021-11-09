@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
-import SnomeIcon from '../assets/Snome.png'
+// import SnomeIcon from '../assets/Snome.png'
 import ErrorMessage from './ErrorMessage'
 
 const styles = StyleSheet.create({
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "95%",
   }, //why won't this work?
-  errorBox: {
-    color: 'red',
+  formInput: {
+    width: '100%',
   },
 })
 
@@ -41,14 +41,15 @@ export default function CreateUser(props) {
         ),
       state: (value) => value.trim().length >= 2,
       zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
-      password: (value) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/.test(value),
+      password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
+
       confirmPassword: (val, values) => val === values.password,
     },
   });
 
   function handleSubmit(values) {
-    console.log("values: ",values)
     form.validate()
+    console.log("values: ",values)
     console.log("errors: ", form.errors)
   }
 
@@ -59,7 +60,12 @@ export default function CreateUser(props) {
       justifyContent: "center",
       width: "95%",
     }}>
-      <img src={SnomeIcon}/>
+      <Image
+        source={require('../assets/Snome.png')}
+        style={{
+          resizeMode: "contain"
+        }}
+      />
       <h2>New User? Sign up here</h2>
       <form
         // style={{
@@ -69,7 +75,6 @@ export default function CreateUser(props) {
         //   width: "95%",
         // }}
         onSubmit={form.onSubmit((values) => handleSubmit(values))}
-        // onChange={()=> console.log(form.errors)}
       >
 
         <label htmlFor="name">Name: </label>
@@ -77,8 +82,9 @@ export default function CreateUser(props) {
           id="name"
           placeholder="Name"
           type="text"
-          // required
+          required
           value={form.values.name}
+          style={styles.formInput}
           autoCorrect="false"
           onChange={(event) => form.setFieldValue('name', event.target.value)}
         />
@@ -89,7 +95,7 @@ export default function CreateUser(props) {
           id="email"
           placeholder="Email"
           type="text"
-          // required
+          required
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
         />
@@ -150,18 +156,17 @@ export default function CreateUser(props) {
         <label htmlFor="password">Password: </label>
         <TextInput
           id="password"
-          placeholder="Password (must be 8-16 chars)"
+          placeholder="Must contain a number, a letter and a special character"
           type="password"
           required
-          minLength="8"
-          maxLength="16"
           autoComplete="new-password"
+          secureTextEntry="true"
           value={form.values.password}
           onChange={(event) =>
             form.setFieldValue('password', event.target.value)
           }
         />
-        <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"Password should contain 1 number, 1 letter and 8-16 characters"} />
+        <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} />
 
 
         <label htmlFor="confirmPassword">Confirm Password: </label>
@@ -171,6 +176,7 @@ export default function CreateUser(props) {
           type="password"
           required
           autoComplete="new-password"
+          secureTextEntry="true"
           value={form.values.confirmPassword}
           onChange={(event) =>
             form.setFieldValue('confirmPassword', event.target.value)
