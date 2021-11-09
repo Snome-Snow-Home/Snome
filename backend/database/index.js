@@ -6,7 +6,7 @@ const config = require('../config.js');
 
 const cn = config.db;
 
-// db uses a lazy connection - only intantiate once
+// db uses a lazy connection - only instantiate once
 const db = pgp(cn);
 
 module.exports = db;
