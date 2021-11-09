@@ -7,9 +7,9 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const model = req.path.slice(1);
-      res.status(200).send(model);  // DUMMY RESPONSE
-      // let data = await get.getAll(model);
-      // res.status(200).send(data);
+      // res.status(200).send(model);  // DUMMY RESPONSE
+      let data = await get.getAll(model);
+      res.status(200).send(data);
     } catch(err) {
       console.log(`SERVER ERROR: ${err}`)
       res.status(400).send(err);
