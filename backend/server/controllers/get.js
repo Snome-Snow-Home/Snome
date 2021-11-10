@@ -7,7 +7,7 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const model = req.path.slice(1);
-      // res.status(200).send(model);  // DUMMY RESPONSE
+      //res.status(200).send(model);  // DUMMY RESPONSE
       let data = await get.getAll(model);
       res.status(200).send(data);
     } catch(err) {
