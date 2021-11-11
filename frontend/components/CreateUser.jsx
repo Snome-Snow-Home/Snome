@@ -17,7 +17,6 @@ const Label = styled.label`
 
 const Required = styled.div`
   margin: 5px;
-  /* margin-right: 20px; */
   color: gray;
   font-family: 'Arial';
   font-size: 14px;
@@ -88,6 +87,7 @@ export default function CreateUser(props) {
     <div
     style={{
       width: "95%",
+      maxWidth: "400px",
     }}
     >
       <img
