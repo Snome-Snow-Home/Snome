@@ -3,17 +3,48 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
-// import SnomeIcon from '../assets/Snome.png'
+import styled from 'styled-components'
+
+
 import ErrorMessage from './ErrorMessage'
+import FormInput from './FormInput'
+
+const Label = styled.label`
+  margin: 5px;
+  color: #464545;
+  font-family: 'Arial';
+`;
+
+const Required = styled.div`
+  margin: 5px;
+  /* margin-right: 20px; */
+  color: gray;
+  font-family: 'Arial';
+  font-size: 14px;
+`;
+
+const Horizontal = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const styles = StyleSheet.create({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    width: "95%",
-  }, //why won't this work?
   formInput: {
-    width: '100%',
+    color: "black",
+    backgroundColor: "lightblue",
+    border: "1px solid lightgray",
+    borderRadius: "8px",
+    padding: "8px",
+    width: "100%",
+  },
+  invalidInput: {
+    color: "red",
+    backgroundColor: "lightgray",
+    border: "2px solid red",
+    borderRadius: "8px",
+    padding: "8px",
+    width: "95%",
   },
 })
 
@@ -54,67 +85,75 @@ export default function CreateUser(props) {
   }
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
+    <div
+    style={{
       width: "95%",
-    }}>
-      <Image
-        source={require('../assets/Snome.png')}
+    }}
+    >
+      <img
+        src={require('../assets/Snome.png')}
         style={{
-          resizeMode: "contain"
+          width: "150px",
         }}
       />
       <h2>New User? Sign up here</h2>
       <form
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   // flex: 1,
-        //   width: "95%",
-        // }}
         onSubmit={form.onSubmit((values) => handleSubmit(values))}
       >
 
-        <label htmlFor="name">Name: </label>
+        <Horizontal>
+          <Label htmlFor="name">Name: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="name"
           placeholder="Name"
           type="text"
           required
           value={form.values.name}
-          style={styles.formInput}
           autoCorrect="false"
-          onChange={(event) => form.setFieldValue('name', event.target.value)}
+          onChange={(event) => {
+            form.setFieldValue('name', event.target.value);
+            form.validate("name")
+          }}
+          style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
         <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
 
-        <label htmlFor="email">Email: </label>
+        <Horizontal>
+          <Label htmlFor="email">Email: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="email"
-          placeholder="Email"
+          placeholder ="Email"
           type="text"
           required
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
+          style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
         <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} />
 
-        <label htmlFor="address">Address: </label>
+        <Horizontal>
+          <Label htmlFor="address">Address: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="address"
           placeholder="Address"
           type="text"
           required
           value={form.values.address}
-          onChange={(event) =>
-            form.setFieldValue('address', event.target.value)
-          }
+          onChange={(event) => form.setFieldValue('address', event.target.value)}
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} />
 
-        <label htmlFor="city">City: </label>
+        <Horizontal>
+          <Label htmlFor="city">City: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="city"
           placeholder="City"
@@ -122,10 +161,14 @@ export default function CreateUser(props) {
           required
           value={form.values.city}
           onChange={(event) => form.setFieldValue('city', event.target.value)}
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} />
 
-        <label htmlFor="state">State: </label>
+        <Horizontal>
+          <Label htmlFor="state">State: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="state"
           placeholder="State"
@@ -135,11 +178,14 @@ export default function CreateUser(props) {
           autoCapitalize="characters" // why doesn't this work?
           value={(form.values.state).toUpperCase()}
           onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
 
-
-        <label htmlFor="zipCode">Zip Code: </label>
+        <Horizontal>
+          <Label htmlFor="zipCode">Zip Code: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="zipCode"
           placeholder="Zip Code"
@@ -149,14 +195,17 @@ export default function CreateUser(props) {
           onChange={(event) =>
             form.setFieldValue('zipCode', event.target.value)
           }
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.zipCode} errorId={"zipCode-errorBox"} errorMessage={"Must be a 5- or 9-digit number"} />
 
-
-        <label htmlFor="password">Password: </label>
+        <Horizontal>
+          <Label htmlFor="password">Password: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="password"
-          placeholder="Must contain a number, a letter and a special character"
+          placeholder="Need a number, a letter and a special character"
           type="password"
           required
           autoComplete="new-password"
@@ -165,11 +214,14 @@ export default function CreateUser(props) {
           onChange={(event) =>
             form.setFieldValue('password', event.target.value)
           }
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} />
 
-
-        <label htmlFor="confirmPassword">Confirm Password: </label>
+        <Horizontal>
+          <Label htmlFor="confirmPassword">Confirm Password: </Label>
+          <Required>*Required</Required>
+        </Horizontal>
         <TextInput
           id="confirmPassword"
           placeholder="Confirm Password"
@@ -181,11 +233,29 @@ export default function CreateUser(props) {
           onChange={(event) =>
             form.setFieldValue('confirmPassword', event.target.value)
           }
+          style={styles.formInput}
         />
         <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
 
-        <button type="submit" title="Submit">Submit</button>
+        {/* <button type="submit" title="Submit">Submit</button> */}
+        <Button title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}>Submit</Button>
       </form>
     </div>
   );
 }
+
+//should change the validation so that it occurs after unfocus on each text box
+
+{/* <FormInput
+label="Name"
+id="name"
+// placeholder="Name"
+type="text"
+required
+value={form.values.name}
+autoCorrect="false"
+onChange={(event) => form.setFieldValue('name', event.target.value)}
+errorName={form.errors.name}
+errorId={"name-errorBox"}
+errorMessage={"includes invalid characters"}
+/> */}
