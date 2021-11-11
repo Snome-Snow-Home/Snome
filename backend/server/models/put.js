@@ -21,7 +21,9 @@ module.exports = {
         number_of_beds=$11,
         perks=$12,
         snome_description=$13
-      WHERE id=${id}`, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description]);
+      WHERE id=${id}`, [owner_id, location_id, header, time_to_mountain, mountain_access,
+         availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds,
+          perks, snome_description]);
       return 'Update successful';
     } catch(err) {
       console.log(`DATABASE ERROR - PUT: ${err}`)
