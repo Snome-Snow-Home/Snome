@@ -15,7 +15,6 @@ module.exports = {
   },
 
   getOne: async (id, model) => {
-    console.log(`THIS IS MODEL: ${id}`);
     try {
       let result = await db.query(`SELECT * FROM "snome" WHERE id=${id}`);
       return result;
@@ -23,5 +22,5 @@ module.exports = {
       console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
-  }
+  },
 };

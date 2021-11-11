@@ -19,7 +19,6 @@ module.exports = {
 
   getOne: async (req, res) => {
     const test = req;
-    console.log(`This is test: ${req.params.id}`);
     const model = req.path.slice(1);
     try {
       let data = await get.getOne(req.params.id, model);
