@@ -13,7 +13,7 @@ router.get('/snome/:id', controller.get.getOne);
 
 /* PATCH REQUESTS */
 
-router.patch('/snome/:id' controller.patch.updateSnome);
+router.patch('/snome/:id', controller.patch.updateSnome);
 
 /* POST REQUESTS */
 
