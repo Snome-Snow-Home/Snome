@@ -11,9 +11,9 @@ router.get('/snome', controller.get.getAll);
 router.get('/match', controller.get.getAll);
 router.get('/snome/:id', controller.get.getOne);
 
-/* PATCH REQUESTS */
+/* PUT REQUESTS */
 
-router.patch('/snome/:id', controller.patch.updateSnome);
+router.put('/snome/:id', controller.put.updateSnome);
 
 /* POST REQUESTS */
 
