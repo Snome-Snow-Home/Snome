@@ -26,11 +26,7 @@
     "type": "git",
     "url": "https://github.com/Snome-Snow-Home/Snome"
   },
-<<<<<<< HEAD
-  "author": "Rafeal Spies, Sam Schnaible, Trae Pollak, Zachary Bretz, Gabrielle Davidson, Edward Ledbetter, Luis Castro, Mohamed Metwalli",
-=======
   "author": "",
->>>>>>> main
   "license": "ISC",
   "homepage": "",
   "dependencies": {
