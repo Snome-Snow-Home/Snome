@@ -13,6 +13,8 @@ router.get('/user/id/:id', controller.get.getUser);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/match', controller.get.getAll);
+/* for dev only */
+router.get('/user', controller.get.getAllUsers);
 
 /* PUT REQUESTS */
 
