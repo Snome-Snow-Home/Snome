@@ -16,10 +16,20 @@ module.exports = {
 
   getOne: async (id, model) => {
     try {
-      let result = await db.query(`SELECT * FROM "snome" WHERE id=${id}`);
+      let result = await db.query(`SELECT * FROM snome WHERE id=${id}`);
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR: ${err}`);
+      return err;
+    }
+  },
+
+  getUser: async (id) => {
+    try {
+      let result = await db.query(`SELECT * FROM snome_user WHERE id =${id}`)
+      return result;
+    } catch(err) {
+      console.log(`DATABASE ERROR:  ${err}`);
       return err;
     }
   },
