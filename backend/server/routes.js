@@ -8,11 +8,10 @@ const router = require('express').Router();
 /* GET REQUESTS */
 
 router.get('/snome', controller.get.getAll);
-router.get('/match', controller.get.getAll);
 router.get('/snome/:id', controller.get.getOne);
-<<<<<<< HEAD
 router.get('/location', controller.get.getAll);
-=======
+router.get('/location/:id', controller.get.getOne);
+router.get('/match', controller.get.getAll);
 
 /* PATCH REQUESTS */
 
@@ -20,7 +19,6 @@ router.patch('/snome/:id', controller.patch.updateSnome);
 
 /* POST REQUESTS */
 
->>>>>>> 80ac58a93a1ca7f7de81116e3466d0074ed0293c
 // router.post('/snomes', controller.post.create);
 
 module.exports = router;
