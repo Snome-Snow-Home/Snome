@@ -3,7 +3,6 @@ const { get } = require('../models');
 /* define get request handlers here */
 
 module.exports = {
-  //===Snome, Location, Match===//
   getAll: async (req, res) => {
     try {
       const model = get.getModelFromUrl(req);
@@ -15,7 +14,6 @@ module.exports = {
       res.status(400).send(err);
     }
 },
-  //===Snome, Location, Match===//
   getOne: async (req, res) => {
     try {
       const id = req.params.id;
@@ -27,15 +25,7 @@ module.exports = {
       res.status(404).send(err);
     }
   },
-  //===Location===//
-  filterLocationsOnSearch: async (req, res) => {
-    try {
-
-    } catch (err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(404).send(err);
-    }
-  }
+  
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

@@ -12,7 +12,8 @@ router.get('/snome/:id', controller.get.getOne);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/match', controller.get.getAll);
-
+router.get('/review', controller.get.getAll);
+router.get('/review/:id', controller.get.getOne);
 /* PATCH REQUESTS */
 
 router.patch('/snome/:id', controller.patch.updateSnome);
