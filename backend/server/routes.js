@@ -23,4 +23,8 @@ router.patch('/snome/:id', controller.patch.updateSnome);
 >>>>>>> 80ac58a93a1ca7f7de81116e3466d0074ed0293c
 // router.post('/snomes', controller.post.create);
 
+/* DELETE REQUESTS */
+
+router.delete('/snome/:id', controller.deletes.deleteSnome);
+
 module.exports = router;
