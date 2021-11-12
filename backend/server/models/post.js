@@ -30,5 +30,5 @@ module.exports = {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
-  }
+  },
 }

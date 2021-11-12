@@ -5,9 +5,10 @@ const { post } = require('../models');
 module.exports = {
   create: async (req, res) => {
     try {
-      let data = await create.post(req.body);
-      res.status(201).send(data);
+      await post.create(req.body);
+      res.status(201).send('Success!');
     } catch(err) {
+      console.log(`SERVER SIDE ERROR - POST: ${err}`)
       res.status(400).send(err);
     }
   }

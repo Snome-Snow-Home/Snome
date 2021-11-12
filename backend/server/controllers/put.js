@@ -6,10 +6,10 @@ module.exports = {
   updateSnome: async (req, res) => {
     try {
       let data = await put.updateSnome(req.params.id, req.body);
-      return data;
+      res.status(201).send('Success!')
     } catch(err) {
       console.log(`SERVER ERROR - PATCH: ${err}`);
-      return err;
+      res.status(409).send(err);
     }
   }
   // <TEMPLATE>: async (req, res) => {
