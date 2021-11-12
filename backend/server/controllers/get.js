@@ -29,6 +29,16 @@ module.exports = {
     }
   },
 
+  getUser: async (req, res) => {
+    try {
+      let data = await get.getUser(req.params.id);
+      res.status(200).send(data);
+    } catch(err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
