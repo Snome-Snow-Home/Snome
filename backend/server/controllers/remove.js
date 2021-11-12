@@ -1,11 +1,11 @@
-const { deletes }  = require('../models');
+const { remove }  = require('../models');
 /* define delete request handlers here */
 
 module.exports = {
 
   deleteSnome: async (req, res) => {
     try {
-      await deletes.deleteSnome(req.params.id);
+      await remove.deleteSnome(req.params.id);
       res.status(202).send('Snome Deleted');
     } catch(err) {
       console.log(err);

@@ -30,6 +30,7 @@ router.post('/signup', controller.post.createUser);
 
 /* DELETE REQUESTS */
 
-router.delete('/snome/:id', controller.deletes.deleteSnome);
+router.delete('/snome/:id', controller.remove.deleteSnome);
+router.delete('snome/:id', controller.remove.deleteUser)
 
 module.exports = router;
