@@ -6,7 +6,7 @@ module.exports = {
   deleteSnome: async (req, res) => {
     try {
       await deletes.deleteSnome(req.params.id);
-      res.status(200).send('Snome Deleted');
+      res.status(202).send('Snome Deleted');
     } catch(err) {
       console.log(err);
       res.status(400).send(err);
