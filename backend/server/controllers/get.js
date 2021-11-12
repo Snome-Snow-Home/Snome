@@ -30,6 +30,7 @@ module.exports = {
   },
 
   getUser: async (req, res) => {
+    console.log(req.params.id);
     try {
       let data = await get.getUser(req.params.id);
       res.status(200).send(data);
