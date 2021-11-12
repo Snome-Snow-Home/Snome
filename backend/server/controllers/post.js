@@ -3,7 +3,7 @@ const { post } = require('../models');
 /* define post request handlers here */
 
 module.exports = {
-  create: async (req, res) => {
+  createSnome: async (req, res) => {
     try {
       await post.create(req.body);
       res.status(201).send('Success!');

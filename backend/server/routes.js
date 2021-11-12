@@ -16,7 +16,8 @@ router.get('/snome/:id', controller.get.getOne);
 router.put('/snome/:id', controller.put.updateSnome);
 
 /* POST REQUESTS */
-router.post('/snome', controller.post.create);
+router.post('/snome', controller.post.createSnome);
+router.post('/signup', controller.post.createUser);
 // router.post('/snomes', controller.post.create);
 
 /* DELETE REQUESTS */

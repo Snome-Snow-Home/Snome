@@ -3,7 +3,7 @@ const db = require('../../database');
 /* define model queries for post requests here */
 
 module.exports = {
-  create: async ({ owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description }) => {
+  createSnome: async ({ owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description }) => {
     try {
       await db.none(`
       INSERT INTO snome (
