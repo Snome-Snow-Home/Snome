@@ -1,31 +1,51 @@
 {
-  "name": "backend",
+  "name": "snome",
   "version": "1.0.0",
-  "description": "API service for FearNoMore",
+  "description": "Express API for Snome",
   "main": "config.example.js",
   "scripts": {
+    "database:start": "docker run --rm --name testdb -e POSTGRES_PASSWORD=postgres -p 5432:5432 -dt --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 postgres",
+    "database:create-schema": "docker cp database/schema.sql testdb:/schema.sql && docker exec -it testdb psql -U postgres -f schema.sql",
+    "database:stop": "docker stop testdb", 
+    
     "server": "nodemon server/index.js",
-    "database": "sudo -u postgres psql < database/schema.sql",
-    "server-deploy": "forever start server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    "server:deploy": "forever start server/index.js",
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*spec.js"
+    ],
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/jest.config.js"
+    ],
+    "coverageDirectory": "tests/jest/coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dior-2/Backend.git"
+    "url": "https://github.com/Snome-Snow-Home/Snome"
   },
-  "author": "Bruno Berastain, Joseph Peck, Sam Schnaible",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dior-2/Backend/issues"
-  },
-  "homepage": "https://github.com/Dior-2/Backend#readme",
+  "homepage": "",
   "dependencies": {
     "axios": "^0.21.1",
     "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "forever": "^4.0.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "pg-promise": "^10.11.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
   }
 }
