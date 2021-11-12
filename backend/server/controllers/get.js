@@ -17,10 +17,18 @@ module.exports = {
 },
 
   getOne: async (req, res) => {
+<<<<<<< HEAD
     try {
       const id = req.params.id;
       const model = get.getModelFromUrl(req);
       const data = await get.getOne(id, model);
+=======
+    const test = req;
+    console.log(`This is test: ${req.params.id}`);
+    const model = req.path.slice(1);
+    try {
+      let data = await get.getOne(req.params.id, model);
+>>>>>>> 80ac58a93a1ca7f7de81116e3466d0074ed0293c
       res.status(200).send(data);
     } catch(err) {
       console.log(`SERVER ERROR: ${err}`);
