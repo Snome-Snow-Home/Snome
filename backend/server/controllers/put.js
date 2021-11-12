@@ -11,6 +11,16 @@ module.exports = {
       console.log(`SERVER ERROR - PATCH: ${err}`);
       res.status(409).send(err);
     }
+  },
+
+  updateUser: async (req, res) => {
+    try {
+      await put.updateUser(req.params.id);
+      res.status(202).send('Updated Successfuly');
+    } catch(err) {
+      console.log(`SERVER ERROR - PUT:  ${err}`);
+      return err;
+    }
   }
   // <TEMPLATE>: async (req, res) => {
   //   try {
