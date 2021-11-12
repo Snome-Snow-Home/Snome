@@ -8,16 +8,10 @@ const router = require('express').Router();
 /* GET REQUESTS */
 
 router.get('/snome', controller.get.getAll);
-<<<<<<< HEAD
-router.get('/match', controller.get.getAll);
-router.get('/snome/id/:id', controller.get.getOne);
-router.get('/user/id/:id', controller.get.getUser);
-=======
 router.get('/snome/:id', controller.get.getOne);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/match', controller.get.getAll);
->>>>>>> 82105b262baafb8c31fef4a63f0743fc4fbbb679
 
 /* PUT REQUESTS */
 
