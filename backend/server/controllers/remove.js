@@ -13,6 +13,15 @@ module.exports = {
     }
   },
 
+  deleteUser: async (req, res) => {
+    try {
+      await remove.deleteUser(req.params.id);
+      res.status(202).send("User Deleted")
+    } catch(err) {
+      console.log(`SERVER ERROR - DELETE: ${err}`);
+      res.status(400).send(err);
+    }
+  }
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
