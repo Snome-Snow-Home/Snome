@@ -29,30 +29,22 @@ defaults:
 
 jobs:
 
-  # job 1 - spinup postgres server in docker container on runner
-  postgres-server:
-    name: Start and seed containerized postgres service
+  setup-db-and-run-tests:
+    name: Start and seed containerized postgres service, start server and run tests
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 15.x, 16.x, 17.x]  # https://nodejs.org/en/about/releases/
 
     steps:
+      # Start containerized postgres service from Docker image
       - name: start database
         run: npm run database:start
 
       - name: create schema in database
         run: npm run database:create-schema
     
-
-  # job 2 - start express server, setup database schema and execute tests
-  express-server-and-tests:
-    name: Run server, mock database and execute tests
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 15.x, 16.x, 17.x]  # https://nodejs.org/en/about/releases/
-
-    steps:
       # Downloads a copy of repository before running CI tests
       - name: checkout git repo  
         uses: actions/checkout@v2
@@ -67,10 +59,12 @@ jobs:
         run: npm ci
         
         # server makes cn to local containerized db service
-      - name: Start server and execute tests
-        run: |
-          npm run server
-          npm test
+      - name: Start server
+        run: npm run server
+        
+        # run tests in separate shell
+      - name: Execute tests
+        run: npm test
 
       - name: shutdown database
         run: npm database:stop
