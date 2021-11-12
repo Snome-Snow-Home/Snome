@@ -4,8 +4,8 @@ const router = require('./routes.js');
 
 
 const app = express();
-const port = config.server.port || 3000;
-const host = config.server.host || 'localhost';
+const port = config.server.port;
+const host = config.server.host;
 
 app.use(express.json());
 app.use((req, res, next) => {
