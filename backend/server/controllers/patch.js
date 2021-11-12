@@ -1,17 +1,9 @@
-const { put } = require('../models');
+const { patch } = require('../models');
 
 /* define put request handlers here */
 
 module.exports = {
-  updateSnome: async (req, res) => {
-    try {
-      let data = await put.updateSnome(req.params.id, req.body);
-      res.status(201).send('Success!')
-    } catch(err) {
-      console.log(`SERVER ERROR - PATCH: ${err}`);
-      res.status(409).send(err);
-    }
-  }
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
