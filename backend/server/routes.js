@@ -8,17 +8,19 @@ const router = require('express').Router();
 /* GET REQUESTS */
 
 router.get('/snome', controller.get.getAll);
-router.get('/snome/:id', controller.get.getOne);
+router.get('/snome/id/:id', controller.get.getOne);
+router.get('/user/id/:id', controller.get.getUser);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/match', controller.get.getAll);
 
-/* PATCH REQUESTS */
+/* PUT REQUESTS */
 
-router.patch('/snome/:id', controller.patch.updateSnome);
+router.put('/snome/:id', controller.put.updateSnome);
 
 /* POST REQUESTS */
-
+router.post('/snome', controller.post.createSnome);
+router.post('/signup', controller.post.createUser);
 // router.post('/snomes', controller.post.create);
 
 /* DELETE REQUESTS */
