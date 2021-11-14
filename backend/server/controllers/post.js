@@ -22,6 +22,17 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  createLike: async (req, res) => {
+    try {
+      console.log('body: ', req.body)
+      await post.createLike(req.body);
+      res.status(201).send('Success!');
+    } catch(err) {
+      console.log(`SERVER SIDE ERROR - POST: ${err}`);
+      res.status(400).send(err);
+    }
+  },
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

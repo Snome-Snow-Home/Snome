@@ -14,6 +14,7 @@ router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/match', controller.get.getAll);
 
+
 /* PUT REQUESTS */
 
 router.put('/snome/:id', controller.put.updateSnome);
@@ -21,7 +22,7 @@ router.put('/snome/:id', controller.put.updateSnome);
 /* POST REQUESTS */
 router.post('/snome', controller.post.createSnome);
 router.post('/signup', controller.post.createUser);
-// router.post('/snomes', controller.post.create);
+router.post('/like', controller.post.createLike);
 
 /* DELETE REQUESTS */
 
