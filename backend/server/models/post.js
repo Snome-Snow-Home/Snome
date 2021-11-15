@@ -60,4 +60,24 @@ module.exports = {
       return err;
     }
   },
+
+  createLike: async ({snome_user_id, snome_id, has_been_read }) => {
+    try {
+      await db.none(`
+        INSERT INTO snome_like (
+          snome_user_id,
+          snome_id,
+          has_been_read
+        )
+        VALUES (
+          $1, $2, $3
+        )
+      `, [snome_user_id, snome_id, has_been_read]);
+      return 'New like created!'
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
 }

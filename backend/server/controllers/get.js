@@ -56,7 +56,23 @@ module.exports = {
       console.log(`SERVER ERROR: ${err}`);
       res.status(404).send(err);
     }
-  }
+  },
+
+  // for navbar - to alert user when their property has been liked //
+  getUnreadLikes: async (req, res) => {
+    const user_id = req.params.user_id;
+    get.getUnreadLikes(user_id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send(
+      "Some error occurred while fetching unread Likes."
+      )
+    })
+
+  },
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
