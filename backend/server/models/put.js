@@ -29,6 +29,33 @@ module.exports = {
       console.log(`DATABASE ERROR - PUT: ${err}`)
       return err;
     }
-  }
+  },
+
+  updateUser: async (id, { location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
+    try {
+      await put.none(`
+        UPDATE snome_user
+        SET
+          location_id=$1,
+          name=$2,
+          travel_start=$3,
+          travel_end=$4,
+          age=$5,
+          user_phone=$6,
+          user_photo=$7,
+          video_tour=$8,
+          about=$9,
+          email=$10,
+          mailing_address=$11,
+          residential_address=$12
+        WHERE id=${id}
+      `, [location_id, name, travel_start, travel_end, age, user_phone,
+        user_photo, video_tour, about, email, mailing_address, residential_address]);
+        return 'Update Successful';
+    } catch(err) {
+      console.log(`DATABASE ERROR - PUT: ${err}`);
+      return err;
+    }
+  },
 }
 

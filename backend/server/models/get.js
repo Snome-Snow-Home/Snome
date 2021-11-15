@@ -21,7 +21,7 @@ module.exports = {
 
   getOne: async (id, model) => {
     try {
-      let result = await db.query(`SELECT * FROM ${model} WHERE id=${id}`);
+      let result = await db.one(`SELECT * FROM ${model} WHERE id=${id}`);
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR: ${err}`);
@@ -31,10 +31,20 @@ module.exports = {
 
   getUser: async (id) => {
     try {
-      let result = await db.query(`SELECT * FROM snome_user WHERE id =${id}`)
+      let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR:  ${err}`);
+      return err;
+    }
+  },
+
+  getAllUsers: async () => {
+    try {
+      let result = await db.manyOrNone('SELECT * FROM snome_user');
+      return result;
+    } catch(err) {
+      console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
   },
