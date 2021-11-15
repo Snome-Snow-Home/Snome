@@ -12,7 +12,7 @@ router.get('/snome/id/:id', controller.get.getOne);
 router.get('/user/id/:id', controller.get.getUser);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
-router.get('/like/:user_id', controller.get.getUnreadLikes);
+router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 
 
 
