@@ -12,7 +12,8 @@ router.get('/snome/id/:id', controller.get.getOne);
 router.get('/user/id/:id', controller.get.getUser);
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
-router.get('/match', controller.get.getAll);
+router.get('/like/:user_id', controller.get.getUnreadLikes);
+
 
 
 /* PUT REQUESTS */

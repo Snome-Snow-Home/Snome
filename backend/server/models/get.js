@@ -38,4 +38,21 @@ module.exports = {
       return err;
     }
   },
+
+  // for navbar - to alert user when their property has been liked //
+  getUnreadLikes: async ({snome_user_id}) => {
+    try {
+      let result =  await db.none(`
+      SELECT COUNT (id)
+      FROM snome_like
+      WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = 3)
+      AND has_been_read = true;
+      `, [snome_user_id, snome_id, has_been_read]);
+      return result
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
 };
