@@ -38,6 +38,16 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  getAllUsers: async (req, res) => {
+    try {
+      let data = await get.getAllUsers();
+      res.status(200).send(data);
+    } catch(err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
   //===Location===//
   filterLocationsOnSearch: async (req, res) => {
     try {
