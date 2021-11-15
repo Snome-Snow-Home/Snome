@@ -6,7 +6,6 @@ const router = require('express').Router();
 /* FOR BAREBONES TESTING ONLY */
 
 /* GET REQUESTS */
-
 router.get('/snome', controller.get.getAll);
 /* FEEDBACK ON ROUTE BELOW: THOUGHTS ON THE ENDPOINT INCLUDING ID as a subdirectory
 AND THEN PASSING THE ID NUMBER */
