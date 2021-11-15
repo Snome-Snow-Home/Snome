@@ -63,10 +63,10 @@ module.exports = {
   createLike: async ({snome_user_id, snome_id, has_been_read }) => {
     try {
       await db.none(`
-        INSERT INTO snome_user (
+        INSERT INTO snome_like (
           snome_user_id,
           snome_id,
-          has_been_read,
+          has_been_read
         )
         VALUES (
           $1, $2, $3
