@@ -1,11 +1,13 @@
 // script to launch server 
-// necessary because supertest requires app to be exported from index.js
+// supertest requires function to create server instance
 
-const app = require('./server.js');
+const createServer = require('./index.js');
 const config = require('../config.js');
 
 const port = config.server.port;
 const host = config.server.host;
+
+const app = createServer();
 
 app.listen(port, () => {
     console.log(`Example app listening at http://${host}:${port}`)

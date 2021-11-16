@@ -8,6 +8,7 @@ module.exports = {
     const model = url.split('/')[1];
     return model;
   },
+  
   getAll: async (model) => {
     try {
       // http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone

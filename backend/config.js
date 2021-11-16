@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 /* COMMON CONFIGURATION */
 common = {
     db: {
@@ -21,8 +20,9 @@ development = {
     
 }
 
-/* CI CONFIGURATION */
-ci = {
+/* TEST CONFIGURATION */
+// note: jest sets NODE_ENV to 'test'
+test = {
 
 }
 
@@ -39,10 +39,10 @@ if (process.env.NODE_ENV == "dev") {
 }
 
 
-if (process.env.NODE_ENV == "ci") {
+if (process.env.NODE_ENV == "test") {
     module.exports = {
         ...common,
-        ...ci
+        ...test
     }
 }
 

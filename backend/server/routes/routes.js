@@ -1,9 +1,8 @@
-const controller = require('./controllers');
+const controller = require('../controllers');
 const router = require('express').Router();
 
 /* define API url to handler mappings here */
 
-/* FOR BAREBONES TESTING ONLY */
 
 /* GET REQUESTS */
 
@@ -20,7 +19,6 @@ router.get('/match', controller.get.getAll);
 router.get('/user', controller.get.getAllUsers);
 
 /* PUT REQUESTS */
-
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 
@@ -30,8 +28,7 @@ router.post('/signup', controller.post.createUser);
 router.post('/like', controller.post.createLike);
 
 /* DELETE REQUESTS */
-
 router.delete('/snome/:id', controller.remove.deleteSnome);
-router.delete('/user/:id', controller.remove.deleteUser)
+router.delete('/user/:id', controller.remove.deleteUser);
 
 module.exports = router;
