@@ -4,9 +4,11 @@
   "description": "Express API for Snome",
   "main": "config.example.js",
   "scripts": {
-    "server": "nodemon server/index.js",
-    "database": "sudo -u postgres psql < database/schema.sql",
-    "server-deploy": "forever start server/index.js",
+    "database:start": "docker run --rm --name testdb -e POSTGRES_PASSWORD=postgres -p 5432:5432 -dt --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 postgres",
+    "database:setup": "docker cp database/setup testdb:/setup && docker exec -it testdb psql -U postgres -f setup/schema.sql -f setup/test_data/seed.sql",
+    "database:stop": "docker stop testdb",
+    "server": "nodemon server/start.js",
+    "server:deploy": "forever start server/index.js",
     "test": "jest",
     "test:watch": "npm run test -- --watchAll"
   },
@@ -34,6 +36,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "forever": "^4.0.1",
     "morgan": "^1.10.0",
@@ -41,6 +44,7 @@
     "pg-promise": "^10.11.0"
   },
   "devDependencies": {
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6"
   }
 }
