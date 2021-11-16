@@ -1,3 +1,6 @@
+-- execute schema initialization as all or nothing db transaction
+BEGIN;
+
 CREATE TABLE "snome" (
     "id" serial   NOT NULL,
     "owner_id" int   NOT NULL,
@@ -74,8 +77,8 @@ CREATE TABLE "match" (
 
 CREATE TABLE "message" (
     "id" serial   NOT NULL,
-    "recipient" id   NOT NULL,
-    "sender" id   NOT NULL,
+    "recipient" int   NOT NULL,
+    "sender" int   NOT NULL,
     "time" timestamp   NOT NULL,
     "message_text" text   NOT NULL,
     "has_been_read" boolean   NOT NULL,
@@ -128,6 +131,10 @@ CREATE TABLE "location_media" (
      )
 );
 
+COMMIT;
+
+BEGIN;
+
 ALTER TABLE "snome" ADD CONSTRAINT "fk_snome_owner_id" FOREIGN KEY("owner_id")
 REFERENCES "snome_user" ("id");
 
@@ -169,3 +176,5 @@ REFERENCES "snome" ("id");
 
 ALTER TABLE "location_media" ADD CONSTRAINT "fk_location_media_location_id" FOREIGN KEY("location_id")
 REFERENCES "location" ("id");
+
+COMMIT;
