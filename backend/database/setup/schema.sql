@@ -25,7 +25,7 @@ CREATE TABLE "snome_user" (
     "travel_start" varchar   NOT NULL,
     "travel_end" varchar   NOT NULL,
     "age" int   NOT NULL,
-    "user_phone" int   NOT NULL,
+    "user_phone" bigint   NOT NULL,
     "user_photo" text   NOT NULL,
     "video_tour" text   NOT NULL,
     "about" text   NOT NULL,
@@ -133,48 +133,48 @@ CREATE TABLE "location_media" (
 
 COMMIT;
 
-BEGIN;
+-- BEGIN;
 
-ALTER TABLE "snome" ADD CONSTRAINT "fk_snome_owner_id" FOREIGN KEY("owner_id")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "snome" ADD CONSTRAINT "fk_snome_owner_id" FOREIGN KEY("owner_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "snome" ADD CONSTRAINT "fk_snome_location_id" FOREIGN KEY("location_id")
-REFERENCES "location" ("id");
+-- ALTER TABLE "snome" ADD CONSTRAINT "fk_snome_location_id" FOREIGN KEY("location_id")
+-- REFERENCES "location" ("id");
 
-ALTER TABLE "snome_like" ADD CONSTRAINT "fk_snome_like_snome_user_id" FOREIGN KEY("snome_user_id")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "snome_like" ADD CONSTRAINT "fk_snome_like_snome_user_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "snome_like" ADD CONSTRAINT "fk_snome_like_snome_id" FOREIGN KEY("snome_id")
-REFERENCES "snome" ("id");
+-- ALTER TABLE "snome_like" ADD CONSTRAINT "fk_snome_like_snome_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome" ("id");
 
-ALTER TABLE "match" ADD CONSTRAINT "fk_match_snome_user_id" FOREIGN KEY("snome_user_id")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "match" ADD CONSTRAINT "fk_match_snome_user_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "match" ADD CONSTRAINT "fk_match_snome_id" FOREIGN KEY("snome_id")
-REFERENCES "snome" ("id");
+-- ALTER TABLE "match" ADD CONSTRAINT "fk_match_snome_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome" ("id");
 
-ALTER TABLE "message" ADD CONSTRAINT "fk_message_recipient" FOREIGN KEY("recipient")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "message" ADD CONSTRAINT "fk_message_recipient" FOREIGN KEY("recipient_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "message" ADD CONSTRAINT "fk_message_sender" FOREIGN KEY("sender")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "message" ADD CONSTRAINT "fk_message_sender" FOREIGN KEY("sender_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_snome_user_id" FOREIGN KEY("snome_user_id")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_snome_user_id" FOREIGN KEY("snome_user_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_snome_id" FOREIGN KEY("snome_id")
-REFERENCES "snome" ("id");
+-- ALTER TABLE "trip" ADD CONSTRAINT "fk_trip_snome_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome" ("id");
 
-ALTER TABLE "snome_photo" ADD CONSTRAINT "fk_snome_photo_snome_id" FOREIGN KEY("snome_id")
-REFERENCES "snome" ("id");
+-- ALTER TABLE "snome_photo" ADD CONSTRAINT "fk_snome_photo_snome_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome" ("id");
 
-ALTER TABLE "review" ADD CONSTRAINT "fk_review_snome_user_id" FOREIGN KEY("snome_user_id")
-REFERENCES "snome_user" ("id");
+-- ALTER TABLE "review" ADD CONSTRAINT "fk_review_snome_user_id" FOREIGN KEY("snome_user_id")
+-- REFERENCES "snome_user" ("id");
 
-ALTER TABLE "review" ADD CONSTRAINT "fk_review_snome_id" FOREIGN KEY("snome_id")
-REFERENCES "snome" ("id");
+-- ALTER TABLE "review" ADD CONSTRAINT "fk_review_snome_id" FOREIGN KEY("snome_id")
+-- REFERENCES "snome" ("id");
 
-ALTER TABLE "location_media" ADD CONSTRAINT "fk_location_media_location_id" FOREIGN KEY("location_id")
-REFERENCES "location" ("id");
+-- ALTER TABLE "location_media" ADD CONSTRAINT "fk_location_media_location_id" FOREIGN KEY("location_id")
+-- REFERENCES "location" ("id");
 
-COMMIT;
+-- COMMIT;
