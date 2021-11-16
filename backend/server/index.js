@@ -23,6 +23,4 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://${host}:${port}`)
-});
+module.exports = app;

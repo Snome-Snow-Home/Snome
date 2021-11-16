@@ -1,4 +1,4 @@
--- execute schema initialization as all or nothing db transaction
+-- execute schema initialization as all or nothing db transactions
 BEGIN;
 
 CREATE TABLE "snome" (
