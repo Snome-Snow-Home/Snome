@@ -6,8 +6,7 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const model = get.getModelFromUrl(req);
-      //res.status(200).send(model);  // DUMMY RESPONSE
-      let data = await get.getAll(model);
+      let data = await get.getAll(model, req.query);
       res.status(200).send(data);
     } catch(err) {
       console.log(`SERVER ERROR: ${err}`)
