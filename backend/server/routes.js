@@ -15,6 +15,8 @@ router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.get('/match', controller.get.getAll);
+router.get('/snome/:id/review', controller.get.getSnomeReviews);
+router.get('/review', controller.get.getAll);
 /* for dev only */
 router.get('/user', controller.get.getAllUsers);
 

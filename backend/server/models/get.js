@@ -8,6 +8,7 @@ module.exports = {
     const model = url.split('/')[1];
     return model;
   },
+
   getAll: async (model) => {
     try {
       // http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
@@ -60,6 +61,20 @@ module.exports = {
       `);
       return result
     } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
+  getSnomeReviews: async (snome_id) => {
+    try {
+      let result = await db.manyOrNone(`
+        SELECT name, user_photo, location_id, review.* FROM snome_user
+        JOIN review ON snome_user.id=review.snome_id
+        WHERE review.snome_id=${snome_id}`
+      );
+      return result;
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
