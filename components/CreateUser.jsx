@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-
-import ErrorMessage from './ErrorMessage'
-import FormInput from './FormInput'
+import ErrorMessage from './ErrorMessage';
+import FormInput from './FormInput';
 
 const Label = styled.label`
   margin: 5px;
@@ -30,23 +29,22 @@ const Horizontal = styled.div`
 
 const styles = StyleSheet.create({
   formInput: {
-    color: "black",
-    backgroundColor: "lightblue",
-    border: "1px solid lightgray",
-    borderRadius: "8px",
-    padding: "8px",
-    width: "100%",
+    color: 'black',
+    backgroundColor: 'lightblue',
+    border: '1px solid lightgray',
+    borderRadius: '8px',
+    padding: '8px',
+    width: '100%',
   },
   invalidInput: {
-    color: "red",
-    backgroundColor: "lightgray",
-    border: "2px solid red",
-    borderRadius: "8px",
-    padding: "8px",
-    width: "100%",
+    color: 'red',
+    backgroundColor: 'lightgray',
+    border: '2px solid red',
+    borderRadius: '8px',
+    padding: '8px',
+    width: '100%',
   },
-})
-
+});
 
 export default function CreateUser(props) {
   const [error, setError] = useState(null);
@@ -71,36 +69,36 @@ export default function CreateUser(props) {
         ),
       state: (value) => value.trim().length >= 2,
       zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
-      password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
+      password: (value) =>
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(
+          value
+        ),
 
       confirmPassword: (val, values) => val === values.password,
     },
   });
 
   function handleSubmit(values) {
-    form.validate()
-    console.log("values: ",values)
-    console.log("errors: ", form.errors)
+    form.validate();
+    console.log('values: ', values);
+    console.log('errors: ', form.errors);
   }
 
   return (
     <div
-    style={{
-      width: "95%",
-      maxWidth: "400px",
-    }}
+      style={{
+        width: '95%',
+        maxWidth: '400px',
+      }}
     >
       <img
         src={require('../assets/Snome.png')}
         style={{
-          width: "150px",
+          width: '150px',
         }}
       />
       <h2>New User? Sign up here</h2>
-      <form
-        onSubmit={form.onSubmit((values) => handleSubmit(values))}
-      >
-
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Horizontal>
           <Label htmlFor="name">Name: </Label>
           <Required>*Required</Required>
@@ -114,11 +112,15 @@ export default function CreateUser(props) {
           autoCorrect="false"
           onChange={(event) => {
             form.setFieldValue('name', event.target.value);
-            form.validate("name")
+            form.validate('name');
           }}
           style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
+        <ErrorMessage
+          errorName={form.errors.name}
+          errorId={'name-errorBox'}
+          errorMessage={'includes invalid characters'}
+        />
 
         <Horizontal>
           <Label htmlFor="email">Email: </Label>
@@ -126,14 +128,18 @@ export default function CreateUser(props) {
         </Horizontal>
         <TextInput
           id="email"
-          placeholder ="Email"
+          placeholder="Email"
           type="text"
           required
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
           style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} />
+        <ErrorMessage
+          errorName={form.errors.email}
+          errorId={'email-errorBox'}
+          errorMessage={'invalid email address'}
+        />
 
         <Horizontal>
           <Label htmlFor="address">Address: </Label>
@@ -145,10 +151,16 @@ export default function CreateUser(props) {
           type="text"
           required
           value={form.values.address}
-          onChange={(event) => form.setFieldValue('address', event.target.value)}
+          onChange={(event) =>
+            form.setFieldValue('address', event.target.value)
+          }
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} />
+        <ErrorMessage
+          errorName={form.errors.address}
+          errorId={'address-errorBox'}
+          errorMessage={'invalid address'}
+        />
 
         <Horizontal>
           <Label htmlFor="city">City: </Label>
@@ -163,7 +175,11 @@ export default function CreateUser(props) {
           onChange={(event) => form.setFieldValue('city', event.target.value)}
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} />
+        <ErrorMessage
+          errorName={form.errors.city}
+          errorId={'city-errorBox'}
+          errorMessage={'invalid city name'}
+        />
 
         <Horizontal>
           <Label htmlFor="state">State: </Label>
@@ -176,11 +192,17 @@ export default function CreateUser(props) {
           required
           maxLength="2"
           autoCapitalize="characters" // why doesn't this work?
-          value={(form.values.state).toUpperCase()}
-          onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
+          value={form.values.state.toUpperCase()}
+          onChange={(event) =>
+            form.setFieldValue('state', event.target.value.toUpperCase())
+          }
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
+        <ErrorMessage
+          errorName={form.errors.state}
+          errorId={'state-errorBox'}
+          errorMessage={'Not a valid US state'}
+        />
 
         <Horizontal>
           <Label htmlFor="zipCode">Zip Code: </Label>
@@ -197,7 +219,11 @@ export default function CreateUser(props) {
           }
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.zipCode} errorId={"zipCode-errorBox"} errorMessage={"Must be a 5- or 9-digit number"} />
+        <ErrorMessage
+          errorName={form.errors.zipCode}
+          errorId={'zipCode-errorBox'}
+          errorMessage={'Must be a 5- or 9-digit number'}
+        />
 
         <Horizontal>
           <Label htmlFor="password">Password: </Label>
@@ -216,7 +242,13 @@ export default function CreateUser(props) {
           }
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} />
+        <ErrorMessage
+          errorName={form.errors.password}
+          errorId={'password-errorBox'}
+          errorMessage={
+            '8-16 characters, Must contain a number, a letter and a special character'
+          }
+        />
 
         <Horizontal>
           <Label htmlFor="confirmPassword">Confirm Password: </Label>
@@ -235,10 +267,21 @@ export default function CreateUser(props) {
           }
           style={styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
+        <ErrorMessage
+          errorName={form.errors.confirmPassword}
+          errorId={'confirmPassword-errorBox'}
+          errorMessage={'Passwords must match'}
+        />
 
-        <button type="submit" title="Submit">Submit</button>
-        <Button title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}>Submit</Button>
+        <button type="submit" title="Submit">
+          Submit
+        </button>
+        <Button
+          title="Submit"
+          onPress={form.onSubmit((values) => handleSubmit(values))}
+        >
+          Submit
+        </Button>
       </form>
     </div>
   );

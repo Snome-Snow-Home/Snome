@@ -7,7 +7,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <CreateUser/>
+      <CreateUser />
     </View>
   );
 }

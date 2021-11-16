@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-export default function ErrorMessage (props) {
-  const {
-    errorName,
-    errorMessage,
-    errorId,
-  } = props
+export default function ErrorMessage(props) {
+  const { errorName, errorMessage, errorId } = props;
 
   return (
     <div>
-      {errorName ? <Text id={errorId} style={styles.errorBox}>{errorMessage}</Text> : <br/>}
+      {errorName ? (
+        <Text id={errorId} style={styles.errorBox}>
+          {errorMessage}
+        </Text>
+      ) : (
+        <br />
+      )}
     </div>
-  )
-
+  );
 }
 
 const styles = StyleSheet.create({
@@ -21,4 +22,4 @@ const styles = StyleSheet.create({
     color: 'red',
     width: 'inherit',
   },
-})
+});

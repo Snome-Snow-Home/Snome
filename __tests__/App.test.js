@@ -17,11 +17,8 @@ describe('<App />', () => {
   //   expect(tree.children.length).toBe(2);
   // });
 
-
-
   it('renders correctly', () => {
     const tree = renderer.create(<App />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
-
