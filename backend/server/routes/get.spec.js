@@ -1,18 +1,49 @@
-const app = require('../index.js');  // express app instance 
+const app = require('../index.js');
 const supertest = require('supertest');
+const http = require('http');
+const db = require('../../database')
 
 // use supertest to request server endpoints
 // https://zellwk.com/blog/endpoint-testing/
-const request = supertest(app);  
 
-describe('/snome endpoint', () => {
+describe('GET /snome endpoint', () => {
+    // fix jest open handles error
+    // https://github.com/facebook/jest/issues/6907
+    let server;
+    let request;
     
-})
 
-it('GET /snome endpoint', async done => {
-    const response = await request.get('/snome');
+    beforeAll((done) => {
+        // start app on random port
+        server = http.createServer(app);
+        server.listen(done);
+        request = supertest(server);
+    });
 
-    expect(response.status).toBe(200);
-    // expect(response.getHeader('Content-Type')).toBe('/json/');
-    done();
-})
+    afterAll((done) => {
+        // close server and db connections before exiting test runner
+        server.close(done);
+        db.$pool.end();
+    });
+    
+    it('returns 200 response', (done) => {
+        request
+            .get('/snome')
+            .expect(200)
+            .end(done);
+    })
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

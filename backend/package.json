@@ -10,7 +10,7 @@
     "database:stop": "docker stop testdb",
     "server": "nodemon server/start.js",
     "server:deploy": "forever start server/index.js",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:watch": "npm run test -- --watchAll"
   },
   "jest": {
