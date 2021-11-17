@@ -1,10 +1,15 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text , Image , Header } from 'react-native'
+
 
 const LikesScreen = () => {
     return (
         <View>
-            <Text>Likes</Text>
+        <Image
+source={require('../pics/Snome.png')}
+  style={{ width: 60, height: 60 }}
+/>   <Text> Snome Likes </Text>  
+            
         </View>
     )
 }
