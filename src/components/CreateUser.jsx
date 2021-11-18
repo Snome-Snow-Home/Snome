@@ -27,24 +27,27 @@ const Horizontal = styled.div`
   justify-content: space-between;
 `;
 
-const styles = StyleSheet.create({
-  formInput: {
-    color: 'black',
-    backgroundColor: 'lightblue',
-    border: '1px solid lightgray',
-    borderRadius: '8px',
-    padding: '8px',
-    width: '100%',
-  },
-  invalidInput: {
-    color: 'red',
-    backgroundColor: 'lightgray',
-    border: '2px solid red',
-    borderRadius: '8px',
-    padding: '8px',
-    width: '100%',
-  },
-});
+const formInput = {
+  color: 'black',
+  backgroundColor: 'lightblue',
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: 'lightgray',
+  borderRadius: 8,
+  padding: '8px',
+  width: '100%',
+}
+
+const invalidInput = {
+  color: 'red',
+  backgroundColor: 'lightgray',
+  borderWidth: 2,
+  borderStyle: 'solid',
+  borderColor: 'red',
+  borderRadius: 8,
+  padding: '8px',
+  width: '100%',
+}
 
 export default function CreateUser(props) {
   const [error, setError] = useState(null);
@@ -92,7 +95,7 @@ export default function CreateUser(props) {
       }}
     >
       <img
-        src={require('../assets/Snome.png')}
+        src={require('../pics/Snome.png')}
         style={{
           width: '150px',
         }}
@@ -109,12 +112,12 @@ export default function CreateUser(props) {
           type="text"
           required
           value={form.values.name}
-          autoCorrect="false"
+          autoCorrect={false}
           onChange={(event) => {
             form.setFieldValue('name', event.target.value);
             form.validate('name');
           }}
-          style={form.errors.email ? styles.invalidInput : styles.formInput}
+          style={form.errors.email ? invalidInput : formInput}
         />
         <ErrorMessage
           errorName={form.errors.name}
@@ -133,7 +136,7 @@ export default function CreateUser(props) {
           required
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
-          style={form.errors.email ? styles.invalidInput : styles.formInput}
+          style={form.errors.email ? invalidInput : formInput}
         />
         <ErrorMessage
           errorName={form.errors.email}
@@ -154,7 +157,7 @@ export default function CreateUser(props) {
           onChange={(event) =>
             form.setFieldValue('address', event.target.value)
           }
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.address}
@@ -173,7 +176,7 @@ export default function CreateUser(props) {
           required
           value={form.values.city}
           onChange={(event) => form.setFieldValue('city', event.target.value)}
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.city}
@@ -190,13 +193,13 @@ export default function CreateUser(props) {
           placeholder="State"
           type="text"
           required
-          maxLength="2"
+          maxLength={2}
           autoCapitalize="characters" // why doesn't this work?
           value={form.values.state.toUpperCase()}
           onChange={(event) =>
             form.setFieldValue('state', event.target.value.toUpperCase())
           }
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.state}
@@ -217,7 +220,7 @@ export default function CreateUser(props) {
           onChange={(event) =>
             form.setFieldValue('zipCode', event.target.value)
           }
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.zipCode}
@@ -235,12 +238,12 @@ export default function CreateUser(props) {
           type="password"
           required
           autoComplete="new-password"
-          secureTextEntry="true"
+          secureTextEntry={true}
           value={form.values.password}
           onChange={(event) =>
             form.setFieldValue('password', event.target.value)
           }
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.password}
@@ -260,12 +263,12 @@ export default function CreateUser(props) {
           type="password"
           required
           autoComplete="new-password"
-          secureTextEntry="true"
+          secureTextEntry={true}
           value={form.values.confirmPassword}
           onChange={(event) =>
             form.setFieldValue('confirmPassword', event.target.value)
           }
-          style={styles.formInput}
+          style={formInput}
         />
         <ErrorMessage
           errorName={form.errors.confirmPassword}

@@ -50,13 +50,24 @@ exports[`<App /> renders correctly 1`] = `
       </div>
       <TextInput
         allowFontScaling={true}
-        autoCorrect="false"
+        autoCorrect={false}
         id="name"
         onChange={[Function]}
         placeholder="Name"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -86,7 +97,18 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="Email"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -116,7 +138,18 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="Address"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -146,7 +179,18 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="City"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -173,12 +217,23 @@ exports[`<App /> renders correctly 1`] = `
         allowFontScaling={true}
         autoCapitalize="characters"
         id="state"
-        maxLength="2"
+        maxLength={2}
         onChange={[Function]}
         placeholder="State"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -208,7 +263,18 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="Zip Code"
         rejectResponderTermination={true}
         required={true}
-        style={Object {}}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="text"
         underlineColorAndroid="transparent"
         value=""
@@ -239,8 +305,19 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="Need a number, a letter and a special character"
         rejectResponderTermination={true}
         required={true}
-        secureTextEntry="true"
-        style={Object {}}
+        secureTextEntry={true}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="password"
         underlineColorAndroid="transparent"
         value=""
@@ -271,8 +348,19 @@ exports[`<App /> renders correctly 1`] = `
         placeholder="Confirm Password"
         rejectResponderTermination={true}
         required={true}
-        secureTextEntry="true"
-        style={Object {}}
+        secureTextEntry={true}
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderColor": "lightgray",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "color": "black",
+            "padding": "8px",
+            "width": "100%",
+          }
+        }
         type="password"
         underlineColorAndroid="transparent"
         value=""

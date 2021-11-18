@@ -124,3 +124,6 @@ coverage
 
 # Expo files
 .expo
+
+# Cypress (will be enabled later)
+cypress/
