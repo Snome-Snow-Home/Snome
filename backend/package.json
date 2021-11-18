@@ -1,0 +1,44 @@
+{
+  "name": "snome",
+  "version": "1.0.0",
+  "description": "Express API for Snome",
+  "main": "config.example.js",
+  "scripts": {
+    "server": "nodemon server/index.js",
+    "database": "sudo -u postgres psql < database/schema.sql",
+    "server-deploy": "forever start server/index.js",
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*spec.js"],
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "**/*.js",
+        "!**/node_modules/**",
+        "!**/coverage/**",
+        "!**/jest.config.js"
+    ],
+    "coverageDirectory": "tests/jest/coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Snome-Snow-Home/Snome"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "forever": "^4.0.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "pg-promise": "^10.11.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
