@@ -3,21 +3,21 @@
 [
     {
       "id": 1,
-      "name": "Foodmersion",
+      "name": "Location or name etc",
       "image":
       "./pictures/foodmersion.jpg",
-      "description": "FullStack website for our imaginary restaurant FoodMersion - an interactive dining experience.",
+      "description": "Full description or Highlights of location",
       "tools":" HTML, JavaScript, Bootstrap, sequalize , Mysql, tailwind css, Insomnia",
       "deployed": "https://evening-spire-50554.herokuapp.com/",
       "repo":"https://github.com/jacksoncurdo/FoodMersion-"
     },
     {
       "id": 2,
-      "name": "wheather data",
+      "name": "Location or name etc",
       "image":
       "./pictures/Screenshot (21).png",
       "description":
-        "Look up the wheather in different cities using an api",
+      "Full description or Highlights of location",
         "tools":"HTML, CSS, JavaScript, Bootstrap, local storage",
 
       "deployed": "https://trae77.github.io/wheather-data/",
@@ -25,21 +25,21 @@
     },
     {
       "id": 3,
-      "name": "Quiz",
+      "name": "Location or name etc",
       "image":
       "./pictures/quiz.png",
-      "description": "A quiz with timer and high score",
+      "description": "Full description or Highlights of location",
       "tools":" node.js, MySQL",
       "deployed": " https://trae77.github.io/web-api-/",
       "repo": "https://github.com/trae77/web-api-"
     },
     {
       "id": 4,
-      "name": "Movie Rec",
+      "name": "Location or name etc",
       "image":
         "./pictures/Screenshot (17).png",
       "description":
-        "Movie recommendation system based on user's history and movie's genre.",
+      "Full description or Highlights of location",
         "tools":"HTML, CSS, JavaScript, Bootstrap",
       
       "deployed": "https://oborendo.github.io/group-project/",
@@ -47,20 +47,20 @@
     },
     {
       "id": 5,
-      "name": "Employee Management",
+      "name": "Location or name etc",
       "image":
       "./pictures/Screenshot-201520.png" ,
-      "description": "Command line application keeping track of employees, their departments, managers, salaries, and roles.",
+      "description": "Full description or Highlights of location",
       "tools":"HTML, CSS, JavaScript, Bootstrap",
       "deployed": "https://github.com/trae77/office-"
      
     },
     {
       "id": 6,
-      "name": "Blog Post",
+      "name":"Location or name etc",
       "image":
       "./pictures/prof pic.jpg",
-      "description": "keeps blogs with titles",
+      "description": "Full description or Highlights of location",
       "tools":"HTML, CSS, JavaScript, Bootstrap, sequalize , Mysql, Insomnia",
       "deployed": " https://github.com/trae77/blog-post"
       
