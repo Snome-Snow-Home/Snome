@@ -41,22 +41,21 @@ async function uploadToS3(fileName, fileKey) {
           await s3.upload(params, function(s3Err, data) {
               if (s3Err) reject(s3Err);
               console.log(data.Location); // TEST
-              resolve(data.Location);
+              resolve(data.Location);  // returns s3 url ? 
           })
     })
 }
 
 
-
-function generateFileKey() {
+async function generateFileKey() {
 
     // function for generating random filename
     // should accept parameters for valid naming requirements?
     // should return random string to be used as a fileKey for object in s3 bucket
     
-    const randomBytes = promisify(crypto.randomBytes)
-    const rawBytes = await randomBytes(16)
-    const imageName = rawBytes.toString('hex')
+    const randomBytes = promisify(crypto.randomBytes);
+    const rawBytes = await randomBytes(16);
+    const imageName = rawBytes.toString('hex');
 
     return imageName;
 }

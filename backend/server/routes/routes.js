@@ -25,9 +25,12 @@ router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 
 /* POST REQUESTS */
-router.post('/snome', uploadSnomePhotos, controller.post.createSnome);
+router.post('/snome', uploadSnomePhotos.array('snome_photos'), controller.post.createSnome);
 router.post('/signup', controller.post.createUser);
 router.post('/like', controller.post.createLike);
+
+// for development only
+router.post('/snome/:id/photos', uploadSnomePhotos.array('snome_photos'), controller.post.createSnomePhotos);
 
 /* DELETE REQUESTS */
 router.delete('/snome/:id', controller.remove.deleteSnome);

@@ -82,8 +82,7 @@ CREATE TABLE "trip" (
 CREATE TABLE "snome_photo" (
     "id" serial PRIMARY KEY,
     "snome_id" int  NOT NULL REFERENCES "snome",
-    "filename" text   NOT NULL,
-    "caption" varchar   NOT NULL
+    "url" text   NOT NULL
 );
 
 CREATE TABLE "review" (
