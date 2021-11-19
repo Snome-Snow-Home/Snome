@@ -1,5 +1,7 @@
 const controller = require('../controllers');
 const router = require('express').Router();
+const { uploadSnomePhotos } = require('./middleware/multer.js');
+
 
 /* define API url to handler mappings here */
 
@@ -23,7 +25,7 @@ router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 
 /* POST REQUESTS */
-router.post('/snome', controller.post.createSnome);
+router.post('/snome', uploadSnomePhotos, controller.post.createSnome);
 router.post('/signup', controller.post.createUser);
 router.post('/like', controller.post.createLike);
 

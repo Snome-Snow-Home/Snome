@@ -1,7 +1,7 @@
-const app = require('../index.js');
+const app = require('../../index.js');
 const supertest = require('supertest');
 const http = require('http');
-const db = require('../../database')
+const db = require('../../../database')
 
 // use supertest to request server endpoints
 // https://zellwk.com/blog/endpoint-testing/
@@ -30,6 +30,13 @@ describe('GET /snome endpoint', () => {
         request
             .get('/snome')
             .expect(200)
+            .end(done);
+    })
+
+    it('returns json response', (done) => {
+        request
+            .get('/snome')
+            .expect('Content-Type', /json/)
             .end(done);
     })
 

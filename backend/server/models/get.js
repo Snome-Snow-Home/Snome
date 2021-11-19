@@ -5,14 +5,22 @@ const db = require('../../database');
 module.exports = {
   getModelFromUrl: req => {
     const url = req.url;
-    const model = url.split('/')[1];
+    const model = url.split('/')[1].split('?')[0];
     return model;
   },
-  
-  getAll: async (model) => {
+
+  getAll: async (model, query_params) => {
     try {
-      // http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
-      let result = await db.manyOrNone(`SELECT * FROM "${model}";`);
+      http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
+      //if there are query parameters (eg. http://localhost:3000/snome?=featured)
+      if(Object.keys(query_params).length !== 0){
+        let filter = Object.keys(query_params)[0]
+        let value = query_params[filter]
+        var result = await db.manyOrNone(`SELECT * FROM "${model}" WHERE ${filter} = ${value};`);
+      }
+      else{
+        var result = await db.manyOrNone(`SELECT * FROM "${model}";`);
+      }
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR: ${err}`);
@@ -57,7 +65,7 @@ module.exports = {
       SELECT COUNT (id)
       FROM snome_like
       WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
-      AND has_been_read = true;
+      AND has_been_read = false;
       `);
       return result
     } catch(err) {
