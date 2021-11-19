@@ -1,13 +1,16 @@
+const config = require('../config.js');
 const express = require('express');
 const router = require('./routes.js');
 
+
 const app = express();
-const port = 3000;
+const port = config.server.port;
+const host = config.server.host;
 
 app.use(express.json());
 app.use((req, res, next) => {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', `http://localhost:${port}`);
+  res.setHeader('Access-Control-Allow-Origin', `http://${host}:${port}`);
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
@@ -20,6 +23,4 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-});
+module.exports = app;

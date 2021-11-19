@@ -22,6 +22,20 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  createLike: async (req, res) => {
+    post.createLike(req.body)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send(
+        "Some error occurred while creating the Like."
+        )
+      })
+
+    }
+  ,
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

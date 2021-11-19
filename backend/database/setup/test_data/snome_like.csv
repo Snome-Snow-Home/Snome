@@ -1,0 +1,11 @@
+id,snome_user_id,snome_id,has_been_read
+1,9,4,TRUE
+2,5,6,TRUE
+3,10,1,TRUE
+4,2,3,TRUE
+5,7,5,TRUE
+6,3,4,TRUE
+7,4,2,TRUE
+8,6,3,FALSE
+9,7,2,FALSE
+10,3,4,FALSE

@@ -36,6 +36,7 @@ module.exports = {
     try {
       await db.none(`
         INSERT INTO snome_user (
+          id,
           location_id,
           name,
           travel_start,
@@ -49,7 +50,7 @@ module.exports = {
           mailing_address,
           residential_address
         )
-        VALUES (
+        VALUES ((SELECT MAX(id) FROM snome_user) +1,
           $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
         )
       `, [location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address]);
@@ -59,4 +60,24 @@ module.exports = {
       return err;
     }
   },
+
+  createLike: async ({snome_user_id, snome_id, has_been_read }) => {
+    try {
+      await db.none(`
+        INSERT INTO snome_like (
+          snome_user_id,
+          snome_id,
+          has_been_read
+        )
+        VALUES (
+          $1, $2, $3
+        )
+      `, [snome_user_id, snome_id, has_been_read]);
+      return 'New like created!'
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
 }
