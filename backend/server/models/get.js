@@ -77,8 +77,8 @@ module.exports = {
   getSnomeReviews: async (snome_id) => {
     try {
       let result = await db.manyOrNone(`
-        SELECT name, user_photo, location_id, review.* FROM snome_user
-        JOIN review ON snome_user.id=review.snome_id
+        SELECT snome_user.id, name, user_photo, location_id, review.* FROM snome_user
+        JOIN review ON snome_user.id=review.snome_user_id
         WHERE review.snome_id=${snome_id}`
       );
       return result;
