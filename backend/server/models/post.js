@@ -28,7 +28,6 @@ module.exports = {
       return "New Snome created";
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
-      return err;
     }
   },
 
@@ -57,7 +56,6 @@ module.exports = {
       return 'New user created!'
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
-      return err;
     }
   },
 
@@ -76,7 +74,6 @@ module.exports = {
       return 'New like created!'
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
-      return err;
     }
   },
 
