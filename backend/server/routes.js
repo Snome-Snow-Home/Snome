@@ -8,23 +8,16 @@ const router = require('express').Router();
 /* GET REQUESTS */
 
 router.get('/snome', controller.get.getAll);
-<<<<<<< HEAD
-router.get('/snome/:id', controller.get.getOne);
-=======
 /* FEEDBACK ON ROUTE BELOW: THOUGHTS ON THE ENDPOINT INCLUDING ID as a subdirectory
 AND THEN PASSING THE ID NUMBER */
 router.get('/snome/id/:id', controller.get.getOne);
 router.get('/user/id/:id', controller.get.getUser);
->>>>>>> 3f30fdacd61b598323f6211736701e21b3382fe6
 router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.get('/match', controller.get.getAll);
-<<<<<<< HEAD
-=======
 /* for dev only */
 router.get('/user', controller.get.getAllUsers);
->>>>>>> 3f30fdacd61b598323f6211736701e21b3382fe6
 
 /* PUT REQUESTS */
 
@@ -32,9 +25,12 @@ router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 
 /* POST REQUESTS */
+
+router.post('/like', controller.post.createLike);
+router.post('/match', controller.post.createMatch);
 router.post('/snome', controller.post.createSnome);
 router.post('/signup', controller.post.createUser);
-router.post('/like', controller.post.createLike);
+
 
 /* DELETE REQUESTS */
 

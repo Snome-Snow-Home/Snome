@@ -34,8 +34,18 @@ module.exports = {
         )
       })
 
+    },
+
+  createMatch: async (req, res) => {
+    try {
+      await post.createMatch(req.body);
+      return res.status(201).send('Match successfully created!')
+    } catch(err) {
+      console.log(`SERVER ERROR: ${err}`);
+      throw err;
     }
-  ,
+  },
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

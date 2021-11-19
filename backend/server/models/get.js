@@ -30,19 +30,13 @@ module.exports = {
 
   getOne: async (id, model) => {
     try {
-<<<<<<< HEAD
-      let result = await db.query(`SELECT * FROM ${model} WHERE id=${id}`);
-=======
       let result = await db.one(`SELECT * FROM ${model} WHERE id=${id}`);
->>>>>>> 3f30fdacd61b598323f6211736701e21b3382fe6
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
   },
-<<<<<<< HEAD
-=======
 
   getUser: async (id) => {
     try {
@@ -53,7 +47,6 @@ module.exports = {
       return err;
     }
   },
->>>>>>> 3f30fdacd61b598323f6211736701e21b3382fe6
 
   getAllUsers: async () => {
     try {
