@@ -15,8 +15,8 @@ module.exports = {
 
   createUser: async (req, res) => {
     try {
-      await post.createUser(req.body);
-      res.status(201).send('Success!');
+      let data = await post.createUser(req.body);
+      res.status(201).send(data);
     } catch(err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(400).send(err);
@@ -38,11 +38,11 @@ module.exports = {
 
   createMatch: async (req, res) => {
     try {
-      await post.createMatch(req.body);
-      return res.status(201).send('Match successfully created!')
+      let data = await post.createMatch(req.body);
+      res.status(201).send(data)
     } catch(err) {
       console.log(`SERVER ERROR: ${err}`);
-      throw err;
+      res.status(400).send(err);
     }
   },
 

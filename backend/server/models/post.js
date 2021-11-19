@@ -80,4 +80,24 @@ module.exports = {
     }
   },
 
+  createMatch: async ({ user_id, snome_id, has_been_read }) => {
+    try {
+      console.log(user_id, snome_id)
+      await db.none(`
+        INSERT INTO match (
+          id,
+          user_id,
+          snome_id,
+          has_been_read
+          )
+          VALUES (
+            (SELECT MAX(id)+1 FROM match), $1, $2, $3
+          )
+      `, [user_id, snome_id, has_been_read]);
+      return 'Match created successfully!';
+    } catch(err) {
+      console.log(`DATABASE POST ${err}`);
+    }
+  }
+
 }
