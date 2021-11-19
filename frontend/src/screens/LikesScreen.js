@@ -16,24 +16,47 @@ import {
 // for testing purposes
 import card from "../localtestdata/Projects.json";
 
+const styles = StyleSheet.create({
+ cards: {
+  width: 350,
+    height: 350,
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: '10px',
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+  pic:{
+    width: 250,
+    height: 150,
+
+  }
+  
+});
+
 const LikesScreen = () => {
   return (
     <ScrollView>
     
       <span>   <Image
-        source={require("../pics/Snome.png")}
+       style={styles.tinyLogo}
+        source={require('../pics/Snome.png')}
       />Snome Likes </span>
     
               {card.map((card) => (
-            <div className="container" id="cards"  key={card.id} >
+           <View className="container" id="cards"  key={card.id}  style={styles.cards} >
          
-                <h1>{card.name}</h1>
-                <p class="price">$19.99</p>
-                <p>{card.description}</p>
-                <p><button> <a href={card.deployed} target="_blank">
-                    LIKE BUTTON ETC.
-                      </a></button></p>
-              </div>
+                <h1>{card.name} <Image
+       style={styles.pic}
+        source={require('../pics/Snome.png')}
+      /></h1>
+                <h5> {card.description}</h5>
+                <button> <a href={card.deployed} target="_blank">
+                  View Snome ETC.
+                      </a></button>
+              </View>
            
               ))}
    
@@ -45,18 +68,7 @@ const LikesScreen = () => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: StatusBar.currentHeight,
-//     marginHorizontal: 16
-//   },
-//   tinyLogo: {
-//     width: 50,
-//     height: 50,
-//   }
-  
-// });
+
 
 
 export default LikesScreen;
