@@ -2,8 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 
-import styled from 'styled-components';
-import ErrorMessage from './ErrorMessage';
+import styled from 'styled-components'
+import ErrorMessage from './ErrorMessage'
 
 const Label = styled.label`
   margin: 5px;
@@ -12,8 +12,8 @@ const Label = styled.label`
 `;
 
 const Img = styled.img`
-  height: 2em;
-  width: 2em;
+height: 2em;
+width: 2em;
 `;
 
 const Horizontal = styled.div`
@@ -22,12 +22,12 @@ const Horizontal = styled.div`
 `;
 
 const ChangingInput = styled.input`
-  color: black;
-  background-color: lightblue;
-  border: ${(props) => (props.errorName ? '1px solid red' : '1px solid gray')};
-  border-radius: 8px;
-  padding: 8px;
-  width: 95%;
+    color: black;
+    background-color: lightblue;
+    border: ${(props) => props.errorName ? "1px solid red" : "1px solid gray"};
+    border-radius: 8px;
+    padding: 8px;
+    width: 95%;
 `;
 
 export default function FormInput(props) {
@@ -44,13 +44,13 @@ export default function FormInput(props) {
     htmlFor,
     onChange,
     ...passThroughProps //does spreading other props remoev them from passThru?
-  } = props;
+  } = props
 
   return (
     <>
-      <Label htmlFor={id}>{label}: </Label>
+    <Label htmlFor={id}>{label}: </Label>
       <input
-        type={type || 'text'}
+      type={type || "text"}
         value={value}
         style={{
           color: 'black',
@@ -58,18 +58,19 @@ export default function FormInput(props) {
           borderRadius: '8px',
           padding: '8px',
           width: '95%',
-          border: props.errorName ? '1px solid red' : '1px solid gray',
+          border: props.errorName ? "1px solid red" : "1px solid gray",
         }}
         onChange={onChange}
         props={passThroughProps}
       />
+
 
       {/* {errorName ?
       <Img src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"/> :
       <Img src="https://img.icons8.com/color/48/000000/checkmark--v2.png"/>
       } */}
 
-      <ErrorMessage errorName={errorName} errorMessage={errorMessage} />
-    </>
-  );
+    <ErrorMessage errorName={errorName} errorMessage={errorMessage} />
+      </>
+  )
 }

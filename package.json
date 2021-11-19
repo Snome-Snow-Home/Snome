@@ -1,6 +1,4 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -18,7 +16,9 @@
     "transform": {
       "^.+\\.[jt]sx?$": "babel-jest"
     },
-    "testPathIgnorePatterns": ["./cypress"],
+    "testPathIgnorePatterns": [
+      "./cypress"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ],
@@ -32,22 +32,31 @@
     ]
   },
   "dependencies": {
-    "@mantine/hooks": "^3.1.8",
+    "@babel/preset-env": "^7.16.0",
+    "@mantine/hooks": "^3.1.7",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/native": "^6.0.6",
     "axios": "^0.24.0",
-    "expo": "~43.0.2",
+    "babel-jest": "^27.3.1",
+    "expo": "~43.0.0",
     "expo-status-bar": "~1.1.0",
-    "prettier": "^2.4.1",
+    "jest": "^26.6.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "0.64.3",
-    "react-native-web": "0.17.1"
+    "react-native": "0.64.2",
+    "react-native-material-textfield": "^0.16.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.8.0",
+    "react-native-web": "0.17.1",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.16.0",
     "@testing-library/react-native": "^8.0.0",
+    "babel-preset-react-native": "^4.0.1",
     "jest-expo": "^43.0.1",
-    "react-test-renderer": "^17.0.2",
-    "styled-components": "^5.3.3"
+    "prettier": "2.4.1",
+    "react-test-renderer": "^17.0.2"
   },
   "private": true
 }

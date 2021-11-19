@@ -1,7 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+// import { cleanup } from '@testing-library/react-native'
 // import { StyleSheet, Text, View } from 'react-native';
 
+// afterEach(cleanup);
 
 import App from '../App';
 
