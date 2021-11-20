@@ -36,6 +36,17 @@ module.exports = {
 
     }
   ,
+
+  createReview: async (req, res) => {
+    try {
+      console.log(req.body)
+      await post.createReview(req.body);
+      res.status(201).send('Success!');
+    } catch (err) {
+      console.log({err});
+      res.status(400).send(err);
+    }
+  },
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

@@ -28,6 +28,7 @@ router.put('/user/:id', controller.put.updateUser);
 router.post('/snome', controller.post.createSnome);
 router.post('/signup', controller.post.createUser);
 router.post('/like', controller.post.createLike);
+router.post('/review', controller.post.createReview);
 
 /* DELETE REQUESTS */
 

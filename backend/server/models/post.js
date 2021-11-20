@@ -80,4 +80,18 @@ module.exports = {
     }
   },
 
+  createReview: ({snome_user_id, snome_id, date, stars, review}) => {
+    let result = db.manyOrNone(`
+      INSERT INTO review 
+      VALUES (
+        ${snome_user_id}, 
+        ${snome_id}, 
+        ${date}, 
+        ${stars}, 
+        ${review}
+      )
+    `)
+    return result;
+  },
+
 }
