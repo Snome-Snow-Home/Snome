@@ -6,7 +6,6 @@ const router = require('express').Router();
 /* FOR BAREBONES TESTING ONLY */
 
 /* GET REQUESTS */
-
 router.get('/snome', controller.get.getAll);
 /* FEEDBACK ON ROUTE BELOW: THOUGHTS ON THE ENDPOINT INCLUDING ID as a subdirectory
 AND THEN PASSING THE ID NUMBER */
@@ -16,11 +15,12 @@ router.get('/location', controller.get.getAll);
 router.get('/location/:id', controller.get.getOne);
 router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.get('/match', controller.get.getAll);
+router.get('/snome/:id/review', controller.get.getSnomeReviews);
+router.get('/review', controller.get.getAll);
 /* for dev only */
 router.get('/user', controller.get.getAllUsers);
 
 /* PUT REQUESTS */
-
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 
