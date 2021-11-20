@@ -5,8 +5,8 @@ const { post } = require('../models');
 module.exports = {
   createSnome: async (req, res) => {
     try {
-      await post.create(req.body);
-      res.status(201).send('Success!');
+      await post.createSnome(req.body);
+      res.status(201).send('Created!');
     } catch(err) {
       console.log(err);
       res.status(400).send(err);
@@ -15,8 +15,8 @@ module.exports = {
 
   createUser: async (req, res) => {
     try {
-      let data = await post.createUser(req.body);
-      res.status(201).send(data);
+      await post.createUser(req.body);
+      res.status(201).send('Created!');
     } catch(err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(400).send(err);
@@ -38,8 +38,8 @@ module.exports = {
 
   createMatch: async (req, res) => {
     try {
-      let data = await post.createMatch(req.body);
-      res.status(201).send(data)
+      await post.createMatch(req.body);
+      res.status(201).send('Created!')
     } catch(err) {
       console.log(err);
       res.status(400).send(err);

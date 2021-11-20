@@ -9,83 +9,42 @@ module.exports = {
     return model;
   },
 
-  getAll: async (model, query_params) => {
-    try {
-      //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
-      //if there are query parameters (eg. http://localhost:3000/snome?=featured)
-      if(Object.keys(query_params).length !== 0){
-        let filter = Object.keys(query_params)[0]
-        let value = query_params[filter]
-        var result = await db.manyOrNone(`SELECT * FROM "${model}" WHERE ${filter} = ${value};`);
-      }
-      else{
-        var result = await db.manyOrNone(`SELECT * FROM "${model}";`);
-      }
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
-      return err;
+  getAll: (model, query_params) => {
+    //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
+    //if there are query parameters (eg. http://localhost:3000/snome?=featured)
+    if(Object.keys(query_params).length !== 0){
+      let filter = Object.keys(query_params)[0]
+      let value = query_params[filter]
+      var result = db.manyOrNone(`SELECT * FROM "${model}" WHERE ${filter} = ${value};`);
     }
+    else{
+      var result = db.manyOrNone(`SELECT * FROM "${model}";`);
+    }
+    return result;
   },
 
-  getOne: async (id, model) => {
-    try {
-      let result = await db.one(`SELECT * FROM ${model} WHERE id=${id}`);
+  getOne: (id, model) => {
+      let result = db.one(`SELECT * FROM ${model} WHERE id=${id}`);
       return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
-      return err;
-    }
   },
-
-  getUser: async (id) => {
-    try {
-      let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR:  ${err}`);
-      return err;
-    }
-  },
-
-  getAllUsers: async () => {
-    try {
-      let result = await db.manyOrNone('SELECT * FROM snome_user');
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
-      return err;
-    }
-  },
-
   // for navbar - to alert user when their property has been liked //
-  getUnreadLikes: async (snome_user_id) => {
-    try {
-      let result =  await db.manyOrNone(`
-      SELECT COUNT (id)
-      FROM snome_like
-      WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
-      AND has_been_read = false;
-      `);
-      return result
-    } catch(err) {
-      console.log(`DATABASE ERROR - POST: ${err}`);
-      return err;
-    }
+  getUnreadLikes: (snome_user_id) => {
+    let result = db.manyOrNone(`
+    SELECT COUNT (id)
+    FROM snome_like
+    WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
+    AND has_been_read = false;
+    `);
+    return result;
   },
 
-  getSnomeReviews: async (snome_id) => {
-    try {
-      let result = await db.manyOrNone(`
-        SELECT snome_user.id, name, user_photo, location_id, review.* FROM snome_user
-        JOIN review ON snome_user.id=review.snome_user_id
-        WHERE review.snome_id=${snome_id}`
-      );
-      return result;
-    } catch (err) {
-      console.log(`DATABASE ERROR - POST: ${err}`);
-      return err;
-    }
+  getSnomeReviews: snome_id => {
+    let result = db.manyOrNone(`
+      SELECT snome_user.id, name, user_photo, location_id, review.* FROM snome_user
+      JOIN review ON snome_user.id=review.snome_user_id
+      WHERE review.snome_id=${snome_id}`
+    );
+    return result;
   },
 
 };

@@ -3,25 +3,17 @@ const { remove }  = require('../models');
 
 module.exports = {
 
-  deleteSnome: async (req, res) => {
+  remove: async (req, res) => {
     try {
-      await remove.deleteSnome(req.params.id);
-      res.status(202).send('Snome Deleted');
+      const id = req.params.id;
+      const model = remove.getModelFromUrl(req);
+      const data = await remove.remove(id, model);
+      res.status(200).send('Deleted!');
     } catch(err) {
       console.log(err);
       res.status(400).send(err);
     }
   },
-
-  deleteUser: async (req, res) => {
-    try {
-      await remove.deleteUser(req.params.id);
-      res.status(202).send("User Deleted")
-    } catch(err) {
-      console.log(`SERVER ERROR - DELETE: ${err}`);
-      res.status(400).send(err);
-    }
-  }
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

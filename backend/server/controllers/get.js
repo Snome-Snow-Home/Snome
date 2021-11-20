@@ -9,7 +9,7 @@ module.exports = {
       let data = await get.getAll(model, req.query);
       res.status(200).send(data);
     } catch(err) {
-      console.log(`SERVER ERROR: ${err}`)
+      console.log(err);
       res.status(400).send(err);
     }
 },
@@ -20,30 +20,8 @@ module.exports = {
       const data = await get.getOne(id, model);
       res.status(200).send(data);
     } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
+      console.log(err);
       res.status(404).send(err);
-    }
-  },
-
-  getUser: async (req, res) => {
-    try {
-      let data = await get.getUser(req.params.id);
-      res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(400).send(err);
-    }
-  },
-  // filterLocationsOnSearch: async (req, res) => {
-  //   try {
-
-  getAllUsers: async (req, res) => {
-    try {
-      let data = await get.getAllUsers();
-      res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(400).send(err);
     }
   },
   // for navbar - to alert user when their property has been liked //
@@ -68,7 +46,7 @@ module.exports = {
       let data = await get.getSnomeReviews(snome_id);
       res.status(200).send(data);
     } catch (err) {
-      console.log(`SERVER ERROR: ${err}`);
+      console.log(err);
       res.status(400).send(err);
     }
   },

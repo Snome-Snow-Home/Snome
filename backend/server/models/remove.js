@@ -1,23 +1,19 @@
 const db = require('../../database');
 
 module.exports = {
-  deleteSnome: async (id) => {
-    try {
-      await db.none(`DELETE FROM snome WHERE id=${id}`);
-      return 'Delete Successful';
-    } catch(err) {
-      console.log(`DATABASE ERROR - DELETE: ${err}`);
-      return err;
-    }
+  getModelFromUrl: req => {
+    const url = req.url;
+    const model = url.split('/')[1].split('?')[0];
+    return model;
   },
 
-  deleteUser: async (id) => {
-    try {
-      await db.none(`DELETE FROM snome_user WHERE id=${id}`);
-      return 'Delete Successful';
-    } catch(err) {
-      console.log(`DATABASE ERROR - DELETE: ${err}`);
-      return err;
-    }
-  }
+  remove: (id, model) => {
+    let result = db.none(`DELETE FROM ${model} WHERE id=${id}`);
+    return result;
+  },
+
+  // deleteUser: id => {
+  //   let result = db.none(`DELETE FROM snome_user WHERE id=${id}`);
+  //   return result;
+  // }
 }

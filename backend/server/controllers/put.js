@@ -5,10 +5,10 @@ const { put } = require('../models');
 module.exports = {
   updateSnome: async (req, res) => {
     try {
-      let data = await put.updateSnome(req.params.id, req.body);
-      res.status(201).send(data)
+      await put.updateSnome(req.params.id, req.body);
+      res.status(201).send('Updated Successfully');
     } catch(err) {
-      console.log(`SERVER ERROR - PATCH: ${err}`);
+      console.log(err);
       res.status(409).send(err);
     }
   },
@@ -18,8 +18,8 @@ module.exports = {
       await put.updateUser(req.params.id, req.body);
       res.status(202).send('Updated Successfuly');
     } catch(err) {
-      console.log(`SERVER ERROR - PUT:  ${err}`);
-      return err;
+      console.log(err);
+      res.status(400).send(err);
     }
   },
   // <TEMPLATE>: async (req, res) => {
