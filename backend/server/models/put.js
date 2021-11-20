@@ -26,8 +26,7 @@ module.exports = {
           perks, snome_description]);
       return 'Update successful';
     } catch(err) {
-      console.log(`DATABASE ERROR - PUT: ${err}`)
-      return err;
+      console.log(`DATABASE ERROR - PUT: ${err}`);
     }
   },
 
@@ -54,7 +53,6 @@ module.exports = {
         return 'Update Successful';
     } catch(err) {
       console.log(`DATABASE ERROR - PUT: ${err}`);
-      return err;
     }
   },
 }
