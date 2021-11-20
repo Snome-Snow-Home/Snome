@@ -8,7 +8,7 @@ module.exports = {
       await post.create(req.body);
       res.status(201).send('Success!');
     } catch(err) {
-      console.log(`SERVER SIDE ERROR - POST: ${err}`)
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -41,7 +41,7 @@ module.exports = {
       let data = await post.createMatch(req.body);
       res.status(201).send(data)
     } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
+      console.log(err);
       res.status(400).send(err);
     }
   },

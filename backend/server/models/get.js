@@ -11,7 +11,7 @@ module.exports = {
 
   getAll: async (model, query_params) => {
     try {
-      http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
+      //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
       //if there are query parameters (eg. http://localhost:3000/snome?=featured)
       if(Object.keys(query_params).length !== 0){
         let filter = Object.keys(query_params)[0]
@@ -69,6 +69,20 @@ module.exports = {
       `);
       return result
     } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
+  getSnomeReviews: async (snome_id) => {
+    try {
+      let result = await db.manyOrNone(`
+        SELECT snome_user.id, name, user_photo, location_id, review.* FROM snome_user
+        JOIN review ON snome_user.id=review.snome_user_id
+        WHERE review.snome_id=${snome_id}`
+      );
+      return result;
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }

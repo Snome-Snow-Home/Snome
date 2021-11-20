@@ -77,10 +77,9 @@ module.exports = {
     }
   },
 
-  createMatch: async ({ user_id, snome_id, has_been_read }) => {
-    try {
-      console.log(user_id, snome_id)
-      await db.none(`
+  createMatch: ({ suser_id, snome_id, has_been_read }) => {
+    // try {
+      let data = db.none(`
         INSERT INTO match (
           id,
           user_id,
@@ -91,10 +90,11 @@ module.exports = {
             (SELECT MAX(id)+1 FROM match), $1, $2, $3
           )
       `, [user_id, snome_id, has_been_read]);
-      return 'Match created successfully!';
-    } catch(err) {
-      console.log(`DATABASE POST ${err}`);
-    }
+      return data;
+      // return 'Match created successfully!';
+    // } catch(err) {
+    //   console.log(`DATABASE POST ${err}`);
+    // }
   }
 
 }

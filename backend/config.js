@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+<<<<<<< HEAD
 module.exports = {
     server: { host: "localhost", port: 3000 },
     db: { host: "snome.c9uk6piofxnr.us-east-2.rds.amazonaws.com",
@@ -9,6 +10,8 @@ module.exports = {
     password: "Snome_2021"
     }}
 
+=======
+>>>>>>> 134801034fd6a84cc840c5c487723f2753481ee0
 /* COMMON CONFIGURATION */
 common = {
     db: {
@@ -62,3 +65,14 @@ if (process.env.NODE_ENV == "prod") {
     }
 }
 
+<<<<<<< HEAD
+=======
+module.exports = {
+    server: { host: "localhost", port: 3000 },
+    db: { host: "snome.c9uk6piofxnr.us-east-2.rds.amazonaws.com",
+    port: 5432,
+    database: 'postgres',
+    user: "Snome",
+    password: "Snome_2021"
+  }};  
+>>>>>>> 134801034fd6a84cc840c5c487723f2753481ee0
