@@ -11,9 +11,4 @@ module.exports = {
     let result = db.none(`DELETE FROM ${model} WHERE id=${id}`);
     return result;
   },
-
-  // deleteUser: id => {
-  //   let result = db.none(`DELETE FROM snome_user WHERE id=${id}`);
-  //   return result;
-  // }
 }

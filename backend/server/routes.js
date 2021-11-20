@@ -36,5 +36,6 @@ router.post('/signup', controller.post.createUser);
 
 router.delete('/snome/:id', controller.remove.remove);
 router.delete('/user/:id', controller.remove.remove);
+router.delete('match/:id', controller.remove.remove);
 
 module.exports = router;
