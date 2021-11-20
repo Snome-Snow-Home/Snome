@@ -17,14 +17,14 @@ import {
 // for testing purposes
 import card from "../localtestdata/Projects.json";
 
-const styles = StyleSheet.create({
+const styles = {
  cards: {
   width: 450,
     height: 400,
     border: '1px solid #ccc',
     borderRadius: '5px',
     padding: 5,
-  
+
   },
   tinyLogo: {
     width: 50,
@@ -36,19 +36,19 @@ const styles = StyleSheet.create({
     height: 200,
  },
 
-});
+};
 
 const LikesScreen = () => {
   return (
     <ScrollView>
-    
+
       <div >   <Image
        style={styles.tinyLogo}
         source={require('../pics/Snome.png')}
       />Snome Likes </div>
-    
+
               {card.map((card) => (
-                
+
            <View className="container" id="cards"  key={card.id}  style={styles.cards} >
            <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.image}>
                 <h1  >{card.name} <Image
@@ -61,13 +61,13 @@ const LikesScreen = () => {
                       </a></button>
                 </ImageBackground>
               </View>
-           
+
               ))}
-   
+
    </ScrollView>
-                   
-                      
-                 
+
+
+
 
   );
 };

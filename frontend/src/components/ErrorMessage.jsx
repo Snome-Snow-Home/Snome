@@ -16,9 +16,9 @@ export default function ErrorMessage (props) {
 
 }
 
-const styles = StyleSheet.create({
+const styles = {
   errorBox: {
     color: 'red',
     width: 'inherit',
   },
-})
+}

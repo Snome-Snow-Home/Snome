@@ -18,7 +18,7 @@ import {
 // for testing purposes
 import messages from '../localtestdata/Projects.json';
 
-const styles = StyleSheet.create({
+const styles = {
   cards: {
     width: 450,
     height: 100,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-});
+};
 
 
 
@@ -72,9 +72,9 @@ const MessageScreen = () => {
         onChangeText={onChangeText}
         value={text}
       />
-     
-         
-      
+
+
+
         </View>
       ))}
     </ScrollView>
