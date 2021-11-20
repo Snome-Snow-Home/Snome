@@ -83,7 +83,7 @@ module.exports = {
       );
       return result;
     } catch (err) {
-      console.log(`DATABASE ERROR - POST: ${err}`);
+      console.log(`DATABASE ERROR - GET: ${err}`);
       return err;
     }
   },
