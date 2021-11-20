@@ -47,7 +47,7 @@ export default function FormInput(props) {
   } = props
 
   return (
-    <>
+    <div>
     <Label htmlFor={id}>{label}: </Label>
       <input
       type={type || "text"}
@@ -71,6 +71,6 @@ export default function FormInput(props) {
       } */}
 
     <ErrorMessage errorName={errorName} errorMessage={errorMessage} />
-      </>
+      </div>
   )
 }

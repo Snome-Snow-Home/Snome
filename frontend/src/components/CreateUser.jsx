@@ -28,7 +28,7 @@ const Horizontal = styled.div`
   justify-content: space-between;
 `;
 
-const styles = StyleSheet.create({
+const styles = {
   formInput: {
     color: "black",
     backgroundColor: "lightblue",
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     padding: "8px",
     width: "95%",
   },
-})
+}
 
 
 export default function CreateUser(props) {
