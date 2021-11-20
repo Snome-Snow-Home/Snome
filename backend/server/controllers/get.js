@@ -46,12 +46,6 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-<<<<<<< HEAD
-  //===Location===//
-
-
-=======
->>>>>>> 134801034fd6a84cc840c5c487723f2753481ee0
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (req, res) => {
     const user_id = req.params.user_id;
