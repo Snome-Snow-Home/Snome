@@ -19,8 +19,8 @@ import card from "../localtestdata/Projects.json";
 
 const styles = {
  cards: {
-  width: 450,
-    height: 400,
+  width: 350,
+    height: 300,
     border: '1px solid #ccc',
     borderRadius: '5px',
     padding: 5,
@@ -32,7 +32,7 @@ const styles = {
 
   },
   pic:{
-    width: 400,
+    width: 300,
     height: 200,
  },
 
@@ -42,25 +42,37 @@ const LikesScreen = () => {
   return (
     <ScrollView>
 
-      <div >   <Image
+       <Image
        style={styles.tinyLogo}
         source={require('../pics/Snome.png')}
-      />Snome Likes </div>
+      />
+        <Text > Snome Likes </Text>
 
               {card.map((card) => (
 
            <View className="container" id="cards"  key={card.id}  style={styles.cards} >
            <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.image}>
-                <h1  >{card.name} <Image
+                <Text  >{card.name}</Text>
+                 <Image
        style={styles.pic}
         source={require('../pics/Snome.png')}
-      /></h1>
-                <h3 > {card.description}</h3>
-                <button> <a href={card.deployed} target="_blank">
-                  View Snome ETC.
-                      </a></button>
+      />
+                <Text > {card.description}</Text>
+               
                 </ImageBackground>
+                {/* <Button href={card.deployed} target="_blank">
+                  View Snome ETC.
+                      </Button> */}
+                      <Button
+  //  onPress={() =>
+  //   navigation.navigate('Match')
+  // }
+  title="  View Snome ETC."
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
               </View>
+              
 
               ))}
 
