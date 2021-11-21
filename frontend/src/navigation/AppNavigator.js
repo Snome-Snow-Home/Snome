@@ -24,9 +24,9 @@ const createScreenOptions = ({ route }) => {
     const iconName = TAB_ICON[route.name];
 
     return {
-        tabBarIcon: ({ size, color }) => (
+        tabBarIcon: () => (
             <Button>
-            <MaterialIcons name={iconName} size={size} color={color}/>
+            <MaterialIcons name={iconName} />
             </Button>
         )
     }
@@ -37,10 +37,6 @@ export const AppNavigator = () => {
     <>
       <Tab.Navigator
         screenOptions={createScreenOptions}
-        tabBarOptions={{
-            activeTintColor: colors.brand.primary,
-            inactiveTintColor: colors.brand.muted,
-        }}
       >
         <Tab.Screen name="Towns" component={TownsScreen}/>
         <Tab.Screen name="Likes" component={LikesScreen}/>
@@ -55,3 +51,11 @@ export const AppNavigator = () => {
 const Button = styled.button`
     padding: 8px 16px;
 `;
+
+// size={size} color={color}
+// { size, color }
+
+// tabBarOptions={{
+//     activeTintColor: colors.brand.primary,
+//     inactiveTintColor: colors.brand.muted,
+// }}
