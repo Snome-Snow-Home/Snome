@@ -61,8 +61,6 @@ module.exports = {
   getSnomeReviews: async (req, res) => {
     try {
       const snome_id = req.params.id;
-      // const snome_user_id = req.params.snome_user_id;
-      // console.log(req)
       let data = await get.getSnomeReviews(snome_id);
       res.status(200).send(data);
     } catch (err) {
