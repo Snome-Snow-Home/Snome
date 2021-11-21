@@ -34,8 +34,7 @@ module.exports = {
         )
       })
 
-    }
-  ,
+    },
 
   createReview: async (req, res) => {
     try {
@@ -43,7 +42,7 @@ module.exports = {
       await post.createReview(req.body);
       res.status(201).send('Success!');
     } catch (err) {
-      console.log({err});
+      console.log(err);
       res.status(400).send(err);
     }
   },
