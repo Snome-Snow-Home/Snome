@@ -33,19 +33,20 @@ module.exports = {
         "Some error occurred while creating the Like."
         )
       })
-
-    },
+  },
 
   createReview: async (req, res) => {
-    try {
-      console.log(req.body)
-      await post.createReview(req.body);
-      res.status(201).send('Success!');
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
+    post.createReview(req.body)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send(
+        "Some error occurred while creating the review."
+        )
+      })
   },
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

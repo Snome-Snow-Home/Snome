@@ -80,37 +80,25 @@ module.exports = {
     }
   },
 
-  // createReview: async ({snome_user_id, snome_id, date, stars, review}) => {
-  //   try {
-  //     await db.none(`
-  //       INSERT INTO snome_like (
-  //         snome_user_id,
-  //         snome_id,
-  //         has_been_read
-  //       )
-  //       VALUES (
-  //         $1, $2, $3
-  //       )
-  //     `, [snome_user_id, snome_id, has_been_read]);
-  //     return 'New like created!'
-  //   } catch(err) {
-  //     console.log(`DATABASE ERROR - POST: ${err}`);
-  //     return err;
-  //   }
-  // },
-
-  createReview: ({snome_user_id, snome_id, date, stars, review}) => {
-    let result = db.none(`
-      INSERT INTO review 
-      VALUES (
-        ${snome_user_id}, 
-        ${snome_id}, 
-        ${date}, 
-        ${stars}, 
-        ${review}
-      )
-    `)
-    return result;
+  createReview: async ({snome_user_id, snome_id, date, stars, review}) => {
+    try {
+      await db.none(`
+        INSERT INTO review (
+          snome_user_id,
+          snome_id,
+          date,
+          stars,
+          review
+        )
+        VALUES (
+          $1, $2, $3, $4, $5
+        )
+      `, [snome_user_id, snome_id, date, stars, review]);
+      return 'New review created!'
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
   },
 
 }
