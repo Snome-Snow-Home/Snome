@@ -51,14 +51,14 @@ const LikesScreen = () => {
               {card.map((card) => (
 
            <View className="container" id="cards"  key={card.id}  style={styles.cards} >
-           <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.image}>
+           <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.pic}>
                 <Text  >{card.name}</Text>
                  <Image
        style={styles.pic}
         source={require('../pics/Snome.png')}
       />
                 <Text > {card.description}</Text>
-               
+
                 </ImageBackground>
                 {/* <Button href={card.deployed} target="_blank">
                   View Snome ETC.
@@ -72,7 +72,7 @@ const LikesScreen = () => {
   accessibilityLabel="Learn more about this purple button"
 />
               </View>
-              
+
 
               ))}
 
