@@ -26,7 +26,6 @@ const createScreenOptions = ({ route }) => {
     return {
         tabBarIcon: () => (
             <Button>
-
             <MaterialIcons name={iconName} />
             </Button>
         )
@@ -37,7 +36,7 @@ export const AppNavigator = () => {
     return (
     <>
       <Tab.Navigator
-      screenOptions={createScreenOptions}
+        screenOptions={createScreenOptions}
       >
         <Tab.Screen name="Towns" component={TownsScreen}/>
         <Tab.Screen name="Likes" component={LikesScreen}/>
@@ -52,3 +51,11 @@ export const AppNavigator = () => {
 const Button = styled.button`
     padding: 8px 16px;
 `;
+
+// size={size} color={color}
+// { size, color }
+
+// tabBarOptions={{
+//     activeTintColor: colors.brand.primary,
+//     inactiveTintColor: colors.brand.muted,
+// }}

@@ -4,7 +4,9 @@
     "slug": "Snomes",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/Snome.png",
     "splash": {
+      "image": "./assets/Snome.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,10 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/Snome.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
+      "favicon": "./assets/Snome.png"
     }
   }
 }
