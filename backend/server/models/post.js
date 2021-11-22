@@ -90,4 +90,25 @@ module.exports = {
     }
   },
 
+  createReview: async ({snome_user_id, snome_id, date, stars, review}) => {
+    try {
+      await db.none(`
+        INSERT INTO review (
+          snome_user_id,
+          snome_id,
+          date,
+          stars,
+          review
+        )
+        VALUES (
+          $1, $2, $3, $4, $5
+        )
+      `, [snome_user_id, snome_id, date, stars, review]);
+      return 'New review created!'
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
 }

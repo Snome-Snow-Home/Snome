@@ -3,7 +3,6 @@ const { get } = require('../models');
 /* define get request handlers here */
 
 module.exports = {
-  //===Snome, Location, Match===//
   getAll: async (req, res) => {
     try {
       const model = get.getModelFromUrl(req);
@@ -14,8 +13,6 @@ module.exports = {
       res.status(400).send(err);
     }
 },
-
-  //===Snome, Location, Match===//
   getOne: async (req, res) => {
     try {
       const id = req.params.id;
@@ -47,16 +44,6 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-  //===Location===//
-  filterLocationsOnSearch: async (req, res) => {
-    try {
-
-    } catch (err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(404).send(err);
-    }
-  },
-
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (req, res) => {
     const user_id = req.params.user_id;
@@ -69,7 +56,17 @@ module.exports = {
       "Some error occurred while fetching unread Likes."
       )
     })
+  },
 
+  getSnomeReviews: async (req, res) => {
+    try {
+      const snome_id = req.params.id;
+      let data = await get.getSnomeReviews(snome_id);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
   },
 
   // <TEMPLATE>: async (req, res) => {
