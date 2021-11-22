@@ -1,14 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
+
 
 import TownsScreen from '../screens/TownsScreen';
 import LikesScreen from '../screens/LikesScreen';
 import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
-import styled from 'styled-components';
 
 const TAB_ICON = {
     Towns: 'home',
@@ -25,9 +25,7 @@ const createScreenOptions = ({ route }) => {
 
     return {
         tabBarIcon: () => (
-            <Button>
-            <MaterialIcons name={iconName} />
-            </Button>
+          <MaterialIcons style={styles.icon} name={iconName} />
         )
     }
 }
@@ -48,14 +46,10 @@ export const AppNavigator = () => {
     )
 };
 
-const Button = styled.button`
-    padding: 8px 16px;
-`;
 
-// size={size} color={color}
-// { size, color }
-
-// tabBarOptions={{
-//     activeTintColor: colors.brand.primary,
-//     inactiveTintColor: colors.brand.muted,
-// }}
+const styles = StyleSheet.create({
+  icon: {
+    backgroundColor:'gray',
+    padding:10
+  }
+})
