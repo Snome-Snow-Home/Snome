@@ -37,7 +37,7 @@ module.exports = {
     Promise.all(uploadPhotoPromises).then(
       async (urls) => {
         // 5. create snomePhotos in db using inserted_id and urls
-        urls.forEach((url) => {
+        urls.forEach(async url => {
           try {
             await post.createSnomePhoto(inserted_id, url)
           } catch(err) {

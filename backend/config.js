@@ -13,7 +13,7 @@ common = {
         host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
     },
-    aws: {
+    s3: {
         region: process.env.REGION,
         bucketName: process.env.AWS_BUCKET_NAME,
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,

@@ -11,10 +11,10 @@ module.exports = {
     generateFileKey: generateFileKey
 }
 
-const AWS_REGION = config.aws.region
-const AWS_ACCESS_KEY_ID = config.aws.accessKeyId
-const AWS_SECRET_ACCESS_KEY = config.aws.secretAccessKey
-const AWS_BUCKET_NAME = config.aws.bucketName
+const AWS_REGION = config.s3.region
+const AWS_ACCESS_KEY_ID = config.s3.accessKeyId
+const AWS_SECRET_ACCESS_KEY = config.s3.secretAccessKey
+const AWS_BUCKET_NAME = config.s3.bucketName
 
 const s3 = new aws.S3({
   AWS_REGION,
