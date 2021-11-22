@@ -1,33 +1,28 @@
-const app = require('../../index.js');
-const supertest = require('supertest');
-const http = require('http');
-const db = require('../../../database')
+const setup = require('../../../__tests__/setup.js')
+const teardown = require('../../../__tests__/teardown.js')
 
 // use supertest to request server endpoints
 // https://zellwk.com/blog/endpoint-testing/
 
 /* SETUP AND TEARDOWN */
 
-// fix jest open handles error: https://github.com/facebook/jest/issues/6907
+// jest open handles error: https://github.com/facebook/jest/issues/6907
 let server;
 let request;
 
 beforeAll((done) => {
-    // start app on random port
-    server = http.createServer(app);
-    server.listen(done);
-    request = supertest(server);
+    
+    [server, request] = setup(done);
 });
 
 afterAll((done) => {
-    // close server and db connections before exiting test runner
-    server.close(done);
-    db.$pool.end();
+    teardown(done, server);
 });
+
 
 // SNOME
 
-describe('GET ALL RECORDS endpoint', () => {
+describe('GET ALL RECORDS', () => {
       
     it('return 200 response', (done) => {
         request
@@ -46,7 +41,7 @@ describe('GET ALL RECORDS endpoint', () => {
 });
 
 
-describe('GET SINGLE RECORD BY ID endpoint', () => {
+describe('GET A SINGLE RECORD BY ID', () => {
       
     it('if record with provided id exists, return 200 response', (done) => {
         request
