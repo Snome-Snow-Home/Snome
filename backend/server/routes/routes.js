@@ -3,39 +3,42 @@ const router = require('express').Router();
 const { uploadSnomePhotos } = require('./middleware/multer.js');
 
 
-/* define API url to handler mappings here */
+/* define API url to handler mappings here, organized by model and CRUD */
+module.exports = router;
 
-
-/* GET REQUESTS */
-router.get('/snome', controller.get.getAll);
-/* FEEDBACK ON ROUTE BELOW: THOUGHTS ON THE ENDPOINT INCLUDING ID as a subdirectory
-AND THEN PASSING THE ID NUMBER */
-router.get('/snome/id/:id', controller.get.getOne);
-router.get('/user/id/:id', controller.get.getUser);
-router.get('/location', controller.get.getAll);
-router.get('/location/:id', controller.get.getOne);
-router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
-router.get('/match', controller.get.getAll);
-router.get('/snome/:id/review', controller.get.getSnomeReviews);
-router.get('/review', controller.get.getAll);
-/* for dev only */
-router.get('/user', controller.get.getAllUsers);
-
-/* PUT REQUESTS */
-router.put('/snome/:id', controller.put.updateSnome);
-router.put('/user/:id', controller.put.updateUser);
-
-/* POST REQUESTS */
+/* SNOME */
 router.post('/snome', uploadSnomePhotos.array('snome_photos'), controller.post.createSnome);
-router.post('/signup', controller.post.createUser);
-router.post('/like', controller.post.createLike);
-router.post('/review', controller.post.createReview);
-
-// for development only
-router.post('/snome/:id/photos', uploadSnomePhotos.array('snome_photos'), controller.post.createSnomePhotos);
-
-/* DELETE REQUESTS */
+router.get('/snome', controller.get.getAll);
+router.get('/snome/:id', controller.get.getOne);
+router.put('/snome/:id', controller.put.updateSnome);
 router.delete('/snome/:id', controller.remove.deleteSnome);
+
+/* SNOME USER */
+router.post('/signup', controller.post.createUser);
+router.get('/user/id/:id', controller.get.getUser);
+router.get('/user', controller.get.getAllUsers);  /* for dev only */
+router.put('/user/:id', controller.put.updateUser);
 router.delete('/user/:id', controller.remove.deleteUser);
 
-module.exports = router;
+/* LOCATION */
+// TODO create, update, delete location? (admin only)   
+router.get('/location', controller.get.getAll);
+router.get('/location/:id', controller.get.getOne);
+
+/* LIKES */
+router.post('/like', controller.post.createLike);
+router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
+
+/* MATCH */
+
+router.get('/match', controller.get.getAll);
+
+/* REVIEW */
+router.post('/review', controller.post.createReview);
+router.get('/snome/:id/review', controller.get.getSnomeReviews);
+router.get('/review', controller.get.getAll);
+
+/* SNOME PHOTO */
+
+router.post('/snome/:id/photos', uploadSnomePhotos.array('snome_photos'), controller.post.createSnomePhotos);  // for development only
+

@@ -28,14 +28,9 @@ module.exports = {
     }
   },
 
-  getOne: async (id, model) => {
-    try {
-      let result = await db.one(`SELECT * FROM ${model} WHERE id=${id}`);
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
-      return err;
-    }
+  getOne: (id, model) => {
+    let result = db.one(`SELECT * FROM ${model} WHERE id=${id}`);
+    return result;
   },
 
   getUser: async (id) => {
