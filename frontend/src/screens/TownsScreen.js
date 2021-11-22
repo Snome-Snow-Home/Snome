@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   View,
@@ -12,61 +11,51 @@ import {
   ScrollView,
   Row,
   ImageBackground,
-
 } from 'react-native';
+// for video player
+// import YoutubePlayer from 'react-native-youtube-iframe';
 
 // for testing purposes
-import locations from "../localtestdata/Projects.json";
+import locations from '../localtestdata/Projects.json';
 
 const styles = {
- 
   container: {
-    width: 125,
-    height: 200,
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    padding: 5,
-   
-    
-    
-   
-    flexWrap: "wrap",
+    flex: 1,
+    justifyContent: "center",
+    // paddingTop: Constants.statusBarHeight,
+    // backgroundColor: "#ecf0f1",
+    padding: 8,
   },
   tinyLogo: {
     width: 10,
     height: 10,
-
   },
-  pic:{
+  pic: {
     width: 100,
     height: 100,
- },
-
+  },
 };
 
- function TownsScreen() {
+function TownsScreen() {
+  // const [flexDirection, setflexDirection] = useState("column");
   return (
-    <ScrollView >
+    <ScrollView>
+      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
 
-       <Image
-       style={styles.tinyLogo}
-        source={require('../pics/Snome.png')}
-      />
-
-              {locations.map((locations) => (
-
-           <><View id="locations" key={locations.id} style={styles.container}>
-                  <Text>{locations.name}</Text>
-                  <Image
-                    style={styles.pic}
-                    source={require('../pics/Snome.png')} />
-                  <Text> {locations.description}</Text>
-                </View></>
-              ))}
-
-   </ScrollView>
-
+      {locations.map((locations) => (
+        <>
+          <View id="locations" key={locations.id} style={styles.container}>
+            <Text>{locations.name}</Text>
+            <Image style={styles.pic} source={require('../pics/Snome.png')} />
+            <Text> {locations.description}</Text>
+          </View>
+        </>
+      ))}
+      {/* <View>
+        <YoutubePlayer height={150} play={true} videoId={'frvXANSaSec'} />
+      </View> */}
+    </ScrollView>
   );
-};
+}
 
- export default TownsScreen;
+export default TownsScreen;
