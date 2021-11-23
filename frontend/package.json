@@ -10,8 +10,14 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "setupFiles": [
+      "./jestSetupFile.js"
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -24,16 +30,25 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.0",
-    "expo": "~43.0.0",
+    "@mantine/hooks": "^3.1.7",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/native": "^6.0.6",
+    "axios": "^0.24.0",
+    "expo": "^43.0.3",
+   "expo-cli": "4.11.0",
     "expo-status-bar": "~1.1.0",
-    "react": "17.0.1",
+    "react": "17.0.2",
     "react-dom": "17.0.1",
-    "react-native": "0.64.2",
-    "react-native-web": "0.17.1"
+    "react-native": "^0.66.3",
+    "react-native-material-textfield": "^0.16.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-web": "0.17.1",
+    "react-native-youtube-iframe": "^2.2.1",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/react-native": "^8.0.0",
     "babel-jest": "^27.3.1",
     "babel-preset-react-native": "^4.0.1",
     "jest": "^27.3.1",
