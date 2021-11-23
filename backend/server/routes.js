@@ -32,7 +32,7 @@ router.post('/like', controller.post.createLike);
 router.post('/review', controller.post.createReview);
 
 /* DELETE REQUESTS */
-
+// If the first word in the path is the same as the table name, you can use the delete function
 router.delete('/snome/:id', controller.remove.delete);
 router.delete('/user/:id', controller.remove.deleteUser);
 router.delete('/review/:id', controller.remove.delete);
