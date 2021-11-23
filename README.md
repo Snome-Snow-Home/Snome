@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../pics/Snome.png?raw=true" alt="Snome logo"/>
+  <img src="../Snome/frontend/src/pics/Snome.png?raw=true" alt="Snome logo"/>
 </p>
 <p align="center">
   Sharing winter experiences. A home exchange platform for skiers and snowboarders.
