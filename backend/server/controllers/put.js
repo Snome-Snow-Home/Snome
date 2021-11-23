@@ -22,6 +22,16 @@ module.exports = {
       return err;
     }
   },
+
+  updateReview: async (req, res) => {
+    try {
+      await put.updateReview(req.params.id, req.body);
+      res.status(202).send('Updated Successfuly');
+    } catch(err) {
+      console.log(`SERVER ERROR - PUT:  ${err}`);
+      return err;
+    }
+  },
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

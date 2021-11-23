@@ -23,6 +23,7 @@ router.get('/user', controller.get.getAllUsers);
 /* PUT REQUESTS */
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
+router.put('/review/:id', controller.put.updateReview);
 
 /* POST REQUESTS */
 router.post('/snome', controller.post.createSnome);
