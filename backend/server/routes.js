@@ -34,6 +34,7 @@ router.post('/review', controller.post.createReview);
 /* DELETE REQUESTS */
 
 router.delete('/snome/:id', controller.remove.deleteSnome);
-router.delete('/user/:id', controller.remove.deleteUser)
+router.delete('/user/:id', controller.remove.deleteUser);
+router.delete('/review/:id', controller.remove.deleteReview);
 
 module.exports = router;
