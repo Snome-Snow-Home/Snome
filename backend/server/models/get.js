@@ -3,12 +3,6 @@ const db = require('../../database');
 /* define model queries for get requests here */
 
 module.exports = {
-  getModelFromUrl: req => {
-    const url = req.url;
-    const model = url.split('/')[1].split('?')[0];
-    return model;
-  },
-
   getAll: async (model, query_params) => {
     try {
       //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone

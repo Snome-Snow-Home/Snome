@@ -23,6 +23,7 @@ router.get('/user', controller.get.getAllUsers);
 /* PUT REQUESTS */
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
+router.put('/review/:id', controller.put.updateReview);
 
 /* POST REQUESTS */
 router.post('/snome', controller.post.createSnome);
@@ -32,7 +33,8 @@ router.post('/review', controller.post.createReview);
 
 /* DELETE REQUESTS */
 
-router.delete('/snome/:id', controller.remove.deleteSnome);
-router.delete('/user/:id', controller.remove.deleteUser)
+router.delete('/snome/:id', controller.remove.delete);
+router.delete('/user/:id', controller.remove.deleteUser);
+router.delete('/review/:id', controller.remove.delete);
 
 module.exports = router;

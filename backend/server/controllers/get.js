@@ -1,11 +1,11 @@
-const { get } = require('../models');
+const { get, helpers } = require('../models');
 
 /* define get request handlers here */
 
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const model = get.getModelFromUrl(req);
+      const model = helpers.getModelFromUrl(req);
       let data = await get.getAll(model, req.query);
       res.status(200).send(data);
     } catch(err) {
@@ -16,7 +16,7 @@ module.exports = {
   getOne: async (req, res) => {
     try {
       const id = req.params.id;
-      const model = get.getModelFromUrl(req);
+      const model = helpers.getModelFromUrl(req);
       const data = await get.getOne(id, model);
       res.status(200).send(data);
     } catch(err) {

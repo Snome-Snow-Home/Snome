@@ -57,5 +57,22 @@ module.exports = {
       return err;
     }
   },
+
+  updateReview: async (id, { snome_id, stars, review }) => {
+    try {
+      await db.none(`
+        UPDATE review
+        SET
+          snome_id=$1,
+          stars=$2,
+          review=$3
+        WHERE id=${id}
+      `, [snome_id, stars, review]);
+        return 'Update Successful';
+    } catch(err) {
+      console.log(`DATABASE ERROR - PUT: ${err}`);
+      return err;
+    }
+  },
 }
 

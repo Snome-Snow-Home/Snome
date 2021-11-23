@@ -1,9 +1,9 @@
 const db = require('../../database');
 
 module.exports = {
-  deleteSnome: async (id) => {
+  delete: async (id, model) => {
     try {
-      await db.none(`DELETE FROM snome WHERE id=${id}`);
+      await db.none(`DELETE FROM ${model} WHERE id=${id}`);
       return 'Delete Successful';
     } catch(err) {
       console.log(`DATABASE ERROR - DELETE: ${err}`);
