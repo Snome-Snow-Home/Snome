@@ -35,7 +35,6 @@ const styles = {
   tinyLogo: {
     width: 50,
     height: 50,
-
   },
 //   pic:{
 //     width:Dimensions.get('window').width * 0.4,
