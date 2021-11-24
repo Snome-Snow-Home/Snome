@@ -1,0 +1,69 @@
+
+
+[
+    {
+      "id": 1,
+      "name": "Location or name etc",
+      "image":
+      "./pictures/foodmersion.jpg",
+      "description": "Full description or Highlights of location",
+      "tools":" HTML, JavaScript, Bootstrap, sequalize , Mysql, tailwind css, Insomnia",
+      "deployed": "https://evening-spire-50554.herokuapp.com/",
+      "repo":"https://github.com/jacksoncurdo/FoodMersion-"
+    },
+    {
+      "id": 2,
+      "name": "Location or name etc",
+      "image":
+      "./pictures/Screenshot (21).png",
+      "description":
+      "Full description or Highlights of location",
+        "tools":"HTML, CSS, JavaScript, Bootstrap, local storage",
+
+      "deployed": "https://trae77.github.io/wheather-data/",
+      "repo": "https://github.com/trae77/wheather-data"
+    },
+    {
+      "id": 3,
+      "name": "Location or name etc",
+      "image":
+      "./pictures/quiz.png",
+      "description": "Full description or Highlights of location",
+      "tools":" node.js, MySQL",
+      "deployed": " https://trae77.github.io/web-api-/",
+      "repo": "https://github.com/trae77/web-api-"
+    },
+    {
+      "id": 4,
+      "name": "Location or name etc",
+      "image":
+        "./pictures/Screenshot (17).png",
+      "description":
+      "Full description or Highlights of location",
+        "tools":"HTML, CSS, JavaScript, Bootstrap",
+      
+      "deployed": "https://oborendo.github.io/group-project/",
+      "repo": "https://github.com/Oborendo/group-project"
+    },
+    {
+      "id": 5,
+      "name": "Location or name etc",
+      "image":
+      "./pictures/Screenshot-201520.png" ,
+      "description": "Full description or Highlights of location",
+      "tools":"HTML, CSS, JavaScript, Bootstrap",
+      "deployed": "https://github.com/trae77/office-"
+     
+    },
+    {
+      "id": 6,
+      "name":"Location or name etc",
+      "image":
+      "./pictures/prof pic.jpg",
+      "description": "Full description or Highlights of location",
+      "tools":"HTML, CSS, JavaScript, Bootstrap, sequalize , Mysql, Insomnia",
+      "deployed": " https://github.com/trae77/blog-post"
+      
+    }
+    
+    ]
