@@ -1,5 +1,6 @@
 -- order matters for setting FK relations
 
+-- ski resort
 CREATE TABLE "location" (
     "id" serial   PRIMARY KEY,
     "name" text   NOT NULL,
@@ -19,16 +20,18 @@ CREATE TABLE "snome_user" (
     "id" serial PRIMARY KEY,
     "location_id" int REFERENCES "location",
     "name" text   NOT NULL,
-    "travel_start" varchar   NOT NULL,
-    "travel_end" varchar   NOT NULL,
+    "travel_start" varchar   NOT NULL,  -- should be nullable
+    "travel_end" varchar   NOT NULL,    -- should be nullable
     "age" int   NOT NULL,
     "user_phone" bigint   NOT NULL,
-    "user_photo" text   NOT NULL,
-    "video_tour" text   NOT NULL,
+    "user_photo" text   NOT NULL,  -- should be nullable
+    "video_tour" text   NOT NULL,  -- should be nullable
     "about" text   NOT NULL,
     "email" text   NOT NULL,
-    "mailing_address" text   NOT NULL,
-    "residential_address" text   NOT NULL
+    "mailing_address" text   NOT NULL,  -- separate into address fields (separate)  
+    "residential_address" text   NOT NULL  -- separate into address fields (separate)
+    -- add password
+    -- is active flag
 );
 
 CREATE TABLE "snome" (
@@ -38,7 +41,7 @@ CREATE TABLE "snome" (
     "header" text   NOT NULL,
     "time_to_mountain" text   NOT NULL,
     "mountain_access" text   NOT NULL,
-    "availability_start" varchar   NOT NULL,
+    "availability_start" varchar   NOT NULL,  -- should be date values, a series of dates
     "availability_end" varchar   NOT NULL,
     "address" text   NOT NULL,
     "bedrooms" numeric(3,1)   NOT NULL,
@@ -82,8 +85,7 @@ CREATE TABLE "trip" (
 CREATE TABLE "snome_photo" (
     "id" serial PRIMARY KEY,
     "snome_id" int  NOT NULL REFERENCES "snome",
-    "filename" text   NOT NULL,
-    "caption" varchar   NOT NULL
+    "url" text   NOT NULL
 );
 
 CREATE TABLE "review" (
