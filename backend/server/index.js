@@ -1,13 +1,12 @@
 const config = require('../config.js');
 const express = require('express');
-const router = require('./routes/routes.js');
-
-const port = parseInt(config.server.port);
-const host = config.server.host;
+const router = require('./routes.js');
 
 
 const app = express();
-// middleware to send responses as json
+const port = config.server.port;
+const host = config.server.host;
+
 app.use(express.json());
 app.use((req, res, next) => {
   // Website you wish to allow to connect
@@ -20,8 +19,8 @@ app.use((req, res, next) => {
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', false);
   next();
-});
+})
+
 app.use('/', router);
-  
 
 module.exports = app;
