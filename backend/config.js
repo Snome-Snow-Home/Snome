@@ -12,12 +12,6 @@ common = {
     server: {
         host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
-    },
-    s3: {
-        region: process.env.REGION,
-        bucketName: process.env.AWS_BUCKET_NAME,
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     }
 }
 
@@ -26,9 +20,8 @@ development = {
     
 }
 
-/* TEST CONFIGURATION */
-// note: jest sets NODE_ENV to 'test'
-test = {
+/* CI CONFIGURATION */
+ci = {
 
 }
 
@@ -45,10 +38,10 @@ if (process.env.NODE_ENV == "dev") {
 }
 
 
-if (process.env.NODE_ENV == "test") {
+if (process.env.NODE_ENV == "ci") {
     module.exports = {
         ...common,
-        ...test
+        ...ci
     }
 }
 

@@ -10,10 +10,13 @@
     "database:stop": "docker stop testdb",
     "server": "nodemon server/start.js",
     "server:deploy": "forever start server/index.js",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "test:watch": "npm run test -- --watchAll"
   },
   "jest": {
+    "testMatch": [
+      "**/tests/**/*spec.js"
+    ],
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -22,7 +25,7 @@
       "!**/coverage/**",
       "!**/jest.config.js"
     ],
-    "coverageDirectory": "tests/coverage"
+    "coverageDirectory": "tests/jest/coverage"
   },
   "repository": {
     "type": "git",
@@ -32,14 +35,12 @@
   "license": "ISC",
   "homepage": "",
   "dependencies": {
-    "aws-sdk": "^2.1033.0",
     "axios": "^0.21.1",
     "compression": "^1.7.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "forever": "^4.0.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.3",
     "nodemon": "^2.0.12",
     "pg-promise": "^10.11.0"
   },
