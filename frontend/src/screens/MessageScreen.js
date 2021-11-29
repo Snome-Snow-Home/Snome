@@ -63,10 +63,10 @@ const MessageScreen = () => {
           key={messages.id}
           style={styles.cards}
         >
-            <h5>
+            <Text>
              profile pic
               <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
-            </h5>
+            </Text>
             <TextInput
         style={styles.input}
         onChangeText={onChangeText}
