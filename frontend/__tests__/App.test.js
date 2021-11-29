@@ -4,6 +4,9 @@ import App from '../App';
 
 import {render, fireEvent, screen} from '@testing-library/react-native'
 
+jest.useFakeTimers()
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
 
 xtest('renders correctly', () => {
   const tree = renderer.create(<App />).toJSON();
