@@ -1,5 +1,5 @@
-const setup = require('../../../__tests__/setup.js')
-const teardown = require('../../../__tests__/teardown.js')
+const setup = require('../../../jest/setup.js')
+const teardown = require('../../../jest/teardown.js')
 
 // use supertest to request server endpoints
 // https://zellwk.com/blog/endpoint-testing/

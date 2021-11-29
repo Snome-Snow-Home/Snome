@@ -36,7 +36,7 @@ module.exports = {
     // 4. call Promise.all on promise array to upload files in parallel
     Promise.all(uploadPhotoPromises).then(
       async (urls) => {
-        // 5. create snomePhotos in db using inserted_id and urls
+        // 5. create snomePhotos in db using inserted_id and s3 urls
         urls.forEach(async url => {
           try {
             await post.createSnomePhoto(inserted_id, url)
@@ -54,7 +54,13 @@ module.exports = {
 
   
   createSnomePhotos: async (req, res) => {
+    // 1. get snome id from request.params
     const snome_id = req.params.id;
+    // 2. instantiate empty Promise array
+    // 3. loop over req.files...
+    // 4. call Promise.all on promise array to upload files in parallel
+    // 5. create snomePhotos in db using snome_id and s3 urls
+
   },
 
   createUser: async (req, res) => {
