@@ -11,7 +11,7 @@ router.post('/snome', uploadSnomePhotos.array('snome_photos'), controller.post.c
 router.get('/snome', controller.get.getAll);
 router.get('/snome/:id', controller.get.getOne);
 router.put('/snome/:id', controller.put.updateSnome);
-router.delete('/snome/:id', controller.remove.deleteSnome);
+// router.delete('/snome/:id', controller.remove.deleteSnome);
 
 /* SNOME USER */
 router.post('/signup', controller.post.createUser);
@@ -33,7 +33,10 @@ router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 router.put('/review/:id', controller.put.updateReview);
+<<<<<<< HEAD
+=======
 /* MATCH */
+>>>>>>> upstream/backend
 
 router.get('/match', controller.get.getAll);
 
