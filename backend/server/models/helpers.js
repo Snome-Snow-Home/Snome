@@ -4,7 +4,7 @@ const db = require('../../database');
 module.exports = {
   getModelFromUrl: req => {
     const url = req.url;
-    const model = url.split('/')[1];//.split('?')[0];
+    const model = url.split('/')[1].split('?')[0];
     return model;
   },
 }
