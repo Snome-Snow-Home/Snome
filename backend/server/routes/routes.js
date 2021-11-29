@@ -33,6 +33,10 @@ router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 router.put('/review/:id', controller.put.updateReview);
+<<<<<<< HEAD
+=======
+/* MATCH */
+>>>>>>> upstream/backend
 
 router.get('/match', controller.get.getAll);
 
