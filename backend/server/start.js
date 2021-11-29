@@ -1,10 +1,10 @@
 // script to launch server 
 // necessary because supertest requires app to be exported from index.js
 
-const app = require('./server.js');
+const app = require('./index.js');
 const config = require('../config.js');
 
-const port = config.server.port;
+const port = parseInt(config.server.port);
 const host = config.server.host;
 
 app.listen(port, () => {

@@ -5,7 +5,7 @@ const db = require('../../database');
 module.exports = {
   createSnome: async ({ owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description }) => {
     try {
-      await db.none(`
+      const id = await db.one(`
       INSERT INTO snome (
         owner_id,
         location_id,
@@ -24,9 +24,19 @@ module.exports = {
       VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
       )
+      RETURNING id
       `, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description]);
-      return "New Snome created";
+      return id;
     } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
+  createSnomePhoto: async (snome_id, url) => {
+    try {
+      await db.none(`INSERT INTO snome_photo (snome_id, url) values ($1, $2)`, [snome_id, url])
+    } catch(err){
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
@@ -74,6 +84,27 @@ module.exports = {
         )
       `, [snome_user_id, snome_id, has_been_read]);
       return 'New like created!'
+    } catch(err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
+  createReview: async ({snome_user_id, snome_id, date, stars, review}) => {
+    try {
+      await db.none(`
+        INSERT INTO review (
+          snome_user_id,
+          snome_id,
+          date,
+          stars,
+          review
+        )
+        VALUES (
+          $1, $2, $3, $4, $5
+        )
+      `, [snome_user_id, snome_id, date, stars, review]);
+      return 'New review created!'
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
