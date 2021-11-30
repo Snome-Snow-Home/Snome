@@ -109,3 +109,6 @@ coverage
 
 # Expo files
 .expo
+
+# Node files
+package-lock.json
