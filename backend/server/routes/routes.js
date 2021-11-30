@@ -11,14 +11,14 @@ router.post('/snome', uploadSnomePhotos.array('snome_photos'), controller.post.c
 router.get('/snome', controller.get.getAll);
 router.get('/snome/:id', controller.get.getOne);
 router.put('/snome/:id', controller.put.updateSnome);
-router.delete('/snome/:id', controller.remove.deleteSnome);
+router.delete('/snome/:id', controller.remove.delete);
 
 /* SNOME USER */
 router.post('/signup', controller.post.createUser);
 router.get('/user/id/:id', controller.get.getUser);
 router.get('/user', controller.get.getAllUsers);  /* for dev only */
 router.put('/user/:id', controller.put.updateUser);
-router.delete('/user/:id', controller.remove.deleteUser);
+router.delete('/user/:id', controller.remove.delete);
 
 /* LOCATION */
 // TODO create, update, delete location? (admin only)
@@ -33,8 +33,8 @@ router.get('/like/navbar/:user_id', controller.get.getUnreadLikes);
 router.put('/snome/:id', controller.put.updateSnome);
 router.put('/user/:id', controller.put.updateUser);
 router.put('/review/:id', controller.put.updateReview);
-/* MATCH */
 
+/* MATCH */
 router.get('/match', controller.get.getAll);
 
 /* REVIEW */

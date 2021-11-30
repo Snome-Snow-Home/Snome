@@ -15,6 +15,7 @@
   },
   "jest": {
     "verbose": true,
+
     "collectCoverage": true,
     "collectCoverageFrom": [
       "**/*.js",
@@ -22,7 +23,7 @@
       "!**/coverage/**",
       "!**/jest.config.js"
     ],
-    "coverageDirectory": "tests/coverage"
+    "coverageDirectory": "jest/coverage"
   },
   "repository": {
     "type": "git",
