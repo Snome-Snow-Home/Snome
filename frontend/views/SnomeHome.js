@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 
-import Constants from "expo-constants";
-const { manifest } = Constants;
 
 const Item = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
@@ -31,8 +29,6 @@ const NewSearch = ({locationData}) => {
     }
   };
 
-  console.log(manifest)
-
 
   return (
     <>
@@ -55,7 +51,6 @@ const NewSearch = ({locationData}) => {
         value={query}
       />
       <Text>{showDropdown}</Text>
-      {/* <Text>{manifest}</Text> */}
 
 {showDropdown === 'show' &&
 
@@ -87,7 +82,6 @@ const TownsScreen = () => {
     try {
      const response = await fetch('http://10.0.0.54:3000/location?featured=true');
      const json = await response.json();
-     console.log(json)
      setData(json);
    } catch (error) {
      console.error(error);
@@ -100,7 +94,7 @@ const TownsScreen = () => {
    getLocations();
  }, []);
 
-//  console.log(data)
+ console.log(data)
 
 
 
@@ -178,9 +172,7 @@ const ShowMap = ({
   // selectedValue,
   // setSelectedValue,
   // toggleOptions
-  }) => {
-    // console.log(locationData);
-     return (
+  }) => { console.log(locationData); return (
     <>
     <Text style={styles.label}>{label}</Text>
     <View style={styles.ListMapContainer}>

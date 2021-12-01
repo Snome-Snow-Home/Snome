@@ -2,16 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './src/screens/TownsScreen';
+// import HomeScreen from './src/screens/TownsScreen';
 // import CreateUser from './src/components/CreateUser';
 import { ThemeProvider } from 'styled-components/native';
 
 import { theme } from './src/theme';
 
 import { Navigation } from './src/navigation';
+// import TownsScreen from './views/SnomeHome.js';
+import TownsScreen from './src/screens/TownsScreen';
+
 
 export default function App() {
-  
+
   // sessions handler
   // renders <CreateUser/> if no session is found
   // *remember to uncomment import to use the component*
@@ -23,6 +26,7 @@ export default function App() {
       </ThemeProvider>
       <StatusBar style="auto" />
     </>
+    // <TownsScreen></TownsScreen>
   );
 }
 
