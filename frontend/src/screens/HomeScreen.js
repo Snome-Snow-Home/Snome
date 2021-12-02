@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image} from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 
 
-const Item = ({ title, setQuery, showDropdown, setShowDropdown }) => (
+const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
     <Text
-     onPress = {()=>(
-       showDropdown ==='hide' ? setShowDropdown('show') : setShowDropdown('hide'),
-       setQuery(title))}
-     style={styles.title}
-     >{title}</Text>
+      onPress = {()=>(showDropdown ==='hide' ? setShowDropdown('show') : setShowDropdown    ('hide'),
+      setQuery(title))}
+      style={styles.title}
+     >{title}
+     </Text>
   </View>
 );
 
@@ -25,113 +25,36 @@ const NewSearch = ({locationData}) => {
       return null
     }
     if(item.toLowerCase().startsWith(search)){
-       return (<Item title={item} setQuery={setQuery} showDropdown={showDropdown} setShowDropdown = {setShowDropdown}/>)
+       return (<DropdownItem title={item} setQuery={setQuery} showDropdown={showDropdown} setShowDropdown = {setShowDropdown}/>)
     }
   };
 
-
   return (
     <>
-    {/* <TouchableOpacity
-    // key={}
-    onPress={() => (showDropdown ==='hide' ? setShowDropdown('show') : setShowDropdown('hide'))}
-    style={[
-      styles.toggle,
-    ]}
-  ><Text>show/hide</Text>
-  </TouchableOpacity> */}
-
     <View style={{width:'100%'}} >
 
       <TextInput
-      clearButtonMode='while-editing'
-      // returnKeyType='search'
+        clearButtonMode='while-editing'
         style={styles.input}
         onChangeText={setQuery}
         value={query}
       />
       <Text>{showDropdown}</Text>
 
-{showDropdown === 'show' &&
-
-      <FlatList
-      style={{position:'absolute',top:40, width:'100%'}}
-        data={locationData.map(location => location.name)}
-        renderItem={renderItem}
-        keyExtractor={item => item}
-        scrollEnabled = 'false'
-      />
-}
+      {showDropdown === 'show' &&
+        <FlatList
+        style={{position:'absolute',top:40, width:'100%'}}
+          data={locationData.map(location => location.name)}
+          renderItem={renderItem}
+          keyExtractor={item => item}
+          scrollEnabled = 'false'
+        />
+      }
 
     </View>
     </>
   );
 }
-
-const FeaturedLocations = () => {
-  const [flexDirection, setflexDirection] = useState("column");
-  const [toggleView, settoggleView] = useState("ShowList");
-
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-
-
-
-  const getLocations = async () => {
-    try {
-     const response = await fetch('http://10.0.0.54:3000/location?featured=true')
-     const json = await response.json();
-     setData(json);
-   } catch (error) {
-     console.error(error);
-   } finally {
-     setLoading(false);
-   }
- }
-
- useEffect(() => {
-   getLocations();
- }, []);
-
- console.log(data)
-
-
-
-
-const filterNames = (location) => {
-  let search = query.toLowerCase().replace(/ /g,"_");
-  if(location.name.toLowerCase().startsWith(search)){
-      // return location.name;
-      return <Text style={{height: 40}}>{location.name}</Text>
-  }else{
-      return null;
-  }
-}
-
-  return (
-    <>
-
-    <Grid
-    // updateQuery = {updateQuery}
-    // query = {query}
-
-      label="flexDirection"
-      // values={["parkcity", "aspen", "crestedbutte", "alta"]}
-      values = {data.map(location => location.name)}
-      selectedValue={flexDirection}
-      setSelectedValue={setflexDirection}
-      toggleOptions = {["ShowList", "ShowMap"]}
-
-      view = {toggleView}
-      setView = {settoggleView}
-      filterNames = {filterNames}
-      locationData = {data}
-    >
-    </Grid>
-  </>
-  );
-};
 
 const ShowList = ({
     label,
@@ -151,6 +74,8 @@ const ShowList = ({
             selectedValue === value && styles.selected,
           ]}
         >
+
+          {/* <Image style={{width: '100%', height: '100%',}} source={require('../pics/Vail.jpeg')} /> */}
           <Text
             style={[
               styles.buttonLabel,
@@ -159,6 +84,7 @@ const ShowList = ({
           >
             {value}
           </Text>
+
         </TouchableOpacity>
       ))}
     </View>
@@ -168,151 +94,163 @@ const ShowList = ({
 const ShowMap = ({
   label,
   locationData
-  // values,
-  // selectedValue,
-  // setSelectedValue,
-  // toggleOptions
-  }) => { console.log(locationData); return (
+  }) => {
+    console.log(locationData);
+    return (
     <>
     <Text style={styles.label}>{label}</Text>
     <View style={styles.ListMapContainer}>
-
-    <View style={{
-        backgroundColor: "oldlace",
-        width: "100%",
-        height: "100%",
-        padding: 16}}>
-      <MapView style={styles.map}>
-        {locationData.map((location, index) => (
-        <Marker
-          key={index}
-          coordinate={{latitude: location.longitude, longitude: location.latitude
-          }}
-          // title='title'
-          // description='description'
-        />
-        ))}
-      </MapView>
-
-    </View>
-
-      {/* <View style={{
-        backgroundColor: "oldlace",
-        width: "100%",
-        height: "100%",
-        padding: 16}}>
-      </View> */}
+      <View style={{
+          backgroundColor: "oldlace",
+          width: "100%",
+          height: "100%",
+          padding: 16}}>
+        <MapView style={styles.map}>
+          {locationData.map((location, index) => (
+          <Marker
+            key={index}
+            //NOTE: LAT AND LONG ARE BACKWARDS
+            coordinate={{latitude: location.longitude, longitude: location.latitude
+            }}
+          />
+          ))}
+        </MapView>
+      </View>
     </View>
     </>
 )}
 
-const Grid = ({
+const FeaturedLocations = ({
   label,
   children,
   values,
   selectedValue,
   setSelectedValue,
   toggleOptions,
-
   view,
   setView,
-
   filterNames,
-  locationData
-}) => {
-  // const [showDropdown, setShowDropdown] = useState("hide")
+  locationData }) => {
 
-return (
-<View style={{ padding: 10, flex: 1, position:'relative' }}>
+  return (
+  <View style={{ padding: 10, flex: 1, position:'relative' }}>
 
-  {/* Top Container */}
-  <View style={[styles.topContainer, { [label]: selectedValue }]}>
-  {children}
-    <View>
-      <Text style={styles.SnomeLogo}>Snome Logo</Text>
-    </View>
+    {/* Top Container */}
+    <View style={[styles.topContainer, { [label]: selectedValue }]}>
+    {children}
+      <View>
+        <Text style={styles.SnomeLogo}>Snome Logo</Text>
+      </View>
 
-    {/* Search Box Container */}
-    <View
-      // style={{maxWidth: '80%', alignItems: 'center'}}
-      style={{padding: 12, width: "80%", backgroundColor: "", alignSelf: 'center', position:'relative', zIndex:99}}
-    >
-      <Text style={{marginLeft: 12, marginBottom: 4}}>Choose your destination</Text>
+      {/* Search Box Container */}
+      <View
+        style={{padding: 12, width: "80%", backgroundColor: "", alignSelf: 'center', position:'relative', zIndex:99}}
+      >
+        <Text style={{marginLeft: 12, marginBottom: 4}}>Choose your destination</Text>
 
-      <NewSearch
-        // showDropdown = {showDropdown}
-        locationData = {locationData}
-      />
+        <NewSearch
+          locationData = {locationData}
+        />
+      </View>
 
+      <View styles={{position:'absolute', zIndex:-1}}>
 
-      {/* <Text style={{marginLeft: 12, marginTop: 4}}>Advanced search</Text> */}
-
-    </View>
-
-    <View styles={{position:'absolute', zIndex:-1}}>
-
-    {/* Toggle For List Map View */}
-    <View style={[styles.row, {}]}>
-      {toggleOptions.map((option) => (
-        <TouchableOpacity
-          key={option}
-          onPress={() => setView(option)}
-          style={[
-            styles.toggle,
-          ]}
-        >
-          <Text
+      {/* Toggle For List Map View */}
+      <View style={[styles.row, {}]}>
+        {toggleOptions.map((option) => (
+          <TouchableOpacity
+            key={option}
+            onPress={() => setView(option)}
             style={[
-              styles.buttonLabel,
+              styles.toggle,
             ]}
           >
-            {option}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </View>
+            <Text
+              style={[
+                styles.buttonLabel,
+              ]}
+            >
+              {option}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
-        {/* For testing purposes */}
-        {view === 'ShowMap' &&
-        <Text> {view} </Text>
-          }
+    </View>{/* End of Top Container */}
 
-        {view === 'ShowList' &&
-        <Text> {view} </Text>
-          }
+    {view === 'ShowList' &&
+      <ShowList
+        label = {label}
+        values = {values}
+        selectedValue = {selectedValue}
+        setSelectedValue = {setSelectedValue}
+      ></ShowList>}
+
+    {view === 'ShowMap' &&
+      <ShowMap
+        label = {label}
+        values = {values}
+        selectedValue = {selectedValue}
+        setSelectedValue = {setSelectedValue}
+        locationData = {locationData}
+      ></ShowMap>}
 
   </View>
 
-
-
-  {view === 'ShowList' &&
-    <ShowList
-      label = {label}
-      values = {values}
-      selectedValue = {selectedValue}
-      setSelectedValue = {setSelectedValue}
-    ></ShowList>}
-
-{view === 'ShowMap' &&
-    <ShowMap
-      label = {label}
-      values = {values}
-      selectedValue = {selectedValue}
-      setSelectedValue = {setSelectedValue}
-      locationData = {locationData}
-    ></ShowMap>}
-
-</View>
-
-    {/* Bottom Container */}
-    <View style={[styles.container, { [label]: selectedValue }]}>
-      {children}
-      <Text>Bottom Container</Text>
-    </View>
+      {/* Bottom Container */}
+      <View style={[styles.container, { [label]: selectedValue }]}>
+        {children}
+        <Text>Bottom Container</Text>
+      </View>
   </View>
-)
+  )
 }
 
+
+const HomeScreen = () => {
+  const [flexDirection, setflexDirection] = useState("column");
+  const [toggleView, settoggleView] = useState("ShowList");
+  const [data, setData] = useState([]);
+
+  const getLocations = async () => {
+    try {
+     const response = await fetch('http://10.0.0.54:3000/location?featured=true')
+     const json = await response.json();
+     setData(json);
+   } catch (error) {
+     console.error(error);
+   }
+ }
+
+ useEffect(() => {
+   getLocations();
+ }, []);
+
+const filterNames = (location) => {
+  let search = query.toLowerCase().replace(/ /g,"_");
+  if(location.name.toLowerCase().startsWith(search)){
+      return <Text style={{height: 40}}>{location.name}</Text>
+  } else {
+      return null;
+  }
+}
+
+  return (
+    <FeaturedLocations
+      label="flexDirection"
+      // values={["parkcity", "aspen", "crestedbutte", "alta"]}
+      values = {data.map(location => location.name)}
+      selectedValue={flexDirection}
+      setSelectedValue={setflexDirection}
+      toggleOptions = {["ShowList", "ShowMap"]}
+      view = {toggleView}
+      setView = {settoggleView}
+      filterNames = {filterNames}
+      locationData = {data}
+    >
+    </FeaturedLocations>
+  );
+};
 
 const styles = StyleSheet.create({
   // mapcontainer: {
@@ -421,4 +359,4 @@ const styles = StyleSheet.create({
 
 
 
-export default FeaturedLocations
+export default HomeScreen
