@@ -1,0 +1,11 @@
+id,location_id,type,filename,caption
+1,7,map,vail_map_front.jpg,map of frontside ski trails
+2,6,map,vail_map_back.jpg,map of backside ski trails
+3,5,cover_photo (?),vail_action1.png,rad snowboarder
+4,8,video,homepage_video.mov,"Skier does backflip on fresh, powdery snow"
+5,10,map,map.png,map of frontside ski trails
+6,9,map,mp2.png,map of backside ski trails
+7,3,cover_photo (?),snowboarder.jpg,rad snowboarder
+8,6,video,skier.png,"Skier does backflip on fresh, powdery snow"
+9,5,map,webtoon.png,map of frontside ski trails
+10,4,map,skimap.png,map of backside ski trails
