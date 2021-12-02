@@ -75,7 +75,7 @@ const ShowList = ({
           ]}
         >
 
-          {/* <Image style={{width: '100%', height: '100%',}} source={require('../pics/Vail.jpeg')} /> */}
+          <Image style={{width: '100%', height: '100%',}} source={require('../pics/Vail.jpeg')} />
           <Text
             style={[
               styles.buttonLabel,
