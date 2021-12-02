@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Button,
@@ -17,7 +17,7 @@ import { Dimensions } from 'react-native';
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
 // for testing purposes
-import locations from '../localtestdata/Projects.json';
+// import locations from '../localtestdata/Projects.json';
 
 const styles = {
   container2: {
@@ -51,7 +51,32 @@ const styles = {
 };
 
 function TownsScreen() {
-  // const [flexDirection, setflexDirection] = useState("column");
+  
+  const [flexDirection, setflexDirection] = useState('column');
+
+  // ability to use and change data
+  const [locations, setData] = useState([]);
+
+  
+
+  const getLocations = async () => {
+    try {
+      const response = await fetch(
+        'https://localhost:3000/location'
+      );
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getLocations();
+  }, []);
+
+  console.log(locations)
+
   return (
     <ScrollView>
       <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
