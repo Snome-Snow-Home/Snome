@@ -52,30 +52,33 @@ const styles = {
 
 function TownsScreen() {
   
+  //
   const [flexDirection, setflexDirection] = useState('column');
 
   // ability to use and change data
   const [locations, setData] = useState([]);
 
   
-
+// fetch data from backend and set it to state 
   const getLocations = async () => {
     try {
       const response = await fetch(
-        'https://localhost:3000/location'
+        'http://localhost:3000/location'
       );
       const json = await response.json();
       setData(json);
+     
     } catch (error) {
       console.error(error);
     }
   };
 
+  // useEffect is a hook that runs a piece of code based on a given condition
   useEffect(() => {
     getLocations();
   }, []);
 
-  console.log(locations)
+ 
 
   return (
     <ScrollView>
@@ -85,7 +88,8 @@ function TownsScreen() {
           <>
             <View style={styles.container2}>
               <View id="locations" key={locations.id} style={styles.container}>
-                <Text>{locations.name}</Text>
+                <Text>{locations.name} </Text>
+                
                 <Image
                   style={styles.pic}
                   source={require('../pics/Snome.png')}
