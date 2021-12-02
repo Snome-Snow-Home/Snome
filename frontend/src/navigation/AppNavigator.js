@@ -11,6 +11,7 @@ import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const TAB_ICON = {
+    Home: 'home',
     Towns: 'home',
     Likes: 'favorite-outline',
     Match: 'swap-calls',
