@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
-
+import HomeScreen from '../screens/HomeScreen';
 import TownsScreen from '../screens/TownsScreen';
 import LikesScreen from '../screens/LikesScreen';
 import MatchScreen from '../screens/MatchScreen';
@@ -36,6 +36,7 @@ export const AppNavigator = () => {
       <Tab.Navigator
         screenOptions={createScreenOptions}
       >
+        <Tab.Screen name="Home" component={HomeScreen}/>
         <Tab.Screen name="Towns" component={TownsScreen}/>
         <Tab.Screen name="Likes" component={LikesScreen}/>
         <Tab.Screen name="Match" component={MatchScreen}/>
