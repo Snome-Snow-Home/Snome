@@ -1,79 +1,79 @@
 import React from 'react';
 import {
   View,
+  Button,
   Text,
   Image,
   StyleSheet,
-  Text,
-  View,
   SafeAreaView,
   SectionList,
   StatusBar,
+  ScrollView,
+  Row,
+  ImageBackground,
+  Card
 } from 'react-native';
 
 // for testing purposes
-const DATA = [
-  {
-    title: 'Main dishes',
-    data: ['Pizza', 'Burger', 'Risotto'],
-  },
-  {
-    title: 'Sides',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
+import card from "../localtestdata/Projects.json";
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+const styles = StyleSheet.create({
+ cards: {
+  width: 450,
+    height: 400,
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: 5,
+  
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+
+  },
+  pic:{
+    width: 400,
+    height: 200,
+ },
+
+});
 
 const LikesScreen = () => {
   return (
-    <View>
-      <Image
+    <ScrollView>
+    
+      <div >   <Image
+       style={styles.tinyLogo}
         source={require('../pics/Snome.png')}
-        style={{ width: 60, height: 60 }}
-      />{' '}
-      <Text> Snome Likes </Text>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <Item title={item} />}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-      />
-    </View>
+      />Snome Likes </div>
+    
+              {card.map((card) => (
+                
+           <View className="container" id="cards"  key={card.id}  style={styles.cards} >
+           <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.image}>
+                <h1  >{card.name} <Image
+       style={styles.pic}
+        source={require('../pics/Snome.png')}
+      /></h1>
+                <h3 > {card.description}</h3>
+                <button> <a href={card.deployed} target="_blank">
+                  View Snome ETC.
+                      </a></button>
+                </ImageBackground>
+              </View>
+           
+              ))}
+   
+   </ScrollView>
+                   
+                      
+                 
+
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8
-  },
-  header: {
-    fontSize: 32,
-    backgroundColor: "#fff"
-  },
-  title: {
-    fontSize: 24
-  }
-});
+
+
+
 
 export default LikesScreen;
+
