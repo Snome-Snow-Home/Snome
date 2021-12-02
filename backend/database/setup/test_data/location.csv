@@ -1,0 +1,11 @@
+id,name,longitude,latitude,city,state,active,featured,cover_image,description,notable_features ,links
+1,Vail Ski Resort,39.641033,-106.3981,Vail,Colorado,TRUE,TRUE,dfs,Nice ski resort,the third-largest single-mountain ski resort in the United States,https://www.vail.com/
+2,Aspen/Snowmass,39.190666,-106.8192,Aspen,Colorado,TRUE,TRUE,sfd,Nice ski resort,brand new 10.7-million-dollar high-speed quad chairlift,https://www.aspensnowmass.com/
+3,Snowbird,40.58111,-111.65639,Salt Lake City,Utah,TRUE,FALSE,sdf,Nice ski resort,"consistently light, dry snow",https://www.snowbird.com/
+4,Park City Mountain Resort,40.651363,-111.50779,Park City,Utah,TRUE,TRUE,sdfsf,Nice ski resort,restaurants and shops provides a laundry list of options for après ski activities.,https://www.parkcitymountain.com/
+5,Telluride Ski Resort,37.936615,-107.8464,Telluride,Colorado,TRUE,FALSE,sdfsdf,Nice ski resort, short lift lines and less crowds,https://www.tellurideskiresort.com/
+6,Jackson Hole Mountain Resort,43.587563,-110.827866,Teton Village,Wyomin,TRUE,TRUE,sdg,Nice ski resort,"Jackson Hole has averaged about 38 feet of snow annually. The resort has 2,500 acres of terrain and 133 named runs, as well as multiple terrain parks",https://www.jacksonhole.com/
+7,Breckenridge Ski Resort,39.48031,-106.06667,Breckenridge,Colorado,TRUE,FALSE,sfsdf,Nice ski resort,"Home to the highest chairlift in the USA at 12,840 feet, this resort will literally take your breath away",https://www.breckenridge.com/
+8,Beaver Creek,39.634525,-106.52583,Avon,Colorado,TRUE,FALSE,sdfsdf,Nice ski resort,two brand new quad chairs,https://www.beavercreek.com/
+9,Alta Ski Area,40.571892,-111.763184,Alta,Utah,TRUE,FALSE,sdf,Nice ski resort,Suuny,www.google.com
+10,Squaw Valley,39.195953,-120.236275,Olympic Valley,California,TRUE,FALSE,sfdf,Nice ski resort,Close to lots of amenities,www.google.com

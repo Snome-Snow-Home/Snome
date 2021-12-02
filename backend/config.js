@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 /* COMMON CONFIGURATION */
 common = {
     db: {
@@ -13,6 +12,12 @@ common = {
     server: {
         host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
+    },
+    s3: {
+        region: process.env.REGION,
+        bucketName: process.env.AWS_BUCKET_NAME,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     }
 }
 
@@ -21,8 +26,9 @@ development = {
     
 }
 
-/* CI CONFIGURATION */
-ci = {
+/* TEST CONFIGURATION */
+// note: jest sets NODE_ENV to 'test'
+test = {
 
 }
 
@@ -39,10 +45,10 @@ if (process.env.NODE_ENV == "dev") {
 }
 
 
-if (process.env.NODE_ENV == "ci") {
+if (process.env.NODE_ENV == "test") {
     module.exports = {
         ...common,
-        ...ci
+        ...test
     }
 }
 
@@ -54,4 +60,4 @@ if (process.env.NODE_ENV == "prod") {
     }
 }
 
-    
+  

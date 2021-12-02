@@ -1,0 +1,11 @@
+id,recipient,sender,time,message_text,has_been_read
+1,1,4,1999-01-08 4:05:06,"""your place is so cool!""",TRUE
+2,4,1,1999-01-08 4:06:06,"""you're gonna love it""",TRUE
+3,2,5,1999-01-08 4:07:06,"""when do you want to come?""",TRUE
+4,6,7,1999-01-08 4:08:06,"""i'll recommend some bars""",TRUE
+5,7,6,1999-01-08 4:09:06,"""can you recommend some restaurants?""",TRUE
+6,2,1,1999-01-08 4:10:06,"""are you really close to the mountain?""",TRUE
+7,9,10,1999-01-08 4:11:06,"""let's connect soon""",TRUE
+8,3,8,1999-01-08 4:12:06,"""can I extend my stay?""",FALSE
+9,5,2,1999-01-08 4:13:06,"""have you been in town before?""",FALSE
+10,1,8,1999-01-08 4:14:06,"""see you soon!""",FALSE
