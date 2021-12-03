@@ -60,7 +60,6 @@ module.exports = {
     let uploadPhotoPromises = [];
     // 3. loop over req.files...
     let photos = req.files;
-    console.log(req.files);
     photos.forEach((photo) => {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
