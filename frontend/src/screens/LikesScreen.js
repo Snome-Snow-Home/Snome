@@ -11,69 +11,67 @@ import {
   ScrollView,
   Row,
   ImageBackground,
-  Card
+  Dimensions,
+  Card,
 } from 'react-native';
 
 // for testing purposes
-import card from "../localtestdata/Projects.json";
+import card from '../localtestdata/Projects.json';
 
-const styles = StyleSheet.create({
- cards: {
-  width: 450,
-    height: 400,
+const styles = {
+  cards: {
+    width: Dimensions.get('window').width * 0.4,
+    height: 450,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    flex: 3,
     border: '1px solid #ccc',
     borderRadius: '5px',
     padding: 5,
-  
   },
   tinyLogo: {
     width: 50,
     height: 50,
-
   },
-  pic:{
-    width: 400,
-    height: 200,
- },
-
-});
+  //   pic:{
+  //     width:Dimensions.get('window').width * 0.4,
+  //     height:Dimensions.get('window').height * 0.2,
+  //  },
+};
 
 const LikesScreen = () => {
   return (
     <ScrollView>
-    
-      <div >   <Image
-       style={styles.tinyLogo}
-        source={require('../pics/Snome.png')}
-      />Snome Likes </div>
-    
-              {card.map((card) => (
-                
-           <View className="container" id="cards"  key={card.id}  style={styles.cards} >
-           <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.image}>
-                <h1  >{card.name} <Image
-       style={styles.pic}
-        source={require('../pics/Snome.png')}
-      /></h1>
-                <h3 > {card.description}</h3>
-                <button> <a href={card.deployed} target="_blank">
-                  View Snome ETC.
-                      </a></button>
-                </ImageBackground>
-              </View>
-           
-              ))}
-   
-   </ScrollView>
-                   
-                      
-                 
+      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
+      <Text> Snome Likes </Text>
 
+      {card.map((card) => (
+        <View
+          className="container"
+          id="cards"
+          key={card.id}
+          style={styles.cards}
+        >
+          <Text>{card.name}</Text>
+          <Image style={styles.pic} source={require('../pics/Snome.png')} />
+          <Text> {card.description}</Text>
+
+          {/* <Button href={card.deployed} target="_blank">
+                  View Snome ETC.
+                      </Button> */}
+          <Button
+            //  onPress={() =>
+            //   navigation.navigate('Match')
+            // }
+            title="  View Snome ETC."
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+          />
+        </View>
+      ))}
+    </ScrollView>
   );
 };
 
-
-
-
 export default LikesScreen;
-
