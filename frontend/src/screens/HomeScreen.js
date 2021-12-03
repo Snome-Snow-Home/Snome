@@ -61,35 +61,42 @@ const ShowList = ({
     values,
     selectedValue,
     setSelectedValue,
-    toggleOptions}) => (
+    toggleOptions,
+    locationData
+  }) =>  {
+    console.log(locationData)
+    return (
   <>
   <Text style={styles.label}>{label}</Text>
     <View style={[styles.row, styles.ListMapContainer]}>
-      {values.map((value) => (
+      {locationData.map((location) => (
         <TouchableOpacity
-          key={value}
-          onPress={() => setSelectedValue(value)}
+          key={location.name}
+          onPress={() => setSelectedValue(location.name)}
           style={[
             styles.location,
-            selectedValue === value && styles.selected,
+            selectedValue === location.name && styles.selected,
           ]}
         >
 
-          <Image style={{width: '100%', height: '100%',}} source={require('../pics/Vail.jpeg')} />
+          <Image style={{width: '100%', height: '100%',}}
+          source={require(`../pics/${location.name}.jpeg`)} />
           <Text
             style={[
               styles.buttonLabel,
-              selectedValue === value && styles.selectedLabel,
+              selectedValue === location.name && styles.selectedLabel,
             ]}
           >
-            {value}
+            {location.name}
           </Text>
 
         </TouchableOpacity>
       ))}
     </View>
     </>
-)
+  )
+
+}
 
 const ShowMap = ({
   label,
@@ -184,6 +191,7 @@ const FeaturedLocations = ({
         values = {values}
         selectedValue = {selectedValue}
         setSelectedValue = {setSelectedValue}
+        locationData = {locationData}
       ></ShowList>}
 
     {view === 'ShowMap' &&
