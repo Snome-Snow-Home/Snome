@@ -11,6 +11,7 @@ import {
   ScrollView,
   Row,
   ImageBackground,
+  Dimensions,
   Card
 } from 'react-native';
 
@@ -18,12 +19,17 @@ import {
 import card from "../localtestdata/Projects.json";
 
 const styles = {
+
  cards: {
-  width: 350,
-    height: 300,
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    padding: 5,
+  width: Dimensions.get('window').width * 0.4,
+  height: 450,
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-evenly',
+  flex: 3,
+  border: '1px solid #ccc',
+  borderRadius: '5px',
+  padding: 5,
 
   },
   tinyLogo: {
@@ -31,10 +37,10 @@ const styles = {
     height: 50,
 
   },
-  pic:{
-    width: 300,
-    height: 200,
- },
+//   pic:{
+//     width:Dimensions.get('window').width * 0.4,
+//     height:Dimensions.get('window').height * 0.2,
+//  },
 
 };
 
@@ -51,7 +57,7 @@ const LikesScreen = () => {
               {card.map((card) => (
 
            <View className="container" id="cards"  key={card.id}  style={styles.cards} >
-           <ImageBackground source={require('../pics/node.png')} resizeMode="cover" style={styles.pic}>
+       
                 <Text  >{card.name}</Text>
                  <Image
        style={styles.pic}
@@ -59,7 +65,6 @@ const LikesScreen = () => {
       />
                 <Text > {card.description}</Text>
 
-                </ImageBackground>
                 {/* <Button href={card.deployed} target="_blank">
                   View Snome ETC.
                       </Button> */}
