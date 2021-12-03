@@ -214,7 +214,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-     const response = await fetch('http://10.0.0.54:3000/location?featured=true')
+     const response = await fetch('http://10.0.0.53:3000/location?featured=true')
      const json = await response.json();
      setData(json);
    } catch (error) {
