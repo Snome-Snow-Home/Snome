@@ -26,13 +26,13 @@ module.exports = {
       try {
         uploadPhotoPromises.push(
           uploadToS3(photo, 'snome_photo')
-        )  
+        )
       } catch(err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`)
         res.status(500).send(err);
       }
-    }) 
-      
+    })
+
     // 4. call Promise.all on promise array to upload files in parallel
     Promise.all(uploadPhotoPromises).then(
       async (urls) => {
@@ -44,7 +44,7 @@ module.exports = {
             console.log(`SERVER SIDE ERROR - POST: ${err}`);
             res.status(500).send(err);  // exit loop and respond to client
           }
-        }) 
+        })
       }
     )
 
@@ -52,7 +52,7 @@ module.exports = {
     res.status(201).send('SUCCESS!');
   },
 
-  
+
   createSnomePhotos: async (req, res) => {
     // 1. get snome id from request.params
     const snome_id = req.params.id;
@@ -63,15 +63,8 @@ module.exports = {
 
   },
 
-  createUser: async (req, res) => {
-    try {
-      await post.createUser(req.body);
-      res.status(201).send('Success!');
-    } catch(err) {
-      console.log(`SERVER SIDE ERROR - POST: ${err}`);
-      res.status(500).send(err);
-    }
-  },
+
+  //createUser moved to './user'
 
   createLike: async (req, res) => {
     post.createLike(req.body)
