@@ -37,7 +37,7 @@ module.exports = {
     await Promise.all(uploadPhotoPromises).then(
       async (urls) => {
         // 5. create snomePhotos in db using inserted_id and s3 urls
-        urls.forEach(async url => {
+        urls.forEach(async (url) => {
           try {
             await post.createSnomePhoto(inserted_id, url)
           } catch(err) {
@@ -77,7 +77,7 @@ module.exports = {
     await Promise.all(uploadPhotoPromises).then(
       async (urls) => {
         // 5. create snomePhotos in db using snome_id and s3 urls
-        urls.forEach(async url => {
+        urls.forEach(async (url) => {
           try {
             await post.createSnomePhoto(snome_id, url)
           } catch(err) {
