@@ -1,29 +1,41 @@
 const db = require('../../database');
 
 module.exports = {
-  getUser: async (id) => {
-    try {
-      let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR:  ${err}`);
-      return err;
-    }
-  },
 
-  getAllUsers: async () => {
+  createUser: async ({ location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
     try {
-      let result = await db.manyOrNone('SELECT * FROM snome_user');
-      return result;
+      await db.none(`
+        INSERT INTO snome_user (
+          id,
+          location_id,
+          name,
+          travel_start,
+          travel_end,
+          age,
+          user_phone,
+          user_photo,
+          video_tour,
+          about,
+          email,
+          mailing_address,
+          residential_address,
+          password,
+          isActive
+        )
+        VALUES ((SELECT MAX(id) FROM snome_user) +1,
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+        )
+      `, [location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address]);
+      return 'New user created!'
     } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
+      console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
   },
 
   updateUser: async (id, { location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
     try {
-      await put.none(`
+      await db.none(`
         UPDATE snome_user
         SET
           location_id=$1,
@@ -48,34 +60,46 @@ module.exports = {
     }
   },
 
-  createUser: async ({ location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
+  getUser: async (id) => {
     try {
-      await db.none(`
-        INSERT INTO snome_user (
-          id,
-          location_id,
-          name,
-          travel_start,
-          travel_end,
-          age,
-          user_phone,
-          user_photo,
-          video_tour,
-          about,
-          email,
-          mailing_address,
-          residential_address
-        )
-        VALUES ((SELECT MAX(id) FROM snome_user) +1,
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
-        )
-      `, [location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address]);
-      return 'New user created!'
+      let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
+      return result;
     } catch(err) {
-      console.log(`DATABASE ERROR - POST: ${err}`);
+      console.log(`DATABASE ERROR:  ${err}`);
       return err;
     }
   },
+
+  checkForEmail: async (email) => {
+    try {
+      let emailExists = await db.one(
+        `SELECT
+          CASE WHEN EXISTS
+          (
+            SELECT id FROM snome_user WHERE email=${email}
+          )
+            THEN 'TRUE'
+            ELSE 'FALSE'
+          END
+      `);
+      return emailExists;
+      //
+    } catch(err) {
+      console.log(`DATABASE ERROR while checking if email exists:  ${err}`);
+    }
+  }
+
+  getAllUsers: async () => {
+    try {
+      let result = await db.manyOrNone('SELECT * FROM snome_user');
+      return result;
+    } catch(err) {
+      console.log(`DATABASE ERROR: ${err}`);
+      return err;
+    }
+  },
+
+
 
   deleteUser: async (id) => {
     try {
