@@ -31,8 +31,16 @@ CREATE TABLE "snome_user" (
     "mailing_address" text, --  NOT NULL,  -- separate into address fields (separate)
     "residential_address" text, --  NOT NULL  -- separate into address fields (separate)
     "password" varchar NOT NULL,-- add password
-    "isActive" boolean NOT NULL,-- is active flag
+    "isActive" boolean NOT NULL-- is active flag
 );
+
+CREATE TABLE "address" {
+  "id" serial PRIMARY KEY,
+  "street_address" varchar NOT NULL,
+  "city" text NOT NULL,
+  "state" char(2) NOT NULL,
+  "zip_code" integer(9) NOT NULL
+}
 
 CREATE TABLE "snome" (
     "id" serial PRIMARY KEY,
