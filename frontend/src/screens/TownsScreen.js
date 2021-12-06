@@ -50,7 +50,7 @@ const styles = {
   },
 };
 
-function TownsScreen() {
+function TownsScreen({route}) {
 
   //
   const [flexDirection, setflexDirection] = useState('column');
@@ -63,7 +63,7 @@ function TownsScreen() {
   const getLocations = async () => {
     try {
       const response = await fetch(
-        'http://localhost:3000/location'
+        'http://10.0.0.53:3000/location'
       );
       const json = await response.json();
       setData(json);
@@ -89,6 +89,10 @@ function TownsScreen() {
             <View style={styles.container2}>
               <View id="locations" key={locations.id} style={styles.container}>
                 <Text>{locations.name} </Text>
+
+                {route.params ?
+                <Text> "Location ID: " {route.params.location_id} </Text>
+                : null }
 
                 <Image
                   style={styles.pic}
