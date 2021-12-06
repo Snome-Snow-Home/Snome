@@ -22,13 +22,13 @@ CREATE TABLE "snome_user" (
     "name" text   NOT NULL,
     "travel_start" varchar, --  NOT NULL,  -- should be nullable
     "travel_end" varchar,  -- NOT NULL,    -- should be nullable
-    "age" int   NOT NULL,
+    "age" int               --NOT NULL,
     "user_phone" bigint, --  NOT NULL,
     "user_photo" text, --  NOT NULL,  -- should be nullable
     "video_tour" text, --   NOT NULL,  -- should be nullable
     "about" text   NOT NULL,
     "email" text   NOT NULL,
-    "mailing_address" text, --  NOT NULL,  -- separate into address fields (separate)
+    "mailing_address" int REFERENCES address ("id") NOT NULL,
     "residential_address" text, --  NOT NULL  -- separate into address fields (separate)
     "password" varchar NOT NULL,-- add password
     "isActive" boolean NOT NULL-- is active flag

@@ -70,6 +70,16 @@ module.exports = {
     }
   },
 
+  getAllUsers: async () => {
+    try {
+      let result = await db.manyOrNone('SELECT * FROM snome_user');
+      return result;
+    } catch(err) {
+      console.log(`DATABASE ERROR: ${err}`);
+      return err;
+    }
+  },
+
   checkForEmail: async (email) => {
     try {
       let emailExists = await db.one(
@@ -88,18 +98,6 @@ module.exports = {
       console.log(`DATABASE ERROR while checking if email exists:  ${err}`);
     }
   }
-
-  getAllUsers: async () => {
-    try {
-      let result = await db.manyOrNone('SELECT * FROM snome_user');
-      return result;
-    } catch(err) {
-      console.log(`DATABASE ERROR: ${err}`);
-      return err;
-    }
-  },
-
-
 
   deleteUser: async (id) => {
     try {

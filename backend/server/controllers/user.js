@@ -43,6 +43,16 @@ module.exports = {
     }
   },
 
+  checkForEmail: async (req, res) => {
+    try {
+      let data = await user.checkForEmail(req.body.email);
+      res.status(200).send(data);
+    } catch(err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  }
+
   deleteUser: async (req, res) => {
     try {
       await user.deleteUser(req.params.id);
