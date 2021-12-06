@@ -50,24 +50,24 @@ const styles = {
   },
 };
 
-function TownsScreen() {
-  
+function TownsScreen({route}) {
+
   //
   const [flexDirection, setflexDirection] = useState('column');
 
   // ability to use and change data
   const [locations, setData] = useState([]);
 
-  
-// fetch data from backend and set it to state 
+
+// fetch data from backend and set it to state
   const getLocations = async () => {
     try {
       const response = await fetch(
-        'http://localhost:3000/location'
+        'http://10.0.0.53:3000/location'
       );
       const json = await response.json();
       setData(json);
-     
+
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +78,7 @@ function TownsScreen() {
     getLocations();
   }, []);
 
- 
+ //test
 
   return (
     <ScrollView>
@@ -89,7 +89,11 @@ function TownsScreen() {
             <View style={styles.container2}>
               <View id="locations" key={locations.id} style={styles.container}>
                 <Text>{locations.name} </Text>
-                
+
+                {route.params ?
+                <Text> "Location ID: " {route.params.location_id} </Text>
+                : null }
+
                 <Image
                   style={styles.pic}
                   source={require('../pics/Snome.png')}

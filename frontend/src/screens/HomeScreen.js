@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image} from "react-native";
 import MapView, { Marker } from 'react-native-maps';
-
+import { useNavigation } from '@react-navigation/native';
 
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
@@ -64,7 +64,9 @@ const ShowList = ({
     toggleOptions,
     locationData
   }) =>  {
-    console.log(locationData)
+    // console.log(locationData)
+    const navigation = useNavigation()
+
     return (
   <>
   <Text style={styles.label}>{label}</Text>
@@ -72,7 +74,7 @@ const ShowList = ({
       {locationData.map((location) => (
         <TouchableOpacity
           key={location.name}
-          onPress={() => setSelectedValue(location.name)}
+          onPress={() => {setSelectedValue(location.name); navigation.navigate('Towns', {'location_id': location.id})}}
           style={[
             styles.location,
             selectedValue === location.name && styles.selected,
