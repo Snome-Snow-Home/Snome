@@ -64,7 +64,7 @@ const ShowList = ({
     toggleOptions,
     locationData
   }) =>  {
-    console.log(locationData)
+    // console.log(locationData)
     return (
   <>
   <Text style={styles.label}>{label}</Text>
@@ -223,6 +223,7 @@ const HomeScreen = () => {
   const getLocations = async () => {
     try {
      const response = await fetch('http://localhost:3000/location?featured=true')
+     console.log(response)
      const json = await response.json();
      setData(json);
    } catch (error) {
