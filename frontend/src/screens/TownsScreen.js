@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Button,
@@ -51,23 +51,18 @@ const styles = {
 };
 
 function TownsScreen() {
-  
   //
   const [flexDirection, setflexDirection] = useState('column');
 
   // ability to use and change data
   const [locations, setData] = useState([]);
 
-  
-// fetch data from backend and set it to state 
+  // fetch data from backend and set it to state
   const getLocations = async () => {
     try {
-      const response = await fetch(
-        'http://localhost:3000/location'
-      );
+      const response = await fetch('http://localhost:3000/location');
       const json = await response.json();
       setData(json);
-     
     } catch (error) {
       console.error(error);
     }
@@ -78,8 +73,6 @@ function TownsScreen() {
     getLocations();
   }, []);
 
- 
-
   return (
     <ScrollView>
       <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
@@ -89,7 +82,7 @@ function TownsScreen() {
             <View style={styles.container2}>
               <View id="locations" key={locations.id} style={styles.container}>
                 <Text>{locations.name} </Text>
-                
+
                 <Image
                   style={styles.pic}
                   source={require('../pics/Snome.png')}
