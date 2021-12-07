@@ -1,11 +1,28 @@
-const db = require('../../database');
+const db = require("../../database");
 
 /* define model queries for put requests here */
 
 module.exports = {
-  updateSnome: async (id, { owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description }) => {
-    try {
-      let result = await db.none(`
+  updateSnome: async (
+    id,
+    {
+      owner_id,
+      location_id,
+      header,
+      time_to_mountain,
+      mountain_access,
+      availability_start,
+      availability_end,
+      street_address,
+      bedrooms,
+      bathrooms,
+      number_of_beds,
+      perks,
+      snome_description,
+    }
+  ) => {
+    let result = await db.none(
+      `
       UPDATE snome
       SET
         owner_id=$1,
@@ -21,19 +38,45 @@ module.exports = {
         number_of_beds=$11,
         perks=$12,
         snome_description=$13
-      WHERE id=${id}`, [owner_id, location_id, header, time_to_mountain, mountain_access,
-         availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds,
-          perks, snome_description]);
-      return 'Update successful';
-    } catch(err) {
-      console.log(`DATABASE ERROR - PUT: ${err}`)
-      return err;
-    }
+      WHERE id=${id}`,
+      [
+        owner_id,
+        location_id,
+        header,
+        time_to_mountain,
+        mountain_access,
+        availability_start,
+        availability_end,
+        street_address,
+        bedrooms,
+        bathrooms,
+        number_of_beds,
+        perks,
+        snome_description,
+      ]
+    );
+    return "Update successful";
   },
 
-  updateUser: async (id, { location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
-    try {
-      await put.none(`
+  updateUser: async (
+    id,
+    {
+      location_id,
+      name,
+      travel_start,
+      travel_end,
+      age,
+      user_phone,
+      user_photo,
+      video_tour,
+      about,
+      email,
+      mailing_address,
+      residential_address,
+    }
+  ) => {
+    await put.none(
+      `
         UPDATE snome_user
         SET
           location_id=$1,
@@ -49,30 +92,37 @@ module.exports = {
           mailing_address=$11,
           residential_address=$12
         WHERE id=${id}
-      `, [location_id, name, travel_start, travel_end, age, user_phone,
-        user_photo, video_tour, about, email, mailing_address, residential_address]);
-        return 'Update Successful';
-    } catch(err) {
-      console.log(`DATABASE ERROR - PUT: ${err}`);
-      return err;
-    }
+      `,
+      [
+        location_id,
+        name,
+        travel_start,
+        travel_end,
+        age,
+        user_phone,
+        user_photo,
+        video_tour,
+        about,
+        email,
+        mailing_address,
+        residential_address,
+      ]
+    );
+    return "Update Successful";
   },
 
   updateReview: async (id, { snome_id, stars, review }) => {
-    try {
-      await db.none(`
+    await db.none(
+      `
         UPDATE review
         SET
           snome_id=$1,
           stars=$2,
           review=$3
         WHERE id=${id}
-      `, [snome_id, stars, review]);
-        return 'Update Successful';
-    } catch(err) {
-      console.log(`DATABASE ERROR - PUT: ${err}`);
-      return err;
-    }
+      `,
+      [snome_id, stars, review]
+    );
+    return "Update Successful";
   },
-}
-
+};

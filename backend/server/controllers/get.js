@@ -1,4 +1,4 @@
-const { get, helpers } = require('../models');
+const { get, helpers } = require("../models");
 
 /* define get request handlers here */
 
@@ -8,18 +8,18 @@ module.exports = {
       const model = helpers.getModelFromUrl(req);
       let data = await get.getAll(model, req.query);
       res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`)
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-},
+  },
   getOne: async (req, res) => {
     try {
       const id = req.params.id;
       const model = helpers.getModelFromUrl(req);
       const data = await get.getOne(id, model);
       res.status(200).send(data);
-    } catch(err) {
+    } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(404).send(err);
     }
@@ -29,7 +29,7 @@ module.exports = {
     try {
       let data = await get.getUser(req.params.id);
       res.status(200).send(data);
-    } catch(err) {
+    } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
@@ -39,7 +39,7 @@ module.exports = {
     try {
       let data = await get.getAllUsers();
       res.status(200).send(data);
-    } catch(err) {
+    } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
@@ -47,15 +47,16 @@ module.exports = {
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (req, res) => {
     const user_id = req.params.user_id;
-    get.getUnreadLikes(user_id)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send(
-      "Some error occurred while fetching unread Likes."
-      )
-    })
+    get
+      .getUnreadLikes(user_id)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send("Some error occurred while fetching unread Likes.");
+      });
   },
 
   getSnomeReviews: async (req, res) => {
@@ -78,5 +79,4 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
-
 };

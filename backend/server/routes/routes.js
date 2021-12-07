@@ -18,7 +18,7 @@ router.delete("/snome/:id", controller.remove.delete);
 
 /* SNOME USER */
 router.post("/signup", controller.post.createUser);
-router.get("/user/id/:id", controller.get.getUser);
+router.get("/user/:id", controller.get.getUser);
 router.get("/user", controller.get.getAllUsers); /* for dev only */
 router.put("/user/:id", controller.put.updateUser);
 router.delete("/user/:id", controller.remove.deleteUser);
@@ -47,5 +47,8 @@ router.get("/review", controller.get.getAll);
 
 /* SNOME PHOTO */
 
-router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
-
+router.post(
+  "/snome/:id/photos",
+  uploadSnomePhotos.any("snome_photos"),
+  controller.post.createSnomePhotos
+); // for development only
