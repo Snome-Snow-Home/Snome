@@ -1,68 +1,52 @@
 const config = require('../../../config.js');
 const aws = require('aws-sdk');
-const fs = require('fs');
-const crypto = require('crypto')
+const fs = require('fs-extra');
 const { promisify } = require('util')
 
 // credit: https://iamsohail.medium.com/how-to-upload-multiple-files-parallelly-to-amazon-s3-3b9ac3630806
 
-module.exports = {
-    uploadToS3: uploadToS3,
-    generateFileKey: generateFileKey
-}
-
-const AWS_REGION = config.s3.region
-const AWS_ACCESS_KEY_ID = config.s3.accessKeyId
-const AWS_SECRET_ACCESS_KEY = config.s3.secretAccessKey
-const AWS_BUCKET_NAME = config.s3.bucketName
+const region = config.s3.region
+const accessKeyId = config.s3.accessKeyId
+const secretAccessKey  = config.s3.secretAccessKey
+const bucketName = config.s3.bucketName
 
 const s3 = new aws.S3({
-  AWS_REGION,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
+    region,
+    accessKeyId,
+    secretAccessKey
 })
 
-async function uploadToS3(fileName, fileKey) {
+async function uploadToS3(file) {
 
-    // this function should accept a file object and ranomly generated fileKey...
-    // RETURN a promise to upload file to s3 bucket (specified by params) and return url on resolve
+    // this function should accept a file object and ranomly generated filename...
+    // RETURN a promise of S3 URL
 
 
     return new Promise(async function(resolve, reject){
         const params = ({
-            Bucket: AWS_BUCKET_NAME,
-            Key: fileKey,
-            ACL: 'public-read',
-            Body: fs.createReadStream(fileName.path),
-            ContentType: fileName.type
-          })
+            Bucket: bucketName,
+            Key: file.filename,
+            Body: fs.createReadStream(file.path)
+        });
 
-          // send request to s3 api
-          await s3.upload(params, function(s3Err, data) {
-              if (s3Err) reject(s3Err);
-              console.log(data.Location); // TEST
-              resolve(data.Location);  // returns s3 url ? 
-          })
+        // send request to S3 API
+        await s3.upload(params, function(err, data) {
+        if (err) {
+            console.log("Error", err);
+            reject(err);
+        } if (data) {
+            console.log("Upload Success", data.Location);
+            const path = file.destination + file.filename
+            fs.remove(path, (err) => {
+                if (err) return console.error(err)
+                console.log('The file was successfully removed!')
+              })
+            resolve(data.Location);
+        }
+        })
     })
 }
 
-
-async function generateFileKey() {
-
-    // function for generating random filename
-    // should accept parameters for valid naming requirements?
-    // should return random string to be used as a fileKey for object in s3 bucket
-    
-    const randomBytes = promisify(crypto.randomBytes);
-    const rawBytes = await randomBytes(16);
-    const imageName = rawBytes.toString('hex');
-
-    return imageName;
-}
-
-
-
-
-
-
-
+module.exports = {
+    uploadToS3: uploadToS3
+}; 
