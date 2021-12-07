@@ -97,7 +97,7 @@ module.exports = {
     } catch(err) {
       console.log(`DATABASE ERROR while checking if email exists:  ${err}`);
     }
-  }
+  },
 
   deleteUser: async (id) => {
     try {

@@ -51,7 +51,7 @@ module.exports = {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-  }
+  },
 
   deleteUser: async (req, res) => {
     try {

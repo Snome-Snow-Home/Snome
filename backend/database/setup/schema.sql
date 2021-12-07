@@ -1,6 +1,8 @@
 -- order matters for setting FK relations
 
+
 -- ski resort
+DROP TABLE IF EXISTS "location";
 CREATE TABLE "location" (
     "id" serial   PRIMARY KEY,
     "name" text   NOT NULL,
@@ -16,32 +18,35 @@ CREATE TABLE "location" (
     "links" text   NOT NULL
 );
 
+DROP TABLE IF EXISTS "address";
+CREATE TABLE "address" (
+  "id" serial PRIMARY KEY,
+  "street" varchar NOT NULL,
+  "city" text NOT NULL,
+  "state" char(2) NOT NULL,
+  "zip_code" int NOT NULL
+);
+
+DROP TABLE IF EXISTS "snome_user";
 CREATE TABLE "snome_user" (
     "id" serial PRIMARY KEY,
     "location_id" int REFERENCES "location",
     "name" text   NOT NULL,
     "travel_start" varchar, --  NOT NULL,  -- should be nullable
     "travel_end" varchar,  -- NOT NULL,    -- should be nullable
-    "age" int               --NOT NULL,
+    "age" int,               --NOT NULL,
     "user_phone" bigint, --  NOT NULL,
     "user_photo" text, --  NOT NULL,  -- should be nullable
     "video_tour" text, --   NOT NULL,  -- should be nullable
     "about" text   NOT NULL,
     "email" text   NOT NULL,
-    "mailing_address" int REFERENCES address ("id") NOT NULL,
-    "residential_address" text, --  NOT NULL  -- separate into address fields (separate)
+    "mailing_address" int REFERENCES "address" NOT NULL,
+    "residential_address"  int REFERENCES "address" NOT NULL, --  NOT NULL  -- separate into address fields (separate)
     "password" varchar NOT NULL,-- add password
     "isActive" boolean NOT NULL-- is active flag
 );
 
-CREATE TABLE "address" {
-  "id" serial PRIMARY KEY,
-  "street_address" varchar NOT NULL,
-  "city" text NOT NULL,
-  "state" char(2) NOT NULL,
-  "zip_code" integer(9) NOT NULL
-}
-
+DROP TABLE IF EXISTS "snome";
 CREATE TABLE "snome" (
     "id" serial PRIMARY KEY,
     "owner_id" int  NOT NULL REFERENCES "snome_user",
@@ -59,6 +64,7 @@ CREATE TABLE "snome" (
     "description" text   NOT NULL
 );
 
+DROP TABLE IF EXISTS "snome_like";
 CREATE TABLE "snome_like" (
     "id" serial PRIMARY KEY,
     "snome_user_id" int NOT NULL REFERENCES "snome_user",
@@ -66,6 +72,7 @@ CREATE TABLE "snome_like" (
     "has_been_read" boolean  DEFAULT false NOT NULL
 );
 
+DROP TABLE IF EXISTS "match";
 CREATE TABLE "match" (
     "id" serial PRIMARY KEY,
     "snome_user_id" int NOT NULL REFERENCES "snome_user",
@@ -73,6 +80,7 @@ CREATE TABLE "match" (
     "has_been_read" boolean  DEFAULT false NOT NULL
 );
 
+DROP TABLE IF EXISTS "message";
 CREATE TABLE "message" (
     "id" serial PRIMARY KEY,
     "recipient_id" int NOT NULL REFERENCES "snome_user",
@@ -82,6 +90,7 @@ CREATE TABLE "message" (
     "has_been_read" boolean   NOT NULL
 );
 
+DROP TABLE IF EXISTS "trip";
 CREATE TABLE "trip" (
     "id" serial PRIMARY KEY,
     "trip_start" date   NOT NULL,
@@ -90,12 +99,14 @@ CREATE TABLE "trip" (
     "snome_id" int NOT NULL REFERENCES "snome"
 );
 
+DROP TABLE IF EXISTS "snome_photo";
 CREATE TABLE "snome_photo" (
     "id" serial PRIMARY KEY,
     "snome_id" int  NOT NULL REFERENCES "snome",
     "url" text   NOT NULL
 );
 
+DROP TABLE IF EXISTS "review";
 CREATE TABLE "review" (
     "id" serial PRIMARY KEY,
     "snome_user_id" int NOT NULL REFERENCES "snome_user",
@@ -105,6 +116,7 @@ CREATE TABLE "review" (
     "review" text   NOT NULL
 );
 
+DROP TABLE IF EXISTS "location_media";
 CREATE TABLE "location_media" (
     "id" serial PRIMARY KEY,
     "location_id" int NOT NULL REFERENCES "location",
