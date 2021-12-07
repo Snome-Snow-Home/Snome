@@ -68,6 +68,19 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+    getSnomeByLocationId: async (req, res) => {
+    try {
+      const location_id = req.params.id;
+      let data = await get.getSnomeByLocationId(location_id);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }  
+
+
+  }
+  
 
   // <TEMPLATE>: async (req, res) => {
   //   try {

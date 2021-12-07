@@ -77,4 +77,16 @@ module.exports = {
     }
   },
 
+  getSnomeByLocationId: async (location_id) => {
+    try {
+      let result = await db.manyOrNone(`SELECT * FROM snome WHERE location_id = ${location_id}`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+
+  }
+
 };

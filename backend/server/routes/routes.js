@@ -27,6 +27,7 @@ router.delete("/user/:id", controller.remove.deleteUser);
 // TODO create, update, delete location? (admin only)
 router.get("/location", controller.get.getAll);
 router.get("/location/:id", controller.get.getOne);
+router.get("/snome/:location_id", controller.get.getSnomeByLocationId)
 
 /* LIKES */
 router.post("/like", controller.post.createLike);
