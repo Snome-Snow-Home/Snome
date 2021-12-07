@@ -158,7 +158,7 @@ export default function CreateUser(props) {
           <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={ serverError ? "email address already taken" : "invalid email address"} />
 
           <Horizontal>
-            <Label htmlFor="address">Address: </Label>
+            <Label htmlFor="address">Street Address: </Label>
             <Required>*Required</Required>
           </Horizontal>
           <TextInput
