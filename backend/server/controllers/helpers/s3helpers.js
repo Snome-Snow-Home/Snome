@@ -36,7 +36,8 @@ async function uploadToS3(file) {
             reject(err);
         } if (data) {
             console.log("Upload Success", data.Location);
-            fs.remove(file.destination + file.filename, err => {
+            const path = file.destination + file.filename
+            fs.remove(path, (err) => {
                 if (err) return console.error(err)
                 console.log('The file was successfully removed!')
               })
