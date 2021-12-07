@@ -45,7 +45,7 @@ module.exports = {
 
   checkForEmail: async (req, res) => {
     try {
-      let data = await user.checkForEmail(req.body.email);
+      let data = await user.checkForEmail(req.params.email);
       res.status(200).send(data);
     } catch(err) {
       console.log(`SERVER ERROR: ${err}`);

@@ -86,10 +86,10 @@ module.exports = {
         `SELECT
           CASE WHEN EXISTS
           (
-            SELECT id FROM snome_user WHERE email=${email}
+            SELECT id FROM snome_user WHERE email='${email}'
           )
-            THEN 'TRUE'
-            ELSE 'FALSE'
+            THEN 'true'
+            ELSE 'false'
           END
       `);
       return emailExists;
