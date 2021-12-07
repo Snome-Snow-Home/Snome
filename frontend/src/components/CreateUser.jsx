@@ -43,13 +43,13 @@ const styles = {
     border: "2px solid red",
     borderRadius: "8px",
     padding: "8px",
-    width: "95%",
+    width: "100%",
   },
 }
 
 
 export default function CreateUser(props) {
-  const [error, setError] = useState(null);
+  const [serverError, setServerError] = useState(null);
 
   const form = useForm({
     initialValues: {
@@ -81,6 +81,22 @@ export default function CreateUser(props) {
     form.validate()
     console.log("values: ",values)
     console.log("errors: ", form.errors)
+  }
+
+  const checkForEmail = async (email) => {
+    if (!serverError) {
+      try {
+          const response = await fetch(`http://localhost:3000/user/exists/${email}`)
+          const json = await response.json()
+          console.log('checkForEmail')
+          if (json.case === 'true') {
+            setServerError(true)
+            form.setFieldError('email', true);
+          }
+        } catch (error) {
+          console.error(error)
+        }
+    }
   }
 
   return (
@@ -117,7 +133,7 @@ export default function CreateUser(props) {
               form.setFieldValue('name', event.target.value);
               form.validate("name")
             }}
-            style={form.errors.email ? styles.invalidInput : styles.formInput}
+            style={form.errors.name ? styles.invalidInput : styles.formInput}
           />
           <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
 
@@ -131,10 +147,15 @@ export default function CreateUser(props) {
             type="text"
             required
             value={form.values.email}
+            onEndEditing={(form.values.email.length > 8) ? checkForEmail(form.values.email) : undefined}
             onChange={(event) => form.setFieldValue('email', event.target.value)}
+            onFocus={() => {
+              setServerError(null);
+              form.setFieldError('email', false);
+            }}
             style={form.errors.email ? styles.invalidInput : styles.formInput}
           />
-          <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} />
+          <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={ serverError ? "email address already taken" : "invalid email address"} />
 
           <Horizontal>
             <Label htmlFor="address">Address: </Label>
