@@ -65,13 +65,19 @@ const ShowList = ({
     locationData
   }) =>  {
     // console.log(locationData)
+    let img_sources = locationData.map(loc => {console.log(`../pics/${loc.name}.jpeg`); return(`../pics/${loc.name}.jpeg`)})
+    // let img_sources = locationData.map(loc => {console.log(loc.name); return ("../pics/Vail Ski Resort.jpeg")})
+    // img_sources = img_sources.map(path => require('../pics/Vail Ski Resort.jpeg'))
+    // img_sources = img_sources.map(path => require(path))
+
+
     const navigation = useNavigation()
 
     return (
   <>
   <Text style={styles.label}>{label}</Text>
     <View style={[styles.row, styles.ListMapContainer]}>
-      {locationData.map((location) => (
+      {locationData.map((location, index) => (
         <TouchableOpacity
           key={location.name}
           onPress={() => {setSelectedValue(location.name); navigation.navigate('Towns', {'location_id': location.id})}}
@@ -80,9 +86,16 @@ const ShowList = ({
             selectedValue === location.name && styles.selected,
           ]}
         >
+          {/* <Image
+          source={{uri: img_sources[index] }}
+          style={{width: 400, height: 400}}/> */}
+          {/* <Image style={{width: '100%', height: '100%',}}
+          source={require(`../pics/${location.name}.jpeg`)} /> */}
+          {/* <Image style={{width: '100%', height: '100%',}}
+          source={require("../pics/" + {location.name} + ".jpeg")} /> */}
+          <Image style={{width: '100%', height: '100%'}}
+          source = {{uri:`../pics/${location.name}.jpeg`}} />
 
-          <Image style={{width: '100%', height: '100%',}}
-          source={require(`../pics/${location.name}.jpeg`)} />
           <Text
             style={[
               styles.buttonLabel,
