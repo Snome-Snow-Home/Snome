@@ -6,3 +6,5 @@ exports.put = require('./put');
 exports.patch = require('./patch');
 exports.remove = require('./remove');
 
+exports.user = require('./user')
+exports.address = require('./address')
