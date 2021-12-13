@@ -9,6 +9,7 @@ import LikesScreen from '../screens/LikesScreen';
 import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import CreateUser from '../components/CreateUser'
 
 const TAB_ICON = {
     Home: 'home',
@@ -43,6 +44,7 @@ export const AppNavigator = () => {
         <Tab.Screen name="Match" component={MatchScreen}/>
         <Tab.Screen name="Message" component={MessageScreen}/>
         <Tab.Screen name="Profile" component={ProfileScreen}/>
+        <Tab.Screen name="Login" component={CreateUser}/>
       </Tab.Navigator>
     </>
     )
