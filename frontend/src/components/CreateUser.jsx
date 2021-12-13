@@ -55,7 +55,7 @@ export default function CreateUser(props) {
     initialValues: {
       name: '',
       email: '',
-      address: '',
+      street: '',
       city: '',
       state: '',
       zipCode: '',
@@ -158,20 +158,20 @@ export default function CreateUser(props) {
           <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={ serverError ? "email address already taken" : "invalid email address"} />
 
           <Horizontal>
-            <Label htmlFor="address">Street Address: </Label>
+            <Label htmlFor="street">Street Address: </Label>
             <Required>*Required</Required>
           </Horizontal>
           <TextInput
-            id="address"
-            placeholder="Address"
+            id="street"
+            placeholder="Street Address"
             type="text"
             required
             autoComplete="street-address"
-            value={form.values.address}
-            onChange={(event) => form.setFieldValue('address', event.target.value)}
+            value={form.values.street}
+            onChange={(event) => form.setFieldValue('street', event.target.value)}
             style={styles.formInput}
           />
-          <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} />
+          <ErrorMessage errorName={form.errors.street} errorId={"address-errorBox"} errorMessage={"invalid address"} />
 
           <Horizontal>
             <Label htmlFor="city">City: </Label>
