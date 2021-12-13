@@ -29,6 +29,9 @@ router.delete('/user/:id', controller.user.deleteUser)
 // router.put("/user/:id", controller.put.updateUser);
 // router.delete("/user/:id", controller.remove.deleteUser);
 
+/* ADDRESS */
+router.get('/address/:id', controller.user.getAddress);
+
 /* LOCATION */
 // TODO create, update, delete location? (admin only)
 router.get("/location", controller.get.getAll);

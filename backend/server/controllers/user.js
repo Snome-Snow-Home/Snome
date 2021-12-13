@@ -3,10 +3,20 @@ const user = require('../models/user')
 
 module.exports = {
 
+  getAddress: async (req, res) => {
+    try {
+      const response = await user.getAddress(req.params);
+      res.status(201).send(response);
+    } catch(err) {
+      console.log(`SERVER ERROR - GET:  ${err}`);
+      return err;
+    }
+  },
+
   createUser: async (req, res) => {
     try {
-      await user.createUser(req.body);
-      res.status(201).send('Success!');
+      const response = await user.createUser(req.body);
+      res.status(201).send(response);
     } catch(err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);

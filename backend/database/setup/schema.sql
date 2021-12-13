@@ -1,5 +1,6 @@
 -- order matters for setting FK relations
-
+-- meaning, you must create data in a table
+-- before you can reference it as a foreign key elsewhere
 
 -- ski resort
 DROP TABLE IF EXISTS "location";
@@ -38,12 +39,12 @@ CREATE TABLE "snome_user" (
     "user_phone" bigint, --  NOT NULL,
     "user_photo" text, --  NOT NULL,  -- should be nullable
     "video_tour" text, --   NOT NULL,  -- should be nullable
-    "about" text   NOT NULL,
+    "about" text, --  NOT NULL,
     "email" text   NOT NULL,
     "mailing_address" int REFERENCES "address" NOT NULL,
     "residential_address"  int REFERENCES "address" NOT NULL, --  NOT NULL  -- separate into address fields (separate)
-    "password" varchar NOT NULL,-- add password
-    "isActive" boolean NOT NULL-- is active flag
+    "password" text NOT NULL,-- add password
+    "is_active" boolean NOT NULL-- is active flag
 );
 
 DROP TABLE IF EXISTS "snome";

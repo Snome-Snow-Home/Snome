@@ -1,36 +1,93 @@
 const db = require('../../database');
 
 module.exports = {
-
-  createUser: async ({ location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
+  getAddress: async ({id}) => {
     try {
-      await db.none(`
+      let address = await db.one(`
+        SELECT *
+        FROM address
+        WHERE id='${id}'
+      `)
+      return address
+    } catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+  },
+
+  createUser: async ({city, confirmPassword, email, name, password, state, street, zipCode}) => {
+    try {
+      const addressId = await db.one(`
+        INSERT INTO address (
+          id,
+          street,
+          city,
+          state,
+          zip_code
+        )
+        VALUES (
+          (SELECT MAX(id) FROM address) +1,
+          '${street}',
+          '${city}',
+          '${state}',
+          '${zipCode}'
+        )
+        RETURNING id;
+      `);
+
+      const userId = await db.one(`
         INSERT INTO snome_user (
           id,
-          location_id,
           name,
-          travel_start,
-          travel_end,
-          age,
-          user_phone,
-          user_photo,
-          video_tour,
           about,
           email,
           mailing_address,
           residential_address,
           password,
-          isActive
+          is_active
         )
-        VALUES ((SELECT MAX(id) FROM snome_user) +1,
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+        VALUES (
+          (SELECT MAX(id) FROM snome_user) +1,
+          '${name}',
+          'placeholder',
+          '${email}',
+          ${addressId.id},
+          ${addressId.id},
+          '${password}',
+          false
         )
-      `, [location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address]);
-      return 'New user created!'
+        RETURNING id;
+      `);
+      return `New user created: ${JSON.stringify(userId)}`
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
+  },
+
+  comment: {
+    // { street, city, state, zipCode, location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address, password, isActive }
+
+    // INSERT INTO snome_user (
+    //   id,
+    //   location_id,
+    //   name,
+    //   travel_start,
+    //   travel_end,
+    //   age,
+    //   user_phone,
+    //   user_photo,
+    //   video_tour,
+    //   about,
+    //   email,
+    //   mailing_address,
+    //   residential_address,
+    //   password,
+    //   isActive
+    // )
+    // VALUES ((SELECT MAX(id) FROM snome_user) +1,
+    //   $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+    // )
   },
 
   updateUser: async (id, { location_id, name, travel_start, travel_end, age, user_phone, user_photo, video_tour, about, email, mailing_address, residential_address }) => {
