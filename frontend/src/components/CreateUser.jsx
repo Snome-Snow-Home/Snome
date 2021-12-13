@@ -77,19 +77,24 @@ export default function CreateUser(props) {
     },
   });
 
-  function handleSubmit(values) {
-    form.validate()
-    console.log("values: ",values)
-    console.log("errors: ", form.errors)
+  async function handleSubmit(values) {
+    try {
+      form.validate()
+      // console.log("values: ",values)
+      // console.log("errors: ", form.errors)
+      const response = await axios.post(`http://localhost:3000/signup`, values)
+      // console.log('response: ', response.data)
+    } catch (err) {
+      console.log('error: ', err)
+    }
   }
 
   const checkForEmail = async (email) => {
     if (!serverError) {
       try {
-          const response = await fetch(`http://localhost:3000/user/exists/${email}`)
-          const json = await response.json()
-          console.log('checkForEmail')
-          if (json.case === 'true') {
+          const response = await axios.get(`http://localhost:3000/user/exists/${email}`)
+          // console.log(response.data.case)
+          if (response.data.case === 'true') {
             setServerError(true)
             form.setFieldError('email', true);
           }
