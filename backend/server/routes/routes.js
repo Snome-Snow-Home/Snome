@@ -17,11 +17,20 @@ router.put("/snome/:id", controller.put.updateSnome);
 router.delete("/snome/:id", controller.remove.delete);
 
 /* SNOME USER */
-router.post("/signup", controller.post.createUser);
-router.get("/user/id/:id", controller.get.getUser);
-router.get("/user", controller.get.getAllUsers); /* for dev only */
-router.put("/user/:id", controller.put.updateUser);
-router.delete("/user/:id", controller.remove.deleteUser);
+router.post('/signup', controller.user.createUser);
+router.get('/user/id/:id', controller.user.getUser);
+router.get('/user', controller.user.getAllUsers); /* for dev only */
+router.get('/user/exists/:email', controller.user.checkForEmail);
+router.put('/user/:id', controller.user.updateUser);
+router.delete('/user/:id', controller.user.deleteUser)
+// router.post("/signup", controller.post.createUser);
+// router.get("/user/id/:id", controller.get.getUser);
+// router.get("/user", controller.get.getAllUsers); /* for dev only */
+// router.put("/user/:id", controller.put.updateUser);
+// router.delete("/user/:id", controller.remove.deleteUser);
+
+/* ADDRESS */
+router.get('/address/:id', controller.address.getAddress);
 
 /* LOCATION */
 // TODO create, update, delete location? (admin only)
@@ -34,7 +43,7 @@ router.get("/like/navbar/:user_id", controller.get.getUnreadLikes);
 
 /* PUT REQUESTS */
 router.put("/snome/:id", controller.put.updateSnome);
-router.put("/user/:id", controller.put.updateUser);
+// router.put("/user/:id", controller.put.updateUser);
 router.put("/review/:id", controller.put.updateReview);
 
 /* MATCH */
@@ -47,8 +56,5 @@ router.get("/review", controller.get.getAll);
 
 /* SNOME PHOTO */
 
-router.post(
-  "/snome/:id/photos",
-  uploadSnomePhotos.array("snome_photos"),
-  controller.post.createSnomePhotos
-); // for development only
+router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
+
