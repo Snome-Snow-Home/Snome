@@ -30,7 +30,7 @@ router.delete('/user/:id', controller.user.deleteUser)
 // router.delete("/user/:id", controller.remove.deleteUser);
 
 /* ADDRESS */
-router.get('/address/:id', controller.user.getAddress);
+router.get('/address/:id', controller.address.getAddress);
 
 /* LOCATION */
 // TODO create, update, delete location? (admin only)

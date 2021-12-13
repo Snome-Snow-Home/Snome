@@ -3,16 +3,6 @@ const user = require('../models/user')
 
 module.exports = {
 
-  getAddress: async (req, res) => {
-    try {
-      const response = await user.getAddress(req.params);
-      res.status(201).send(response);
-    } catch(err) {
-      console.log(`SERVER ERROR - GET:  ${err}`);
-      return err;
-    }
-  },
-
   createUser: async (req, res) => {
     try {
       const response = await user.createUser(req.body);
