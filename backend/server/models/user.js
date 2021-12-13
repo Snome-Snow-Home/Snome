@@ -1,4 +1,5 @@
 const db = require('../../database');
+const bcrypt = require('bcrypt')
 
 module.exports = {
   getAddress: async ({id}) => {
@@ -35,6 +36,8 @@ module.exports = {
         RETURNING id;
       `);
 
+      const hashPass = bcrypt.hashSync(password, 10);
+
       const userId = await db.one(`
         INSERT INTO snome_user (
           id,
@@ -53,7 +56,7 @@ module.exports = {
           '${email}',
           ${addressId.id},
           ${addressId.id},
-          '${password}',
+          '${hashPass}',
           false
         )
         RETURNING id;
