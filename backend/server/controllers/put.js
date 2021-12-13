@@ -13,15 +13,7 @@ module.exports = {
     }
   },
 
-  updateUser: async (req, res) => {
-    try {
-      await put.updateUser(req.params.id, req.body);
-      res.status(202).send('Updated Successfuly');
-    } catch(err) {
-      console.log(`SERVER ERROR - PUT:  ${err}`);
-      return err;
-    }
-  },
+  //updateUser moved to './user'
 
   updateReview: async (req, res) => {
     try {

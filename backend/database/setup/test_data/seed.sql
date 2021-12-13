@@ -8,6 +8,7 @@
 
 BEGIN;
 \copy location from '/setup/test_data/location.csv' delimiter ',' csv header;
+\copy address from './setup/test_data/address.csv' delimiter ',' csv header;
 \copy snome_user from '/setup/test_data/snome_user.csv' delimiter ',' csv header;
 \copy snome from '/setup/test_data/snome.csv' delimiter ',' csv header;
 \copy snome_like from '/setup/test_data/snome_like.csv' delimiter ',' csv header;
