@@ -2,13 +2,7 @@ require('dotenv').config()
 
 /* COMMON CONFIGURATION */
 common = {
-    db: {
-        host: process.env.DB_HOST || 'localhost',
-        port: process.env.DB_PORT || 5432,
-        database: process.env.DB_NAME || 'postgres',
-        user: process.env.DB_USER || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres'
-    },
+
     server: {
         host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
@@ -23,7 +17,13 @@ common = {
 
 /* DEVELOPMENT CONFIGURATION */
 development = {
-    
+    db: {
+        host: 'localhost',
+        port: 5432,
+        database: 'postgres',
+        user: 'postgres',
+        password: 'postgres'
+    }
 }
 
 /* TEST CONFIGURATION */
@@ -34,7 +34,11 @@ test = {
 
 /* PRODUCTION CONFIGURATION */
 production = {
-
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 }
 
 if (process.env.NODE_ENV == "dev") {
@@ -60,4 +64,3 @@ if (process.env.NODE_ENV == "prod") {
     }
 }
 
-  

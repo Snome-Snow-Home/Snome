@@ -7,16 +7,17 @@ module.exports = {
     try {
       //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
       //if there are query parameters (eg. http://localhost:3000/snome?=featured)
-      if(Object.keys(query_params).length !== 0){
+      if (Object.keys(query_params).length !== 0) {
         let filter = Object.keys(query_params)[0]
         let value = query_params[filter]
-        var result = await db.manyOrNone(`SELECT * FROM "${model}" WHERE ${filter} = ${value};`);
+        var result = await db.manyOrNone(`SELECT * FROM ${model} WHERE ${filter} = ${value};`);
       }
-      else{
-        var result = await db.manyOrNone(`SELECT * FROM "${model}";`);
+      else {
+        var result = await db.manyOrNone(`SELECT * FROM ${model};`);
+        console.log(result)
       }
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
@@ -31,7 +32,7 @@ module.exports = {
     try {
       let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR:  ${err}`);
       return err;
     }
@@ -41,7 +42,7 @@ module.exports = {
     try {
       let result = await db.manyOrNone('SELECT * FROM snome_user');
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
@@ -50,14 +51,14 @@ module.exports = {
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (snome_user_id) => {
     try {
-      let result =  await db.manyOrNone(`
+      let result = await db.manyOrNone(`
       SELECT COUNT (id)
       FROM snome_like
       WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
       AND has_been_read = false;
       `);
       return result
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
