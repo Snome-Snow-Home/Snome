@@ -102,5 +102,6 @@ CREATE TABLE "location_media" (
     "location_id" int NOT NULL REFERENCES "location",
     "type" text   NOT NULL,
     "file_name" text   NOT NULL,
-    "caption" text   NOT NULL
-);
+    "caption" text   NOT NULL,
+    "url" text NOT NULL
+ );

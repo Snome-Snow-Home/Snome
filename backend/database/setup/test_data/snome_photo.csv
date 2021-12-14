@@ -1,4 +1,4 @@
-id,snome_id,filename,caption
+id,snome_id,filename
 1,4,"""condo.jpg"""
 2,2,"""beautiful_scene.jpg"""
 3,1,"""snowy_view.jpg"""
@@ -8,3 +8,6 @@ id,snome_id,filename,caption
 7,6,"""slopeside.jpg"""
 8,3,"""ski_view1.jpg"""
 9,1,"""ski_view2.jpg"""
+10,10,https://snome.s3.us-east-2.amazonaws.com/th.jpeg
+11,10,https://snome.s3.us-east-2.amazonaws.com/node.png
+12,10,https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg

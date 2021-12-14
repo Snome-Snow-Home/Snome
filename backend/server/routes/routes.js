@@ -28,6 +28,7 @@ router.delete("/user/:id", controller.remove.deleteUser);
 router.get("/location", controller.get.getAll);
 router.get("/location/:id", controller.get.getOne);
 router.get("/snome/location/:id", controller.get.getSnomeByLocationId);
+router.get("/featured_location", controller.get.getFeaturedLocation)
 
 /* LIKES */
 router.post("/like", controller.post.createLike);

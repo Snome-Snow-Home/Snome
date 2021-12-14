@@ -76,11 +76,18 @@ module.exports = {
     } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
-    }  
-
-
+    }
+    
+  },
+  getFeaturedLocation: async (req, res) => {
+    try {
+    let data = await get.getFeaturedLocation();
+    res.status(200).send(data);
+  } catch (err) {
+    console.log(`SERVER ERROR: ${err}`);
+    res.status(400).send(err);
   }
-  
+  }
 
   // <TEMPLATE>: async (req, res) => {
   //   try {
