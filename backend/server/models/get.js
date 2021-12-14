@@ -88,6 +88,17 @@ module.exports = {
       return err;
     }
 
+  },
+
+  getFeaturedLocation: async () => {
+    try {
+      let result = await db.manyOrNone(`select url, location_id, name from location_media inner join location on location_media.location_id = location.id where featured = true order by location_id`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
   }
 
 };
