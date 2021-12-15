@@ -82,7 +82,7 @@ const ShowList = ({
         >
 
           <Image style={{width: '100%', height: '100%',}}
-          source={require(`../pics/${location.name}.jpeg`)} />
+          source={{uri: location.url}} />
           <Text
             style={[
               styles.buttonLabel,
@@ -221,10 +221,10 @@ const HomeScreen = () => {
   const [flexDirection, setflexDirection] = useState("column");
   const [toggleView, settoggleView] = useState("ShowList");
   const [data, setData] = useState([]);
-
+  
   const getLocations = async () => {
     try {
-     const response = await fetch('http://10.0.0.53:3000/location?featured=true')
+     const response = await fetch('http://10.0.0.22:3000/featured_location')
      const json = await response.json();
      setData(json);
    } catch (error) {
