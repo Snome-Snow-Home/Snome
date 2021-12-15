@@ -104,7 +104,8 @@ const ShowMap = ({
   label,
   locationData
   }) => {
-    console.log(locationData);
+    // console.log(locationData);
+    // console.log(data)
     return (
     <>
     <Text style={styles.label}>{label}</Text>
