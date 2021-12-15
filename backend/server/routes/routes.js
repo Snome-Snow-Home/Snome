@@ -8,7 +8,7 @@ module.exports = router;
 /* SNOME */
 router.post(
   "/snome",
-  uploadSnomePhotos.array("snome_photos"),
+  uploadSnomePhotos.any("snome_photos"),
   controller.post.createSnome
 );
 router.get("/snome", controller.get.getAll);
@@ -36,6 +36,8 @@ router.get('/address/:id', controller.address.getAddress);
 // TODO create, update, delete location? (admin only)
 router.get("/location", controller.get.getAll);
 router.get("/location/:id", controller.get.getOne);
+router.get("/snome/location/:id", controller.get.getSnomeByLocationId);
+router.get("/featured_location", controller.get.getFeaturedLocation)
 
 /* LIKES */
 router.post("/like", controller.post.createLike);

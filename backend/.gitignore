@@ -4,5 +4,11 @@ node_modules
 # environment variables
 .env*
 
+# package-lock.json
+package-lock.json
+
+# package-lock.json
+package-lock.json
+
 # Jest coverage output
 coverage
