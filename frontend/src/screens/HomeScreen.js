@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image} from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
+import  *  as Device  from 'expo-device';
 
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
@@ -69,6 +70,7 @@ const ShowList = ({
 
     return (
   <>
+  <ScrollView>
   <Text style={styles.label}>{label}</Text>
     <View style={[styles.row, styles.ListMapContainer]}>
       {locationData.map((location) => (
@@ -95,10 +97,13 @@ const ShowList = ({
         </TouchableOpacity>
       ))}
     </View>
+    </ScrollView>
     </>
   )
 
 }
+
+
 
 const ShowMap = ({
   label,
@@ -106,6 +111,8 @@ const ShowMap = ({
   }) => {
     // console.log(locationData);
     // console.log(data)
+
+    if (Device.brand == "Apple") {
     return (
     <>
     <Text style={styles.label}>{label}</Text>
@@ -115,11 +122,12 @@ const ShowMap = ({
           width: "100%",
           height: "100%",
           padding: 16}}>
-        <MapView style={styles.map}>
-          {locationData.map((location, index) => (
-          <Marker
-            key={index}
-            //NOTE: LAT AND LONG ARE BACKWARDS
+         
+          <MapView style={styles.map}>
+            {locationData.map((location, index) => (
+            <Marker
+              key={index}
+              //NOTE: LAT AND LONG ARE BACKWARDS
             coordinate={{latitude: location.longitude, longitude: location.latitude
             }}
           />
@@ -128,7 +136,15 @@ const ShowMap = ({
       </View>
     </View>
     </>
-)}
+)} else {
+  return (
+  <>
+  <Text>"Hello World"</Text>
+  </>
+  )
+}
+
+}
 
 const FeaturedLocations = ({
   label,
