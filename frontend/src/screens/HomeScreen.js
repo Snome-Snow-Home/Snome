@@ -48,7 +48,6 @@ const NewSearch = ({locationData}) => {
           data={locationData.map(location => location.name)}
           renderItem={renderItem}
           keyExtractor={item => item}
-          scrollEnabled = 'false'
         />
       }
 
@@ -83,8 +82,8 @@ const ShowList = ({
           ]}
         >
 
-          <Image style={{width: '100%', height: '100%',}}
-          source={{uri: location.url}} />
+          <Image style={{width: '100%', height: '100%', resizeMode: "contain"}}
+          source={{uri: location.url}}  />
           <Text
             style={[
               styles.buttonLabel,
@@ -139,7 +138,7 @@ const ShowMap = ({
 )} else {
   return (
   <>
-  <Text>"Hello World"</Text>
+  <Text>Map feature is not compatible on this device type</Text>
   </>
   )
 }
