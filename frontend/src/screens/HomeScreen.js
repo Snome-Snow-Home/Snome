@@ -135,15 +135,38 @@ const ShowMap = ({
       </View>
     </View>
     </>
-)} else {
+)} else if (Device.brand == null) {
   return (
   <>
-  <Text>Map feature is not compatible on this device type</Text>
+    <Text>Map feature is not compatible on web browsers</Text>
+  </>
+  ) 
+} else {
+  return (
+  <>
+  <Text style={styles.label}>{label}</Text>
+    <View style={styles.ListMapContainer}>
+      <View style={{
+          backgroundColor: "oldlace",
+          width: "100%",
+          height: "100%",
+          padding: 16}}>
+            <MapView style={styles.map}>
+              {locationData.map((location, index) => (
+              <Marker
+              key={index}
+              //NOTE: LAT AND LONG ARE BACKWARDS
+              coordinate={{latitude: location.longitude, longitude: location.latitude
+            }}
+            />
+          ))}
+        </MapView>
+      </View>
+    </View>
   </>
   )
-}
 
-}
+}}
 
 const FeaturedLocations = ({
   label,
