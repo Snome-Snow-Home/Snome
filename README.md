@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../frontend/Snome.png?raw=true" alt="Snome logo"/>
+  ![Snome](https://user-images.githubusercontent.com/59425631/146477252-61d7bb2a-bca4-4c1c-b2e2-4439849006ac.png)
 </p>
 <p align="center">
   Sharing winter experiences. A home exchange platform for skiers and snowboarders.
