@@ -48,6 +48,6 @@ router.get("/snome/:id/review", controller.get.getSnomeReviews);
 router.get("/review", controller.get.getAll);
 
 /* SNOME PHOTO */
-
+router.get("/snome/:id/photos", controller.get.getSnomePhotos);
 router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
 
