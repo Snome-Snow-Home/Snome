@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-} from "react-native";
-import { useWindowDimensions } from "react-native";
-import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
+} from 'react-native';
+import { useWindowDimensions } from 'react-native';
+import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
 
 const image = {
-  uri: "https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg",
+  uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
 };
 
 const SnomeDescription = () => {
@@ -19,11 +19,25 @@ const SnomeDescription = () => {
 
   const window = useWindowDimensions();
 
-  const scrollPhoto = () => {};
+  var i = 0;
+
+  const scrollPhotoLeft = () => {
+    i -= 1;
+
+    console.log(photos[i]);
+  };
+  const scrollPhotoRight = () => {
+    if (i >= photos.length - 1) {
+      return (i = -1);
+    }
+    i += 1;
+    console.log(i);
+    console.log(photos[i]);
+  };
 
   const getPhotos = async () => {
     try {
-      const response = await fetch("http://localhost:3000/snome/10/photos");
+      const response = await fetch('http://10.0.0.22:3000/snome/10/photos');
       const json = await response.json();
       setData(json);
     } catch (error) {
@@ -35,9 +49,12 @@ const SnomeDescription = () => {
     getPhotos();
   }, []);
 
-  console.log(photos);
+  // let i = 0;
+
+  // console.log(photos[i]);
+
   const createLike = () => {
-    console.log("this worked too");
+    console.log('this worked too');
   };
 
   return (
@@ -49,36 +66,36 @@ const SnomeDescription = () => {
         name="leftcircleo"
         size={34}
         color="black"
-        style={{ alignSelf: "flex-start", marginTop: 10 }}
+        style={{ alignSelf: 'flex-start', marginTop: 10 }}
       />
       <View style={styles.photoContainer}>
         {/* <View style={styles.photoGallery}> */}
         <ImageBackground
           source={image}
           resizeMode="cover"
-          style={{ flex: 1, justifyContent: "center" }}
+          style={{ flex: 1, justifyContent: 'center' }}
         ></ImageBackground>
         <View
           style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "transparent",
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: 'transparent',
           }}
         >
           <TouchableOpacity
-            onPress={scrollPhoto}
+            onPress={scrollPhotoLeft}
             style={{
-              position: "absolute",
+              position: 'absolute',
             }}
           >
             <AntDesign name="left" size={34} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={{ position: "absolute", margin: 330 }}>
+          <TouchableOpacity style={{ position: 'absolute', margin: 330 }}>
             <AntDesign
-              onPress={scrollPhoto}
+              onPress={scrollPhotoRight}
               name="right"
               size={34}
               color="black"
@@ -86,8 +103,8 @@ const SnomeDescription = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              alignSelf: "flex-end",
-              position: "absolute",
+              alignSelf: 'flex-end',
+              position: 'absolute',
               marginLeft: 300,
             }}
           >
@@ -103,10 +120,10 @@ const SnomeDescription = () => {
 
       <Text
         style={{
-          width: "100%",
+          width: '100%',
           fontSize: 25,
           paddingTop: 7,
-          textAlign: "left",
+          textAlign: 'left',
         }}
       >
         Gorgeous 2 bedroom with views
@@ -121,17 +138,17 @@ const SnomeDescription = () => {
           <FontAwesome name="star-half" size={20} color="black" />
         </Text>
         <Text style={styles.descriptionTextHeaders}>
-          Availability{"\n"}
-          <Text style={{ fontWeight: "normal" }}>Dec – April</Text>
+          Availability{'\n'}
+          <Text style={{ fontWeight: 'normal' }}>Dec – April</Text>
         </Text>
 
         <Text style={styles.descriptionTextHeaders}>
-          Rooms{"\n"}
-          <Text style={{ fontWeight: "normal" }}>2 beds 1 bath</Text>
+          Rooms{'\n'}
+          <Text style={{ fontWeight: 'normal' }}>2 beds 1 bath</Text>
         </Text>
         <Text style={styles.descriptionTextHeaders}>
-          Mountain Access{"\n"}
-          <Text style={{ fontWeight: "normal" }}>8 mins Ski-in</Text>
+          Mountain Access{'\n'}
+          <Text style={{ fontWeight: 'normal' }}>8 mins Ski-in</Text>
         </Text>
       </View>
       <View style={styles.ownerContainer}></View>
@@ -149,25 +166,25 @@ const styles = StyleSheet.create({
   //   marginBottom: 60,
   // },
   scrollView: {
-    height: "100%",
-    backgroundColor: "white",
+    height: '100%',
+    backgroundColor: 'white',
   },
   contentContainer: {
     margin: 25,
     marginTop: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
   photoContainer: {
     marginTop: 20,
-    width: "100%",
-    backgroundColor: "white",
+    width: '100%',
+    backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: 'black',
     flex: 1,
     height: 250,
-    width: "100%",
+    width: '100%',
   },
   // photoGallery: {
   //   flex: 1,
@@ -180,21 +197,21 @@ const styles = StyleSheet.create({
   //   borderColor: "black",
   // },
   descriptionContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignContent: "space-around",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'space-around',
     height: 125,
-    width: "100%",
-    backgroundColor: "white",
+    width: '100%',
+    backgroundColor: 'white',
   },
   descriptionTextHeaders: {
     fontSize: 17,
-    width: "50%",
-    fontWeight: "bold",
+    width: '50%',
+    fontWeight: 'bold',
   },
   ownerContainer: {
     flex: 3,
-    backgroundColor: "yellow",
+    backgroundColor: 'yellow',
   },
 });
 

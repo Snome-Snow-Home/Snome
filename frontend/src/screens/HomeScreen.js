@@ -151,7 +151,10 @@ const ShowMap = ({
           width: "100%",
           height: "100%",
           padding: 16}}>
-            <MapView style={styles.map}>
+            <MapView style={styles.map} region={{ latitude: 37.0902,
+      longitude: -95.712,
+      latitudeDelta: 50,
+      longitudeDelta: 30}}>
               {locationData.map((location, index) => (
               <Marker
               key={index}
