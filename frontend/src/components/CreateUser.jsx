@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import axios from 'axios';
 import styled from 'styled-components'
@@ -43,19 +43,19 @@ const styles = {
     border: "2px solid red",
     borderRadius: "8px",
     padding: "8px",
-    width: "95%",
+    width: "100%",
   },
 }
 
 
 export default function CreateUser(props) {
-  const [error, setError] = useState(null);
+  const [serverError, setServerError] = useState(null);
 
   const form = useForm({
     initialValues: {
       name: '',
       email: '',
-      address: '',
+      street: '',
       city: '',
       state: '',
       zipCode: '',
@@ -77,170 +77,200 @@ export default function CreateUser(props) {
     },
   });
 
-  function handleSubmit(values) {
-    form.validate()
-    console.log("values: ",values)
-    console.log("errors: ", form.errors)
+  async function handleSubmit(values) {
+    try {
+      form.validate()
+      // console.log("values: ",values)
+      // console.log("errors: ", form.errors)
+      const response = await axios.post(`http://localhost:3000/signup`, values)
+      // console.log('response: ', response.data)
+    } catch (err) {
+      console.log('error: ', err)
+    }
+  }
+
+  const checkForEmail = async (email) => {
+    if (!serverError) {
+      try {
+          const response = await axios.get(`http://localhost:3000/user/exists/${email}`)
+          // console.log(response.data.case)
+          if (response.data.case === 'true') {
+            setServerError(true)
+            form.setFieldError('email', true);
+          }
+        } catch (error) {
+          console.error(error)
+        }
+    }
   }
 
   return (
-    <div
-    style={{
-      width: "95%",
-      maxWidth: "400px",
-    }}
-    >
-      <img
-        src={require('../assets/Snome.png')}
-        style={{
-          width: "150px",
-        }}
-      />
-      <h2>New User? Sign up here</h2>
-      <form
-        onSubmit={form.onSubmit((values) => handleSubmit(values))}
+    <ScrollView>
+      <div
+      style={{
+        width: "95%",
+        maxWidth: "400px",
+      }}
       >
-
-        <Horizontal>
-          <Label htmlFor="name">Name: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="name"
-          placeholder="Name"
-          type="text"
-          required
-          value={form.values.name}
-          autoCorrect="false"
-          onChange={(event) => {
-            form.setFieldValue('name', event.target.value);
-            form.validate("name")
+        <img
+          src={require('../pics/Snome.png')}
+          style={{
+            width: "150px",
           }}
-          style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
-        <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
+        <h2>New User? Sign up here</h2>
+        <form
+          onSubmit={form.onSubmit((values) => handleSubmit(values))}
+        >
 
-        <Horizontal>
-          <Label htmlFor="email">Email: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="email"
-          placeholder ="Email"
-          type="text"
-          required
-          value={form.values.email}
-          onChange={(event) => form.setFieldValue('email', event.target.value)}
-          style={form.errors.email ? styles.invalidInput : styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} />
+          <Horizontal>
+            <Label htmlFor="name">Name: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="name"
+            placeholder="Name"
+            type="text"
+            required
+            value={form.values.name}
+            autoCorrect="false"
+            onChange={(event) => {
+              form.setFieldValue('name', event.target.value);
+              form.validate("name")
+            }}
+            style={form.errors.name ? styles.invalidInput : styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
 
-        <Horizontal>
-          <Label htmlFor="address">Address: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="address"
-          placeholder="Address"
-          type="text"
-          required
-          value={form.values.address}
-          onChange={(event) => form.setFieldValue('address', event.target.value)}
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} />
+          <Horizontal>
+            <Label htmlFor="email">Email: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="email"
+            placeholder ="Email"
+            type="text"
+            required
+            value={form.values.email}
+            onEndEditing={(form.values.email.length > 8) ? checkForEmail(form.values.email) : undefined}
+            onChange={(event) => form.setFieldValue('email', event.target.value)}
+            onFocus={() => {
+              setServerError(null);
+              form.setFieldError('email', false);
+            }}
+            style={form.errors.email ? styles.invalidInput : styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={ serverError ? "email address already taken" : "invalid email address"} />
 
-        <Horizontal>
-          <Label htmlFor="city">City: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="city"
-          placeholder="City"
-          type="text"
-          required
-          value={form.values.city}
-          onChange={(event) => form.setFieldValue('city', event.target.value)}
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} />
+          <Horizontal>
+            <Label htmlFor="street">Street Address: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="street"
+            placeholder="Street Address"
+            type="text"
+            required
+            autoComplete="street-address"
+            value={form.values.street}
+            onChange={(event) => form.setFieldValue('street', event.target.value)}
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.street} errorId={"address-errorBox"} errorMessage={"invalid address"} />
 
-        <Horizontal>
-          <Label htmlFor="state">State: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="state"
-          placeholder="State"
-          type="text"
-          required
-          maxLength="2"
-          autoCapitalize="characters" // why doesn't this work?
-          value={(form.values.state).toUpperCase()}
-          onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
+          <Horizontal>
+            <Label htmlFor="city">City: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="city"
+            placeholder="City"
+            type="text"
+            required
+            value={form.values.city}
+            onChange={(event) => form.setFieldValue('city', event.target.value)}
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} />
 
-        <Horizontal>
-          <Label htmlFor="zipCode">Zip Code: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="zipCode"
-          placeholder="Zip Code"
-          type="text"
-          required
-          value={form.values.zipCode}
-          onChange={(event) =>
-            form.setFieldValue('zipCode', event.target.value)
-          }
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.zipCode} errorId={"zipCode-errorBox"} errorMessage={"Must be a 5- or 9-digit number"} />
+          <Horizontal>
+            <Label htmlFor="state">State: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="state"
+            placeholder="State"
+            type="text"
+            required
+            maxLength="2"
+            autoCapitalize="characters" // why doesn't this work?
+            value={(form.values.state).toUpperCase()}
+            onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
 
-        <Horizontal>
-          <Label htmlFor="password">Password: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="password"
-          placeholder="Need a number, a letter and a special character"
-          type="password"
-          required
-          autoComplete="new-password"
-          secureTextEntry="true"
-          value={form.values.password}
-          onChange={(event) =>
-            form.setFieldValue('password', event.target.value)
-          }
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} />
+          <Horizontal>
+            <Label htmlFor="zipCode">Zip Code: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="zipCode"
+            placeholder="Zip Code"
+            type="number"
+            required
+            autoComplete="postal-code"
+            value={form.values.zipCode}
+            onChange={(event) =>
+              form.setFieldValue('zipCode', event.target.value)
+            }
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.zipCode} errorId={"zipCode-errorBox"} errorMessage={"Must be a 5- or 9-digit number"} />
 
-        <Horizontal>
-          <Label htmlFor="confirmPassword">Confirm Password: </Label>
-          <Required>*Required</Required>
-        </Horizontal>
-        <TextInput
-          id="confirmPassword"
-          placeholder="Confirm Password"
-          type="password"
-          required
-          autoComplete="new-password"
-          secureTextEntry="true"
-          value={form.values.confirmPassword}
-          onChange={(event) =>
-            form.setFieldValue('confirmPassword', event.target.value)
-          }
-          style={styles.formInput}
-        />
-        <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
+          <Horizontal>
+            <Label htmlFor="password">Password: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="password"
+            placeholder="Need a number, a letter and a special character"
+            type="password"
+            required
+            autoComplete="password-new"
+            secureTextEntry="true"
+            value={form.values.password}
+            onChange={(event) =>
+              form.setFieldValue('password', event.target.value)
+            }
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} />
 
-        {/* <button type="submit" title="Submit">Submit</button> */}
-        <Button title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}>Submit</Button>
-      </form>
-    </div>
+          <Horizontal>
+            <Label htmlFor="confirmPassword">Confirm Password: </Label>
+            <Required>*Required</Required>
+          </Horizontal>
+          <TextInput
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            type="password"
+            required
+            autoComplete="password-new"
+            secureTextEntry="true"
+            value={form.values.confirmPassword}
+            onChange={(event) =>
+              form.setFieldValue('confirmPassword', event.target.value)
+            }
+            style={styles.formInput}
+          />
+          <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
+
+          {/* <button type="submit" title="Submit">Submit</button> */}
+          <Button title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}>Submit</Button>
+        </form>
+      </div>
+    </ScrollView>
   );
 }
 
