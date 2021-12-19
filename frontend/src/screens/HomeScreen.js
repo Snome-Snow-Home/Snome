@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image} from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
+import  *  as Device  from 'expo-device';
 
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
@@ -47,7 +48,6 @@ const NewSearch = ({locationData}) => {
           data={locationData.map(location => location.name)}
           renderItem={renderItem}
           keyExtractor={item => item}
-          scrollEnabled = 'false'
         />
       }
 
@@ -69,6 +69,7 @@ const ShowList = ({
 
     return (
   <>
+  <ScrollView>
   <Text style={styles.label}>{label}</Text>
     <View style={[styles.row, styles.ListMapContainer]}>
       {locationData.map((location) => (
@@ -81,8 +82,8 @@ const ShowList = ({
           ]}
         >
 
-          <Image style={{width: '100%', height: '100%',}}
-          source={require(`../pics/${location.name}.jpeg`)} />
+          <Image style={{width: '100%', height: '100%', resizeMode: "contain"}}
+          source={{uri: location.url}}  />
           <Text
             style={[
               styles.buttonLabel,
@@ -95,16 +96,22 @@ const ShowList = ({
         </TouchableOpacity>
       ))}
     </View>
+    </ScrollView>
     </>
   )
 
 }
 
+
+
 const ShowMap = ({
   label,
   locationData
   }) => {
-    console.log(locationData);
+    // console.log(locationData);
+    // console.log(data)
+
+    if (Device.brand == "Apple") {
     return (
     <>
     <Text style={styles.label}>{label}</Text>
@@ -114,11 +121,12 @@ const ShowMap = ({
           width: "100%",
           height: "100%",
           padding: 16}}>
-        <MapView style={styles.map}>
-          {locationData.map((location, index) => (
-          <Marker
-            key={index}
-            //NOTE: LAT AND LONG ARE BACKWARDS
+         
+          <MapView style={styles.map}>
+            {locationData.map((location, index) => (
+            <Marker
+              key={index}
+              //NOTE: LAT AND LONG ARE BACKWARDS
             coordinate={{latitude: location.longitude, longitude: location.latitude
             }}
           />
@@ -127,7 +135,41 @@ const ShowMap = ({
       </View>
     </View>
     </>
-)}
+)} else if (Device.brand == null) {
+  return (
+  <>
+    <Text>Map feature is not compatible on web browsers</Text>
+  </>
+  ) 
+} else {
+  return (
+  <>
+  <Text style={styles.label}>{label}</Text>
+    <View style={styles.ListMapContainer}>
+      <View style={{
+          backgroundColor: "oldlace",
+          width: "100%",
+          height: "100%",
+          padding: 16}}>
+            <MapView style={styles.map} region={{ latitude: 37.0902,
+      longitude: -95.712,
+      latitudeDelta: 50,
+      longitudeDelta: 30}}>
+              {locationData.map((location, index) => (
+              <Marker
+              key={index}
+              //NOTE: LAT AND LONG ARE BACKWARDS
+              coordinate={{latitude: location.longitude, longitude: location.latitude
+            }}
+            />
+          ))}
+        </MapView>
+      </View>
+    </View>
+  </>
+  )
+
+}}
 
 const FeaturedLocations = ({
   label,
@@ -221,10 +263,10 @@ const HomeScreen = () => {
   const [flexDirection, setflexDirection] = useState("column");
   const [toggleView, settoggleView] = useState("ShowList");
   const [data, setData] = useState([]);
-
+  
   const getLocations = async () => {
     try {
-     const response = await fetch('http://10.0.0.53:3000/location?featured=true')
+     const response = await fetch('http://10.0.0.22:3000/featured_location')
      const json = await response.json();
      setData(json);
    } catch (error) {
