@@ -40,11 +40,11 @@ export const AppNavigator = () => {
       >
         <Tab.Screen name="Home" component={HomeScreen}/>
         <Tab.Screen name="Towns" component={TownsScreen}/>
+        <Tab.Screen name="Description" component={DescScreen}/>
         <Tab.Screen name="Likes" component={LikesScreen}/>
         <Tab.Screen name="Match" component={MatchScreen}/>
         <Tab.Screen name="Message" component={MessageScreen}/>
         <Tab.Screen name="Profile" component={ProfileScreen}/>
-        <Tab.Screen name="Description" component={DescScreen}/>
       </Tab.Navigator>
     </>
     )

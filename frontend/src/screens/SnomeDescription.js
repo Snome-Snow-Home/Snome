@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -178,13 +179,12 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     marginTop: 20,
-    width: '100%',
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: 'black',
     flex: 1,
-    height: 250,
-    width: '100%',
+    height: Dimensions.get('window').height * 0.3,
+    width: Dimensions.get('window').height * 0.4,
   },
   // photoGallery: {
   //   flex: 1,
