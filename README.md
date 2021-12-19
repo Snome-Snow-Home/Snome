@@ -24,7 +24,7 @@ Snome (‘snow homes’) is a proposed home exchange platform for ski towns. Ski
 
 ### Engineering
 
-- [Rafael Spies](https://github.com/raphaelspies)
+- [Raphael Spies](https://github.com/raphaelspies)
 - [Sam Schnaible](https://github.com/Sam-Schnaible)
 - [Trae Pollak](https://github.com/trae77)
 - [Zachary Bretz](https://github.com/zbretz)

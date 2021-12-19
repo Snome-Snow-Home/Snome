@@ -25,25 +25,8 @@ module.exports = {
     }
   },
 
-  getUser: async (req, res) => {
-    try {
-      let data = await get.getUser(req.params.id);
-      res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(400).send(err);
-    }
-  },
-
-  getAllUsers: async (req, res) => {
-    try {
-      let data = await get.getAllUsers();
-      res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`);
-      res.status(400).send(err);
-    }
-  },
+  // getUser moved to './user.js'
+  //getAllUsers moved to './user.js'
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (req, res) => {
     const user_id = req.params.user_id;
