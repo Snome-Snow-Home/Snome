@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -69,7 +69,7 @@ const SnomeDescription = () => {
         color="black"
         style={{ alignSelf: 'flex-start', marginTop: 10 }}
       />
-       {/* <View style={styles.photoContainer}>
+      {/* <View style={styles.photoContainer}>
       <View style={styles.photoGallery}> 
         <ImageBackground
           source={image}
