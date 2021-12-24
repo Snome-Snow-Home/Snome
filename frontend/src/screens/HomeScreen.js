@@ -47,7 +47,7 @@ const NewSearch = ({locationData}) => {
           data={locationData.map(location => location.name)}
           renderItem={renderItem}
           keyExtractor={item => item}
-          scrollEnabled = 'false'
+          // scrollEnabled = 'false'
         />
       }
 
@@ -81,8 +81,8 @@ const ShowList = ({
           ]}
         >
 
-          <Image style={{width: '100%', height: '100%',}}
-          source={require(`../pics/${location.name}.jpeg`)} />
+          {/* <Image style={{width: '100%', height: '100%',}}
+          source={require(`../pics/${location.name}.jpeg`)} /> */}
           <Text
             style={[
               styles.buttonLabel,
@@ -224,7 +224,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-     const response = await fetch('http://10.0.0.53:3000/location?featured=true')
+     const response = await fetch('http://localhost:3000/location?featured=true')
      const json = await response.json();
      setData(json);
    } catch (error) {
