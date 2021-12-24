@@ -87,6 +87,18 @@ module.exports = {
       return err;
     }
 
+  },
+  getSnomePhotos: async (snome_id) => {
+    try {
+      let result = await db.manyOrNone(`SELECT url FROM snome_photo WHERE snome_id = ${snome_id}`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+
   }
+
 
 };

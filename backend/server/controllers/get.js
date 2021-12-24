@@ -52,6 +52,17 @@ module.exports = {
     }
   },
 
+  getSnomePhotos: async (req, res) => {
+    try {
+      const snome_id = req.params.id;
+      let data = await get.getSnomePhotos(snome_id);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
+  
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);
