@@ -5,9 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/screens/TownsScreen';
 // import CreateUser from './src/components/CreateUser';
 import { ThemeProvider } from 'styled-components/native';
-
 import { theme } from './src/theme';
-
 import { Navigation } from './src/navigation';
 
 export default function App() {

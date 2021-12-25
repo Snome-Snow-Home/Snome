@@ -1,11 +1,11 @@
-id,location_id,type,filename,caption
-1,7,map,vail_map_front.jpg,map of frontside ski trails
-2,6,map,vail_map_back.jpg,map of backside ski trails
-3,5,cover_photo (?),vail_action1.png,rad snowboarder
-4,8,video,homepage_video.mov,"Skier does backflip on fresh, powdery snow"
-5,10,map,map.png,map of frontside ski trails
-6,9,map,mp2.png,map of backside ski trails
-7,3,cover_photo (?),snowboarder.jpg,rad snowboarder
-8,6,video,skier.png,"Skier does backflip on fresh, powdery snow"
-9,5,map,webtoon.png,map of frontside ski trails
-10,4,map,skimap.png,map of backside ski trails
+id,location_id,type,filename,caption,url
+1,1,map,vail_map_front.jpg,map of frontside ski trails,https://snome.s3.us-east-2.amazonaws.com/d58eb38d2555ccf5f634765e97ade8bc
+2,6,map,vail_map_back.jpg,map of backside ski trails,https://snome.s3.us-east-2.amazonaws.com/d58eb38d2555ccf5f634765e97ade8bc
+3,5,cover_photo (?),vail_action1.png,rad snowboarder,https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+4,8,video,homepage_video.mov,"Skier does backflip on fresh, powdery snow",https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+5,10,map,map.png,map of frontside ski trails,https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+6,9,map,mp2.png,map of backside ski trails,https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+7,3,cover_photo (?),snowboarder.jpg,rad snowboarder,https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+8,2,video,skier.png,"Skier does backflip on fresh, powdery snow",https://snome.s3.us-east-2.amazonaws.com/cc4efb142c26e9c77578ff479d6fa164
+9,5,map,webtoon.png,map of frontside ski trails,https://snome.s3.us-east-2.amazonaws.com/Jackson+Hole+Mountain+Resort.jpeg
+10,4,map,skimap.png,map of backside ski trails,https://snome.s3.us-east-2.amazonaws.com/2e657e16b5a44c2a09297f1c57b9968a

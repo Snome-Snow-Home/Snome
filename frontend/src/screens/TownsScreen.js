@@ -63,7 +63,7 @@ function TownsScreen({route}) {
   const getLocations = async () => {
     try {
       const response = await fetch(
-        'http://10.0.0.53:3000/snome?location_id=' + route.params.location_id
+        'http://10.0.0.22:3000/snome?loction_id=' + route.params.location_id
       );
       const json = await response.json();
       setData(json);
