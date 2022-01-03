@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, Pressable } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import ErrorMessage from './ErrorMessage'
 // import { StatusBar } from 'expo-status-bar';
@@ -61,8 +61,22 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: "#448EB1",
+        color: "white",
+        fontFamily: 'Arial',
+        width: "50%",
+        marginLeft: "25%",
+        marginRight: "25%",
+        marginTop: 20
     }
-
 })
 
 
@@ -103,15 +117,15 @@ export default function CreateUser(props) {
     }
 
     return (
-        <View style={{ width: "95%", maxWidth: "400px", }}>
+        <View style={{ width: "95%", maxWidth: "400px", margin: 5 }}>
             <Image
                 source={require('../../assets/Snome.png')}
                 style={{
-                    width: "150px",
-                    height: "150px",
+                    width: 100,
+                    height: 100,
                 }}
             />
-            <Text>New User? Sign up here</Text>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>New User? Sign up here</Text>
             <View
                 onSubmit={form.onSubmit((values) => handleSubmit(values))}
             >
@@ -131,8 +145,8 @@ export default function CreateUser(props) {
                         form.setFieldValue('name', event.target.value);
                         form.validate("name")
                     }}
-                //should this be unpluralized again>? errors->error
-                // style={form.errors.email ? styles.invalidInput : styles.formInput}
+                    //should this be unpluralized again>? errors->error
+                    style={form.errors.email ? styles.invalidInput : styles.formInput}
                 />
                 <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} />
 
@@ -192,8 +206,9 @@ export default function CreateUser(props) {
                     required
                     maxLength="2"
                     autoCapitalize="characters" // why doesn't this work?
-                    value={(form.values.state).toUpperCase()}
-                    onChange={(event) => form.setFieldValue('state', event.target.value.toUpperCase())}
+                    //removed .toUpperCase() to fix error in value and onChange props
+                    value={(form.values.state)}
+                    onChange={(event) => form.setFieldValue('state', event.target.value)}
                     style={styles.formInput}
                 />
                 <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} />
@@ -253,8 +268,7 @@ export default function CreateUser(props) {
                 />
                 <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} />
 
-                {/* <button type="submit" title="Submit">Submit</button> */}
-                <Button title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}>Submit</Button>
+                <Pressable style={styles.button} title="Submit" onPress={form.onSubmit((values) => handleSubmit(values))}><Text>Submit</Text></Pressable>
             </View>
         </View>
     );

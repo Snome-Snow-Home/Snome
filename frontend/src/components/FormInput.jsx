@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
-=======
 // import { StatusBar } from 'expo-status-bar';
 // import React, { useEffect, useState } from 'react';
 // import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
->>>>>>> refractor
 
 // import styled from 'styled-components'
 // import ErrorMessage from './ErrorMessage'

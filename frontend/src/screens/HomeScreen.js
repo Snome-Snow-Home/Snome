@@ -51,13 +51,8 @@ const NewSearch = ({ locationData }) => {
             scrollEnabled='false'
           />
         }
-<<<<<<< HEAD
-
-      </View>
-=======
       </View>
 
->>>>>>> refractor
     </>
   );
 }
@@ -86,20 +81,6 @@ const ShowList = ({
               selectedValue === location.name && styles.selected,
             ]}
           >
-<<<<<<< HEAD
-
-            <Image style={{ width: '100%', height: '100%', }}
-              source={{ uri: "https://snome.s3.us-east-2.amazonaws.com/Park+City+Mountain+Resort.jpeg" }} />
-            <Text
-              style={[
-                styles.buttonLabel,
-                selectedValue === location.name && styles.selectedLabel,
-              ]}
-            >
-              {location.name}
-            </Text>
-
-=======
             {/* 
           <Image style={{width: '100%', height: '100%',}}
           source={require(`../pics/${location.name}.jpeg`)} /> */}
@@ -112,7 +93,6 @@ const ShowList = ({
               {location.name}
             </Text>
 
->>>>>>> refractor
           </TouchableOpacity>
         ))}
       </View>
@@ -172,7 +152,17 @@ const FeaturedLocations = ({
       <View style={[styles.topContainer, { [label]: selectedValue }]}>
         {children}
         <View>
-          <Text style={styles.SnomeLogo}>Snome Logo</Text>
+          <Image
+            // style={styles.SnomeLogo} 
+            source={require('../../assets/Snome.png')}
+            style={{
+              width: 100,
+              height: 100,
+              // backgroundColor: 'white',
+              // padding: 12,
+              // borderBottomColor: 'black',
+              // borderBottomWidth: 1,
+            }} />
         </View>
 
         {/* Search Box Container */}
@@ -248,11 +238,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-<<<<<<< HEAD
       const response = await fetch('http://192.168.1.5:3000/location?featured=true')
-=======
-      const response = await fetch('http://10.0.0.53:3000/location?featured=true')
->>>>>>> refractor
       const json = await response.json();
       setData(json);
     } catch (error) {
