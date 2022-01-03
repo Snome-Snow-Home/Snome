@@ -10,7 +10,7 @@ export default function ErrorMessage (props) {
 
   return (
     <View>
-      {errorName ? <Text id={errorId} style={styles.errorBox}>{errorMessage}</Text> : <br/>}
+      {errorName ? <Text id={errorId} style={styles.errorBox}>{errorMessage}</Text> : <View/>}
     </View>
   )
 
