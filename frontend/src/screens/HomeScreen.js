@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeArea
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 
+
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
     <Text
@@ -50,8 +51,13 @@ const NewSearch = ({ locationData }) => {
             scrollEnabled='false'
           />
         }
+<<<<<<< HEAD
 
       </View>
+=======
+      </View>
+
+>>>>>>> refractor
     </>
   );
 }
@@ -80,6 +86,7 @@ const ShowList = ({
               selectedValue === location.name && styles.selected,
             ]}
           >
+<<<<<<< HEAD
 
             <Image style={{ width: '100%', height: '100%', }}
               source={{ uri: "https://snome.s3.us-east-2.amazonaws.com/Park+City+Mountain+Resort.jpeg" }} />
@@ -92,6 +99,20 @@ const ShowList = ({
               {location.name}
             </Text>
 
+=======
+            {/* 
+          <Image style={{width: '100%', height: '100%',}}
+          source={require(`../pics/${location.name}.jpeg`)} /> */}
+            <Text
+              style={[
+                styles.buttonLabel,
+                selectedValue === location.name && styles.selectedLabel,
+              ]}
+            >
+              {location.name}
+            </Text>
+
+>>>>>>> refractor
           </TouchableOpacity>
         ))}
       </View>
@@ -227,7 +248,11 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch('http://192.168.1.5:3000/location?featured=true')
+=======
+      const response = await fetch('http://10.0.0.53:3000/location?featured=true')
+>>>>>>> refractor
       const json = await response.json();
       setData(json);
     } catch (error) {

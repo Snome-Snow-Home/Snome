@@ -11,7 +11,7 @@ import { theme } from './src/theme';
 import { Navigation } from './src/navigation';
 
 export default function App() {
-  
+
   // sessions handler
   // renders <CreateUser/> if no session is found
   // *remember to uncomment import to use the component*
