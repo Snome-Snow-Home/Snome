@@ -92,13 +92,26 @@ module.exports = {
 
   getFeaturedLocation: async () => {
     try {
-      let result = await db.manyOrNone(`select url, location_id, name from location_media inner join location on location_media.location_id = location.id where featured = true order by location_id`)
+      let result = await db.manyOrNone(`select url, location_id, name, longitude, latitude 
+      from location_media inner join location on location_media.location_id = location.id where featured = true order by location_id`)
       return result;
     }
     catch (err) {
       console.log(`DATABASE ERROR - GET: ${err}`);
       return err;
     }
+  },
+
+  getSnomePhotos: async (snome_id) => {
+    try {
+      let result = await db.manyOrNone(`SELECT url FROM snome_photo WHERE snome_id = ${snome_id}`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+
   }
 
 };
