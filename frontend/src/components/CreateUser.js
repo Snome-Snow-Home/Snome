@@ -1,29 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, Pressable } from 'react-native';
 import { useForm } from '@mantine/hooks';
 import ErrorMessage from './ErrorMessage'
 // import { StatusBar } from 'expo-status-bar';
 // import axios from 'axios';
 // import FormInput from './FormInput'
-
-// const Label = styled.label`
-//   margin: 5px;
-//   color: #464545;
-//   font-family: 'Arial';
-// `;
-
-// const Required = styled.div`
-//   margin: 5px;
-//   color: gray;
-//   font-family: 'Arial';
-//   font-size: 14px;
-// `;
-
-// const Text = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-// `;
 
 const styles = StyleSheet.create({
     formInput: {
@@ -81,19 +62,7 @@ const styles = StyleSheet.create({
 
 
 export default function CreateUser(props) {
-    const [error, setError] = useState(null);
-    // const [formObject, setFormObject] = useState({
-    //     //need to change name to nameText on SQL model
-    //     nameText: '',
-    //     email: '',
-    //     address: '',
-    //     city: '',
-    //     state: '',
-    //     zipCode: '',
-    //     password: '',
-    //     confirmPassword: '',
-    // });
-
+    // const [error, setError] = useState(null);
     const [nameText, setNameText] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
@@ -133,7 +102,6 @@ export default function CreateUser(props) {
     function handleSubmit(e) {
         e.preventDefault
         // form.validate()
-        //now we can 
         console.log('user created')
         console.log({
             "nameText": nameText,
@@ -144,14 +112,13 @@ export default function CreateUser(props) {
             "password": password,
             "confirmed password": confirmPassword
         })
-
         // console.log("values: ", values)
         //should this be form.error?
         // console.log("errors: ", form.errors)
     }
 
     return (
-        <View style={{ width: "95%", maxWidth: "400px", margin: 5 }}>
+        <ScrollView style={{ width: "95%", maxWidth: 400, margin: 10 }}>
             <Image
                 source={require('../../assets/Snome.png')}
                 style={{
@@ -159,11 +126,8 @@ export default function CreateUser(props) {
                     height: 100,
                 }}
             />
-            <Text style={{ fontSize: 20, textAlign: "center" }}>New User? Sign up here</Text>
-            <View
-            // onSubmit={form.onSubmit((values) => handleSubmit(values))}
-            >
-
+            <Text style={{ fontSize: 20, textAlign: "center", margin: 10 }}>New User?  Sign up here</Text >
+            <ScrollView onSubmit={handleSubmit} >
                 <Text style={styles.horizontal}>
                     <Text style={styles.label} htmlFor="name">Name: </Text>
                     <Text style={styles.required}>*Required</Text>
@@ -174,13 +138,8 @@ export default function CreateUser(props) {
                     type="text"
                     required
                     value={nameText}
-                    // onChangeText={(newValue) => setFormObject.nameText(newValue)}
-                    // onChange={handleInputChange}
                     onChangeText={setNameText}
-                // onChange={(event) => {
-                //     setFormObject('nameText', event.target.value);
-                //     console.log(setFormObject)
-                // }}
+                    style={styles.formInput}
                 // onChange={(event) => {
                 //     form.setFieldValue('name', event.target.value);
                 //     form.validate("name")
@@ -202,7 +161,7 @@ export default function CreateUser(props) {
                     // name='email'
                     value={email}
                     onChangeText={setEmail}
-                // onChangeText={handleText}
+                    style={styles.formInput}
                 // onChange={(event) => form.setFieldValue('email', event.target.value)}
                 // style={form.errors.email ? styles.invalidInput : styles.formInput}
                 />
@@ -221,8 +180,8 @@ export default function CreateUser(props) {
                     //name='address'
                     value={address}
                     onChangeText={setAddress}
+                    style={styles.formInput}
                 // onChange={(event) => form.setFieldValue('address', event.target.value)}
-                // style={styles.formInput}
                 />
 
                 {/* <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} /> */}
@@ -239,10 +198,9 @@ export default function CreateUser(props) {
                     //name='city'
                     value={city}
                     onChangeText={setCity}
-                //onChange={handleInputChange}
+                    style={styles.formInput}
                 // value={form.values.city}
                 // onChange={(event) => form.setFieldValue('city', event.target.value)}
-                // style={styles.formInput}
                 />
 
                 {/* <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} /> */}
@@ -261,11 +219,8 @@ export default function CreateUser(props) {
                     //name='state'
                     value={state}
                     onChangeText={setState}
-                // onChange={handleInputChange}
-                //removed .toUpperCase() to fix error in value and onChange props
-                //value={(form.values.state)}
+                    style={styles.formInput}
                 // onChange={(event) => form.setFieldValue('state', event.target.value)}
-                // style={styles.formInput}
                 />
 
                 {/* <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} /> */}
@@ -282,8 +237,6 @@ export default function CreateUser(props) {
                     //name='zipCode'
                     value={zipCode}
                     onChangeText={setZipcode}
-                    // onChange={handleInputChange}
-                    // value={form.values.zipCode}
                     // onChange={(event) =>
                     //     form.setFieldValue('zipCode', event.target.value)
                     // }
@@ -339,8 +292,8 @@ export default function CreateUser(props) {
                 <Pressable style={styles.button} title="Submit" onPress={handleSubmit}>
                     {/* // {form.onSubmit((values) => handleSubmit(values))} */}
                     <Text>Submit</Text></Pressable>
-            </View>
-        </View>
+            </ScrollView>
+        </ScrollView>
     );
 }
 
