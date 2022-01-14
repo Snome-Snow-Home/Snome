@@ -24,7 +24,7 @@ development = {
         user: 'postgres',
         password: 'postgres'
     }
-    
+
 }
 
 /* TEST CONFIGURATION */
@@ -75,4 +75,3 @@ if (process.env.NODE_ENV == "prod") {
     }
 }
 
-  
