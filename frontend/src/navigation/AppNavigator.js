@@ -9,6 +9,7 @@ import LikesScreen from '../screens/LikesScreen';
 import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import DescScreen from '../screens/SnomeDescription';
 import CreateUser from '../components/CreateUser'
 
 const TAB_ICON = {
@@ -39,13 +40,14 @@ export const AppNavigator = () => {
       <Tab.Navigator
         screenOptions={createScreenOptions}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Towns" component={TownsScreen} />
-        <Tab.Screen name="Likes" component={LikesScreen} />
-        <Tab.Screen name="Match" component={MatchScreen} />
-        <Tab.Screen name="Message" component={MessageScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Login" component={CreateUser} />
+        <Tab.Screen name="Home" component={HomeScreen}/>
+        <Tab.Screen name="Towns" component={TownsScreen}/>
+        <Tab.Screen name="Likes" component={LikesScreen}/>
+        <Tab.Screen name="Match" component={MatchScreen}/>
+        <Tab.Screen name="Message" component={MessageScreen}/>
+        <Tab.Screen name="Profile" component={ProfileScreen}/>
+        <Tab.Screen name="Description" component={DescScreen}/>
+        <Tab.Screen name="Login" component={CreateUser}/>
       </Tab.Navigator>
     </>
   )
