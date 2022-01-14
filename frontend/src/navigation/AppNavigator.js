@@ -13,28 +13,29 @@ import DescScreen from '../screens/SnomeDescription';
 import CreateUser from '../components/CreateUser'
 
 const TAB_ICON = {
-    Home: 'home',
-    Towns: 'home',
-    Likes: 'favorite-outline',
-    Match: 'swap-calls',
-    Message: 'messenger-outline',
-    Profile: 'account-box',
+  Home: 'home',
+  Towns: 'home',
+  Likes: 'favorite-outline',
+  Match: 'swap-calls',
+  Message: 'messenger-outline',
+  Profile: 'account-box',
+  Login: 'account-box'
 };
 
 const Tab = createBottomTabNavigator();
 
 const createScreenOptions = ({ route }) => {
-    const iconName = TAB_ICON[route.name];
+  const iconName = TAB_ICON[route.name];
 
-    return {
-        tabBarIcon: () => (
-          <MaterialIcons style={styles.icon} name={iconName} />
-        )
-    }
+  return {
+    tabBarIcon: () => (
+      <MaterialIcons style={styles.icon} name={iconName} />
+    )
+  }
 }
 
 export const AppNavigator = () => {
-    return (
+  return (
     <>
       <Tab.Navigator
         screenOptions={createScreenOptions}
@@ -49,13 +50,13 @@ export const AppNavigator = () => {
         <Tab.Screen name="Login" component={CreateUser}/>
       </Tab.Navigator>
     </>
-    )
+  )
 };
 
 
 const styles = StyleSheet.create({
   icon: {
-    backgroundColor:'gray',
-    padding:10
+    backgroundColor: 'gray',
+    padding: 10
   }
 })
