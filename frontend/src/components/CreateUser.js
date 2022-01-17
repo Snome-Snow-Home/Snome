@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useForm } from '@mantine/hooks';
 import ErrorMessage from './ErrorMessage'
 // import { StatusBar } from 'expo-status-bar';
@@ -7,6 +8,13 @@ import ErrorMessage from './ErrorMessage'
 // import FormInput from './FormInput'
 
 const styles = StyleSheet.create({
+    link: {
+
+        marginBottom: 20,
+        textAlign: "center",
+        color: "#464545",
+        fontFamily: 'Arial',
+    },
     formInput: {
         color: "black",
         backgroundColor: "lightblue",
@@ -72,6 +80,9 @@ export default function CreateUser(props) {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConformPassword] = useState("")
 
+    const navigation = useNavigation()
+
+    const B = (props) => <Text style={{ fontWeight: 'bold', color: "#448EB1" }}>{props.children}</Text>
 
     // const form = useForm({
     //     initialValues: {
@@ -122,11 +133,16 @@ export default function CreateUser(props) {
             <Image
                 source={require('../../assets/Snome.png')}
                 style={{
-                    width: 100,
-                    height: 100,
+                    width: 50,
+                    height: 50,
                 }}
             />
-            <Text style={{ fontSize: 20, textAlign: "center", margin: 10 }}>New User?  Sign up here</Text >
+            <Text style={{ fontSize: 25, textAlign: "center", margin: 5, fontFamily: 'Arial' }}>New User?  Sign up here</Text >
+            <Text style={styles.link}
+                onPress={() => { navigation.navigate('Login') }}
+            >Already have an account <B>
+                    Go to Login</B></Text>
+
             <ScrollView onSubmit={handleSubmit} >
                 <Text style={styles.horizontal}>
                     <Text style={styles.label} htmlFor="name">Name: </Text>
