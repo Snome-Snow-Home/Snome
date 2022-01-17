@@ -274,7 +274,8 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      const response = await fetch('http://10.0.0.22:3000/featured_location')
+      //this needs to be changed to local IP adress or localhost
+      const response = await fetch('http://localhost:3000/featured_location')
       const json = await response.json();
       setData(json);
     } catch (error) {
