@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
-import *  as Device from 'expo-device';
 
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
@@ -69,114 +68,65 @@ const ShowList = ({
 
   return (
     <>
-      <ScrollView>
-        <Text style={styles.label}>{label}</Text>
-        <View style={[styles.row, styles.ListMapContainer]}>
-          {locationData.map((location) => (
-            <TouchableOpacity
-              key={location.name}
-              onPress={() => { setSelectedValue(location.name); navigation.navigate('Towns', { 'location_id': location.id }) }}
+      <Text style={styles.label}>{label}</Text>
+      <View style={[styles.row, styles.ListMapContainer]}>
+        {locationData.map((location) => (
+          <TouchableOpacity
+            key={location.name}
+            onPress={() => { setSelectedValue(location.name); navigation.navigate('Towns', { 'location_id': location.id }) }}
+            style={[
+              styles.location,
+              selectedValue === location.name && styles.selected,
+            ]}
+          >
+            {/*
+          <Image style={{width: '100%', height: '100%',}}
+          source={require(`../pics/${location.name}.jpeg`)} /> */}
+            <Text
               style={[
                 styles.location,
                 selectedValue === location.name && styles.selected,
               ]}
-            >
+            ></Text>
 
-              <Image style={{ width: '100%', height: '100%', resizeMode: "contain" }}
-                source={{ uri: location.url }} />
-              <Text
-                style={[
-                  styles.buttonLabel,
-                  selectedValue === location.name && styles.selectedLabel,
-                ]}
-              >
-                {location.name}
-              </Text>
-
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+          </TouchableOpacity>
+        ))}
+      </View>
     </>
   )
 
 }
 
-
-
 const ShowMap = ({
   label,
   locationData
 }) => {
-  // console.log(locationData);
-  // console.log(data)
-
-  if (Device.brand == "Apple") {
-    return (
-      <>
-        <Text style={styles.label}>{label}</Text>
-        <View style={styles.ListMapContainer}>
-          <View style={{
-            backgroundColor: "oldlace",
-            width: "100%",
-            height: "100%",
-            padding: 16
-          }}>
-
-            <MapView style={styles.map}>
-              {locationData.map((location, index) => (
-                <Marker
-                  key={index}
-                  //NOTE: LAT AND LONG ARE BACKWARDS
-                  coordinate={{
-                    latitude: location.longitude, longitude: location.latitude
-                  }}
-                />
-              ))}
-            </MapView>
-          </View>
+  console.log(locationData);
+  return (
+    <>
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.ListMapContainer}>
+        <View style={{
+          backgroundColor: "oldlace",
+          width: "100%",
+          height: "100%",
+          padding: 16
+        }}>
+          <MapView style={styles.map}>
+            {locationData.map((location, index) => (
+              <Marker
+                key={index}
+                //NOTE: LAT AND LONG ARE BACKWARDS
+                coordinate={{
+                  latitude: location.longitude, longitude: location.latitude
+                }}
+              />
+            ))}
+          </MapView>
         </View>
-      </>
-    )
-  } else if (Device.brand == null) {
-    return (
-      <>
-        <Text>Map feature is not compatible on web browsers</Text>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <Text style={styles.label}>{label}</Text>
-        <View style={styles.ListMapContainer}>
-          <View style={{
-            backgroundColor: "oldlace",
-            width: "100%",
-            height: "100%",
-            padding: 16
-          }}>
-            <MapView style={styles.map} region={{
-              latitude: 37.0902,
-              longitude: -95.712,
-              latitudeDelta: 50,
-              longitudeDelta: 30
-            }}>
-              {locationData.map((location, index) => (
-                <Marker
-                  key={index}
-                  //NOTE: LAT AND LONG ARE BACKWARDS
-                  coordinate={{
-                    latitude: location.longitude, longitude: location.latitude
-                  }}
-                />
-              ))}
-            </MapView>
-          </View>
-        </View>
-      </>
-    )
-
-  }
+      </View>
+    </>
+  )
 }
 
 const FeaturedLocations = ({
@@ -198,7 +148,17 @@ const FeaturedLocations = ({
       <View style={[styles.topContainer, { [label]: selectedValue }]}>
         {children}
         <View>
-          <Text style={styles.SnomeLogo}>Snome Logo</Text>
+          <Image
+            // style={styles.SnomeLogo}
+            source={require('../../assets/Snome.png')}
+            style={{
+              width: 100,
+              height: 100,
+              // backgroundColor: 'white',
+              // padding: 12,
+              // borderBottomColor: 'black',
+              // borderBottomWidth: 1,
+            }} />
         </View>
 
         {/* Search Box Container */}
@@ -274,8 +234,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      //this needs to be changed to local IP adress or localhost
-      const response = await fetch('http://localhost:3000/featured_location')
+      const response = await fetch('http://localhost:3000/location?featured=true')
       const json = await response.json();
       setData(json);
     } catch (error) {
