@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeArea
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 
-
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
     <Text
@@ -48,11 +47,10 @@ const NewSearch = ({ locationData }) => {
             data={locationData.map(location => location.name)}
             renderItem={renderItem}
             keyExtractor={item => item}
-            scrollEnabled='false'
           />
         }
-      </View>
 
+      </View>
     </>
   );
 }
@@ -86,12 +84,10 @@ const ShowList = ({
           source={require(`../pics/${location.name}.jpeg`)} /> */}
             <Text
               style={[
-                styles.buttonLabel,
-                selectedValue === location.name && styles.selectedLabel,
+                styles.location,
+                selectedValue === location.name && styles.selected,
               ]}
-            >
-              {location.name}
-            </Text>
+            ></Text>
 
           </TouchableOpacity>
         ))}

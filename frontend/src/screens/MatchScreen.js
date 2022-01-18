@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import {Dimensions} from 'react-native';
 import UserContext from '../Context/UserContext';
@@ -26,32 +27,35 @@ const DATA = [
 
 const Item = ({location}) => (
   <>
-  <View style={styles.item}>
-    <View style={styles.img_with_description}>
-      <Image style={styles.img} source={require('../pics/snome_location_img.jpg')} />
-      <View>
-        <Text style={styles.location_info}>{location.resort}</Text>
-        <Text style={[styles.location_info, {width:'50%'}]}>{location.header}</Text>
-        <Text style={styles.location_info}>{location.perks}</Text>
-        <Text style={styles.location_info}>{location.time_to_mountain}</Text>
+    <ScrollView>
+      <View style={styles.item}>
+        <View style={styles.img_with_description}>
+          <Image style={styles.img} source={require('../pics/snome_location_img.jpg')} />
+          <View>
+            <Text style={styles.location_info}>{location.resort}</Text>
+            <Text style={[styles.location_info, { width: '50%' }]}>{location.header}</Text>
+            <Text style={styles.location_info}>{location.perks}</Text>
+            <Text style={styles.location_info}>{location.time_to_mountain}</Text>
+          </View>
+        </View>
+        <View>
+          <Text style={styles.location}>{location.description}</Text>
+        </View>
       </View>
-    </View>
-    <View>
-      <Text style={styles.location}>{location.description}</Text>
-    </View>
-  </View>
+    </ScrollView>
   </>
 
 );
 
 const MatchScreen = () => {
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <Item location={item} />
   );
 
   return (
     // <SafeAreaView>
+
     <UserContext.Consumer>
       {context => (
         <>
