@@ -4,7 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './src/theme';
-import { Navigation } from './src/navigation';
+// import { Navigation } from './src/navigation';
+import Router from './src/navigation/index';
 import UserProvider from './src/Context/UserProvider'
 
 export default function App() {
@@ -17,7 +18,8 @@ export default function App() {
     <>
       <UserProvider>
         <ThemeProvider theme={theme}>
-          <Navigation />
+          {/* <Navigation /> */}
+          <Router />
         </ThemeProvider>
         <StatusBar style="auto" />
       </UserProvider>

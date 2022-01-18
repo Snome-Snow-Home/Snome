@@ -56,13 +56,13 @@ export const AppNavigator = () => {
           <Tab.Screen name="Message" component={MessageScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
           <Tab.Screen name="Description" component={DescScreen} />
-          <Tab.Screen name="Login" component={Login} />
+          {/* <Tab.Screen name="Login" component={Login} /> */}
         </Tab.Group>
 
-        <Tab.Group screenOptions={{ headerShown: false }}>
+        {/* <Tab.Group screenOptions={{ headerShown: false }}>
           <Tab.Screen name="CreateUser"
             component={CreateUser}
-          /></Tab.Group>
+          /></Tab.Group> */}
       </Tab.Navigator>
 
     </>

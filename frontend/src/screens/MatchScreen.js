@@ -1,29 +1,14 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView, View, Image } from "react-native";
 import { Dimensions } from 'react-native';
-import MyContext from '../Context/MyContext';
-
-
-const DATA = [
-  { id: 1, resort: "parkcity", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
-  { id: 2, resort: "crestedbutte", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
-  { id: 3, resort: "aspen", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
-  { id: 4, resort: "alta", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." }
-]
-
-const Item = ({ location }) => (
-=======
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
-import {Dimensions} from 'react-native';
 import UserContext from '../Context/UserContext';
 
 
 const DATA = [
-  {id: 1, resort: "parkcity", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night mfin during ski season."},
-  {id: 2, resort: "crestedbutte", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season."},
-  {id: 3, resort: "aspen", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season."},
-  {id: 4, resort: "alta", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season."}
+  { id: 1, resort: "parkcity", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night mfin during ski season." },
+  { id: 2, resort: "crestedbutte", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
+  { id: 3, resort: "aspen", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
+  { id: 4, resort: "alta", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." }
 ]
 
 //MATCH DATA
@@ -39,8 +24,7 @@ const DATA = [
 // 9,3,4,FALSE
 // 10,2,2,FALSE
 
-const Item = ({location}) => (
->>>>>>> upstream/main
+const Item = ({ location }) => (
   <>
     <ScrollView>
       <View style={styles.item}>
@@ -70,52 +54,26 @@ const MatchScreen = () => {
 
   return (
     // <SafeAreaView>
-<<<<<<< HEAD
-    <ScrollView>
-      <MyContext.Consumer>
-        {context => (
-          <>
-
-            {/* {Object.keys(context.USER_DATA).map(data => (
-          <Text>{data}</Text>
-        ))} */}
-
-            <Text>'this' user id: {context.user_id}</Text>
-            <Text>snome_ids (of matches): {context.match.snome_id}</Text>
-            {/* <Text>{context.snome_likes.snome_id}</Text> */}
-            <FlatList
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-          </>
-
-        )}
-        {/* </SafeAreaView> */}
-      </MyContext.Consumer>
-    </ScrollView>
-=======
     <UserContext.Consumer>
       {context => (
         <>
-        {/* {Object.keys(context.USER_DATA).map(data => (
+          {/* {Object.keys(context.USER_DATA).map(data => (
           <Text>{data}</Text>
         ))} */}
 
-        <Text>'this' user id: {context.user_data.user_id}</Text>
-        <Text>snome_ids (of matches): {context.user_data.match.snome_id}</Text>
-        {/* <Text>{context.snome_likes.snome_id}</Text> */}
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+          <Text>'this' user id: {context.user_data.user_id}</Text>
+          <Text>snome_ids (of matches): {context.user_data.match.snome_id}</Text>
+          {/* <Text>{context.snome_likes.snome_id}</Text> */}
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
         </>
 
       )}
-    {/* </SafeAreaView> */}
+      {/* </SafeAreaView> */}
     </UserContext.Consumer>
->>>>>>> upstream/main
   );
 };
 
