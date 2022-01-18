@@ -132,8 +132,10 @@ module.exports = {
 
   getUserByName: async (name) => {
     // name = 'John Smith';
+    //George Thomson
     try {
       let result = await db.one('SELECT * FROM snome_user WHERE name = $1', name);
+      console.log(result.password)
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR:  ${err}`);
