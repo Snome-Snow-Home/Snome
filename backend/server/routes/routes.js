@@ -18,6 +18,7 @@ router.delete("/snome/:id", controller.remove.delete);
 
 /* SNOME USER */
 router.post('/signup', controller.user.createUser);
+router.post('/login', controller.user.login);
 router.get('/user/:id', controller.user.getUser);
 router.get('/user_name/:name', controller.user.getUserByName);
 router.get('/user', controller.user.getAllUsers); /* for dev only */

@@ -3,6 +3,11 @@ const user = require('../models/user')
 
 module.exports = {
 
+  login: async (req, res) => {
+    console.log(req.body.name)
+    res.send(['input controller working', req.body.name, req.body.password])
+  },
+
   createUser: async (req, res) => {
     try {
       const response = await user.createUser(req.body);
