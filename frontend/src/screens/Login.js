@@ -24,11 +24,18 @@ export default function Login() {
           url: 'http://localhost:3000/login',
           data:
             credentials
+            //receive token
           ,
         })
         .then(res => {
             console.log(res)
             console.log(res.data);
+
+            //login user
+            context.setUserData({
+                ...context.userData,
+                is_logged_in: true
+            })
             // localStorage.setItem('token', res.data.token);
             // console.log(res.data.token)
             // setJwt(res.data.token);

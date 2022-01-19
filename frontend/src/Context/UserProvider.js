@@ -63,7 +63,7 @@ function UserProvider(props){
 
         return (
             <UserContext.Provider
-                value={{user_data: userData, location_data: location}}
+                value={{user_data: userData, setUserData: setUserData, location_data: location}}
             >
                 {props.children}
             </UserContext.Provider>
