@@ -42,7 +42,7 @@ function UserProvider(props){
 
   const [userData, setUserData] = useState(
     {
-      is_logged_in: true,
+      is_logged_in: false,
       user_id: 4,
       match: {
         user_id: 6,
