@@ -4,8 +4,17 @@ const user = require('../models/user')
 module.exports = {
 
   login: async (req, res) => {
-    console.log(req.body.name)
-    res.send(['input controller working', req.body.name, req.body.password])
+    console.log('login route: ', req.body.name)
+    // res.send(['input controller working', req.body.name, req.body.password])
+    try {
+      const auth_user = await user.getUserByName(req.body.name);
+      console.log(auth_user)
+      //authentication goes here
+      res.status(200).send(auth_user);
+    } catch(err) {
+      console.log(`SERVER SIDE ERROR - POST: ${err}`);
+      res.status(500).send(err);
+    }
   },
 
   createUser: async (req, res) => {
