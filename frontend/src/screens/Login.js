@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, Pressable
 import { useNavigation } from '@react-navigation/native';
 import UserContext from '../Context/UserContext'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Login() {
@@ -28,9 +29,12 @@ export default function Login() {
           ,
         })
         .then(res => {
+            // let token = req.header('Authorization');
+
             console.log(res)
             console.log(res.data);
 
+            AsyncStorage.setItem('token', JSON.stringify(res.data.token))
             //login user
             context.setUserData({
                 ...context.userData,
