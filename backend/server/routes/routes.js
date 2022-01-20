@@ -72,3 +72,10 @@ router.get("/unprotected", (req, res)=>{
 router.get("/protected", jwt({ secret: '123', algorithms: ['HS256'] }), (req, res) => {
   res.send('protected: success')
 });
+
+router.get("/protected_has_token", jwt({ secret: '123', algorithms: ['HS256'] }), (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.send('protected: success')
+});

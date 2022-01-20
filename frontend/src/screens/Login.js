@@ -50,6 +50,20 @@ export default function Login() {
         })
       }
 
+      const unprotectedTest = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/unprotected',
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
       const protectedTest = async (e) => {
         e.preventDefault()
         axios({
@@ -64,11 +78,17 @@ export default function Login() {
         })
       }
 
-      const unprotectedTest = async (e) => {
+      const protectedHasTokenTest = async (e) => {
+
+        const token = await AsyncStorage.getItem('token')
+
         e.preventDefault()
         axios({
           method: 'get',
-          url: 'http://localhost:3000/unprotected',
+          url: 'http://localhost:3000/protected_has_token',
+          headers: {
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.YWJj.USwP3aNMfDCRyY4PiAV7RMWWOjSMu8v8j7J4-CI7ve0`
+          }
         })
         .then(res => {
             console.log(res)
@@ -95,6 +115,10 @@ export default function Login() {
                 // onPress={handleSubmit}
                 onPress={(e)=>{ protectedTest(e)}}
             ><Text>protected</Text></Pressable>
+            <Pressable style={styles.button} title="Submit"
+                // onPress={handleSubmit}
+                onPress={(e)=>{ protectedHasTokenTest(e)}}
+            ><Text>protected has token</Text></Pressable>
 
             <Image
                 source={require('../../assets/Snome.png')}
