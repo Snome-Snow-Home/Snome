@@ -50,6 +50,34 @@ export default function Login() {
         })
       }
 
+      const protectedTest = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/protected',
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
+      const unprotectedTest = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/unprotected',
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
     return (
         <View
             // style={styles.container}
@@ -59,6 +87,15 @@ export default function Login() {
                 margin: 10,
             }}
         >
+             <Pressable style={styles.button} title="Submit"
+                    // onPress={handleSubmit}
+                    onPress={(e)=>{ unprotectedTest(e)}}
+                ><Text>unprotected</Text></Pressable>
+            <Pressable style={styles.button} title="Submit"
+                // onPress={handleSubmit}
+                onPress={(e)=>{ protectedTest(e)}}
+            ><Text>protected</Text></Pressable>
+
             <Image
                 source={require('../../assets/Snome.png')}
                 style={{

@@ -1,7 +1,7 @@
 const controller = require("../controllers");
 const router = require("express").Router();
 const { uploadSnomePhotos } = require("./middleware/multer.js");
-const storage = require('@react-native-async-storage/async-storage');
+const jwt = require('express-jwt');
 
 /* define API url to handler mappings here, organized by model and CRUD */
 module.exports = router;
@@ -63,3 +63,12 @@ router.get("/review", controller.get.getAll);
 router.get("/snome/:id/photos", controller.get.getSnomePhotos);
 router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
 
+/* TESTING PROTECTED ROUTES */
+
+router.get("/unprotected", (req, res)=>{
+  res.send('unprotected: success')
+});
+
+router.get("/protected", jwt({ secret: '123', algorithms: ['HS256'] }), (req, res) => {
+  res.send('protected: success')
+});
