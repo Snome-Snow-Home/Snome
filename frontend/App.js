@@ -1,34 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './src/screens/TownsScreen';
-// import CreateUser from './src/components/CreateUser';
+import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './src/theme';
-import { Navigation } from './src/navigation';
+// import { Navigation } from './src/navigation';
+import Router from './src/navigation/index';
+import UserProvider from './src/Context/UserProvider'
 
 export default function App() {
-  
+
   // sessions handler
   // renders <CreateUser/> if no session is found
   // *remember to uncomment import to use the component*
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Navigation />
-      </ThemeProvider>
-      <StatusBar style="auto" />
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          {/* <Navigation /> */}
+          <Router />
+        </ThemeProvider>
+        <StatusBar style="auto" />
+      </UserProvider>
     </>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });

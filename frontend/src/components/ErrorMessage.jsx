@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function ErrorMessage (props) {
   const {
@@ -9,16 +9,16 @@ export default function ErrorMessage (props) {
   } = props
 
   return (
-    <div>
-      {errorName ? <Text id={errorId} style={styles.errorBox}>{errorMessage}</Text> : <br/>}
-    </div>
+    <View>
+      {errorName ? <Text id={errorId} style={styles.errorBox}>{errorMessage}</Text> : <View/>}
+    </View>
   )
 
 }
 
-const styles = {
+const styles = StyleSheet.create({
   errorBox: {
     color: 'red',
     width: 'inherit',
-  },
-}
+  }
+})
