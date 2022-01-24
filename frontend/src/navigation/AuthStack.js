@@ -1,43 +1,51 @@
 import { TabActions } from '@react-navigation/native'
 import React, { useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
+import { createStackNavigator } from '@react-navigation/stack';
 
 import CreateUser from '../components/CreateUser';
 import Login from '../screens/Login';
 
 
 
-const TAB_ICON = {
-    Login: 'account-box',
-    CreateUser: 'account-box'
-};
+// const TAB_ICON = {
+//     Login: 'account-box',
+//     CreateUser: 'account-box'
+// };
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 
-const createScreenOptions = ({ route }) => {
-    const iconName = TAB_ICON[route.name];
+// const createScreenOptions = ({ route }) => {
+//     const iconName = TAB_ICON[route.name];
 
-    return {
-        tabBarIcon: () => (
-            <MaterialIcons style={styles.icon} name={iconName} />
-        )
-    }
-}
+//     return {
+//         tabBarIcon: () => (
+//             <MaterialIcons style={styles.icon} name={iconName} />
+//         )
+//     }
+// }
 
 export default function AuthStack() {
     return (
         <>
-            <Tab.Navigator screenOptions={createScreenOptions}>
-                <Tab.Group screenOptions={{ headerShown: false }}>
-                    <Tab.Screen name="Login" component={Login} />
-                    <Tab.Screen name="CreateUser"
-                        component={CreateUser}
-                    /></Tab.Group>
-            </Tab.Navigator>
+            <Stack.Navigator>
+
+                <Stack.Screen name="Login" component={Login} />
+                {/* </Tab.Group> */}
+                {/* <Tab.Group screenOptions={{ headerShown: false }}> */}
+                <Stack.Screen name="CreateUser"
+                    component={CreateUser}
+                    options={{
+                        headerShown: false,
+                        title: 'Sign Up'
+                    }} />
+
+            </Stack.Navigator>
         </>
     )
 }
