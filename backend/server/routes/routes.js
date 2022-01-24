@@ -1,6 +1,7 @@
 const controller = require("../controllers");
 const router = require("express").Router();
 const { uploadSnomePhotos } = require("./middleware/multer.js");
+const jwt = require('express-jwt');
 
 /* define API url to handler mappings here, organized by model and CRUD */
 module.exports = router;
@@ -18,6 +19,7 @@ router.delete("/snome/:id", controller.remove.delete);
 
 /* SNOME USER */
 router.post('/signup', controller.user.createUser);
+router.post('/login', controller.user.login);
 router.get('/user/:id', controller.user.getUser);
 router.get('/user_name/:name', controller.user.getUserByName);
 router.get('/user', controller.user.getAllUsers); /* for dev only */
@@ -61,3 +63,19 @@ router.get("/review", controller.get.getAll);
 router.get("/snome/:id/photos", controller.get.getSnomePhotos);
 router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
 
+/* TESTING PROTECTED ROUTES */
+
+router.get("/unprotected", (req, res)=>{
+  res.send('unprotected: success')
+});
+
+router.get("/protected", jwt({ secret: '123', algorithms: ['HS256'] }), (req, res) => {
+  res.send('protected: success')
+});
+
+router.get("/protected_has_token", jwt({ secret: '123', algorithms: ['HS256'] }), (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.send('protected: success')
+});

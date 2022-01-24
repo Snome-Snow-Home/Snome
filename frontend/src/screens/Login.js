@@ -1,12 +1,102 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import UserContext from '../Context/UserContext'
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Login() {
 
     const navigation = useNavigation()
+    const context = useContext(UserContext)
+
+    const [credentials, setCredentials] = useState({
+        name: '',
+        password: ''
+      });
 
     const B = (props) => <Text style={{ fontWeight: 'bold', color: "#448EB1" }}>{props.children}</Text>
+
+    const login = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/login',
+          data:
+            credentials
+            //receive token
+          ,
+        })
+        .then(res => {
+            // let token = req.header('Authorization');
+
+            console.log(res)
+            console.log(res.data);
+
+            AsyncStorage.setItem('token', JSON.stringify(res.data.token))
+            //login user
+            context.setUserData({
+                ...context.userData,
+                is_logged_in: true
+            })
+            // localStorage.setItem('token', res.data.token);
+            // console.log(res.data.token)
+            // setJwt(res.data.token);
+            // setLogged_in(true)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
+      const unprotectedTest = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/unprotected',
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
+      const protectedTest = async (e) => {
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/protected',
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
+
+      const protectedHasTokenTest = async (e) => {
+
+        const token = await AsyncStorage.getItem('token')
+
+        e.preventDefault()
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/protected_has_token',
+          headers: {
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.YWJj.USwP3aNMfDCRyY4PiAV7RMWWOjSMu8v8j7J4-CI7ve0`
+          }
+        })
+        .then(res => {
+            console.log(res)
+          })
+        .catch( err => {
+          console.log(err)
+        })
+      }
 
     return (
         <View
@@ -17,6 +107,19 @@ export default function Login() {
                 margin: 10,
             }}
         >
+             <Pressable style={styles.button} title="Submit"
+                    // onPress={handleSubmit}
+                    onPress={(e)=>{ unprotectedTest(e)}}
+                ><Text>unprotected</Text></Pressable>
+            <Pressable style={styles.button} title="Submit"
+                // onPress={handleSubmit}
+                onPress={(e)=>{ protectedTest(e)}}
+            ><Text>protected</Text></Pressable>
+            <Pressable style={styles.button} title="Submit"
+                // onPress={handleSubmit}
+                onPress={(e)=>{ protectedHasTokenTest(e)}}
+            ><Text>protected has token</Text></Pressable>
+
             <Image
                 source={require('../../assets/Snome.png')}
                 style={{
@@ -24,6 +127,8 @@ export default function Login() {
                     height: 100,
                 }}
             />
+
+            <Text>{context.user_data.is_logged_in ? 'erer' : 'tttt'}</Text>
 
             <Text style={{
                 fontSize: 20,
@@ -45,6 +150,8 @@ export default function Login() {
                     required
                     // value={nameText}
                     // onChangeText={setNameText}
+                    value={credentials.name}
+                    onChange={(e) => setCredentials({...credentials, name: e.target.value})}
                     style={styles.formInput}
                 />
 
@@ -59,12 +166,14 @@ export default function Login() {
                     required
                     //value={nameText}
                     // onChangeText={setNameText}
+                    value={credentials.password}
+                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                     style={styles.formInput}
                 />
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
-                    onPress={console.log("hello")}
+                    onPress={(e)=>{ login(e), console.log(credentials, "hello")}}
                 >
 
                     <Text>Lets get Snomey</Text></Pressable>
