@@ -42,7 +42,7 @@ function UserProvider(props){
 
   const [userData, setUserData] = useState(
     {
-      is_logged_in: true,
+      is_logged_in: false,
       user_id: 4,
       match: {
         user_id: 6,
@@ -63,7 +63,7 @@ function UserProvider(props){
 
         return (
             <UserContext.Provider
-                value={{user_data: userData, location_data: location}}
+                value={{user_data: userData, setUserData: setUserData, location_data: location}}
             >
                 {props.children}
             </UserContext.Provider>
