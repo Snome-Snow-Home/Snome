@@ -4,8 +4,8 @@ const jsonwebtoken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const authenticate = (pass1, pass2) => {
-  // return bcrypt.compareSync(pass, model[name].pass)
-  return pass1 === pass2
+  return bcrypt.compareSync(pass1, pass2)
+  // return pass1 === pass2
 }
 
 module.exports = {
@@ -15,7 +15,11 @@ module.exports = {
     // res.send(['input controller working', req.body.name, req.body.password])
     try {
       const auth_user = await user.getUserByName(req.body.name);
-      let is_auth = authenticate(auth_user.password, req.body.password)
+
+
+      let is_auth = authenticate(req.body.password, auth_user.password)
+
+
       if (!is_auth) throw new Error('credentials did not match')
       const token = jsonwebtoken.sign('abc', '123');
       console.log(token)
