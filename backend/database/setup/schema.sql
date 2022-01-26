@@ -24,7 +24,7 @@ CREATE TABLE "address" (
   "id" serial PRIMARY KEY,
   "street" varchar NOT NULL,
   "city" text NOT NULL,
-  "state" char(2) NOT NULL,
+  "state" varchar(2) NOT NULL,
   "zip_code" int NOT NULL
 );
 

@@ -30,11 +30,12 @@ module.exports = {
   createUser: async (req, res) => {
     try {
       const response = await user.createUser(req.body);
-      res.status(201).send(response);
+      res.status(201).send("User Created");
     } catch(err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
     }
+
   },
 
   updateUser: async (req, res) => {
