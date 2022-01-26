@@ -135,7 +135,7 @@ module.exports = {
     //George Thomson
     try {
       let result = await db.one('SELECT * FROM snome_user WHERE name = $1', name);
-      console.log(result.password)
+      console.log('db success: ', result.password)
       return result;
     } catch(err) {
       console.log(`DATABASE ERROR:  ${err}`);

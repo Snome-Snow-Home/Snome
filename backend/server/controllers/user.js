@@ -1,7 +1,35 @@
 const { get, helpers } = require('../models');
 const user = require('../models/user')
+const jsonwebtoken = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+const authenticate = (pass1, pass2) => {
+  return bcrypt.compareSync(pass1, pass2)
+  // return pass1 === pass2
+}
 
 module.exports = {
+
+  login: async (req, res) => {
+    console.log('credentials: ', req.body.name, req.body.password)
+    // res.send(['input controller working', req.body.name, req.body.password])
+    try {
+      const auth_user = await user.getUserByName(req.body.name);
+
+
+      let is_auth = authenticate(req.body.password, auth_user.password)
+
+
+      if (!is_auth) throw new Error('credentials did not match')
+      const token = jsonwebtoken.sign('abc', '123');
+      console.log(token)
+      res.header("auth-token", token)
+      res.status(200).send({auth_user, token});
+    } catch(err) {
+      console.log(`SERVER SIDE ERROR - POST: ${err}`);
+      res.status(500).send(err);
+    }
+  },
 
   createUser: async (req, res) => {
     try {
