@@ -44,6 +44,7 @@ let passes_hashes = [
     hash: "$2b$10$/syGEz4PbocHVsbOchylJuOOd1Efnx6Mp3.7Lic68pVhycPBbWPqC",
     password: "R%t&6f",
   },
+  {
     username: "Cohen Riggs",
     hash: "$2b$10$PQmJ8W5KTlAl9evr98a6ZeuO1pm1E7ofYQMPJ9pITMnyyxtuAh1lq",
     password: "Bp2r$^"
