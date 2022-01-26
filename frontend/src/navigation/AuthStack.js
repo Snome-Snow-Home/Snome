@@ -1,10 +1,10 @@
 import { TabActions } from '@react-navigation/native'
 import React, { useState } from 'react';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
-import { createStackNavigator } from '@react-navigation/stack';
+// import { createStackNavigator } from '@react-navigation/stack';
 
 import CreateUser from '../components/CreateUser';
 import Login from '../screens/Login';
@@ -16,8 +16,8 @@ import Login from '../screens/Login';
 //     CreateUser: 'account-box'
 // };
 
-// const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+//const Stack = createStackNavigator();
 
 
 // const createScreenOptions = ({ route }) => {
@@ -33,19 +33,19 @@ const Stack = createStackNavigator();
 export default function AuthStack() {
     return (
         <>
-            <Stack.Navigator>
+            <Tab.Navigator>
 
-                <Stack.Screen name="Login" component={Login} />
+                <Tab.Screen name="Login" component={Login} />
                 {/* </Tab.Group> */}
                 {/* <Tab.Group screenOptions={{ headerShown: false }}> */}
-                <Stack.Screen name="CreateUser"
+                <Tab.Screen name="CreateUser"
                     component={CreateUser}
                     options={{
                         headerShown: false,
                         title: 'Sign Up'
                     }} />
 
-            </Stack.Navigator>
+            </Tab.Navigator>
         </>
     )
 }
