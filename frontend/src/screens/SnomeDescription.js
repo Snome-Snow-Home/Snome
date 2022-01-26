@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -19,21 +20,21 @@ const SnomeDescription = () => {
 
   const window = useWindowDimensions();
 
-  var i = 0;
+  // var i = 0;
 
-  const scrollPhotoLeft = () => {
-    i -= 1;
+  // const scrollPhotoLeft = () => {
+  //   i -= 1;
 
-    console.log(photos[i]);
-  };
-  const scrollPhotoRight = () => {
-    if (i >= photos.length - 1) {
-      return (i = -1);
-    }
-    i += 1;
-    console.log(i);
-    console.log(photos[i]);
-  };
+  //   console.log(photos[i]);
+  // };
+  // const scrollPhotoRight = () => {
+  //   if (i >= photos.length - 1) {
+  //     return (i = -1);
+  //   }
+  //   i += 1;
+  //   console.log(i);
+  //   console.log(photos[i]);
+  // };
 
   const getPhotos = async () => {
     try {
@@ -68,55 +69,55 @@ const SnomeDescription = () => {
         color="black"
         style={{ alignSelf: 'flex-start', marginTop: 10 }}
       />
-      <View style={styles.photoContainer}>
-        {/* <View style={styles.photoGallery}> */}
+      {/* <View style={styles.photoContainer}>
+      <View style={styles.photoGallery}> 
         <ImageBackground
           source={image}
           resizeMode="cover"
-          style={{ flex: 1, justifyContent: 'center' }}
-        ></ImageBackground>
-        <View
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: 'transparent',
-          }}
-        >
-          <TouchableOpacity
-            onPress={scrollPhotoLeft}
-            style={{
-              position: 'absolute',
-            }}
-          >
-            <AntDesign name="left" size={34} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ position: 'absolute', margin: 330 }}>
-            <AntDesign
-              onPress={scrollPhotoRight}
-              name="right"
-              size={34}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              alignSelf: 'flex-end',
-              position: 'absolute',
-              marginLeft: 300,
-            }}
-          >
-            <Ionicons
-              onPress={createLike}
-              name="heart-circle-outline"
-              size={64}
-              color="black"
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+          style={{ flex: 1, justifyContent: 'center' }} 
+      //   ></ImageBackground>
+      //   <View
+      //     style={{
+      //       position: 'absolute',
+      //       width: '100%',
+      //       height: '100%',
+      //       flexDirection: 'row',
+      //       alignItems: 'center',
+      //       backgroundColor: 'transparent',
+      //     }}
+      //   >
+      //     <TouchableOpacity
+      //       onPress={scrollPhotoLeft}
+      //       style={{
+      //         position: 'absolute',
+      //       }}
+      //     >
+      //       <AntDesign name="left" size={34} color="black" />
+      //     </TouchableOpacity>
+      //     <TouchableOpacity style={{ position: 'absolute', margin: 330 }}>
+      //       <AntDesign
+      //         onPress={scrollPhotoRight}
+      //         name="right"
+      //         size={34}
+      //         color="black"
+      //       />
+      //     </TouchableOpacity>
+      //     <TouchableOpacity
+      //       style={{
+      //         alignSelf: 'flex-end',
+      //         position: 'absolute',
+      //         marginLeft: 300,
+      //       }}
+      //     >
+      //       <Ionicons
+      //         onPress={createLike}
+      //         name="heart-circle-outline"
+      //         size={64}
+      //         color="black"
+      //       />
+      //     </TouchableOpacity>
+      //   </View>
+      //  </View>  */}
 
       <Text
         style={{
@@ -178,13 +179,12 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     marginTop: 20,
-    width: '100%',
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: 'black',
     flex: 1,
-    height: 250,
-    width: '100%',
+    height: Dimensions.get('window').height * 0.3,
+    width: Dimensions.get('window').height * 0.4,
   },
   // photoGallery: {
   //   flex: 1,

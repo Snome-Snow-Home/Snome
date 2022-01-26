@@ -53,7 +53,7 @@ const NewSearch = ({ locationData }) => {
       </View>
     </>
   );
-}
+};
 
 const ShowList = ({
   label,
@@ -139,11 +139,10 @@ const FeaturedLocations = ({
   view,
   setView,
   filterNames,
-  locationData }) => {
-
+  locationData,
+}) => {
   return (
     <View style={{ padding: 10, flex: 1, position: 'relative' }}>
-
       {/* Top Container */}
       <View style={[styles.topContainer, { [label]: selectedValue }]}>
         {children}
@@ -228,8 +227,8 @@ const FeaturedLocations = ({
 
 
 const HomeScreen = () => {
-  const [flexDirection, setflexDirection] = useState("column");
-  const [toggleView, settoggleView] = useState("ShowList");
+  const [flexDirection, setflexDirection] = useState('column');
+  const [toggleView, settoggleView] = useState('ShowList');
   const [data, setData] = useState([]);
 
   const getLocations = async () => {
@@ -297,7 +296,6 @@ const styles = StyleSheet.create({
   title: {
     // fontSize: 22,
     // alignSelf:'center'
-
   },
 
   ListMapContainer: {
@@ -308,14 +306,13 @@ const styles = StyleSheet.create({
     backgroundColor: "oldlace",
     padding: 18,
     marginBottom: 20,
-
   },
   input: {
     height: 40,
     // marginHorizontal: 12,
     borderWidth: 1,
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     // maxWidth: '80%'
   },
   SnomeLogo: {
@@ -329,12 +326,12 @@ const styles = StyleSheet.create({
   topContainer: {
     // flex: 1,
     marginTop: 8,
-    backgroundColor: "aliceblue",
+    backgroundColor: 'aliceblue',
   },
   container: {
     flex: 1,
     marginTop: 8,
-    backgroundColor: "aliceblue",
+    backgroundColor: 'aliceblue',
   },
   box: {
     width: 50,
@@ -351,32 +348,29 @@ const styles = StyleSheet.create({
   },
   location: {
     borderRadius: 4,
-    backgroundColor: "oldlace",
+    backgroundColor: 'oldlace',
     marginBottom: 16,
     width: Dimensions.get('window').width * 0.4,
     height: Dimensions.get('window').width * 0.4,
-    textAlign: "center",
+    textAlign: 'center',
   },
   selected: {
-    backgroundColor: "coral",
+    backgroundColor: 'coral',
     borderWidth: 0,
   },
   buttonLabel: {
     fontSize: 12,
-    fontWeight: "500",
-    color: "coral",
+    fontWeight: '500',
+    color: 'coral',
   },
   selectedLabel: {
-    color: "white",
+    color: 'white',
   },
   label: {
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 10,
     fontSize: 24,
   },
 });
 
-
-
-
-export default HomeScreen
+export default HomeScreen;
