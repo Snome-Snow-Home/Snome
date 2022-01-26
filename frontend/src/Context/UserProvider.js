@@ -31,7 +31,7 @@ function UserProvider(props){
 
   const appDataFetch = async () => {
     try {
-      const location = await fetch('http://10.0.0.53:3000/location')
+      const location = await fetch('http://localhost:3000/location')
       const location_json = await location.json();
       console.log(location_json)
       setLocation(location_json)
