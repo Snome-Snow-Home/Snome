@@ -2,7 +2,7 @@ const db = require('../../database');
 const bcrypt = require('bcrypt')
 
 module.exports = {
-  getAddress: async ({id}) => {
+  getAddress: async ({ id }) => {
     try {
       let address = await db.one(`
         SELECT *
@@ -16,7 +16,7 @@ module.exports = {
     }
   },
 
-  createUser: async ({name, email, street, city, state, zipCode, password}) => {
+  createUser: async ({ name, email, street, city, state, zipCode, password }) => {
     try {
       const addressId = await db.one(`
         INSERT INTO address (
@@ -62,7 +62,7 @@ module.exports = {
         RETURNING id;
       `);
       return `New user created: ${JSON.stringify(userId)}`
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
@@ -113,8 +113,8 @@ module.exports = {
         WHERE id=${id}
       `, [location_id, name, travel_start, travel_end, age, user_phone,
         user_photo, video_tour, about, email, mailing_address, residential_address]);
-        return 'Update Successful';
-    } catch(err) {
+      return 'Update Successful';
+    } catch (err) {
       console.log(`DATABASE ERROR - PUT: ${err}`);
       return err;
     }
@@ -124,7 +124,7 @@ module.exports = {
     try {
       let result = await db.one(`SELECT * FROM snome_user WHERE id =${id}`);
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR:  ${err}`);
       return err;
     }
@@ -137,7 +137,7 @@ module.exports = {
       let result = await db.one('SELECT * FROM snome_user WHERE name = $1', name);
       console.log('db success: ', result.password)
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR:  ${err}`);
       return err;
     }
@@ -147,7 +147,7 @@ module.exports = {
     try {
       let result = await db.manyOrNone('SELECT * FROM snome_user');
       return result;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
@@ -167,7 +167,7 @@ module.exports = {
       `);
       return emailExists;
       //
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR while checking if email exists:  ${err}`);
     }
   },
