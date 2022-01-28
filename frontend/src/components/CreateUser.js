@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
 export default function CreateUser(props) {
   // const [error, setError] = useState(null);
   const [nameText, setNameText] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -127,6 +128,7 @@ export default function CreateUser(props) {
     console.log('user created');
     const userData = {
       nameText: nameText,
+      username: username,
       email: email,
       street: address,
       city: city,
@@ -146,34 +148,20 @@ export default function CreateUser(props) {
     <ScrollView style={{ width: '95%', maxWidth: 400, margin: 10 }}>
       <Image
         source={require('../../assets/Snome.png')}
-        style={{
-          width: 50,
-          height: 50,
-        }}
+        style={{ width: 50, height: 50 }}
       />
-      <Text
-        style={{
-          fontSize: 25,
-          textAlign: 'center',
-          margin: 5,
-          fontFamily: 'Arial',
-        }}
-      >
+      <Text style={{ fontSize: 25, textAlign: 'center', margin: 5, fontFamily: 'Arial' }} >
         New User? Sign up here
       </Text>
-      <Text
-        style={styles.link}
-        onPress={() => {
-          navigation.navigate('Login');
-        }}
-      >
+      <Text style={styles.link}
+        onPress={() => { navigation.navigate('Login'); }} >
         Already have an account <B>Go to Login</B>
       </Text>
 
       <ScrollView onSubmit={handleSubmit}>
         <Text style={styles.horizontal}>
           <Text style={styles.label} htmlFor="name">
-            Name:{' '}
+            Your Name:{' '}
           </Text>
           <Text style={styles.required}>*Required</Text>
         </Text>
@@ -185,14 +173,28 @@ export default function CreateUser(props) {
           value={nameText}
           onChangeText={setNameText}
           style={styles.formInput}
-          // onChange={(event) => {
-          //     form.setFieldValue('name', event.target.value);
-          //     form.validate("name")
-          // }}
-          //should this be unpluralized again>? errors->error
-          // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        //should this be unpluralized again>? errors->error
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} /> */}
+
+        <Text style={styles.horizontal}>
+          <Text style={styles.label} htmlFor="username">
+            Choose a Username:{' '}
+          </Text>
+          <Text style={styles.required}>*Required</Text>
+        </Text>
+        <TextInput
+          id="username"
+          placeholder="Username"
+          type="text"
+          required
+          value={username}
+          onChangeText={setUsername}
+          style={styles.formInput}
+        //should this be unpluralized again>? errors->error
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        />
 
         <Text style={styles.horizontal}>
           <Text style={styles.label} htmlFor="email">
@@ -209,8 +211,8 @@ export default function CreateUser(props) {
           value={email}
           onChangeText={setEmail}
           style={styles.formInput}
-          // onChange={(event) => form.setFieldValue('email', event.target.value)}
-          // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        // onChange={(event) => form.setFieldValue('email', event.target.value)}
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
 
         {/* <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} /> */}
@@ -230,7 +232,7 @@ export default function CreateUser(props) {
           value={address}
           onChangeText={setAddress}
           style={styles.formInput}
-          // onChange={(event) => form.setFieldValue('address', event.target.value)}
+        // onChange={(event) => form.setFieldValue('address', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} /> */}
@@ -250,8 +252,8 @@ export default function CreateUser(props) {
           value={city}
           onChangeText={setCity}
           style={styles.formInput}
-          // value={form.values.city}
-          // onChange={(event) => form.setFieldValue('city', event.target.value)}
+        // value={form.values.city}
+        // onChange={(event) => form.setFieldValue('city', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} /> */}
@@ -273,7 +275,7 @@ export default function CreateUser(props) {
           value={state}
           onChangeText={setState}
           style={styles.formInput}
-          // onChange={(event) => form.setFieldValue('state', event.target.value)}
+        // onChange={(event) => form.setFieldValue('state', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} /> */}

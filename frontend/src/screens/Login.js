@@ -12,115 +12,99 @@ export default function Login() {
     const context = useContext(UserContext)
 
     const [credentials, setCredentials] = useState({
-        name: '',
+        username: '',
         password: ''
-      });
+    });
 
     const B = (props) => <Text style={{ fontWeight: 'bold', color: "#448EB1" }}>{props.children}</Text>
 
     const login = async (e) => {
         e.preventDefault()
         axios({
-          method: 'post',
-          url: 'http://localhost:3000/login',
-          data:
-            credentials
+            method: 'post',
+            url: 'http://localhost:3000/login',
+            data:
+                credentials
             //receive token
-          ,
+            ,
         })
-        .then(res => {
-            // let token = req.header('Authorization');
+            .then(res => {
+                // let token = req.header('Authorization');
 
-            console.log(res)
-            console.log(res.data);
+                console.log(res)
+                console.log(res.data);
 
-            AsyncStorage.setItem('token', JSON.stringify(res.data.token))
-            //login user
-            context.setUserData({
-                ...context.userData,
-                is_logged_in: true
+                AsyncStorage.setItem('token', JSON.stringify(res.data.token))
+                //login user
+                context.setUserData({
+                    ...context.userData,
+                    is_logged_in: true
+                })
+                // localStorage.setItem('token', res.data.token);
+                // console.log(res.data.token)
+                // setJwt(res.data.token);
+                // setLogged_in(true)
             })
-            // localStorage.setItem('token', res.data.token);
-            // console.log(res.data.token)
-            // setJwt(res.data.token);
-            // setLogged_in(true)
-          })
-        .catch( err => {
-          console.log(err)
-        })
-      }
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
-        <View
-            // style={styles.container}
-            style={{
-                width: "95%",
-                maxWidth: 400,
-                margin: 10,
-            }}
-        >
-            <Image
-                source={require('../../assets/Snome.png')}
-                style={{
-                    width: 100,
-                    height: 100,
-                }}
-            />
+        <View style={{ width: "95%", maxWidth: 400, margin: 10 }} >
+            <Image source={require('../../assets/Snome.png')}
+                style={{ width: 100, height: 100 }} />
 
             <Text>{context.user_data.is_logged_in ? 'erer' : 'tttt'}</Text>
 
-            <Text style={{
-                fontSize: 20,
-                textAlign: "center",
-                margin: 10
-            }}>Login</Text >
-            <ScrollView
-            // onSubmit={handleSubmit}
-            >
+            <Text style={{ fontSize: 20, textAlign: "center", margin: 10 }}>
+                Login
+            </Text >
+            <ScrollView>
 
                 <Text style={styles.horizontal}>
-                    <Text style={styles.label} htmlFor="name">Username: </Text>
+                    <Text style={styles.label} htmlFor="username">Username: </Text>
                     <Text style={styles.required}>*Required</Text>
                 </Text>
                 <TextInput
-                    id="name"
-                    placeholder="Name"
+                    id="username"
+                    placeholder="username"
                     type="text"
                     required
                     // value={nameText}
                     // onChangeText={setNameText}
-                    value={credentials.name}
-                    onChange={(e) => setCredentials({...credentials, name: e.target.value})}
+                    value={credentials.username}
+                    onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
                     style={styles.formInput}
                 />
 
                 <Text style={styles.horizontal}>
-                    <Text style={styles.label} htmlFor="name">Password: </Text>
+                    <Text style={styles.label} htmlFor="password">Password: </Text>
                     <Text style={styles.required}>*Required</Text>
                 </Text>
                 <TextInput
-                    id="name"
-                    placeholder="Name"
+                    id="password"
+                    placeholder="password"
                     type="text"
                     required
                     //value={nameText}
                     // onChangeText={setNameText}
                     value={credentials.password}
-                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                    onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                     style={styles.formInput}
                 />
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
-                    onPress={(e)=>{ login(e), console.log(credentials, "hello")}}
+                    onPress={(e) => { login(e), console.log(credentials, "hello") }}
                 >
 
                     <Text>Lets get Snomey</Text></Pressable>
 
                 <Text style={styles.link}
                     onPress={() => { navigation.navigate('CreateUser') }}
-                >New to Snome?  <B>
-                        Sign Up Here</B></Text>
+                >New to Snome?  <B>Sign Up Here</B>
+                </Text>
 
             </ScrollView>
 
