@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS "snome_user";
 CREATE TABLE "snome_user" (
     "id" serial PRIMARY KEY,
     "location_id" int REFERENCES "location",
+    "user_name" varchar(20) NOT NULL UNIQUE,
     "name" text   NOT NULL,
     "travel_start" varchar, --  NOT NULL,  -- should be nullable
     "travel_end" varchar,  -- NOT NULL,    -- should be nullable
