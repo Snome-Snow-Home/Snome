@@ -16,11 +16,7 @@ module.exports = {
     }
   },
 
-<<<<<<< HEAD
-  createUser: async ({ name, email, street, city, state, zipCode, password }) => {
-=======
-  createUser: async ({nameText, username, email, street, city, state, zipCode, password}) => {
->>>>>>> 5a671f2b19fb720ee3ce5aac9a6b001ab720207a
+  createUser: async ({ nameText, username, email, street, city, state, zipCode, password }) => {
     try {
       const addressId = await db.one(`
         INSERT INTO address (
