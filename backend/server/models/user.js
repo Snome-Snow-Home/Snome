@@ -16,7 +16,11 @@ module.exports = {
     }
   },
 
+<<<<<<< HEAD
   createUser: async ({ name, email, street, city, state, zipCode, password }) => {
+=======
+  createUser: async ({nameText, username, email, street, city, state, zipCode, password}) => {
+>>>>>>> 5a671f2b19fb720ee3ce5aac9a6b001ab720207a
     try {
       const addressId = await db.one(`
         INSERT INTO address (
@@ -41,6 +45,7 @@ module.exports = {
       const userId = await db.one(`
         INSERT INTO snome_user (
           id,
+          user_name,
           name,
           about,
           email,
@@ -51,7 +56,8 @@ module.exports = {
         )
         VALUES (
           (SELECT MAX(id) FROM snome_user) +1,
-          '${name}',
+          '${username}',
+          '${nameText}',
           'placeholder',
           '${email}',
           ${addressId.id},

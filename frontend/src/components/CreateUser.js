@@ -130,7 +130,7 @@ export default function CreateUser(props) {
       nameText: nameText,
       username: username,
       email: email,
-      address: address,
+      street: address,
       city: city,
       state: state,
       zipCode: zipCode,

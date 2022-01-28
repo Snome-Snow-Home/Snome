@@ -34,6 +34,7 @@ module.exports = {
   createUser: async (req, res) => {
     try {
       const response = await user.createUser(req.body);
+      console.log(req.body);
       res.status(201).send("User Created");
     } catch (err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
