@@ -128,7 +128,7 @@ export default function CreateUser(props) {
     const userData = {
       nameText: nameText,
       email: email,
-      address: address,
+      street: address,
       city: city,
       state: state,
       zipCode: zipCode,
