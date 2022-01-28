@@ -132,11 +132,11 @@ module.exports = {
     }
   },
 
-  getUserByName: async (name) => {
+  getUserByName: async (username) => {
     // name = 'John Smith';
     //George Thomson
     try {
-      let result = await db.one('SELECT * FROM snome_user WHERE name = $1', name);
+      let result = await db.one('SELECT * FROM snome_user WHERE user_name = $1', username);
       console.log('db success: ', result.password)
       return result;
     } catch (err) {

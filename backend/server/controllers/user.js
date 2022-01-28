@@ -11,10 +11,10 @@ const authenticate = (pass1, pass2) => {
 module.exports = {
 
   login: async (req, res) => {
-    console.log('credentials: ', req.body.name, req.body.password)
+    console.log('credentials: ', req.body.username, req.body.password)
     // res.send(['input controller working', req.body.name, req.body.password])
     try {
-      const auth_user = await user.getUserByName(req.body.name);
+      const auth_user = await user.getUserByName(req.body.username);
 
 
       let is_auth = authenticate(req.body.password, auth_user.password)
@@ -65,7 +65,7 @@ module.exports = {
 
   getUserByName: async (req, res) => {
     try {
-      let data = await user.getUserByName(req.params.name);
+      let data = await user.getUserByName(req.params.username);
       res.status(200).send(data);
     } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
