@@ -38,8 +38,10 @@ export default function Login() {
                 //login user
                 context.setUserData({
                     ...context.userData,
-                    is_logged_in: true
+                    is_logged_in: true,
+                    credentials: credentials.username
                 })
+
                 // localStorage.setItem('token', res.data.token);
                 // console.log(res.data.token)
                 // setJwt(res.data.token);
