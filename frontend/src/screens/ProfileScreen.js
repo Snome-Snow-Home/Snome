@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 // import CreateUser from "../components/CreateUser";
 import UserContext from '../Context/UserContext'
-import UserProvider from '../Context/UserProvider';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 function logout() {
@@ -12,6 +13,7 @@ function logout() {
 
 
 const ProfileScreen = () => {
+    const navigation = useNavigation()
     const { userData } = useContext(UserContext)
 
     return (
@@ -21,11 +23,33 @@ const ProfileScreen = () => {
             {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
             {/* <CreateUser /> */}
 
-            <Pressable title="logout" onPress={logout}>
+            <Pressable style={styles.button} title="logout" onPress={() =>
+                //  logout,
+                navigation.navigate('Description')}>
                 <Text>Logout</Text>
             </Pressable>
         </View>
     )
 }
+
+
+
+const styles = StyleSheet.create({
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: "#448EB1",
+        color: "white",
+        fontFamily: 'Arial',
+        width: "50%",
+        marginLeft: "25%",
+        marginRight: "25%",
+        marginTop: 20
+    }
+})
 
 export default ProfileScreen
