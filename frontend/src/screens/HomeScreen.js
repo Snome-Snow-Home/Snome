@@ -1,55 +1,76 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, SafeAreaView, ScrollView, Dimensions, Image } from "react-native";
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  FlatList,
+  TextInput,
+  SafeAreaView,
+  ScrollView,
+  Dimensions,
+  Image,
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
+import * as Device from 'expo-device';
 
 const DropdownItem = ({ title, setQuery, showDropdown, setShowDropdown }) => (
   <View style={styles.item}>
     <Text
-      onPress={() => (showDropdown === 'hide' ? setShowDropdown('show') : setShowDropdown('hide'),
-        setQuery(title))}
+      onPress={() => (
+        showDropdown === 'hide'
+          ? setShowDropdown('show')
+          : setShowDropdown('hide'),
+        setQuery(title)
+      )}
       style={styles.title}
-    >{title}
+    >
+      {title}
     </Text>
   </View>
 );
 
 const NewSearch = ({ locationData }) => {
-
-  const [query, setQuery] = useState("");
-  const [showDropdown, setShowDropdown] = useState("show")
+  const [query, setQuery] = useState('');
+  const [showDropdown, setShowDropdown] = useState('show');
 
   const renderItem = ({ item }) => {
-    let search = query.toLowerCase().replace(/ /g, "_");
+    let search = query.toLowerCase().replace(/ /g, '_');
     if (query === '') {
-      return null
+      return null;
     }
     if (item.toLowerCase().startsWith(search)) {
-      return (<DropdownItem title={item} setQuery={setQuery} showDropdown={showDropdown} setShowDropdown={setShowDropdown} />)
+      return (
+        <DropdownItem
+          title={item}
+          setQuery={setQuery}
+          showDropdown={showDropdown}
+          setShowDropdown={setShowDropdown}
+        />
+      );
     }
   };
 
   return (
     <>
-      <View style={{ width: '100%' }} >
-
+      <View style={{ width: '100%' }}>
         <TextInput
-          clearButtonMode='while-editing'
+          clearButtonMode="while-editing"
           style={styles.input}
           onChangeText={setQuery}
           value={query}
         />
         <Text>{showDropdown}</Text>
 
-        {showDropdown === 'show' &&
+        {showDropdown === 'show' && (
           <FlatList
             style={{ position: 'absolute', top: 40, width: '100%' }}
-            data={locationData.map(location => location.name)}
+            data={locationData.map((location) => location.name)}
             renderItem={renderItem}
-            keyExtractor={item => item}
+            keyExtractor={(item) => item}
           />
-        }
-
+        )}
       </View>
     </>
   );
@@ -61,73 +82,126 @@ const ShowList = ({
   selectedValue,
   setSelectedValue,
   toggleOptions,
-  locationData
+  locationData,
 }) => {
   // console.log(locationData)
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <>
-      <Text style={styles.label}>{label}</Text>
-      <View style={[styles.row, styles.ListMapContainer]}>
-        {locationData.map((location) => (
-          <TouchableOpacity
-            key={location.name}
-            onPress={() => { setSelectedValue(location.name); navigation.navigate('Towns', { 'location_id': location.id }) }}
-            style={[
-              styles.location,
-              selectedValue === location.name && styles.selected,
-            ]}
-          >
-            {/*
-          <Image style={{width: '100%', height: '100%',}}
-          source={require(`../pics/${location.name}.jpeg`)} /> */}
-            <Text
+      <ScrollView>
+        <Text style={styles.label}>{label}</Text>
+        <View style={[styles.row, styles.ListMapContainer]}>
+          {locationData.map((location) => (
+            <TouchableOpacity
+              key={location.name}
+              onPress={() => {
+                setSelectedValue(location.name);
+                navigation.navigate('Towns', { location_id: location.id });
+              }}
               style={[
                 styles.location,
                 selectedValue === location.name && styles.selected,
               ]}
-            ></Text>
-
-          </TouchableOpacity>
-        ))}
-      </View>
-    </>
-  )
-
-}
-
-const ShowMap = ({
-  label,
-  locationData
-}) => {
-  console.log(locationData);
-  return (
-    <>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.ListMapContainer}>
-        <View style={{
-          backgroundColor: "oldlace",
-          width: "100%",
-          height: "100%",
-          padding: 16
-        }}>
-          <MapView style={styles.map}>
-            {locationData.map((location, index) => (
-              <Marker
-                key={index}
-                //NOTE: LAT AND LONG ARE BACKWARDS
-                coordinate={{
-                  latitude: location.longitude, longitude: location.latitude
-                }}
+            >
+              <Image
+                style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+                source={{ uri: location.url }}
               />
-            ))}
-          </MapView>
+              <Text
+                style={[
+                  styles.buttonLabel,
+                  selectedValue === location.name && styles.selectedLabel,
+                ]}
+              >
+                {location.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      </View>
+      </ScrollView>
     </>
-  )
-}
+  );
+};
+
+const ShowMap = ({ label, locationData }) => {
+  // console.log(locationData);
+  // console.log(data)
+
+  if (Device.brand == 'Apple') {
+    return (
+      <>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.ListMapContainer}>
+          <View
+            style={{
+              backgroundColor: 'oldlace',
+              width: '100%',
+              height: '100%',
+              padding: 16,
+            }}
+          >
+            <MapView style={styles.map}>
+              {locationData.map((location, index) => (
+                <Marker
+                  key={index}
+                  //NOTE: LAT AND LONG ARE BACKWARDS
+                  coordinate={{
+                    latitude: location.longitude,
+                    longitude: location.latitude,
+                  }}
+                />
+              ))}
+            </MapView>
+          </View>
+        </View>
+      </>
+    );
+  } else if (Device.brand == null) {
+    return (
+      <>
+        <Text>Map feature is not compatible on web browsers</Text>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.ListMapContainer}>
+          <View
+            style={{
+              backgroundColor: 'oldlace',
+              width: '100%',
+              height: '100%',
+              padding: 16,
+            }}
+          >
+            <MapView
+              style={styles.map}
+              region={{
+                latitude: 37.0902,
+                longitude: -95.712,
+                latitudeDelta: 50,
+                longitudeDelta: 30,
+              }}
+            >
+              {locationData.map((location, index) => (
+                <Marker
+                  key={index}
+                  //NOTE: LAT AND LONG ARE BACKWARDS
+                  coordinate={{
+                    latitude: location.longitude,
+                    longitude: location.latitude,
+                  }}
+                />
+              ))}
+            </MapView>
+          </View>
+        </View>
+      </>
+    );
+  }
+};
 
 const FeaturedLocations = ({
   label,
@@ -147,73 +221,62 @@ const FeaturedLocations = ({
       <View style={[styles.topContainer, { [label]: selectedValue }]}>
         {children}
         <View>
-          <Image
-            // style={styles.SnomeLogo}
-            source={require('../../assets/Snome.png')}
-            style={{
-              width: 100,
-              height: 100,
-              // backgroundColor: 'white',
-              // padding: 12,
-              // borderBottomColor: 'black',
-              // borderBottomWidth: 1,
-            }} />
+          <Text style={styles.SnomeLogo}>Snome Logo</Text>
         </View>
 
         {/* Search Box Container */}
         <View
-          style={{ padding: 12, width: "80%", backgroundColor: "", alignSelf: 'center', position: 'relative', zIndex: 99 }}
+          style={{
+            padding: 12,
+            width: '80%',
+            backgroundColor: '',
+            alignSelf: 'center',
+            position: 'relative',
+            zIndex: 99,
+          }}
         >
-          <Text style={{ marginLeft: 12, marginBottom: 4 }}>Choose your destination</Text>
+          <Text style={{ marginLeft: 12, marginBottom: 4 }}>
+            Choose your destination
+          </Text>
 
-          <NewSearch
-            locationData={locationData}
-          />
+          <NewSearch locationData={locationData} />
         </View>
 
         <View styles={{ position: 'absolute', zIndex: -1 }}>
-
           {/* Toggle For List Map View */}
           <View style={[styles.row, {}]}>
             {toggleOptions.map((option) => (
               <TouchableOpacity
                 key={option}
                 onPress={() => setView(option)}
-                style={[
-                  styles.toggle,
-                ]}
+                style={[styles.toggle]}
               >
-                <Text
-                  style={[
-                    styles.buttonLabel,
-                  ]}
-                >
-                  {option}
-                </Text>
+                <Text style={[styles.buttonLabel]}>{option}</Text>
               </TouchableOpacity>
             ))}
           </View>
+        </View>
+        {/* End of Top Container */}
 
-        </View>{/* End of Top Container */}
-
-        {view === 'ShowList' &&
+        {view === 'ShowList' && (
           <ShowList
             label={label}
             values={values}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
             locationData={locationData}
-          ></ShowList>}
+          ></ShowList>
+        )}
 
-        {view === 'ShowMap' &&
+        {view === 'ShowMap' && (
           <ShowMap
             label={label}
             values={values}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
             locationData={locationData}
-          ></ShowMap>}
-
+          ></ShowMap>
+        )}
       </View>
 
       {/* Bottom Container */}
@@ -222,9 +285,8 @@ const FeaturedLocations = ({
         <Text>Bottom Container</Text>
       </View>
     </View>
-  )
-}
-
+  );
+};
 
 const HomeScreen = () => {
   const [flexDirection, setflexDirection] = useState('column');
@@ -233,41 +295,40 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      const response = await fetch('http://localhost:3000/location?featured=true')
+      const response = await fetch('http://localhost:3000/featured_location');
       const json = await response.json();
       setData(json);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     getLocations();
   }, []);
 
   const filterNames = (location) => {
-    let search = query.toLowerCase().replace(/ /g, "_");
+    let search = query.toLowerCase().replace(/ /g, '_');
     if (location.name.toLowerCase().startsWith(search)) {
-      return <Text style={{ height: 40 }}>{location.name}</Text>
+      return <Text style={{ height: 40 }}>{location.name}</Text>;
     } else {
       return null;
     }
-  }
+  };
 
   return (
     <FeaturedLocations
       label="flexDirection"
       // values={["parkcity", "aspen", "crestedbutte", "alta"]}
-      values={data.map(location => location.name)}
+      values={data.map((location) => location.name)}
       selectedValue={flexDirection}
       setSelectedValue={setflexDirection}
-      toggleOptions={["ShowList", "ShowMap"]}
+      toggleOptions={['ShowList', 'ShowMap']}
       view={toggleView}
       setView={settoggleView}
       filterNames={filterNames}
       locationData={data}
-    >
-    </FeaturedLocations>
+    ></FeaturedLocations>
   );
 };
 
@@ -280,7 +341,7 @@ const styles = StyleSheet.create({
   // },
   map: {
     width: '100%',
-    height: '100%'
+    height: '100%',
     // width: Dimensions.get('window').width,
     // height: Dimensions.get('window').height,
   },
@@ -303,7 +364,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "red"
   },
   toggle: {
-    backgroundColor: "oldlace",
+    backgroundColor: 'oldlace',
     padding: 18,
     marginBottom: 20,
   },
@@ -317,7 +378,7 @@ const styles = StyleSheet.create({
   },
   SnomeLogo: {
     padding: 18,
-    backgroundColor: "powderblue",
+    backgroundColor: 'powderblue',
     alignSelf: 'flex-start',
     marginLeft: 20,
     marginTop: 20,
@@ -341,9 +402,9 @@ const styles = StyleSheet.create({
     // flex:1,
     zIndex: -1,
     elevation: -1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
     // alignItems: 'center'
   },
   location: {
