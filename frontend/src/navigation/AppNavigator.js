@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
-
 import HomeScreen from '../screens/HomeScreen';
 import TownsScreen from '../screens/TownsScreen';
 import LikesScreen from '../screens/LikesScreen';
@@ -11,10 +10,6 @@ import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DescScreen from '../screens/SnomeDescription';
-import CreateUser from '../components/CreateUser';
-import Login from '../screens/Login';
-
-
 
 const TAB_ICON = {
   Home: 'home',

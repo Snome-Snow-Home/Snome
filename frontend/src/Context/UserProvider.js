@@ -1,5 +1,5 @@
 import UserContext from './UserContext';
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 console.log('test2')
 console.log(Date.now())
@@ -56,6 +56,8 @@ function UserProvider(props) {
     }
   );
 
+
+
   useEffect(() => {
     console.log('test3')
     console.log(Date.now())
@@ -64,7 +66,9 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{
+        user_data: userData, setUserData: setUserData, location_data: location
+      }}
     >
       {props.children}
     </UserContext.Provider>

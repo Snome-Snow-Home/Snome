@@ -2,11 +2,10 @@ import React, { useContext } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 // import CreateUser from "../components/CreateUser";
 import UserContext from '../Context/UserContext'
-import { useNavigation } from '@react-navigation/native';
 
 
 const ProfileScreen = () => {
-    const navigation = useNavigation()
+
     const context = useContext(UserContext)
 
 

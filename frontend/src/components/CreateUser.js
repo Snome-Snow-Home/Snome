@@ -139,6 +139,7 @@ export default function CreateUser(props) {
     };
     console.log(userData);
     axios.post(`http://localhost:3000/signup`, userData)
+      .then(set)
     // console.log("values: ", values)
     //should this be form.error?
     // console.log("errors: ", form.errors)

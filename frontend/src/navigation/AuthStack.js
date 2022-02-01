@@ -1,9 +1,9 @@
 import { TabActions } from '@react-navigation/native'
 import React, { useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+/////import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { createStackNavigator } from '@react-navigation/stack';
 
 import CreateUser from '../components/CreateUser';
@@ -16,8 +16,8 @@ import Login from '../screens/Login';
 //     CreateUser: 'account-box'
 // };
 
-const Tab = createBottomTabNavigator();
-//const Stack = createStackNavigator();
+//const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 
 // const createScreenOptions = ({ route }) => {
@@ -33,21 +33,23 @@ const Tab = createBottomTabNavigator();
 export default function AuthStack() {
     return (
         <>
-            <Tab.Navigator screenOptions={{ headerShown: false }}
+            <Stack.Navigator
+            //screenOptions={{ headerShown: false }}
             // name="authstack"
             >
 
-                <Tab.Screen name="Login" component={Login} />
-                {/* </Tab.Group> */}
-                {/* <Tab.Group screenOptions={{ headerShown: false }}> */}
-                <Tab.Screen name="CreateUser"
+                <Stack.Screen name="Login" component={Login} />
+                {/* </Stack.Group> */}
+                {/* <Stack.Group screenOptions={{ headerShown: false }}> */}
+                <Stack.Screen name="CreateUser"
                     component={CreateUser}
-                    options={{
-                        headerShown: false,
-                        title: 'Sign Up'
-                    }} />
+                // options={{
+                //     headerShown: false,
+                //     title: 'Sign Up'
+                // }}
+                />
 
-            </Tab.Navigator>
+            </Stack.Navigator>
         </>
     )
 }
