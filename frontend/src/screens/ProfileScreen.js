@@ -5,27 +5,30 @@ import UserContext from '../Context/UserContext'
 import { useNavigation } from '@react-navigation/native';
 
 
-
-function logout() {
-    console.log("user logged out!")
-    localStorage.clear()
-}
-
-
 const ProfileScreen = () => {
     const navigation = useNavigation()
-    const { userData } = useContext(UserContext)
+    const context = useContext(UserContext)
+
+
+    const logout = () => {
+        console.log("user logged out!")
+        localStorage.clear()
+        context.setUserData({
+            ...context.userData,
+            is_logged_in: false,
+            credentials: ""
+        })
+    }
+
 
     return (
         <View>
             <Text>Profile</Text>
-            <Text>{userData}</Text>
+            {/* // <Text>{userData}</Text> */}
             {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
             {/* <CreateUser /> */}
 
-            <Pressable style={styles.button} title="logout" onPress={() =>
-                //  logout,
-                navigation.navigate('Description')}>
+            <Pressable style={styles.button} title="logout" onPress={logout}>
                 <Text>Logout</Text>
             </Pressable>
         </View>
