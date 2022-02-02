@@ -9,6 +9,8 @@ const ProfileScreen = () => {
     const navigation = useNavigation()
     const context = useContext(UserContext)
 
+    console.log(context)
+
 
     const logout = () => {
         console.log("user logged out!")
@@ -24,6 +26,7 @@ const ProfileScreen = () => {
     return (
         <View>
             <Text>Profile</Text>
+            <Text> Your username is: {context.user_data.credentials}</Text>
             {/* // <Text>{userData}</Text> */}
             {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
             {/* <CreateUser /> */}
