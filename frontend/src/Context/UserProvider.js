@@ -1,8 +1,6 @@
 import UserContext from './UserContext';
 import React, { useState, useEffect, useContext } from "react";
 
-console.log('test2')
-console.log(Date.now())
 
 
 const messages = [
@@ -33,7 +31,6 @@ function UserProvider(props){
     try {
       const location = await fetch('http://localhost:3000/location')
       const location_json = await location.json();
-      console.log(location_json)
       setLocation(location_json)
     } catch (error) {
       console.error(error);
@@ -56,7 +53,6 @@ function UserProvider(props){
   );
 
     useEffect(() => {
-      console.log('test3')
       console.log(Date.now())
       appDataFetch()
      }, []);

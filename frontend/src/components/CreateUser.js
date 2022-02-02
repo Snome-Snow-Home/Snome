@@ -125,7 +125,6 @@ export default function CreateUser(props) {
   function handleSubmit(e) {
     e.preventDefault;
     // form.validate()
-    console.log('user created');
     const userData = {
       nameText: nameText,
       username: username,
@@ -137,7 +136,6 @@ export default function CreateUser(props) {
       password: password,
       confirmedPassword: confirmPassword,
     };
-    console.log(userData);
     axios.post(`http://localhost:3000/signup`, userData)
     // console.log("values: ", values)
     //should this be form.error?

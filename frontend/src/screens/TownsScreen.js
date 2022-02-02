@@ -50,6 +50,7 @@ const styles = {
   },
 };
 
+
 function TownsScreen({route}) {
 
   //
@@ -57,16 +58,18 @@ function TownsScreen({route}) {
 
   // ability to use and change data
   const [locations, setData] = useState([]);
-
+  
 
 // fetch data from backend and set it to state
   const getLocations = async () => {
     try {
+      
       const response = await fetch(
-        'http://10.0.0.22:3000/snome?loction_id=' + route.params.location_id
+        'http://localhost:3000/snome/location/' + route.params.location_id
       );
       const json = await response.json();
       setData(json);
+      console.log(json)
 
     } catch (error) {
       console.error(error);

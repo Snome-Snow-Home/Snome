@@ -14,7 +14,6 @@ module.exports = {
       }
       else {
         var result = await db.manyOrNone(`SELECT * FROM ${model};`);
-        console.log(result)
       }
       return result;
     } catch (err) {
