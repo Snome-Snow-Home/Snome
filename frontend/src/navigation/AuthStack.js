@@ -33,7 +33,9 @@ const Tab = createBottomTabNavigator();
 export default function AuthStack() {
     return (
         <>
-            <Tab.Navigator>
+            <Tab.Navigator screenOptions={{ headerShown: false }}
+            // name="authstack"
+            >
 
                 <Tab.Screen name="Login" component={Login} />
                 {/* </Tab.Group> */}
