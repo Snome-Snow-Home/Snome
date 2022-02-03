@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -20,6 +21,7 @@ const photo = {
 };
 
 const SnomeDescription = () => {
+
   // const [photo, setData] = useState([]);
 
   // const getPhotos = async () => {
@@ -31,6 +33,7 @@ const SnomeDescription = () => {
   //     console.error(error);
   //   }
   // };
+
 
 
   const isLiked = async () => {
@@ -55,8 +58,9 @@ const SnomeDescription = () => {
     <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.contentContainer}
-    >
+
       <Text style={styles.text}>Snome</Text>
+
 
       {/* <Photoslider style={styles.slider} photos={photo} /> */}
      
@@ -106,6 +110,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
+  photoContainer: {
+    marginTop: 20,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    flex: 1,
+    height: Dimensions.get('window').height * 0.3,
+    width: Dimensions.get('window').height * 0.4,
+  },
+  // photoGallery: {
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   height: 250,
+  //   width: "100%",
+  //   backgroundColor: "white",
+  //   borderTopWidth: 1,
+  //   borderColor: "black",
+  // },
+
   descriptionContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
