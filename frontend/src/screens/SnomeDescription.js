@@ -1,133 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import {
+  View,
+  Button,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
   ScrollView,
 } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
+import Photoslider from '../components/Photoslider';
 
-const image = {
+const photo = {
+  uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
+  uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
+  uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
   uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
 };
 
 const SnomeDescription = () => {
-  const [photos, setData] = useState([]);
+  // const [photo, setData] = useState([]);
 
-  const window = useWindowDimensions();
+  // const getPhotos = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/snome/10/photos');
+  //     const json = await response.json();
+  //     setData(json);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  var i = 0;
 
-  const scrollPhotoLeft = () => {
-    i -= 1;
-
-    console.log(photos[i]);
-  };
-  const scrollPhotoRight = () => {
-    if (i >= photos.length - 1) {
-      return (i = -1);
-    }
-    i += 1;
-    console.log(i);
-    console.log(photos[i]);
-  };
-
-  const getPhotos = async () => {
+  const isLiked = async () => {
     try {
-      const response = await fetch('http://localhost:3000/snome/10/photos');
+      const response = await fetch('http://localhost:3000/snome/:id/like', {
+        method: 'POST',
+      });
       const json = await response.json();
-      setData(json);
+      console.log(json);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    getPhotos();
-  }, []);
 
-  // let i = 0;
+  // useEffect(() => {
+  //   getPhotos();
+  // }, []);
 
-  // console.log(photos[i]);
-
-  const createLike = () => {
-    console.log('this worked too');
-  };
-
+  
   return (
     <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.contentContainer}
     >
-      <AntDesign
-        name="leftcircleo"
-        size={34}
-        color="black"
-        style={{ alignSelf: 'flex-start', marginTop: 10 }}
-      />
-      <View style={styles.photoContainer}>
-        {/* <View style={styles.photoGallery}> */}
-        <ImageBackground
-          source={image}
-          resizeMode="cover"
-          style={{ flex: 1, justifyContent: 'center' }}
-        ></ImageBackground>
-        <View
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: 'transparent',
-          }}
-        >
-          <TouchableOpacity
-            onPress={scrollPhotoLeft}
-            style={{
-              position: 'absolute',
-            }}
-          >
-            <AntDesign name="left" size={34} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ position: 'absolute', margin: 330 }}>
-            <AntDesign
-              onPress={scrollPhotoRight}
-              name="right"
-              size={34}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              alignSelf: 'flex-end',
-              position: 'absolute',
-              marginLeft: 300,
-            }}
-          >
-            <Ionicons
-              onPress={createLike}
-              name="heart-circle-outline"
-              size={64}
-              color="black"
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Text style={styles.text}>Snome</Text>
 
+      {/* <Photoslider style={styles.slider} photos={photo} /> */}
+     
+      <Button style={styles.button} onPress={isLiked}>  Like</Button>
       <Text
-        style={{
-          width: '100%',
-          fontSize: 25,
-          paddingTop: 7,
-          textAlign: 'left',
-        }}
+     style={styles.text}
       >
         Gorgeous 2 bedroom with views
       </Text>
+   
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionTextHeaders}>
           4.75&nbsp;&nbsp;
@@ -151,20 +90,11 @@ const SnomeDescription = () => {
           <Text style={{ fontWeight: 'normal' }}>8 mins Ski-in</Text>
         </Text>
       </View>
-      <View style={styles.ownerContainer}></View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  // SnomeLogo: {
-  //   padding: 18,
-  //   backgroundColor: "powderblue",
-  //   alignSelf: "flex-start",
-  //   marginLeft: 20,
-  //   marginTop: 20,
-  //   marginBottom: 60,
-  // },
   scrollView: {
     height: '100%',
     backgroundColor: 'white',
@@ -176,26 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  photoContainer: {
-    marginTop: 20,
-    width: '100%',
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
-    flex: 1,
-    height: 250,
-    width: '100%',
-  },
-  // photoGallery: {
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   height: 250,
-  //   width: "100%",
-  //   backgroundColor: "white",
-  //   borderTopWidth: 1,
-  //   borderColor: "black",
-  // },
   descriptionContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -209,10 +119,27 @@ const styles = StyleSheet.create({
     width: '50%',
     fontWeight: 'bold',
   },
-  ownerContainer: {
-    flex: 3,
-    backgroundColor: 'yellow',
+  text: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center',
   },
+  slider: {
+    height: 250,
+    width: 300,
+  },
+  button: {
+    backgroundColor: '#00BFFF',
+    borderRadius: 10,
+    width: 200,
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  }
+
 });
 
 export default SnomeDescription;
