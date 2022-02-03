@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Button,
@@ -17,7 +17,7 @@ import { Dimensions } from 'react-native';
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
 // for testing purposes
-// import locations from '../localtestdata/Projects.json';
+// import location from '../localtestdata/Projects.json';
 
 const styles = {
   container2: {
@@ -50,24 +50,22 @@ const styles = {
   },
 };
 
-function TownsScreen({route}) {
-
+function TownsScreen({ route }) {
   //
   const [flexDirection, setflexDirection] = useState('column');
 
   // ability to use and change data
-  const [locations, setData] = useState([]);
+  var [listing, setData] = useState([]);
 
-
-// fetch data from backend and set it to state
-  const getLocations = async () => {
+  // fetch data from backend and set it to state
+  const getListing= async () => {
     try {
       const response = await fetch(
-        'http://10.0.0.22:3000/snome?loction_id=' + route.params.location_id
+        'http://localhost:3000/listing/' + route.params.location_id
       );
       const json = await response.json();
+      console.log(json);
       setData(json);
-
     } catch (error) {
       console.error(error);
     }
@@ -75,30 +73,27 @@ function TownsScreen({route}) {
 
   // useEffect is a hook that runs a piece of code based on a given condition
   useEffect(() => {
-    getLocations();
+    getListing();
   }, []);
-
- //test
 
   return (
     <ScrollView>
-      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
       <View style={{ padding: 10, flex: 1 }}>
-        {locations.map((locations) => (
+        {listing.map((listing) => (
           <>
             <View style={styles.container2}>
-              <View id="locations" key={locations.id} style={styles.container}>
-                <Text>{locations.name} </Text>
+              <View id="location" key={listing.snome_id} style={styles.container}>
+                <Text>{listing.header} </Text>
 
-                {route.params ?
-                <Text> "Location ID: " {route.params.location_id} </Text>
-                : null }
+                {route.params ? (
+                  <Text> "Location ID: " {route.params.location_id} </Text>
+                ) : null}
 
                 <Image
                   style={styles.pic}
-                  source={require('../pics/Snome.png')}
+                  source={{uri: listing.url}}
                 />
-                <Text> {locations.description}</Text>
+                <Text> {listing.description}</Text>
               </View>
             </View>
           </>

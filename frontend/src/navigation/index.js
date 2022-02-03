@@ -10,9 +10,7 @@ import UserContext from '../Context/UserContext'
 export default function Router() {
     // const { authData, loading } = useAuth("true");
     const context = useContext(UserContext)
-    console.log(context)//.user_data.is_logged_in)
     let {user_data} = context
-    console.log(user_data.is_logged_in)
     const authData = { token: false }
 
 

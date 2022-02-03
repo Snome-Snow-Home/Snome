@@ -37,9 +37,11 @@ export default function Login() {
                 AsyncStorage.setItem('token', JSON.stringify(res.data.token))
                 //login user
                 context.setUserData({
-                    ...context.user_data,
-                    is_logged_in: true
+                    ...context.userData,
+                    is_logged_in: true,
+                    credentials: credentials.username
                 })
+
                 // localStorage.setItem('token', res.data.token);
                 // console.log(res.data.token)
                 // setJwt(res.data.token);
