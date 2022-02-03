@@ -4,93 +4,72 @@ import {
     View,
     ScrollView,
     Image,
+    useWindowDimensions,
+    direction
 } from 'react-native';
 
 export default function Slider(props) {
     const {
         id,
-        type,
-        label,
-        hint,
-        value,
-        error,
-        errorName,
-        errorMessage,
-        errorId,
-        htmlFor,
+        index,
         onChange,
+        photos,
+        onPress,
+        onLongPress,
+        onScroll,
+        onScrollBeginDrag,
+        onScrollEndDrag,
+        scrollEventThrottle,
+        showsHorizontalScrollIndicator,
         ...passThroughProps //does spreading other props remoev them from passThru?
     } = props
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,    
-            backgroundColor: '#fff',
-            alignItems: 'center',
-            justifyContent: 'center',
-
-        },
-        image: {
-            width: 75,
-            height: 75,
-        },
-        text: {
-            fontSize: 20,
-            color: '#fff',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginTop: 20,
-        },
-        slider: {
-            width: 100,
-            height: 100,
-        },
-
-    });
-
-    const [photos, setData] = useState([]);
-
-    function scrollPhotos(direction) {
-        if (direction === 'left') {
-            setX(x + width);
-        } else {
-            setX(x - width);
-        }
-    }
-    const getPhotos = async () => {
-        try {
-          const response = await fetch('http://localhost:3000/snome/10/photos');
-          const json = await response.json();
-          setData(json);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-    
-      useEffect(() => {
-        getPhotos();
-      }, []);
-
+    const [currentIndex, setCurrentIndex] = useState(index);
+   
     return (
-        <View style={styles.slider}>
+
+        <View style={styles.container}>
             <ScrollView
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-               scrollEventThrottle={scrollPhotos}
+                onScroll={onScroll}
+                onScrollBeginDrag={onScrollBeginDrag}
+                onScrollEndDrag={onScrollEndDrag}
+                scrollEventThrottle={scrollEventThrottle}
+                contentContainerStyle={styles.contentContainer}
             >
-                {photos.map((photo, index) => {
+                {photos.map((photo, index) => (
+                    <Image
 
-                    return (
-                        <View key={index} style={styles.image}>
-                            <Image
-                                source={{ uri: photo.url }}
-                                style={styles.image}
-                            />
-                        </View>
-                    );
-                })}
+                        key={index}
+                        source={{ uri: photo }}
+                        style={styles.image}
+                    />
+                ))}
             </ScrollView>
         </View>
+
+
     );
 };
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    contentContainer: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+    },
+});
+

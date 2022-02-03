@@ -43,8 +43,8 @@ router.get("/location/:id", controller.get.getOne);
 router.get("/snome/location/:id", controller.get.getSnomeByLocationId);
 router.get("/featured_location", controller.get.getFeaturedLocation)
 
-/* LIKES */
-router.post("/like", controller.post.createLike);
+/* LIKES  */
+router.post("/snome/:id/like", controller.post.createLike);
 router.get("/like/navbar/:user_id", controller.get.getUnreadLikes);
 
 /* PUT REQUESTS */
