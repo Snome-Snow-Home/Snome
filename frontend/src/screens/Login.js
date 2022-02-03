@@ -37,7 +37,7 @@ export default function Login() {
                 AsyncStorage.setItem('token', JSON.stringify(res.data.token))
                 //login user
                 context.setUserData({
-                    ...context.userData,
+                    ...context.user_data,
                     is_logged_in: true
                 })
                 // localStorage.setItem('token', res.data.token);
