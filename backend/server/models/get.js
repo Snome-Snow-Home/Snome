@@ -111,6 +111,19 @@ module.exports = {
       return err;
     }
 
+  },
+
+  getListing: async (location_id) => {
+    try {
+      let result = await db.manyOrNone(`select * from snome full join snome_photo on snome.id = snome_photo.snome_id  
+      where location_id = 1;select * from snome full join snome_photo on snome.id = snome_photo.snome_id  
+      where location_id = ${location_id}`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
   }
 
 };

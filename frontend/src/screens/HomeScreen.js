@@ -97,12 +97,8 @@ const ShowList = ({
               key={location.name}
               onPress={() => {
                 setSelectedValue(location.name);
-<<<<<<< HEAD
                 console.log(location)
                 navigation.navigate('Towns', { location_id: location.location_id });
-=======
-                navigation.navigate('Towns', { location_id: location.id });
->>>>>>> upstream/main
               }}
               style={[
                 styles.location,

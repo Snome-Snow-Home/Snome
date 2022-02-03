@@ -53,18 +53,10 @@ function UserProvider(props) {
     }
   );
 
-<<<<<<< HEAD
-    useEffect(() => {
+  useEffect(() => {
       console.log(Date.now())
       appDataFetch()
      }, []);
-=======
-  useEffect(() => {
-    console.log('test3')
-    console.log(Date.now())
-    appDataFetch()
-  }, []);
->>>>>>> upstream/main
 
   return (
     <UserContext.Provider

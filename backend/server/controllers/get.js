@@ -81,7 +81,18 @@ module.exports = {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-  }
+  },
+
+  getListing: async (req, res) => {
+    try {
+      const location_id = req.params.id;
+      let data = await get.getListing(location_id);
+      res.status(200).json(data);
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 
   // <TEMPLATE>: async (req, res) => {
   //   try {
