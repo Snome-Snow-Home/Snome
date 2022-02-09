@@ -19,36 +19,37 @@ import { Dimensions } from 'react-native';
 // for testing purposes
 // import location from '../localtestdata/Projects.json';
 
-const styles = {
-  container2: {
+const styles = StyleSheet.create({
+  containerOne: {
     width: Dimensions.get('window').width * 0.4,
     height: Dimensions.get('window').width * 0.4,
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
-    flex: 3,
-    // paddingTop: Constants.statusBarHeight,
-    // backgroundColor: "#ecf0f1",
-    padding: 8,
+    flex: 1,
+    margin: 20,
+    padding: 12,
   },
-  container: {
-    flex: 3,
+  containerTwo: {
+    flex: 2,
     flexDirection: 'row',
     flexWrap: 'wrap',
-
-    // paddingTop: Constants.statusBarHeight,
-    // backgroundColor: "#ecf0f1",
-    padding: 8,
+    padding: 12,
+    margin: 20,
   },
   tinyLogo: {
     width: 10,
     height: 10,
   },
   pic: {
-    width: 100,
-    height: 100,
+    flex: 2,
+    width: 300,
+    height: 500,
+    marginTop: 30,
+    padding: 10,
+    alignSelf: 'flex-start',
   },
-};
+});
 
 function TownsScreen({ route }) {
   //
@@ -58,7 +59,7 @@ function TownsScreen({ route }) {
   var [listing, setData] = useState([]);
 
   // fetch data from backend and set it to state
-  const getListing= async () => {
+  const getListing = async () => {
     try {
       const response = await fetch(
         'http://localhost:3000/listing/' + route.params.location_id
@@ -81,27 +82,21 @@ function TownsScreen({ route }) {
       <View style={{ padding: 10, flex: 1 }}>
         {listing.map((listing) => (
           <>
-            <View style={styles.container2}>
-              <View id="location" key={listing.snome_id} style={styles.container}>
-                <Text>{listing.header} </Text>
+            <View style={styles.containerOne}>
+              <View id="location" key={listing.snome_id} style={styles.containerTwo}>
+                <Text style={{margin: 15, marginTop: 20,}}>{listing.header}</Text>
 
-                {route.params ? (
-                  <Text> "Location ID: " {route.params.location_id} </Text>
-                ) : null}
+                {listing.url.map((url) => (
+                  <Image style={styles.pic} source={{ uri: url }} />
+                ))}
 
-                <Image
-                  style={styles.pic}
-                  source={{uri: listing.url}}
-                />
-                <Text> {listing.description}</Text>
+                <Text style={{margin: 15, marginTop: 20,}}> {listing.description}</Text>
               </View>
             </View>
           </>
+
         ))}
       </View>
-      {/* <View>
-        <YoutubePlayer height={150} play={true} videoId={'frvXANSaSec'} />
-      </View> */}
     </ScrollView>
   );
 }

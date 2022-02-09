@@ -109,3 +109,6 @@ coverage
 
 # Expo files
 .expo
+
+# DS_Store
+.DS_store
