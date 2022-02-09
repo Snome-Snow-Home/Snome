@@ -35,6 +35,7 @@
     "@react-native-async-storage/async-storage": "^1.15.15",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.5.0",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
     "expo": "^43.0.5",
@@ -47,6 +48,7 @@
     "react-native-maps": "^0.29.4",
     "react-native-material-textfield": "^0.16.1",
     "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.11.0",
     "react-native-web": "0.17.1",
     "react-native-youtube-iframe": "^2.2.1",
     "styled-components": "^5.3.3"
