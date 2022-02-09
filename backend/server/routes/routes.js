@@ -2,6 +2,7 @@ const controller = require("../controllers");
 const router = require("express").Router();
 const { uploadSnomePhotos } = require("./middleware/multer.js");
 const storage = require('@react-native-async-storage/async-storage');
+const { Route53RecoveryCluster } = require("aws-sdk");
 
 /* define API url to handler mappings here, organized by model and CRUD */
 module.exports = router;
@@ -42,8 +43,8 @@ router.get("/location/:id", controller.get.getOne);
 router.get("/snome/location/:id", controller.get.getSnomeByLocationId);
 router.get("/featured_location", controller.get.getFeaturedLocation)
 
-/* LIKES */
-router.post("/like", controller.post.createLike);
+/* LIKES  */
+router.post("/snome/:id/like", controller.post.createLike);
 router.get("/like/navbar/:user_id", controller.get.getUnreadLikes);
 
 /* PUT REQUESTS */
@@ -63,3 +64,5 @@ router.get("/review", controller.get.getAll);
 router.get("/snome/:id/photos", controller.get.getSnomePhotos);
 router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
 
+/* Listing */
+router.get("/listing/:id", controller.get.getListing);
