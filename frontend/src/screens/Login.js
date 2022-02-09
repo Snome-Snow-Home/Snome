@@ -57,8 +57,6 @@ export default function Login() {
             <Image source={require('../../assets/Snome.png')}
                 style={{ width: 100, height: 100 }} />
 
-            <Text>{context.user_data.is_logged_in ? 'erer' : 'tttt'}</Text>
-
             <Text style={{ fontSize: 20, textAlign: "center", margin: 10 }}>
                 Login
             </Text >
@@ -98,7 +96,7 @@ export default function Login() {
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
-                    onPress={(e) => { login(e), console.log(credentials, "hello") }}
+                    onPress={(e) => { login(e), console.log(credentials, `${credentials.username} is now logged in`) }}
                 >
 
                     <Text>Lets get Snomey</Text></Pressable>

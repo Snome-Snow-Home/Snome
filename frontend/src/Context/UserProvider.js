@@ -41,22 +41,22 @@ function UserProvider(props) {
     {
       is_logged_in: false,
       username: "",
-        user_id: 4,
-        match: {
-          user_id: 6,
-          snome_id: [5, 4]
-        },
-        snome_likes: {
-          snome_id: 3
-        },
-        messages: messages
+      user_id: 4,
+      match: {
+        user_id: 6,
+        snome_id: [5, 4]
+      },
+      snome_likes: {
+        snome_id: 3
+      },
+      messages: messages
     }
   );
 
   useEffect(() => {
-      console.log(Date.now())
-      appDataFetch()
-     }, []);
+    console.log(Date.now())
+    appDataFetch()
+  }, []);
 
   return (
     <UserContext.Provider
