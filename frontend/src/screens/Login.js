@@ -98,7 +98,7 @@ export default function Login() {
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
-                    onPress={(e) => { login(e), console.log(credentials, "hello") }}
+                    onPress={(e) => { login(e), console.log(credentials, `${credentials.username} is now logged in`) }}
                 >
 
                     <Text>Lets get Snomey</Text></Pressable>
