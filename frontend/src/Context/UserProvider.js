@@ -40,16 +40,16 @@ function UserProvider(props) {
   const [userData, setUserData] = useState(
     {
       is_logged_in: false,
-      username: ""
-      //   user_id: 4,
-      //   match: {
-      //     user_id: 6,
-      //     snome_id: [5, 4]
-      //   },
-      //   snome_likes: {
-      //     snome_id: 3
-      //   },
-      //   messages: messages
+      username: "",
+        user_id: 4,
+        match: {
+          user_id: 6,
+          snome_id: [5, 4]
+        },
+        snome_likes: {
+          snome_id: 3
+        },
+        messages: messages
     }
   );
 
