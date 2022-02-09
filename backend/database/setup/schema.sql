@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS "snome_photo";
 CREATE TABLE "snome_photo" (
     "id" serial PRIMARY KEY,
     "snome_id" int  NOT NULL REFERENCES "snome",
-    "url" text   NOT NULL
+    "url" text []   NOT NULL
 );
 
 DROP TABLE IF EXISTS "review";
