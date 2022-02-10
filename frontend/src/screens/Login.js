@@ -80,6 +80,8 @@ export default function Login() {
                     placeholder="username"
                     type="text"
                     required
+                    autoCapitalize='none'
+                    autoCorrect={false}
                     value={username}
                     onChangeText={setUsername}
                     // value={credentials.username}
@@ -96,6 +98,8 @@ export default function Login() {
                     placeholder="password"
                     type="text"
                     required
+                    autoCapitalize='none'
+                    autoCorrect={false}
                     value={password}
                     onChangeText={setPassword}
                     // value={credentials.password}
