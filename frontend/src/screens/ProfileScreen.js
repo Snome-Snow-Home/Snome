@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 // import CreateUser from "../components/CreateUser";
 import UserContext from '../Context/UserContext'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ProfileScreen = () => {
@@ -14,11 +15,12 @@ const ProfileScreen = () => {
 
     const logout = () => {
         console.log("user logged out!")
-        localStorage.clear()
+        // localStorage.clear()
+        AsyncStorage.removeItem('token', (err) => console.log(err))
         context.setUserData({
             ...context.userData,
             is_logged_in: false,
-            credentials: ""
+            username: ""
         })
     }
 
@@ -26,7 +28,7 @@ const ProfileScreen = () => {
     return (
         <View>
             <Text>Profile</Text>
-            <Text> Your username is: {context.user_data.credentials}</Text>
+            <Text> Your username is: {context.user_data.username}</Text>
             {/* // <Text>{userData}</Text> */}
             {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
             {/* <CreateUser /> */}
