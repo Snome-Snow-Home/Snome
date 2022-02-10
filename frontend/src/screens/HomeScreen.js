@@ -222,7 +222,9 @@ const FeaturedLocations = ({
       <View style={[styles.topContainer, { [label]: selectedValue }]}>
         {children}
         <View>
-          <Text style={styles.SnomeLogo}>Snome Logo</Text>
+          {/* <Text style={styles.SnomeLogo}>Snome Logo</Text> */}
+          <Image source={require('../../assets/Snome.png')}
+            style={{ width: 100, height: 100 }} />
         </View>
 
         {/* Search Box Container */}
