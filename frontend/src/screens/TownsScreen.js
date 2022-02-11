@@ -79,24 +79,21 @@ function TownsScreen({ route }) {
 
   return (
     <ScrollView>
-      <View style={{ padding: 10, flex: 1 }}>
-        {listing.map((listing) => (
-          <>
-            <View style={styles.containerOne}>
-              <View id="location" key={listing.snome_id} style={styles.containerTwo}>
-                <Text style={{margin: 15, marginTop: 20,}}>{listing.header}</Text>
-
-                {listing.url.map((url) => (
-                  <Image style={styles.pic} source={{ uri: url }} />
-                ))}
-
-                <Text style={{margin: 15, marginTop: 20,}}> {listing.description}</Text>
-              </View>
-            </View>
-          </>
-
-        ))}
-      </View>
+      {listing.map((listing) => (
+        <React.Fragment key={listing.snome_id}>
+          <View id="listing" style={styles.containerOne}>
+            <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            {listing.url.map((url) => (
+              <Image style={styles.pic} source={{ uri: url }}/>
+            ))}
+            <Text style={{ margin: 15, marginTop: 20 }}>
+              {'\n'}
+              {listing.description}
+              {'\n'}
+            </Text>
+          </View>
+        </React.Fragment>
+      ))}
     </ScrollView>
   );
 }
