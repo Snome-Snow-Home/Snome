@@ -139,26 +139,11 @@ export default function CreateUser(props) {
     return true;
   }
 
-  const submitAndClear = () => {
-    setUserData({
-      nameText: '',
-      username: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      password: '',
-      confirmPassword: ''
-    })
-  }
-
   function handleSubmit(e) {
     e.preventDefault;
     if (isValidForm()) {
       console.log(userData);
       axios.post(`http://localhost:3000/signup`, userData);
-      submitAndClear();
     }
   }
 
