@@ -96,6 +96,7 @@ export default function Login() {
                     placeholder="password"
                     type="text"
                     required
+                    secureTextEntry={true}
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={password}

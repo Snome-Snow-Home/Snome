@@ -77,19 +77,41 @@ const styles = StyleSheet.create({
 });
 
 export default function CreateUser(props) {
-  // const [error, setError] = useState(null);
-  const [nameText, setNameText] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipcode] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConformPassword] = useState('');
+  const [error, setError] = useState('')
+  const [userData, setUserData] = useState({
+    nameText: '',
+    username: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    password: '',
+    confirmPassword: ''
+
+  })
+
+  const { nameText, username, email, address, city, state, zipCode, password, confirmPassword } = userData;
 
   const navigation = useNavigation();
 
+  // const [nameText, setNameText] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [address, setAddress] = useState('');
+  // const [city, setCity] = useState('');
+  // const [state, setState] = useState('');
+  // const [zipCode, setZipcode] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConformPassword] = useState('');
+
+
+  const handleOnChangeText = (value, fieldName) => {
+    setUserData({ ...userData, [fieldName]: value })
+  }
+
+
+  //unique component to bold letters
   const B = (props) => (
     <Text style={{ fontWeight: 'bold', color: '#448EB1' }}>
       {props.children}
@@ -122,24 +144,31 @@ export default function CreateUser(props) {
   // },
   // });
 
+
+  // const isValidForm = () => {
+  //   //we accept only if all input fields have value
+  // }
+
   function handleSubmit(e) {
     e.preventDefault;
-    // form.validate()
-    const userData = {
-      nameText: nameText,
-      username: username,
-      email: email,
-      street: address,
-      city: city,
-      state: state,
-      zipCode: zipCode,
-      password: password,
-      confirmedPassword: confirmPassword,
-    };
+    // if (isValidForm()) {
+    // const userData = {
+    //   nameText: nameText,
+    //   username: username,
+    //   email: email,
+    //   street: address,
+    //   city: city,
+    //   state: state,
+    //   zipCode: zipCode,
+    //   password: password,
+    //   confirmedPassword: confirmPassword,
+    // };
     axios.post(`http://localhost:3000/signup`, userData)
+    console.log(userData)
     // console.log("values: ", values)
     //should this be form.error?
     // console.log("errors: ", form.errors)
+    // }
   }
 
   return (
@@ -171,7 +200,8 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoCorrect={false}
           value={nameText}
-          onChangeText={setNameText}
+          // onChangeText={setNameText}
+          onChangeText={value => handleOnChangeText(value, 'nameText')}
           style={styles.formInput}
         //should this be unpluralized again>? errors->error
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
@@ -192,7 +222,8 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoCorrect={false}
           value={username}
-          onChangeText={setUsername}
+          //onChangeText={setUsername}
+          onChangeText={value => handleOnChangeText(value, 'username')}
           style={styles.formInput}
         //should this be unpluralized again>? errors->error
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
@@ -212,7 +243,8 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoCorrect={false}
           value={email}
-          onChangeText={setEmail}
+          //onChangeText={setEmail}
+          onChangeText={value => handleOnChangeText(value, 'email')}
           style={styles.formInput}
         // onChange={(event) => form.setFieldValue('email', event.target.value)}
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
@@ -234,7 +266,8 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoCorrect={false}
           value={address}
-          onChangeText={setAddress}
+          //onChangeText={setAddress}
+          onChangeText={value => handleOnChangeText(value, 'address')}
           style={styles.formInput}
         // onChange={(event) => form.setFieldValue('address', event.target.value)}
         />
@@ -255,7 +288,8 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoCorrect={false}
           value={city}
-          onChangeText={setCity}
+          //onChangeText={setCity}
+          onChangeText={value => handleOnChangeText(value, 'city')}
           style={styles.formInput}
         // value={form.values.city}
         // onChange={(event) => form.setFieldValue('city', event.target.value)}
@@ -277,7 +311,8 @@ export default function CreateUser(props) {
           maxLength={2}
           autoCorrect={false}
           value={state}
-          onChangeText={setState}
+          //onChangeText={setState}
+          onChangeText={value => handleOnChangeText(value, 'state')}
           style={styles.formInput}
         // onChange={(event) => form.setFieldValue('state', event.target.value)}
         />
@@ -296,10 +331,8 @@ export default function CreateUser(props) {
           type="text"
           required
           value={zipCode}
-          onChangeText={setZipcode}
-          // onChange={(event) =>
-          //     form.setFieldValue('zipCode', event.target.value)
-          // }
+          //onChangeText={setZipcode}
+          onChangeText={value => handleOnChangeText(value, 'zipCode')}
           style={styles.formInput}
         />
 
@@ -322,11 +355,8 @@ export default function CreateUser(props) {
           secureTextEntry={true}
           // name='password'
           value={password}
-          onChangeText={setPassword}
-          //onChange={handleInputChange}
-          // onChange={(event) =>
-          //     form.setFieldValue('password', event.target.value)
-          // }
+          //onChangeText={setPassword}
+          onChangeText={value => handleOnChangeText(value, 'password')}
           style={styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} /> */}
@@ -347,11 +377,8 @@ export default function CreateUser(props) {
           autoComplete="new-password"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={setConformPassword}
-          //onChange={handleInputChange}
-          // onChange={(event) =>
-          //     form.setFieldValue('confirmPassword', event.target.value)
-          // }
+          //onChangeText={setConformPassword}
+          onChangeText={value => handleOnChangeText(value, 'confirmPassword')}
           style={styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} /> */}
@@ -360,6 +387,7 @@ export default function CreateUser(props) {
           {/* // {form.onSubmit((values) => handleSubmit(values))} */}
           <Text>Submit</Text>
         </Pressable>
+
       </ScrollView>
     </ScrollView>
   );
