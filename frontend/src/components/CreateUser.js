@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
 });
 
 export default function CreateUser(props) {
+  const navigation = useNavigation();
+
   const [error, setError] = useState('')
   const [userData, setUserData] = useState({
     nameText: '',
@@ -93,23 +95,10 @@ export default function CreateUser(props) {
 
   const { nameText, username, email, address, city, state, zipCode, password, confirmPassword } = userData;
 
-  const navigation = useNavigation();
-
-  // const [nameText, setNameText] = useState('');
-  // const [username, setUsername] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [address, setAddress] = useState('');
-  // const [city, setCity] = useState('');
-  // const [state, setState] = useState('');
-  // const [zipCode, setZipcode] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [confirmPassword, setConformPassword] = useState('');
-
-
+  //grand value of text input from user and sets the state to that value 
   const handleOnChangeText = (value, fieldName) => {
     setUserData({ ...userData, [fieldName]: value })
   }
-
 
   //unique component to bold letters
   const B = (props) => (
@@ -118,57 +107,53 @@ export default function CreateUser(props) {
     </Text>
   );
 
-  // const form = useForm({
-  //     initialValues: {
-  //         name: '',
-  //         email: '',
-  //         address: '',
-  //         city: '',
-  //         state: '',
-  //         zipCode: '',
-  //         password: '',
-  //         confirmPassword: '',
-  //     },
-  // validationRules: {
-  //     name: (value) => /^[a-z ,.'-]+$/i.test(value),
-  //     email: (value) => /^\S+@\S+$/.test(value),
-  //     city: (value) =>
-  //         /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(
-  //             value
-  //         ),
-  //     state: (value) => value.trim().length >= 2,
-  //     zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
-  //     password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
+  const isValidObjField = (obj) => {
+    return Object.values(obj).every(value => value.trim())
+  }
 
-  //     confirmPassword: (val, values) => val === values.password,
-  // },
-  // });
+  const updateError = (error, stateUpdater) => {
+    stateUpdater(error)
+    setTimeout(() => {
+      stateUpdater('')
+    }, 2500)
+  }
+  const isValidEmail = (value) => {
+    const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return regex.test(value)
+  }
 
+  const isValidForm = () => {
+    //we accept only if all input fields have value
+    if (!isValidObjField(userData)) return updateError("All fields required!", setError)
+    //only valid email allowed
+    if (!isValidEmail(email)) return updateError("Please enter a valid email", setError)
+    //password must have 8 character
+    if (!password.trim() || password.length < 8) return updateError("Please must have at least 8 characters!", setError)
+    //password must match confirm password
+    if (password !== confirmPassword) return updateError("Please make sure passwords match", setError)
 
-  // const isValidForm = () => {
-  //   //we accept only if all input fields have value
-  // }
+  }
 
   function handleSubmit(e) {
     e.preventDefault;
-    // if (isValidForm()) {
-    // const userData = {
-    //   nameText: nameText,
-    //   username: username,
-    //   email: email,
-    //   street: address,
-    //   city: city,
-    //   state: state,
-    //   zipCode: zipCode,
-    //   password: password,
-    //   confirmedPassword: confirmPassword,
-    // };
-    axios.post(`http://localhost:3000/signup`, userData)
-    console.log(userData)
-    // console.log("values: ", values)
-    //should this be form.error?
-    // console.log("errors: ", form.errors)
-    // }
+    if (isValidForm()) {
+      // const userData = {
+      //   nameText: nameText,
+      //   username: username,
+      //   email: email,
+      //   street: address,
+      //   city: city,
+      //   state: state,
+      //   zipCode: zipCode,
+      //   password: password,
+      //   confirmedPassword: confirmPassword,
+      // };
+      axios.post(`http://localhost:3000/signup`, userData)
+
+      // console.log("values: ", values)
+      //should this be form.error?
+      // console.log("errors: ", form.errors)
+    }
   }
 
   return (
@@ -410,3 +395,29 @@ errorId={"name-errorBox"}
 errorMessage={"includes invalid characters"}
 /> */
 }
+
+  // const form = useForm({
+  //     initialValues: {
+  //         name: '',
+  //         email: '',
+  //         address: '',
+  //         city: '',
+  //         state: '',
+  //         zipCode: '',
+  //         password: '',
+  //         confirmPassword: '',
+  //     },
+  // validationRules: {
+  //     name: (value) => /^[a-z ,.'-]+$/i.test(value),
+  //     email: (value) => /^\S+@\S+$/.test(value),
+  //     city: (value) =>
+  //         /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(
+  //             value
+  //         ),
+  //     state: (value) => value.trim().length >= 2,
+  //     zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
+  //     password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
+
+  //     confirmPassword: (val, values) => val === values.password,
+  // },
+  // });
