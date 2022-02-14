@@ -168,6 +168,8 @@ export default function CreateUser(props) {
           placeholder="Name"
           type="text"
           required
+          autoCapitalize='none'
+          autoCorrect={false}
           value={nameText}
           onChangeText={setNameText}
           style={styles.formInput}
@@ -187,6 +189,8 @@ export default function CreateUser(props) {
           placeholder="Username"
           type="text"
           required
+          autoCapitalize='none'
+          autoCorrect={false}
           value={username}
           onChangeText={setUsername}
           style={styles.formInput}
@@ -205,7 +209,8 @@ export default function CreateUser(props) {
           placeholder="Email"
           type="text"
           required
-          // name='email'
+          autoCapitalize='none'
+          autoCorrect={false}
           value={email}
           onChangeText={setEmail}
           style={styles.formInput}
@@ -226,7 +231,8 @@ export default function CreateUser(props) {
           placeholder="Address"
           type="text"
           required
-          //name='address'
+          autoCapitalize='none'
+          autoCorrect={false}
           value={address}
           onChangeText={setAddress}
           style={styles.formInput}
@@ -246,7 +252,8 @@ export default function CreateUser(props) {
           placeholder="City"
           type="text"
           required
-          //name='city'
+          autoCapitalize='none'
+          autoCorrect={false}
           value={city}
           onChangeText={setCity}
           style={styles.formInput}
@@ -267,9 +274,8 @@ export default function CreateUser(props) {
           placeholder="State"
           type="text"
           required
-          maxLength="2"
-          autoCapitalize="characters" // why doesn't this work?
-          //name='state'
+          maxLength={2}
+          autoCorrect={false}
           value={state}
           onChangeText={setState}
           style={styles.formInput}
@@ -289,7 +295,6 @@ export default function CreateUser(props) {
           placeholder="Zip Code"
           type="text"
           required
-          //name='zipCode'
           value={zipCode}
           onChangeText={setZipcode}
           // onChange={(event) =>
@@ -311,8 +316,10 @@ export default function CreateUser(props) {
           placeholder="Need a number, a letter and a special character"
           type="password"
           required
+          autoCorrect={false}
+          autoCapitalize='none'
           autoComplete="new-password"
-          secureTextEntry="true"
+          secureTextEntry={true}
           // name='password'
           value={password}
           onChangeText={setPassword}
@@ -335,9 +342,10 @@ export default function CreateUser(props) {
           placeholder="Confirm Password"
           type="password"
           required
+          autoCorrect={false}
+          autoCapitalize='none'
           autoComplete="new-password"
-          secureTextEntry="true"
-          //name='confirmPassword'
+          secureTextEntry={true}
           value={confirmPassword}
           onChangeText={setConformPassword}
           //onChange={handleInputChange}

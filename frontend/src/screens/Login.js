@@ -11,10 +11,14 @@ export default function Login() {
     const navigation = useNavigation()
     const context = useContext(UserContext)
 
-    const [credentials, setCredentials] = useState({
-        username: '',
-        password: ''
-    });
+    // const [credentials, setCredentials] = useState({
+    //     username: '',
+    //     password: ''
+    // });
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
 
     const B = (props) => <Text style={{ fontWeight: 'bold', color: "#448EB1" }}>{props.children}</Text>
 
@@ -23,8 +27,11 @@ export default function Login() {
         axios({
             method: 'post',
             url: 'http://localhost:3000/login',
-            data:
-                credentials
+            data: {
+                username: username,
+                password: password
+            }
+
             //receive token
             ,
         })
@@ -39,7 +46,7 @@ export default function Login() {
                 context.setUserData({
                     ...context.user_data,
                     is_logged_in: true,
-                    credentials: credentials.username
+                    username: username
                 })
 
                 // localStorage.setItem('token', res.data.token);
@@ -71,10 +78,12 @@ export default function Login() {
                     placeholder="username"
                     type="text"
                     required
-                    // value={nameText}
-                    // onChangeText={setNameText}
-                    value={credentials.username}
-                    onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={username}
+                    onChangeText={setUsername}
+                    // value={credentials.username}
+                    // onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
                     style={styles.formInput}
                 />
 
@@ -87,16 +96,19 @@ export default function Login() {
                     placeholder="password"
                     type="text"
                     required
-                    //value={nameText}
-                    // onChangeText={setNameText}
-                    value={credentials.password}
-                    onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={password}
+                    onChangeText={setPassword}
+                    // value={credentials.password}
+                    // onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                     style={styles.formInput}
                 />
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
-                    onPress={(e) => { login(e), console.log(credentials, `${credentials.username} is now logged in`) }}
+                    onPress={(e) => { login(e), console.log(`${username} is now logged in`) }}
+
                 >
 
                     <Text>Lets get Snomey</Text></Pressable>
