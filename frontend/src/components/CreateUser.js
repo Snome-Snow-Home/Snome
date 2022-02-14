@@ -7,12 +7,14 @@ import {
   TextInput,
   Button,
   Image,
+  TouchableOpacity,
   Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from '@mantine/hooks';
 import ErrorMessage from './ErrorMessage';
 import axios from 'axios';
+//import { ButtonUI } from './ButtonUI';
 // import FormInput from './FormInput'
 // import { StatusBar } from 'expo-status-bar';
 
@@ -115,7 +117,7 @@ export default function CreateUser(props) {
     stateUpdater(error)
     setTimeout(() => {
       stateUpdater('')
-    }, 2500)
+    }, 4500)
   }
   const isValidEmail = (value) => {
     const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -131,28 +133,32 @@ export default function CreateUser(props) {
     if (!password.trim() || password.length < 8) return updateError("Please must have at least 8 characters!", setError)
     //password must match confirm password
     if (password !== confirmPassword) return updateError("Please make sure passwords match", setError)
+    //here we could query to make sure the username does not already exist
+    //username !== username query to DB
 
+    return true;
+  }
+
+  const submitAndClear = () => {
+    setUserData({
+      nameText: '',
+      username: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      password: '',
+      confirmPassword: ''
+    })
   }
 
   function handleSubmit(e) {
     e.preventDefault;
     if (isValidForm()) {
-      // const userData = {
-      //   nameText: nameText,
-      //   username: username,
-      //   email: email,
-      //   street: address,
-      //   city: city,
-      //   state: state,
-      //   zipCode: zipCode,
-      //   password: password,
-      //   confirmedPassword: confirmPassword,
-      // };
-      axios.post(`http://localhost:3000/signup`, userData)
-
-      // console.log("values: ", values)
-      //should this be form.error?
-      // console.log("errors: ", form.errors)
+      console.log(userData);
+      axios.post(`http://localhost:3000/signup`, userData);
+      submitAndClear();
     }
   }
 
@@ -171,6 +177,7 @@ export default function CreateUser(props) {
       </Text>
 
       <ScrollView onSubmit={handleSubmit}>
+        {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
         <Text style={styles.horizontal}>
           <Text style={styles.label} htmlFor="name">
             Your Name:{' '}
@@ -188,7 +195,6 @@ export default function CreateUser(props) {
           // onChangeText={setNameText}
           onChangeText={value => handleOnChangeText(value, 'nameText')}
           style={styles.formInput}
-        //should this be unpluralized again>? errors->error
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} /> */}
@@ -210,7 +216,6 @@ export default function CreateUser(props) {
           //onChangeText={setUsername}
           onChangeText={value => handleOnChangeText(value, 'username')}
           style={styles.formInput}
-        //should this be unpluralized again>? errors->error
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
 
@@ -231,7 +236,6 @@ export default function CreateUser(props) {
           //onChangeText={setEmail}
           onChangeText={value => handleOnChangeText(value, 'email')}
           style={styles.formInput}
-        // onChange={(event) => form.setFieldValue('email', event.target.value)}
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
 
@@ -254,7 +258,6 @@ export default function CreateUser(props) {
           //onChangeText={setAddress}
           onChangeText={value => handleOnChangeText(value, 'address')}
           style={styles.formInput}
-        // onChange={(event) => form.setFieldValue('address', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.address} errorId={"address-errorBox"} errorMessage={"invalid address"} /> */}
@@ -276,8 +279,6 @@ export default function CreateUser(props) {
           //onChangeText={setCity}
           onChangeText={value => handleOnChangeText(value, 'city')}
           style={styles.formInput}
-        // value={form.values.city}
-        // onChange={(event) => form.setFieldValue('city', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.city} errorId={"city-errorBox"} errorMessage={"invalid city name"} /> */}
@@ -299,7 +300,6 @@ export default function CreateUser(props) {
           //onChangeText={setState}
           onChangeText={value => handleOnChangeText(value, 'state')}
           style={styles.formInput}
-        // onChange={(event) => form.setFieldValue('state', event.target.value)}
         />
 
         {/* <ErrorMessage errorName={form.errors.state} errorId={"state-errorBox"} errorMessage={"Not a valid US state"} /> */}
@@ -338,7 +338,6 @@ export default function CreateUser(props) {
           autoCapitalize='none'
           autoComplete="new-password"
           secureTextEntry={true}
-          // name='password'
           value={password}
           //onChangeText={setPassword}
           onChangeText={value => handleOnChangeText(value, 'password')}
@@ -366,12 +365,12 @@ export default function CreateUser(props) {
           onChangeText={value => handleOnChangeText(value, 'confirmPassword')}
           style={styles.formInput}
         />
-        {/* <ErrorMessage errorName={form.errors.confirmPassword} errorId={"confirmPassword-errorBox"} errorMessage={"Passwords must match"} /> */}
 
-        <Pressable style={styles.button} title="Submit" onPress={handleSubmit}>
-          {/* // {form.onSubmit((values) => handleSubmit(values))} */}
+        <TouchableOpacity style={styles.button} title="Submit"
+          clearButtonMode="always"
+          onPress={handleSubmit}>
           <Text>Submit</Text>
-        </Pressable>
+        </TouchableOpacity>
 
       </ScrollView>
     </ScrollView>
