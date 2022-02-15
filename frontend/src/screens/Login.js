@@ -11,11 +11,6 @@ export default function Login() {
     const navigation = useNavigation()
     const context = useContext(UserContext)
 
-    // const [credentials, setCredentials] = useState({
-    //     username: '',
-    //     password: ''
-    // });
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -31,16 +26,11 @@ export default function Login() {
                 username: username,
                 password: password
             }
-
-            //receive token
-            ,
         })
             .then(res => {
-                // let token = req.header('Authorization');
-
                 console.log(res)
                 console.log(res.data);
-
+                //set token in local storage- on mobile
                 AsyncStorage.setItem('token', JSON.stringify(res.data.token))
                 //login user
                 context.setUserData({
@@ -48,11 +38,6 @@ export default function Login() {
                     is_logged_in: true,
                     username: username
                 })
-
-                // localStorage.setItem('token', res.data.token);
-                // console.log(res.data.token)
-                // setJwt(res.data.token);
-                // setLogged_in(true)
             })
             .catch(err => {
                 console.log(err)
@@ -96,6 +81,7 @@ export default function Login() {
                     placeholder="password"
                     type="text"
                     required
+                    secureTextEntry={true}
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={password}
@@ -147,22 +133,17 @@ const styles = StyleSheet.create({
         margin: 5,
         color: "#464545",
         fontFamily: 'Arial',
-
-
     },
     required: {
         margin: 5,
         color: "gray",
         fontFamily: 'Arial',
         fontSize: 14,
-
     },
     horizontal: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-
-
     },
     button: {
         alignItems: 'center',
