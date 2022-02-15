@@ -41,13 +41,12 @@ const createScreenOptions = ({ route }) => {
 }
 
 export const AppNavigator = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState("true")
   return (
     <>
       <Tab.Navigator
         screenOptions={createScreenOptions}
       >
-        {/* {isLoggedIn ? ( */}
+
         <Tab.Group screenOptions={createScreenOptions}>
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Towns" component={TownsScreen} />
@@ -56,13 +55,7 @@ export const AppNavigator = () => {
           <Tab.Screen name="Message" component={MessageScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
           {/* <Tab.Screen name="Description" component={DescScreen} /> */}
-          {/* <Tab.Screen name="Login" component={Login} /> */}
         </Tab.Group>
-
-        {/* <Tab.Group screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="CreateUser"
-            component={CreateUser}
-          /></Tab.Group> */}
       </Tab.Navigator>
 
     </>
