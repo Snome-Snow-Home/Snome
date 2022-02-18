@@ -18,9 +18,7 @@ module.exports = {
     try {
       const auth_user = await user.getUserByName(req.body.username);
 
-
       let is_auth = authenticate(req.body.password, auth_user.password)
-
 
       if (!is_auth) throw new Error('credentials did not match')
       const token = jsonwebtoken.sign('null', process.env.TOKEN_SECRET);
