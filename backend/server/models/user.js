@@ -132,13 +132,17 @@ module.exports = {
     }
   },
 
-  getUserByName: async (username) => {
+  getUserByName: async (name) => {
     // name = 'John Smith';
     //George Thomson
     try {
-      let result = await db.one('SELECT * FROM snome_user WHERE user_name = $1', username);
-      console.log('db success: ', result.password)
-      return result;
+      let userNameExists = await db.one(`SELECT CASE WHEN EXISTS
+      (SELECT id FROM snome_user WHERE user_name = $1)
+      THEN TRUE
+      ELSE FALSE
+      END
+      `, [name]);
+      return userNameExists;
     } catch (err) {
       console.log(`DATABASE ERROR:  ${err}`);
       return err;
@@ -163,8 +167,8 @@ module.exports = {
           (
             SELECT id FROM snome_user WHERE email='${email}'
           )
-            THEN 'true'
-            ELSE 'false'
+            THEN TRUE
+            ELSE FALSE
           END
       `);
       return emailExists;
