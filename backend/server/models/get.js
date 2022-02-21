@@ -115,7 +115,7 @@ module.exports = {
 
   getListing: async (location_id) => {
     try {
-      let result = await db.manyOrNone(`SELECT snome_id, header, description, url  FROM snome FULL JOIN snome_photo ON snome.id = snome_photo.snome_id  
+      let result = await db.manyOrNone(`SELECT snome_id, header, description, url, owner_id  FROM snome FULL JOIN snome_photo ON snome.id = snome_photo.snome_id  
       WHERE location_id = ${location_id} ORDER BY snome_id`)
       return result;
     }

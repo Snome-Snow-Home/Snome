@@ -10,7 +10,7 @@ module.exports = {
     try {
       const inserted_id = await post.createSnome(req.body);
       res.status(201).send('Success!');
-    } catch(err) {
+    } catch (err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`)
       res.status(500).send(err);
     }
@@ -27,7 +27,7 @@ module.exports = {
         uploadPhotoPromises.push(
           uploadToS3(photo, 'snome_photo')
         )
-      } catch(err) {
+      } catch (err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`)
         res.status(500).send(err);
       }
@@ -40,7 +40,7 @@ module.exports = {
         urls.forEach(async (url) => {
           try {
             await post.createSnomePhoto(inserted_id, url)
-          } catch(err) {
+          } catch (err) {
             console.log(`SERVER SIDE ERROR - POST: ${err}`);
             res.status(500).send(err);  // exit loop and respond to client
           }
@@ -66,12 +66,12 @@ module.exports = {
       try {
         uploadPhotoPromises.push(
           uploadToS3(photo)
-        )  
-      } catch(err) {
+        )
+      } catch (err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`)
         res.status(500).send(err);
       }
-    }) 
+    })
 
     // 4. call Promise.all on promise array to upload files in parallel
     await Promise.all(uploadPhotoPromises).then(
@@ -80,11 +80,11 @@ module.exports = {
         urls.forEach(async (url) => {
           try {
             await post.createSnomePhoto(snome_id, url)
-          } catch(err) {
+          } catch (err) {
             console.log(`SERVER SIDE ERROR - POST: ${err}`);
             res.status(500).send(err);  // exit loop and respond to client
           }
-        }) 
+        })
       }
     )
 
@@ -96,13 +96,16 @@ module.exports = {
   //createUser moved to './user'
 
   createLike: async (req, res) => {
+    console.log(req.body)
     post.createLike(req.body)
+      // {req.body}
+      //{req.body.data}
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send(
-        "Some error occurred while creating the Like."
+          "Some error occurred while creating the Like."
         )
       })
   },
@@ -114,7 +117,7 @@ module.exports = {
       })
       .catch(err => {
         res.status(500).send(
-        "Some error occurred while creating the review."
+          "Some error occurred while creating the review."
         )
       })
   },

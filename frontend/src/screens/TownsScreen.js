@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Button,
@@ -14,6 +14,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import { Dimensions } from 'react-native';
+import axios from 'axios';
+import UserContext from '../Context/UserContext';
 // for video player
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
@@ -37,6 +39,7 @@ function TownsScreen({ route }) {
       const json = await response.json();
       console.log(json);
       setData(json);
+      return json
     } catch (error) {
       console.error(error);
     }
@@ -47,13 +50,37 @@ function TownsScreen({ route }) {
     getListing();
   }, []);
 
-  //func here needs to be post request to the db to add this listing to users likes
-  const addtoLikes = async () => {
-    try {
-      console.log("you like me!")
-    } catch (error) {
-      console.error(error);
+  const context = useContext(UserContext)
+
+  // const grabUser = async () => {
+  //   try {
+
+  //     // const user = context.user_data.user_id
+  //     const grabId = listing.map(listing => )
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  // func here needs to be post request to the db to add this listing to users likes
+  const addToLikes = async ({ route }) => {
+    //grab context for user-id, and snome_id from line 63
+    // const user_id = useContext(UserContext)
+    const listing = await getListing(route)
+    console.log(listing[0].snome_id)
+    const likeObj = {
+      user: context.user_data.user_id,
+      snome_id: listing[0].snome_id,
+
     }
+    axios.post({
+      method: 'post',
+      url: 'http://localhost:3000/snome/like', likeObj
+    })
+    console.log("you like me!")
+    console.log(likeObj)
+    //.catch(error)console.error(error);
+
   };
 
   return (
@@ -62,6 +89,7 @@ function TownsScreen({ route }) {
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
             <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            <Text>{listing.snome_id}</Text>
             {listing.url.map((url, index) => (
               <React.Fragment key={index}>
                 <Image style={styles.pic} source={{ uri: url }} />
@@ -73,7 +101,7 @@ function TownsScreen({ route }) {
               {'\n'}
             </Text>
           </View>
-          <TouchableOpacity style={styles.button} title="like this!" onPress={addtoLikes}>Like This!</TouchableOpacity>
+          <TouchableOpacity style={styles.button} title="like this!" onPress={addToLikes}>Like This!</TouchableOpacity>
         </React.Fragment>
       ))}
     </ScrollView>
