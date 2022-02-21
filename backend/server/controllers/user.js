@@ -64,12 +64,12 @@ module.exports = {
 
   getUserByName: async (req, res) => {
     try {
-      let data = await user.getUserByName(req.params.username);
+      console.log(req.params.name);
+      let data = await user.getUserByName(req.params.name);
       res.status(200).send(data);
     } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
-      res.status(400).send(undefined);
     }
   },
 
