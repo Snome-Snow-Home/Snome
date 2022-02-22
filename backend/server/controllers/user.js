@@ -64,8 +64,19 @@ module.exports = {
 
   getUserByName: async (req, res) => {
     try {
+      console.log(req.params.username);
+      let data = await user.getUserByName(req.params.username);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
+
+  userNameStatus: async (req, res) => {
+    try {
       console.log(req.params.name);
-      let data = await user.getUserByName(req.params.name);
+      let data = await user.userNameStatus(req.params.name);
       res.status(200).send(data);
     } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
