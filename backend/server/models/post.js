@@ -71,19 +71,17 @@ module.exports = {
   //   }
   // },
 
-  createLike: async ({snome_user_id, snome_id, has_been_read }) => {
+  createLike: async ({snome_id, snome_user_id}) => {
     try {
       await db.none(`
         INSERT INTO snome_like (
           snome_user_id,
-          snome_id,
-          has_been_read
+          snome_id
         )
         VALUES (
-          $1, $2, $3
+          $1, $2
         )
-      `, [snome_user_id, snome_id, has_been_read]);
-      return 'New like created!'
+      `, [snome_user_id, snome_id]);
     } catch(err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
