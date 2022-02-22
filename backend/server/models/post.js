@@ -33,10 +33,15 @@ module.exports = {
     }
   },
 
-  createSnomePhoto: async (snome_id, url) => {
+  createSnomePhoto: async (snome_id, photosUrl) => {
     try {
+<<<<<<< HEAD
       await db.none(`INSERT INTO snome_photo (snome_id, url) values ($1, $2)`, [snome_id, url])
     } catch (err) {
+=======
+      await db.none(`INSERT INTO snome_photo (snome_id, url) values ($1, $2)`, [snome_id, photosUrl])
+    } catch(err){
+>>>>>>> 741ace5309416087c234b3db74536145a4b4446f
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }

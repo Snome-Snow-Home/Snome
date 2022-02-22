@@ -71,14 +71,12 @@ function TownsScreen({ route }) {
     // console.log(snome_id)
     const likeObj = {
       snome_user_id: context.user_data.user_id,
-      //snome_id: listing[0].snome_id,
       snome_id: snome_id
-
     }
-    axios.post({
-      method: 'post',
-      url: 'http://localhost:3000/snome/like', likeObj
-    })
+    axios.post(
+
+      'http://localhost:3000/snome/like/' + likeObj.snome_id + '/' + likeObj.snome_user_id, {}
+    )
     console.log("you like me!")
     console.log(likeObj)
     //.catch(error)console.error(error);
