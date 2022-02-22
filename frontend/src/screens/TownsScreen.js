@@ -39,7 +39,7 @@ function TownsScreen({ route }) {
       const json = await response.json();
       console.log(json);
       setData(json);
-      return json
+
     } catch (error) {
       console.error(error);
     }
@@ -63,14 +63,16 @@ function TownsScreen({ route }) {
   // }
 
   // func here needs to be post request to the db to add this listing to users likes
-  const addToLikes = async ({ route }) => {
+  const addToLikes = (snome_id) => {
     //grab context for user-id, and snome_id from line 63
     // const user_id = useContext(UserContext)
-    const listing = await getListing(route)
-    console.log(listing[0].snome_id)
+    //const listing = await getListing(route)
+    console.log(context)
+    // console.log(snome_id)
     const likeObj = {
-      user: context.user_data.user_id,
-      snome_id: listing[0].snome_id,
+      snome_user_id: context.user_data.user_id,
+      //snome_id: listing[0].snome_id,
+      snome_id: snome_id
 
     }
     axios.post({
@@ -101,7 +103,11 @@ function TownsScreen({ route }) {
               {'\n'}
             </Text>
           </View>
-          <TouchableOpacity style={styles.button} title="like this!" onPress={addToLikes}>Like This!</TouchableOpacity>
+          <View>
+
+            <TouchableOpacity style={styles.button} title="like this!" onPress={() => addToLikes(listing.snome_id)}><Text>Like This! </Text></TouchableOpacity>
+
+          </View>
         </React.Fragment>
       ))}
     </ScrollView>

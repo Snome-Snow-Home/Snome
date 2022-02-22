@@ -97,17 +97,21 @@ module.exports = {
 
   createLike: async (req, res) => {
     console.log(req.body)
-    post.createLike(req.body)
-      // {req.body}
-      //{req.body.data}
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
+    try {
+      const response = await post.createLike(req.body)
+        // {req.body}
+        //{req.body.data}
+        .then(data => {
+          res.send(data);
+        })
+    }
+    catch {
+      (err => {
         res.status(500).send(
           "Some error occurred while creating the Like."
         )
       })
+    }
   },
 
   createReview: async (req, res) => {
