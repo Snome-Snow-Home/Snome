@@ -4,6 +4,7 @@ const { uploadSnomePhotos } = require("./middleware/multer.js");
 const storage = require('@react-native-async-storage/async-storage');
 const { Route53RecoveryCluster } = require("aws-sdk");
 const jwt = require('express-jwt');
+require('dotenv').config()
 
 /* define API url to handler mappings here, organized by model and CRUD */
 module.exports = router;
@@ -68,7 +69,7 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
 
-router.get("/protected_has_token", jwt({ secret: "5fc6cc72-7c43-416d-94da-8a763d6af6f9", algorithms: ['HS256'] }), (req, res) => {
+router.get("/protected_has_token", jwt({ secret: process.env.TOKEN_SECRET, algorithms: ['HS256'] }), (req, res) => {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
