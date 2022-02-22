@@ -68,21 +68,38 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
 
-/* JWT-protected route */
-router.get("/protected_has_token", jwt({ secret: "5fc6cc72-7c43-416d-94da-8a763d6af6f9", algorithms: ['HS256'] }), (req, res) => {
-  console.log('jwt test')
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+// /* JWT-protected route */
+// router.get("/protected_has_token", jwt({ secret: "5fc6cc72-7c43-416d-94da-8a763d6af6f9", algorithms: ['HS256'] }), (req, res) => {
+//   console.log('jwt test')
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
+//   res.send('protected: success')
+// });
+
+// router.get("/unprotected",  (req, res) => {
+//   console.log('jwt test')
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+//   res.send('unprotected: success')
+// });
+
+
+router.get("/unprotected", (req, res)=>{
+  // console.log(process.env.TOKEN_SECRET)
+  res.send('unprotected: success')
+});
+
+router.get("/protected", jwt({ secret: "5fc6cc72-7c43-416d-94da-8a763d6af6f9", algorithms: ['HS256'] }), (req, res) => {
   res.send('protected: success')
 });
 
-router.get("/unprotected",  (req, res) => {
-  console.log('jwt test')
+router.get("/protected_has_token", jwt({ secret: "5fc6cc72-7c43-416d-94da-8a763d6af6f9", algorithms: ['HS256'] }), (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
-  res.send('unprotected: success')
+  res.send('protected: success')
 });

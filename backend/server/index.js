@@ -5,8 +5,16 @@ const router = require('./routes/routes.js');
 const port = parseInt(config.server.port);
 const host = config.server.host;
 
-
 const app = express();
+const cors = require('cors');
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type', 'Authorization'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
+
 // middleware to send responses as json
 app.use(express.json());
 app.use((req, res, next) => {

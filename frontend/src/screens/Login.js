@@ -17,6 +17,43 @@ export default function Login() {
 
     const B = (props) => <Text style={{ fontWeight: 'bold', color: "#448EB1" }}>{props.children}</Text>
 
+    const protectedHasTokenTest = async (e) => {
+
+      const token = await AsyncStorage.getItem('token')
+      console.log(`Bearer ${token.slice(1, token.length-1)}`)
+
+      e.preventDefault()
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/protected_has_token',
+        headers: {
+          'Authorization': `Bearer ${token.slice(1, token.length-1)}`
+        }
+      })
+      .then(res => {
+          console.log(res)
+        })
+      .catch( err => {
+        console.log('protected error: ', err)
+      })
+    }
+
+    const unprotected = async (e) => {
+
+      e.preventDefault()
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/unprotected',
+      })
+      .then(res => {
+          console.log(res)
+        })
+      .catch( err => {
+        console.log('protected error: ', err)
+      })
+    }
+
+
     const login = async (e) => {
         e.preventDefault()
         axios({
@@ -46,6 +83,15 @@ export default function Login() {
 
     return (
         <View style={{ width: "95%", maxWidth: 400, margin: 10 }} >
+
+<Pressable style={styles.button} title="Submit" onPress={(e)=>{ protectedHasTokenTest(e)}}>
+            <Text>protected has token</Text>
+          </Pressable>
+          <Pressable style={styles.button} title="Submit" onPress={(e)=>{ unprotected(e)}}>
+            <Text>unprotected</Text>
+          </Pressable>
+
+
             <Image source={require('../../assets/Snome.png')}
                 style={{ width: 100, height: 100 }} />
 
