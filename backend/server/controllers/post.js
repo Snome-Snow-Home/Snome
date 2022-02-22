@@ -96,11 +96,9 @@ module.exports = {
   //createUser moved to './user'
 
   createLike: async (req, res) => {
-    console.log(req.body)
+    console.log(req.params)
     try {
-      const response = await post.createLike(req.body)
-        // {req.body}
-        //{req.body.data}
+      const response = await post.createLike(req.params)
         .then(data => {
           res.send(data);
         })

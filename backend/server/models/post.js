@@ -82,7 +82,6 @@ module.exports = {
           $1, $2
         )
       `, [snome_user_id, snome_id]);
-      return 'New like created!'
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
