@@ -9,15 +9,9 @@ module.exports = {
     // 1. create a snome record in db using non-file data from request returning id of inserted snome
     try {
       const inserted_id = await post.createSnome(req.body);
-<<<<<<< HEAD
-      res.status(201).send("Success!");
-    } catch (err) {
-      console.log(`SERVER SIDE ERROR - POST: ${err}`);
-=======
       res.status(201).send('Success!');
     } catch (err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`)
->>>>>>> upstream/main
       res.status(500).send(err);
     }
 
@@ -30,23 +24,14 @@ module.exports = {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
       try {
-<<<<<<< HEAD
         uploadPhotoPromises.push(uploadToS3(photo, "snome_photo"));
       } catch (err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`);
-=======
-        uploadPhotoPromises.push(
-          uploadToS3(photo, 'snome_photo')
-        )
-      } catch (err) {
-        console.log(`SERVER SIDE ERROR - POST: ${err}`)
->>>>>>> upstream/main
         res.status(500).send(err);
       }
     });
     photosUrl = [];
     // 4. call Promise.all on promise array to upload files in parallel
-<<<<<<< HEAD
     await Promise.all(uploadPhotoPromises).then(async (urls) => {
       // 5. create snomePhotos in db using snome_id and s3 urls
       urls.forEach(async (url) => {
@@ -56,20 +41,6 @@ module.exports = {
 
     try {
       await post.createSnomePhoto(snome_id, photosUrl);
-=======
-    await Promise.all(uploadPhotoPromises).then(
-      async (urls) => {
-        // 5. create snomePhotos in db using snome_id and s3 urls
-        urls.forEach(async (url) => {
-          photosUrl.push(url);
-        })
-      }
-    )
-
-    try {
-      await post.createSnomePhoto(snome_id, photosUrl)
-
->>>>>>> upstream/main
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
@@ -90,7 +61,6 @@ module.exports = {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
       try {
-<<<<<<< HEAD
         uploadPhotoPromises.push(uploadToS3(photo));
       } catch (err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`);
@@ -108,38 +78,10 @@ module.exports = {
 
     try {
       await post.createSnomePhoto(snome_id, photosUrl);
-=======
-        uploadPhotoPromises.push(
-          uploadToS3(photo)
-        )
-      } catch (err) {
-        console.log(`SERVER SIDE ERROR - POST: ${err}`)
-        res.status(500).send(err);
-      }
-    })
-    photosUrl = []
-    // 4. call Promise.all on promise array to upload files in parallel
-    await Promise.all(uploadPhotoPromises).then(
-      async (urls) => {
-        // 5. create snomePhotos in db using snome_id and s3 urls
-        urls.forEach(async (url) => {
-          photosUrl.push(url);
-        })
-      }
-    )
-
-    try {
-      await post.createSnomePhoto(snome_id, photosUrl)
-
->>>>>>> upstream/main
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/main
 
     // 5. create snomePhotos in db using snome_id and s3 urls
     res.status(201).send("SUCCESS!");
@@ -148,7 +90,6 @@ module.exports = {
   //createUser moved to './user'
 
   createLike: async (req, res) => {
-<<<<<<< HEAD
     try {
       console.log(req.params);
       let data = await post.createLike(req.params);
@@ -156,21 +97,6 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
-=======
-    console.log(req.params)
-    try {
-      const response = await post.createLike(req.params)
-        .then(data => {
-          res.send(data);
-        })
-    }
-    catch {
-      (err => {
-        res.status(500).send(
-          "Some error occurred while creating the Like."
-        )
-      })
->>>>>>> upstream/main
     }
   },
 
@@ -180,17 +106,11 @@ module.exports = {
       .then((data) => {
         res.send(data);
       })
-<<<<<<< HEAD
-      .catch((err) => {
-        res.status(500).send("Some error occurred while creating the review.");
-      });
-=======
       .catch(err => {
         res.status(500).send(
           "Some error occurred while creating the review."
         )
       })
->>>>>>> upstream/main
   },
 
   // <TEMPLATE>: async (req, res) => {
