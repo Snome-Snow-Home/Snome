@@ -124,18 +124,45 @@ export default function CreateUser(props) {
     return regex.test(value)
   }
 
-  const isValidForm = () => {
+
+  const emailStatus = async (email) => {
+    try {
+      const emailStatusRes = await fetch('http://localhost:3000/user_email/exists/' + email);
+      const emailJsonRes = await emailStatusRes.json();
+      return emailJsonRes.case
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const userNmaeStatus = async (userName) => {
+    try {
+      const userNameStatusRes = await fetch('http://localhost:3000/user_name/exists/' + userName);
+      const userNameJsonRes = await userNameStatusRes.json();
+      return userNameJsonRes.case
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+
+  const isValidForm = async () => {
+
+    var theState = {  email: await  emailStatus(email),
+                      userName: await userNmaeStatus(username),
+    };
     //we accept only if all input fields have value
-    if (!isValidObjField(userData)) return updateError("All fields required!", setError)
+    if (!isValidObjField(userData)) {return updateError("All fields required!", setError)}
     //only valid email allowed
-    if (!isValidEmail(email)) return updateError("Please enter a valid email", setError)
+    if (!isValidEmail(email)) {return updateError("Please enter a valid email", setError)}
     //password must have 8 character
-    if (!password.trim() || password.length < 8) return updateError("Please must have at least 8 characters!", setError)
+    if (!password.trim() || password.length < 8) {return updateError("Please must have at least 8 characters!", setError)}
     //password must match confirm password
-    if (password !== confirmPassword) return updateError("Please make sure passwords match", setError)
+    if (password !== confirmPassword) {return updateError("Please make sure passwords match", setError)}
     //here we could query to make sure the username does not already exist
     //username !== username query to DB
-
+    if (theState.email) {return updateError("This email exists. Please, use another email address", setError)}
+    if (theState.userName) {return updateError("This user name has been taken, please use another one", setError)}
     return true;
   }
 
