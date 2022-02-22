@@ -38,24 +38,14 @@ module.exports = {
       async (urls) => {
         // 5. create snomePhotos in db using snome_id and s3 urls
         urls.forEach(async (url) => {
-<<<<<<< HEAD
-          try {
-            await post.createSnomePhoto(inserted_id, url)
-          } catch (err) {
-            console.log(`SERVER SIDE ERROR - POST: ${err}`);
-            res.status(500).send(err);  // exit loop and respond to client
-          }
-        })
-=======
           photosUrl.push(url);
-        }) 
->>>>>>> 741ace5309416087c234b3db74536145a4b4446f
+        })
       }
     )
 
     try {
       await post.createSnomePhoto(snome_id, photosUrl)
-      
+
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
@@ -84,41 +74,26 @@ module.exports = {
         console.log(`SERVER SIDE ERROR - POST: ${err}`)
         res.status(500).send(err);
       }
-<<<<<<< HEAD
     })
-
-=======
-    }) 
     photosUrl = []
->>>>>>> 741ace5309416087c234b3db74536145a4b4446f
     // 4. call Promise.all on promise array to upload files in parallel
     await Promise.all(uploadPhotoPromises).then(
       async (urls) => {
         // 5. create snomePhotos in db using snome_id and s3 urls
         urls.forEach(async (url) => {
-<<<<<<< HEAD
-          try {
-            await post.createSnomePhoto(snome_id, url)
-          } catch (err) {
-            console.log(`SERVER SIDE ERROR - POST: ${err}`);
-            res.status(500).send(err);  // exit loop and respond to client
-          }
-        })
-=======
           photosUrl.push(url);
-        }) 
->>>>>>> 741ace5309416087c234b3db74536145a4b4446f
+        })
       }
     )
 
     try {
       await post.createSnomePhoto(snome_id, photosUrl)
-      
+
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
     }
-  
+
 
     // 5. create snomePhotos in db using snome_id and s3 urls
     res.status(201).send('SUCCESS!');

@@ -22,7 +22,7 @@ router.delete("/snome/:id", controller.remove.delete);
 router.post('/signup', controller.user.createUser);
 router.post('/login', controller.user.login);
 router.get('/user/:id', controller.user.getUser);
-router.get('/user_name/exists/:name', controller.user.getUserByName);
+router.get('/user_name/exists/:name', controller.user.userNameStatus);
 router.get('/user', controller.user.getAllUsers); /* for dev only */
 router.get('/user_email/exists/:email', controller.user.checkForEmail);
 router.put('/user/:id', controller.user.updateUser);
