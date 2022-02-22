@@ -27,7 +27,7 @@ module.exports = {
       RETURNING id
       `, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description]);
       return id;
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
@@ -36,7 +36,7 @@ module.exports = {
   createSnomePhoto: async (snome_id, photosUrl) => {
     try {
       await db.none(`INSERT INTO snome_photo (snome_id, url) values ($1, $2)`, [snome_id, photosUrl])
-    } catch(err){
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
@@ -71,24 +71,36 @@ module.exports = {
   //   }
   // },
 
+<<<<<<< HEAD
   createLike: async ({snome_id, snome_user_id}) => {
+=======
+  createLike: async ({ snome_user_id, snome_id }) => {
+>>>>>>> upstream/main
     try {
       await db.none(`
         INSERT INTO snome_like (
           snome_user_id,
+<<<<<<< HEAD
           snome_id
+=======
+          snome_id 
+>>>>>>> upstream/main
         )
         VALUES (
           $1, $2
         )
       `, [snome_user_id, snome_id]);
+<<<<<<< HEAD
     } catch(err) {
+=======
+    } catch (err) {
+>>>>>>> upstream/main
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
   },
 
-  createReview: async ({snome_user_id, snome_id, date, stars, review}) => {
+  createReview: async ({ snome_user_id, snome_id, date, stars, review }) => {
     try {
       await db.none(`
         INSERT INTO review (
@@ -103,7 +115,7 @@ module.exports = {
         )
       `, [snome_user_id, snome_id, date, stars, review]);
       return 'New review created!'
-    } catch(err) {
+    } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
     }
