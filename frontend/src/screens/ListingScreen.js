@@ -23,7 +23,7 @@ import UserContext from '../Context/UserContext';
 // import location from '../localtestdata/Projects.json';
 
 
-function TownsScreen({ route }) {
+function ListingScreen({ route }) {
   //
   const [flexDirection, setflexDirection] = useState('column');
 
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TownsScreen;
+export default ListingScreen;

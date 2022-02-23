@@ -98,7 +98,7 @@ const ShowList = ({
               onPress={() => {
                 setSelectedValue(location.name);
                 console.log(location)
-                navigation.navigate('Towns', { location_id: location.location_id });
+                navigation.navigate('Listing', { location_id: location.location_id });
               }}
               style={[
                 styles.location,
@@ -322,7 +322,6 @@ const HomeScreen = () => {
   return (
     <FeaturedLocations
       label="flexDirection"
-      // values={["parkcity", "aspen", "crestedbutte", "alta"]}
       values={data.map((location) => location.name)}
       selectedValue={flexDirection}
       setSelectedValue={setflexDirection}

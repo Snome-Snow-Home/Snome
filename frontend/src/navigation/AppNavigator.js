@@ -4,11 +4,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
-import TownsScreen from '../screens/TownsScreen';
 import LikesScreen from '../screens/LikesScreen';
 import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import ListingScreen from '../screens/ListingScreen';
 // import DescScreen from '../screens/SnomeDescription';
 
 const TAB_ICON = {
@@ -42,7 +42,7 @@ export const AppNavigator = () => {
         screenOptions={createScreenOptions} >
         <Tab.Group screenOptions={createScreenOptions}>
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Towns" component={TownsScreen} />
+          <Tab.Screen name="Listing" component={ListingScreen} />
           <Tab.Screen name="Likes" component={LikesScreen} />
           <Tab.Screen name="Match" component={MatchScreen} />
           <Tab.Screen name="Message" component={MessageScreen} />
