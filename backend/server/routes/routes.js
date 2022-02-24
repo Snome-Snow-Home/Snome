@@ -66,3 +66,6 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
+
+/* MESSAGES to-and-from a given user*/
+router.get("/messages/:user_id", controller.get.getMessages);
