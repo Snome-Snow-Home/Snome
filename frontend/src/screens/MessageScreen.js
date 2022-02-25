@@ -50,14 +50,14 @@ const MessageCard = ({message, setShowThread}) => {
     <>
     {/* {!showThread && */}
 
-    <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} onPress={()=> setShowThread(message.sender === 6 ? message.recipient : message.sender)}>
-      <View style={[styles.card, message.sender === 6 && styles.selectedConvo]}
+    <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} onPress={()=> setShowThread(message.sender_id === 6 ? message.recipient_id : message.sender_id)}>
+      <View style={[styles.card, message.sender_id === 6 && styles.selectedConvo]}
       >
         <View >
-          <Text style= {[message.sender === 6 && styles.selectedConvoText]}>message_sender: {message.sender}</Text>
-          <Text style= {[message.sender === 6 && styles.selectedConvoText]}>messgae_recipient: {message.recipient}</Text>
-          <Text style= {[message.sender === 6 && styles.selectedConvoText]}>{message.time}</Text>
-          <Text style= {[message.sender === 6 && styles.selectedConvoText]}>{message.message_text}</Text>
+          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>message_sender: {message.sender_id}</Text>
+          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>message_recipient: {message.recipient_id}</Text>
+          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>{message.time}</Text>
+          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>{message.message_text}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -76,15 +76,19 @@ const MessageScreen = () => {
   // console.log(context.user_data.messages)
 
   const [messages, setMessages] = useState(context.user_data.messages)
+  const [messages2, setMessages2] = useState(context.messages2)
+
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
 
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
+    console.log(messages)
+    console.log(messages2)
     messages.reverse()
     messages.forEach(msg => {
-      let other = msg.recipient === 6 ? msg.sender : msg.recipient
+      let other = msg.recipient_id === 6 ? msg.sender_id : msg.recipient_id
       if (!recentByOtherUser.hasOwnProperty(other)){
         recentByOtherUser[other] = msg
         message_queue.push(msg)
@@ -95,12 +99,13 @@ const MessageScreen = () => {
   }
 
   useEffect(()=>{
-    sortMessagesByOtherUser(messages)
+    if (messages2){
+      sortMessagesByOtherUser(messages2)
+    }
   }, [])
 
   const renderItem = ({item}) => {
     return <MessageCard style={{flex: 1, flexDirection: 'row-reverse',}} message={item} setShowThread = {setShowThread}
-
     />
   }
 
@@ -108,35 +113,30 @@ const MessageScreen = () => {
 
     <UserContext.Consumer>
     {context => (
-
       <>
-
       {!showThread &&
       <>
         <Text style={styles.headerButton}>Your Conversations</Text>
         <FlatList
           data={messageQueue}
           renderItem={renderItem}
-          keyExtractor={item => item.message_text}
+          keyExtractor={item => item.id}
         />
         </>
       }
-
       {showThread &&
       <>
         <TouchableOpacity  >
           <Text style={styles.headerButton} onPress={()=>setShowThread(false)}>Back to Messages</Text>
         </TouchableOpacity>
         <FlatList
-          data={messages.filter(msg => msg.sender === showThread || msg.recipient === showThread)}
+          data={messages2.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
           renderItem={renderItem}
-          keyExtractor={item => item.message_text}
+          keyExtractor={item => item.id}
         />
       </>
       }
-
       </>
-
     )}
     </UserContext.Consumer>
 

@@ -26,12 +26,19 @@ const messages = [
 function UserProvider(props) {
 
   const [location, setLocation] = useState()
+  const [messages2, setMessages2] = useState(null);
+  let user_messages;
+
 
   const appDataFetch = async () => {
     try {
       const location = await fetch('http://localhost:3000/location')
+      user_messages = await fetch('http://localhost:3000/messages/6')
+      let messages_json = await user_messages.json()
       const location_json = await location.json();
+      console.log('messages2: ', messages_json)
       setLocation(location_json)
+      setMessages2(messages_json)
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +67,7 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{ messages2: messages2, user_data: userData, setUserData: setUserData, location_data: location }}
     >
       {props.children}
     </UserContext.Provider>
