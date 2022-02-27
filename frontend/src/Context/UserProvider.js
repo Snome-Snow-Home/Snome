@@ -11,6 +11,8 @@ function UserProvider(props) {
 
   const appDataFetch = async () => {
     try {
+      const location = await fetch('http://localhost:3000/location')
+      const location_json = await location.json();
       setLocation(location_json)
     } catch (error) {
       console.error(error);
