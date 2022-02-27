@@ -1,44 +1,17 @@
 import UserContext from './UserContext';
 import React, { useState, useEffect, useContext } from "react";
-
-
-
-const messages = [
-  {
-    id: 1,
-    recipient: 6,
-    sender: 4,
-    time: '1999-01-08 4:05:06',
-    message_text: "your place is so cool!",
-    has_been_read: true
-  },
-  { id: 2, recipient: 6, sender: 1, time: '1999-01-08 4:06:06', message_text: "you're gonna love it", has_been_read: true },
-  { id: 3, recipient: 1, sender: 6, time: '1999-01-08 4:07:06', message_text: "when do you want to come?", has_been_read: true },
-  { id: 4, recipient: 6, sender: 7, time: '1999-01-08 4:08:06', message_text: "i'll recommend some bars", has_been_read: true },
-  { id: 5, recipient: 7, sender: 6, time: '1999-01-08 4:09:06', message_text: "can you recommend some restaurants?", has_been_read: true },
-  { id: 6, recipient: 6, sender: 1, time: '1999-01-08 4:10:06', message_text: "are you really close to the mountain?", has_been_read: true },
-  { id: 7, recipient: 5, sender: 6, time: '1999-01-08 4:11:06', message_text: "let's connect soon", has_been_read: true },
-  { id: 8, recipient: 6, sender: 5, time: '1999-01-08 4:12:06', message_text: "can I extend my stay?", has_been_read: false },
-  { id: 9, recipient: 5, sender: 6, time: '1999-01-08 4:13:06', message_text: "have you been in town before?", has_been_read: false },
-  { id: 10, recipient: 1, sender: 6, time: '1999-01-08 4:14:06', message_text: "see you soon!", has_been_read: false }
-]
+const axios = require('axios');
 
 function UserProvider(props) {
 
   const [location, setLocation] = useState()
-  const [messages2, setMessages2] = useState(null);
+  const [messages, setMessages] = useState(null);
   let user_messages;
 
 
   const appDataFetch = async () => {
     try {
-      const location = await fetch('http://localhost:3000/location')
-      user_messages = await fetch('http://localhost:3000/messages/6')
-      let messages_json = await user_messages.json()
-      const location_json = await location.json();
-      console.log('messages2: ', messages_json)
       setLocation(location_json)
-      setMessages2(messages_json)
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +40,7 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ messages2: messages2, user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{ messages: messages,setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
     >
       {props.children}
     </UserContext.Provider>

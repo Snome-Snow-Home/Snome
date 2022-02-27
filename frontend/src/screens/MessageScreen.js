@@ -75,8 +75,7 @@ const MessageScreen = () => {
   const context = useContext(UserContext)
   // console.log(context.user_data.messages)
 
-  const [messages, setMessages] = useState(context.user_data.messages)
-  const [messages2, setMessages2] = useState(context.messages2)
+  const [messages, setMessages] = useState(context.messages)
 
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
@@ -85,7 +84,6 @@ const MessageScreen = () => {
     const recentByOtherUser = {}
     const message_queue = []
     console.log(messages)
-    console.log(messages2)
     messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === 6 ? msg.sender_id : msg.recipient_id
@@ -99,8 +97,8 @@ const MessageScreen = () => {
   }
 
   useEffect(()=>{
-    if (messages2){
-      sortMessagesByOtherUser(messages2)
+    if (messages){
+      sortMessagesByOtherUser(messages)
     }
   }, [])
 
@@ -130,7 +128,7 @@ const MessageScreen = () => {
           <Text style={styles.headerButton} onPress={()=>setShowThread(false)}>Back to Messages</Text>
         </TouchableOpacity>
         <FlatList
-          data={messages2.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
+          data={messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
