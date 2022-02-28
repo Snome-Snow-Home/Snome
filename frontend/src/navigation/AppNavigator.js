@@ -9,7 +9,7 @@ import MatchScreen from '../screens/MatchScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ListingScreen from '../screens/ListingScreen';
-// import DescScreen from '../screens/SnomeDescription';
+import DescScreen from '../screens/SnomeDescription';
 
 const TAB_ICON = {
   Home: 'home',
@@ -47,7 +47,7 @@ export const AppNavigator = () => {
           <Tab.Screen name="Match" component={MatchScreen} />
           <Tab.Screen name="Message" component={MessageScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
-          {/* <Tab.Screen name="Description" component={DescScreen}/> */}
+          <Tab.Screen name="Description" component={DescScreen}/>
         </Tab.Group>
       </Tab.Navigator>
     </>

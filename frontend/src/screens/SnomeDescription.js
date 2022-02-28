@@ -1,3 +1,113 @@
+import React, { useState }  from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+
+
+
+const photos = [
+  'https://snome.s3.us-east-2.amazonaws.com/th.jpeg',
+  'https://snome.s3.us-east-2.amazonaws.com/node.png',
+  'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
+];
+
+const { width } = Dimensions.get('window');
+const height = width * 0.6;
+
+export default function App() {
+
+  const [active, setActive] = useState([0])
+
+  let change = ({ nativeEvent }) => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+    );
+    console.log(slide);
+    if (slide !== active) {
+      setActive(slide);
+    }
+  };
+
+  return (
+
+    <View style={style.container}>
+      <ScrollView
+        pagingEnabled
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        onScroll={change}
+        scrollEventThrottle={20}
+        style={style.scroll}>
+        {photos.map((url, index) => (
+          <Image key={index} source={{ uri: url }} style={style.image} />
+        ))}
+      </ScrollView>
+      <View style={style.pagination}>
+        {photos.map((i, j) => (
+          <Text
+            key={j}
+            style={
+              j == active ? style.pagingActiveText : style.pagingText
+            }>
+            ⬤
+          </Text>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+const style = StyleSheet.create({
+  container: { marginTop: 50, width, height },
+  scroll: { width, height },
+  image: { width, height, resizeMode: 'cover' },
+  pagination: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+  },
+  pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
+  pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import React, { useState, useEffect } from 'react';
 // import {
 //     View,
@@ -37,18 +147,6 @@
 //     useEffect(() => {
 //         getPhotos();
 //     }, []);
-
-//     const isLiked = async () => {
-//         try {
-//             const response = await fetch('http://localhost:3000/snome/:id/like', {
-//                 method: 'POST',
-//             });
-//             const json = await response.json();
-//             console.log(json);
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     };
 
 //     return (
 //         <>
@@ -163,5 +261,3 @@
 //     }
 
 // });
-
-// export default SnomeDescription;

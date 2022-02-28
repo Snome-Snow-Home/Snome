@@ -103,7 +103,7 @@ module.exports = {
 
   getSnomePhotos: async (snome_id) => {
     try {
-      let result = await db.manyOrNone(`SELECT url FROM snome_photo WHERE snome_id = ${snome_id}`)
+      let result = await db.one(`SELECT url FROM snome_photo WHERE snome_id = ${snome_id}`)
       return result;
     }
     catch (err) {
