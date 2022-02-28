@@ -47,6 +47,10 @@ const styles = {
     borderWidth: 1,
     padding: 10,
   },
+  status: {
+    padding: 10,
+    textAlign: "center"
+  }
 };
 
 
@@ -87,11 +91,12 @@ const MessageScreen = () => {
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
   const [newMessage, setNewMessage] = useState()
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
 
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
-    console.log(messages)
+    // console.log(messages)
     messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === 6 ? msg.sender_id : msg.recipient_id
@@ -108,6 +113,19 @@ const MessageScreen = () => {
     if (messages){
       sortMessagesByOtherUser(messages)
     }
+
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardStatus("Keyboard Shown");
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardStatus("Keyboard Hidden");
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+
   }, [])
 
   const renderItem = ({item}) => {
@@ -120,6 +138,9 @@ const MessageScreen = () => {
     <UserContext.Consumer>
     {context => (
       <>
+
+      <Text style={style.status}>{keyboardStatus}</Text>
+
       {!showThread &&
       <>
         <Text style={styles.headerButton}>Your Conversations</Text>
@@ -140,6 +161,7 @@ const MessageScreen = () => {
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
+        {console.log(Keyboard)}
         <TextInput
           style={styles.input}
           onChangeText={setNewMessage}
