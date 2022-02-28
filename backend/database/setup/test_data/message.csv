@@ -8,7 +8,7 @@ id,recipient_id,sender_id,time,message_text,has_been_read
 7,9,10,1999-01-08 4:11:06,"""let's connect soon""",TRUE
 8,3,8,1999-01-08 4:12:06,"""can I extend my stay?""",FALSE
 9,5,2,1999-01-08 4:13:06,"""have you been in town before?""",FALSE
-10,5,2,1999-01-08 4:13:09,"""have you been in town before?""",FALSE
+10,1,8,1999-01-08 4:14:06,"""see you soon!""",FALSE
 11,2,6,1999-01-08 4:15:06,"""see you soon!""",FALSE
 12,6,1,1999-01-08 4:16:06,"""see you soon!""",FALSE
 13,1,6,1999-01-08 4:17:06,"""see you soon!""",FALSE
