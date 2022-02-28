@@ -40,8 +40,15 @@ const styles = {
     width: '100%',
     // color: 'red',
     textAlign: 'center'
-  }
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
 };
+
 
 const MessageCard = ({message, setShowThread}) => {
 
@@ -79,6 +86,7 @@ const MessageScreen = () => {
 
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
+  const [newMessage, setNewMessage] = useState()
 
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
@@ -131,6 +139,11 @@ const MessageScreen = () => {
           data={messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
           renderItem={renderItem}
           keyExtractor={item => item.id}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setNewMessage}
+          value={newMessage}
         />
       </>
       }

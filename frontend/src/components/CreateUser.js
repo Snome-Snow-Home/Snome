@@ -97,7 +97,7 @@ export default function CreateUser(props) {
 
   const { nameText, username, email, address, city, state, zipCode, password, confirmPassword } = userData;
 
-  //grand value of text input from user and sets the state to that value 
+  //grand value of text input from user and sets the state to that value
   const handleOnChangeText = (value, fieldName) => {
     setUserData({ ...userData, [fieldName]: value })
   }
@@ -170,7 +170,7 @@ export default function CreateUser(props) {
     e.preventDefault;
     if (isValidForm()) {
       console.log(userData);
-      axios.post(`http://localhost:3000/signup`, userData);
+      axios.post(`http://10.0.0.53:3000/signup`, userData);
     }
   }
 
