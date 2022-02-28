@@ -11,7 +11,7 @@ function UserProvider(props) {
 
   const appDataFetch = async () => {
     try {
-      const location = await fetch('http://localhost:3000/location')
+      const location = await fetch('http://10.0.0.53:3000/location')
       const location_json = await location.json();
       setLocation(location_json)
     } catch (error) {
@@ -23,7 +23,7 @@ function UserProvider(props) {
     {
       is_logged_in: false,
       username: "",
-      user_id: 4,
+      user_id: null,
       match: {
         user_id: 6,
         snome_id: [5, 4]
