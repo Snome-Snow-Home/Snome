@@ -50,16 +50,6 @@ const MessageCard = ({message, setShowThread, user_id}) => {
     <>
     {/* {!showThread && */}
 
-<<<<<<< HEAD
-    <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} onPress={()=> setShowThread(message.sender_id === 6 ? message.recipient_id : message.sender_id)}>
-      <View style={[styles.card, message.sender_id === 6 && styles.selectedConvo]}
-      >
-        <View >
-          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>message_sender: {message.sender_id}</Text>
-          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>messgae_recipient: {message.recipient_id}</Text>
-          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>{message.time}</Text>
-          <Text style= {[message.sender_id === 6 && styles.selectedConvoText]}>{message.message_text}</Text>
-=======
     <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} onPress={()=> setShowThread(message.sender_id === user_id ? message.recipient_id : message.sender_id)}>
       <View style={[styles.card, message.sender_id === user_id && styles.selectedConvo]}
       >
@@ -68,7 +58,6 @@ const MessageCard = ({message, setShowThread, user_id}) => {
           <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>message_recipient: {message.recipient_id}</Text>
           <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>{message.time}</Text>
           <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>{message.message_text}</Text>
->>>>>>> messages2
         </View>
       </View>
     </TouchableOpacity>
@@ -90,11 +79,6 @@ const MessageScreen = () => {
 
   const [messages, setMessages] = useState(context.messages)
 
-<<<<<<< HEAD
-  const [messages, setMessages] = useState(context.messages)
-  console.log(messages)
-=======
->>>>>>> messages2
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
 
@@ -104,11 +88,7 @@ const MessageScreen = () => {
     console.log(messages)
     messages.reverse()
     messages.forEach(msg => {
-<<<<<<< HEAD
-      let other = msg.recipient_id === 6 ? msg.sender_id : msg.recipient_id
-=======
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
->>>>>>> messages2
       if (!recentByOtherUser.hasOwnProperty(other)){
         recentByOtherUser[other] = msg
         message_queue.push(msg)
