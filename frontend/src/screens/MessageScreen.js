@@ -139,7 +139,7 @@ const MessageScreen = () => {
     {context => (
       <>
 
-      <Text style={style.status}>{keyboardStatus}</Text>
+      <Text style={styles.status}>{keyboardStatus}</Text>
 
       {!showThread &&
       <>
