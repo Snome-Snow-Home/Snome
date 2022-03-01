@@ -52,23 +52,9 @@ function TownsScreen({ route }) {
 
   const context = useContext(UserContext)
 
-  // const grabUser = async () => {
-  //   try {
-
-  //     // const user = context.user_data.user_id
-  //     const grabId = listing.map(listing => )
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // func here needs to be post request to the db to add this listing to users likes
+  //post request to the db to add this listing to users likes
   const addToLikes = (snome_id) => {
-    //grab context for user-id, and snome_id from line 63
-    // const user_id = useContext(UserContext)
-    //const listing = await getListing(route)
     console.log(context)
-    // console.log(snome_id)
     const likeObj = {
       snome_user_id: context.user_data.user_id,
       snome_id: snome_id

@@ -48,14 +48,12 @@ module.exports = {
   },
 
   // for navbar - to alert user when their property has been liked //
-  getUnreadLikes: async (snome_user_id) => {
+
+  // SELECT * FROM snome_photo FULL JOIN (SELECT * FROM snome_like FULL JOIN snome ON snome_like.id = snome.id WHERE snome_like.snome_user_id = ${user_id}) ON snome_photo.snome_id = snome.id 
+  getUnreadLikes: async (user_id) => {
     try {
       let result = await db.manyOrNone(`
-      SELECT COUNT (id)
-      FROM snome_like
-      WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
-      AND has_been_read = false;
-      `);
+    SELECT * FROM snome_like FULL JOIN snome ON snome_like.id = snome.id WHERE snome_like.snome_user_id = ${user_id}`);
       return result
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
