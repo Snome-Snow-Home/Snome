@@ -97,8 +97,9 @@ const ShowList = ({
               key={location.name}
               onPress={() => {
                 setSelectedValue(location.name);
-                console.log(location)
-                navigation.navigate('Listing', { location_id: location.location_id });
+                navigation.navigate('Listing', {
+                  location_id: location.location_id,
+                });
               }}
               style={[
                 styles.location,
@@ -223,8 +224,10 @@ const FeaturedLocations = ({
         {children}
         <View>
           {/* <Text style={styles.SnomeLogo}>Snome Logo</Text> */}
-          <Image source={require('../../assets/Snome.png')}
-            style={{ width: 100, height: 100 }} />
+          <Image
+            source={require('../../assets/Snome.png')}
+            style={{ width: 100, height: 100 }}
+          />
         </View>
 
         {/* Search Box Container */}

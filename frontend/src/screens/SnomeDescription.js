@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -8,20 +8,29 @@ import {
   Dimensions,
 } from 'react-native';
 
-
-
-const photos = [
-  'https://snome.s3.us-east-2.amazonaws.com/th.jpeg',
-  'https://snome.s3.us-east-2.amazonaws.com/node.png',
-  'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
-];
-
 const { width } = Dimensions.get('window');
 const height = width * 0.6;
 
-export default function App() {
+function SnomeDescription({ route }) {
+  const [images, setData] = useState([]);
 
-  const [active, setActive] = useState([0])
+  const getImageUrl = async () => {
+    console.log(route);
+    try {
+      const response = await fetch('http://localhost:3000/snome/' + route.params.snome_id + '/photos');
+      const json = await response.json();
+      setData(json.url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImageUrl();
+  }, []);
+
+
+  const [active, setActive] = useState([0]);
 
   let change = ({ nativeEvent }) => {
     const slide = Math.ceil(
@@ -34,31 +43,32 @@ export default function App() {
   };
 
   return (
-
-    <View style={style.container}>
-      <ScrollView
-        pagingEnabled
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        onScroll={change}
-        scrollEventThrottle={20}
-        style={style.scroll}>
-        {photos.map((url, index) => (
-          <Image key={index} source={{ uri: url }} style={style.image} />
-        ))}
-      </ScrollView>
-      <View style={style.pagination}>
-        {photos.map((i, j) => (
-          <Text
-            key={j}
-            style={
-              j == active ? style.pagingActiveText : style.pagingText
-            }>
-            ⬤
-          </Text>
-        ))}
+    <ScrollView>
+      <View style={style.container}>
+        <ScrollView
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          onScroll={change}
+          scrollEventThrottle={150}
+          style={style.scroll}
+        >
+          {images.map((url, index) => (
+            <Image key={index} source={{ uri: url }} style={style.image} />
+          ))}
+        </ScrollView>
+        <View style={style.pagination}>
+          {images.map((i, j) => (
+            <Text
+              key={j}
+              style={j == active ? style.pagingActiveText : style.pagingText}
+            >
+              ⬤
+            </Text>
+          ))}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -76,37 +86,7 @@ const style = StyleSheet.create({
   pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default SnomeDescription;
 
 // import React, { useState, useEffect } from 'react';
 // import {
@@ -155,7 +135,6 @@ const style = StyleSheet.create({
 //                 contentContainerStyle={styles.contentContainer}
 //             >
 //                 <Text style={styles.text}>Snome</Text>
-
 
 //                 {/* <Photoslider style={styles.slider} photos={photo} /> */}
 
