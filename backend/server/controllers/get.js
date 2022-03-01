@@ -60,7 +60,7 @@ module.exports = {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-    
+
   },
   getFeaturedLocation: async (req, res) => {
     try {
@@ -87,6 +87,17 @@ module.exports = {
     try {
       const location_id = req.params.id;
       let data = await get.getListing(location_id);
+      res.status(200).json(data);
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  getMessages: async (req, res) => {
+    try {
+      const user_id = req.params.user_id;
+      let data = await get.getMessages(user_id);
       res.status(200).json(data);
     } catch(err) {
       console.log(err);

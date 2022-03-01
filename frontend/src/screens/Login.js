@@ -35,9 +35,19 @@ export default function Login() {
                 //login user
                 context.setUserData({
                     ...context.user_data,
+                    user_id: res.data.auth_user.id,
                     is_logged_in: true,
                     username: username
                 })
+                return res
+            })
+            .then(async(res) => {
+                let user_id = res.data.auth_user.id
+                console.log('user id: ', user_id)
+                console.log('user id type: ', typeof user_id)
+                let user_messages = await fetch(`http://localhost:3000/messages/${user_id}`)
+                let messages_json = await user_messages.json()
+                context.setMessages(messages_json)
             })
             .catch(err => {
                 console.log(err)
