@@ -56,6 +56,7 @@ export default function Login() {
 
     return (
         <View style={{ width: "95%", maxWidth: 400, margin: 10 }} >
+
             <Image source={require('../../assets/Snome.png')}
                 style={{ width: 100, height: 100 }} />
 
