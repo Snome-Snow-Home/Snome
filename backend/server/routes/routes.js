@@ -69,9 +69,13 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
 
+
 router.get("/protected_has_token", jwt({ secret: process.env.TOKEN_SECRET, algorithms: ['HS256'] }), (req, res) => {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.send('protected: success')
 });
+
+/* MESSAGES to-and-from a given user*/
+router.get("/messages/:user_id", controller.get.getMessages);
