@@ -55,24 +55,16 @@ function ListingScreen({ route }) {
 
   //post request to the db to add this listing to users likes
   const addToLikes = (snome_id) => {
-<<<<<<< HEAD:frontend/src/screens/TownsScreen.js
     console.log(context)
-=======
-    //grab context for user-id, and snome_id from line 63
-    // const user_id = useContext(UserContext)
-    //const listing = await getListing(route)
-    console.log(context);
-    // console.log(snome_id)
->>>>>>> c96d216d50d9f3ce45b425b98a6270b8c8a0261a:frontend/src/screens/ListingScreen.js
     const likeObj = {
       snome_user_id: context.user_data.user_id,
       snome_id: snome_id,
     };
     axios.post(
       'http://localhost:3000/snome/like/' +
-        likeObj.snome_id +
-        '/' +
-        likeObj.snome_user_id,
+      likeObj.snome_id +
+      '/' +
+      likeObj.snome_user_id,
       {}
     );
     console.log('you like me!');
@@ -85,7 +77,7 @@ function ListingScreen({ route }) {
       {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
-            <TouchableOpacity onPress={() => navigation.navigate("Description",  { snome_id: listing.snome_id} )}>
+            <TouchableOpacity onPress={() => navigation.navigate("Description", { snome_id: listing.snome_id })}>
               <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
             </TouchableOpacity>
             <Text>{listing.snome_id}</Text>
