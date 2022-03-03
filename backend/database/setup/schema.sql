@@ -41,7 +41,7 @@ CREATE TABLE "snome_user" (
     "user_photo" text, --  NOT NULL,  -- should be nullable
     "video_tour" text, --   NOT NULL,  -- should be nullable
     "about" text, --  NOT NULL,
-    "email" text   NOT NULL,
+    "email" text   NOT NULL UNIQUE,
     "mailing_address" int REFERENCES "address" NOT NULL,
     "residential_address"  int REFERENCES "address" NOT NULL, --  NOT NULL  -- separate into address fields (separate)
     "password" text NOT NULL,-- add password

@@ -1,5 +1,5 @@
-const { post } = require('../models');
-const { uploadToS3 } = require('./helpers/s3helpers.js');
+const { post } = require("../models");
+const { uploadToS3 } = require("./helpers/s3helpers.js");
 
 /* define post request handlers here */
 
@@ -16,7 +16,7 @@ module.exports = {
     }
 
     // 2. instantiate empty Promise array
-    let uploadPhotoPromises = []
+    let uploadPhotoPromises = [];
 
     // 3. loop over req.files...
     let photos = req.files;
@@ -24,37 +24,31 @@ module.exports = {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
       try {
-        uploadPhotoPromises.push(
-          uploadToS3(photo, 'snome_photo')
-        )
+        uploadPhotoPromises.push(uploadToS3(photo, "snome_photo"));
       } catch (err) {
-        console.log(`SERVER SIDE ERROR - POST: ${err}`)
+        console.log(`SERVER SIDE ERROR - POST: ${err}`);
         res.status(500).send(err);
       }
-    })
-    photosUrl = []
+    });
+    photosUrl = [];
     // 4. call Promise.all on promise array to upload files in parallel
-    await Promise.all(uploadPhotoPromises).then(
-      async (urls) => {
-        // 5. create snomePhotos in db using snome_id and s3 urls
-        urls.forEach(async (url) => {
-          photosUrl.push(url);
-        })
-      }
-    )
+    await Promise.all(uploadPhotoPromises).then(async (urls) => {
+      // 5. create snomePhotos in db using snome_id and s3 urls
+      urls.forEach(async (url) => {
+        photosUrl.push(url);
+      });
+    });
 
     try {
-      await post.createSnomePhoto(snome_id, photosUrl)
-
+      await post.createSnomePhoto(snome_id, photosUrl);
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
     }
 
     // 5. respond with success to client if loop completes
-    res.status(201).send('SUCCESS!');
+    res.status(201).send("SUCCESS!");
   },
-
 
   createSnomePhotos: async (req, res) => {
     // 1. get snome id from request.params
@@ -67,61 +61,49 @@ module.exports = {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
       try {
-        uploadPhotoPromises.push(
-          uploadToS3(photo)
-        )
+        uploadPhotoPromises.push(uploadToS3(photo));
       } catch (err) {
-        console.log(`SERVER SIDE ERROR - POST: ${err}`)
+        console.log(`SERVER SIDE ERROR - POST: ${err}`);
         res.status(500).send(err);
       }
-    })
-    photosUrl = []
+    });
+    photosUrl = [];
     // 4. call Promise.all on promise array to upload files in parallel
-    await Promise.all(uploadPhotoPromises).then(
-      async (urls) => {
-        // 5. create snomePhotos in db using snome_id and s3 urls
-        urls.forEach(async (url) => {
-          photosUrl.push(url);
-        })
-      }
-    )
+    await Promise.all(uploadPhotoPromises).then(async (urls) => {
+      // 5. create snomePhotos in db using snome_id and s3 urls
+      urls.forEach(async (url) => {
+        photosUrl.push(url);
+      });
+    });
 
     try {
-      await post.createSnomePhoto(snome_id, photosUrl)
-
+      await post.createSnomePhoto(snome_id, photosUrl);
     } catch (error) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);
     }
 
-
     // 5. create snomePhotos in db using snome_id and s3 urls
-    res.status(201).send('SUCCESS!');
+    res.status(201).send("SUCCESS!");
   },
-
 
   //createUser moved to './user'
 
   createLike: async (req, res) => {
-    console.log(req.params)
     try {
-      const response = await post.createLike(req.params)
-        .then(data => {
-          res.send(data);
-        })
-    }
-    catch {
-      (err => {
-        res.status(500).send(
-          "Some error occurred while creating the Like."
-        )
-      })
+      console.log(req.params);
+      let data = await post.createLike(req.params);
+      res.status(200).json(data);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
     }
   },
 
   createReview: async (req, res) => {
-    post.createReview(req.body)
-      .then(data => {
+    post
+      .createReview(req.body)
+      .then((data) => {
         res.send(data);
       })
       .catch(err => {
@@ -140,5 +122,4 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
-
-}
+};

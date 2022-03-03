@@ -97,8 +97,9 @@ const ShowList = ({
               key={location.name}
               onPress={() => {
                 setSelectedValue(location.name);
-                console.log(location)
-                navigation.navigate('Towns', { location_id: location.location_id });
+                navigation.navigate('Listing', {
+                  location_id: location.location_id,
+                });
               }}
               style={[
                 styles.location,
@@ -223,8 +224,10 @@ const FeaturedLocations = ({
         {children}
         <View>
           {/* <Text style={styles.SnomeLogo}>Snome Logo</Text> */}
-          <Image source={require('../../assets/Snome.png')}
-            style={{ width: 100, height: 100 }} />
+          <Image
+            source={require('../../assets/Snome.png')}
+            style={{ width: 100, height: 100 }}
+          />
         </View>
 
         {/* Search Box Container */}
@@ -322,7 +325,6 @@ const HomeScreen = () => {
   return (
     <FeaturedLocations
       label="flexDirection"
-      // values={["parkcity", "aspen", "crestedbutte", "alta"]}
       values={data.map((location) => location.name)}
       selectedValue={flexDirection}
       setSelectedValue={setflexDirection}
