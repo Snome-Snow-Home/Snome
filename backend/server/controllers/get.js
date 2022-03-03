@@ -1,4 +1,4 @@
-const { get, helpers } = require('../models');
+const { get, helpers } = require("../models");
 
 /* define get request handlers here */
 
@@ -8,18 +8,18 @@ module.exports = {
       const model = helpers.getModelFromUrl(req);
       let data = await get.getAll(model, req.query);
       res.status(200).send(data);
-    } catch(err) {
-      console.log(`SERVER ERROR: ${err}`)
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-},
+  },
   getOne: async (req, res) => {
     try {
       const id = req.params.id;
       const model = helpers.getModelFromUrl(req);
       const data = await get.getOne(id, model);
       res.status(200).send(data);
-    } catch(err) {
+    } catch (err) {
       console.log(`SERVER ERROR: ${err}`);
       res.status(404).send(err);
     }
@@ -30,15 +30,16 @@ module.exports = {
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (req, res) => {
     const user_id = req.params.user_id;
-    get.getUnreadLikes(user_id)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send(
-      "Some error occurred while fetching unread Likes."
-      )
-    })
+    get
+      .getUnreadLikes(user_id)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send("Some error occurred while fetching unread Likes.");
+      });
   },
 
   getSnomeReviews: async (req, res) => {
@@ -51,7 +52,7 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-    getSnomeByLocationId: async (req, res) => {
+  getSnomeByLocationId: async (req, res) => {
     try {
       const location_id = req.params.id;
       let data = await get.getSnomeByLocationId(location_id);
@@ -60,16 +61,15 @@ module.exports = {
       console.log(`SERVER ERROR: ${err}`);
       res.status(400).send(err);
     }
-
   },
   getFeaturedLocation: async (req, res) => {
     try {
-    let data = await get.getFeaturedLocation();
-    res.status(200).send(data);
-  } catch (err) {
-    console.log(`SERVER ERROR: ${err}`);
-    res.status(400).send(err);
-  }
+      let data = await get.getFeaturedLocation();
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
   },
 
   getSnomePhotos: async (req, res) => {
@@ -88,7 +88,7 @@ module.exports = {
       const location_id = req.params.id;
       let data = await get.getListing(location_id);
       res.status(200).json(data);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       res.status(400).send(err);
     }
@@ -99,7 +99,19 @@ module.exports = {
       const user_id = req.params.user_id;
       let data = await get.getMessages(user_id);
       res.status(200).json(data);
-    } catch(err) {
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  getSnomeDescription: async (req, res) => {
+    try {
+      let snome_id = req.params.id; 
+      console.log(snome_id);
+      let data = await get.getSnomeDescription(snome_id);
+      res.status(200).json(data);
+    } catch (err) {
       console.log(err);
       res.status(400).send(err);
     }
@@ -114,5 +126,4 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
-
 };
