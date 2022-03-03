@@ -69,6 +69,9 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
 
+/* Snome Desription */
+router.get("/snome/description/:id", controller.get.getSnomeDescription);
+
 
 router.get("/protected_has_token", jwt({ secret: process.env.TOKEN_SECRET, algorithms: ['HS256'] }), (req, res) => {
   // res.header("Access-Control-Allow-Origin", "*");

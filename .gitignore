@@ -112,3 +112,6 @@ coverage
 
 # DS_Store
 .DS_store
+
+# Ignore all the files in snome-photos
+backend/snome-photos/

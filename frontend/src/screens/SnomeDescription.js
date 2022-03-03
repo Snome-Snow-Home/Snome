@@ -1,3 +1,93 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+
+const { width } = Dimensions.get('window');
+const height = width * 0.6;
+
+function SnomeDescription({ route }) {
+  const [images, setData] = useState([]);
+
+  const getImageUrl = async () => {
+    console.log(route);
+    try {
+      const response = await fetch('http://localhost:3000/snome/' + route.params.snome_id + '/photos');
+      const json = await response.json();
+      setData(json.url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImageUrl();
+  }, []);
+
+
+  const [active, setActive] = useState([0]);
+
+  let change = ({ nativeEvent }) => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+    );
+    console.log(slide);
+    if (slide !== active) {
+      setActive(slide);
+    }
+  };
+
+  return (
+    <ScrollView>
+      <View style={style.container}>
+        <ScrollView
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          onScroll={change}
+          scrollEventThrottle={150}
+          style={style.scroll}
+        >
+          {images.map((url, index) => (
+            <Image key={index} source={{ uri: url }} style={style.image} />
+          ))}
+        </ScrollView>
+        <View style={style.pagination}>
+          {images.map((i, j) => (
+            <Text
+              key={j}
+              style={j == active ? style.pagingActiveText : style.pagingText}
+            >
+              ⬤
+            </Text>
+          ))}
+        </View>
+      </View>
+    </ScrollView>
+  );
+}
+
+const style = StyleSheet.create({
+  container: { marginTop: 50, width, height },
+  scroll: { width, height },
+  image: { width, height, resizeMode: 'cover' },
+  pagination: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+  },
+  pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
+  pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
+});
+
+export default SnomeDescription;
+
 // import React, { useState, useEffect } from 'react';
 // import {
 //     View,
@@ -38,18 +128,6 @@
 //         getPhotos();
 //     }, []);
 
-//     const isLiked = async () => {
-//         try {
-//             const response = await fetch('http://localhost:3000/snome/:id/like', {
-//                 method: 'POST',
-//             });
-//             const json = await response.json();
-//             console.log(json);
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     };
-
 //     return (
 //         <>
 //             <ScrollView
@@ -57,7 +135,6 @@
 //                 contentContainerStyle={styles.contentContainer}
 //             >
 //                 <Text style={styles.text}>Snome</Text>
-
 
 //                 {/* <Photoslider style={styles.slider} photos={photo} /> */}
 
@@ -163,5 +240,3 @@
 //     }
 
 // });
-
-// export default SnomeDescription;

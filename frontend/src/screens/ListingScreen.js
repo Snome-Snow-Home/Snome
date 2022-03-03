@@ -16,14 +16,14 @@ import {
 import { Dimensions } from 'react-native';
 import axios from 'axios';
 import UserContext from '../Context/UserContext';
+import { useNavigation } from '@react-navigation/native';
 // for video player
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
 // for testing purposes
 // import location from '../localtestdata/Projects.json';
 
-
-function TownsScreen({ route }) {
+function ListingScreen({ route }) {
   //
   const [flexDirection, setflexDirection] = useState('column');
 
@@ -39,7 +39,6 @@ function TownsScreen({ route }) {
       const json = await response.json();
       console.log(json);
       setData(json);
-
     } catch (error) {
       console.error(error);
     }
@@ -50,23 +49,35 @@ function TownsScreen({ route }) {
     getListing();
   }, []);
 
-  const context = useContext(UserContext)
+  const navigation = useNavigation();
+
+  const context = useContext(UserContext);
 
   //post request to the db to add this listing to users likes
   const addToLikes = (snome_id) => {
+<<<<<<< HEAD:frontend/src/screens/TownsScreen.js
     console.log(context)
+=======
+    //grab context for user-id, and snome_id from line 63
+    // const user_id = useContext(UserContext)
+    //const listing = await getListing(route)
+    console.log(context);
+    // console.log(snome_id)
+>>>>>>> c96d216d50d9f3ce45b425b98a6270b8c8a0261a:frontend/src/screens/ListingScreen.js
     const likeObj = {
       snome_user_id: context.user_data.user_id,
-      snome_id: snome_id
-    }
+      snome_id: snome_id,
+    };
     axios.post(
-
-      'http://localhost:3000/snome/like/' + likeObj.snome_id + '/' + likeObj.snome_user_id, {}
-    )
-    console.log("you like me!")
-    console.log(likeObj)
+      'http://localhost:3000/snome/like/' +
+        likeObj.snome_id +
+        '/' +
+        likeObj.snome_user_id,
+      {}
+    );
+    console.log('you like me!');
+    console.log(likeObj);
     //.catch(error)console.error(error);
-
   };
 
   return (
@@ -74,7 +85,9 @@ function TownsScreen({ route }) {
       {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
-            <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Description",  { snome_id: listing.snome_id} )}>
+              <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            </TouchableOpacity>
             <Text>{listing.snome_id}</Text>
             {listing.url.map((url, index) => (
               <React.Fragment key={index}>
@@ -88,9 +101,13 @@ function TownsScreen({ route }) {
             </Text>
           </View>
           <View>
-
-            <TouchableOpacity style={styles.button} title="like this!" onPress={() => addToLikes(listing.snome_id)}><Text>Like This! </Text></TouchableOpacity>
-
+            <TouchableOpacity
+              style={styles.button}
+              title="like this!"
+              onPress={() => addToLikes(listing.snome_id)}
+            >
+              <Text>Like This! </Text>
+            </TouchableOpacity>
           </View>
         </React.Fragment>
       ))}
@@ -135,14 +152,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "#448EB1",
-    color: "white",
+    backgroundColor: '#448EB1',
+    color: 'white',
     fontFamily: 'Arial',
-    width: "50%",
-    marginLeft: "25%",
-    marginRight: "25%",
-    marginTop: 20
-  }
+    width: '50%',
+    marginLeft: '25%',
+    marginRight: '25%',
+    marginTop: 20,
+  },
 });
 
-export default TownsScreen;
+export default ListingScreen;
