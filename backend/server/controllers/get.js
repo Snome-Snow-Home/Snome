@@ -95,6 +95,17 @@ module.exports = {
     }
   },
 
+  getMessages: async (req, res) => {
+    try {
+      const user_id = req.params.user_id;
+      let data = await get.getMessages(user_id);
+      res.status(200).json(data);
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.body);

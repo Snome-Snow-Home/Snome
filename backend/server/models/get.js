@@ -88,7 +88,7 @@ module.exports = {
 
   getFeaturedLocation: async () => {
     try {
-      let result = await db.manyOrNone(`select url, location_id, name, longitude, latitude 
+      let result = await db.manyOrNone(`select url, location_id, name, longitude, latitude
       from location_media inner join location on location_media.location_id = location.id where featured = true order by location_id`)
       return result;
     }
@@ -112,8 +112,22 @@ module.exports = {
 
   getListing: async (location_id) => {
     try {
-      let result = await db.manyOrNone(`SELECT snome_id, header, description, url, owner_id  FROM snome FULL JOIN snome_photo ON snome.id = snome_photo.snome_id  
+      let result = await db.manyOrNone(`SELECT snome_id, header, description, url, owner_id  FROM snome FULL JOIN snome_photo ON snome.id = snome_photo.snome_id
       WHERE location_id = ${location_id} ORDER BY snome_id`)
+      return result;
+    }
+    catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+  },
+
+  getMessages: async (user_id) => {
+    try {
+      let result = await db.manyOrNone(`
+      SELECT * FROM message
+      WHERE recipient_id = ${user_id}
+      OR sender_id = ${user_id}`)
       return result;
     }
     catch (err) {
