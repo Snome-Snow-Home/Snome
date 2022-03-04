@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
-  Button,
   Text,
   Image,
   StyleSheet,
-  SafeAreaView,
-  SectionList,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
-  Row,
-  ImageBackground,
 } from 'react-native';
 import { Dimensions } from 'react-native';
 import axios from 'axios';
@@ -24,10 +18,9 @@ import { useNavigation } from '@react-navigation/native';
 // import location from '../localtestdata/Projects.json';
 
 function ListingScreen({ route }) {
-  //
-  const [flexDirection, setflexDirection] = useState('column');
+
+  //const [flexDirection, setflexDirection] = useState('column');
   const [error, setError] = useState('');
-  // ability to use and change data
   const [listing, setData] = useState([]);
 
   const navigation = useNavigation();
@@ -56,7 +49,7 @@ function ListingScreen({ route }) {
     stateUpdater(error);
     setTimeout(() => {
       stateUpdater('');
-    }, 4500);
+    }, 5500);
   };
 
   //get request to db to see if like already exists with current user
@@ -109,13 +102,20 @@ function ListingScreen({ route }) {
   return (
     <ScrollView>
       {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
+      {/* {listing.map((listing) => (
+        <React.Fragment key={listing.snome_id}>
+           <Card id="listing" style={styles.containerOne}></Card>
+      )} */}
+
+
       {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
+
             <TouchableOpacity onPress={() => navigation.navigate("Description", { snome_id: listing.snome_id })}>
               <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
             </TouchableOpacity>
-            <Text>{listing.snome_id}</Text>
+
             {listing.url.map((url, index) => (
               <React.Fragment key={index}>
                 <Image style={styles.pic} source={{ uri: url }} />
@@ -130,10 +130,9 @@ function ListingScreen({ route }) {
           <View>
             <TouchableOpacity
               style={styles.button}
-              title="like this!"
-              onPress={() => addToLikes(listing.snome_id)}
-            >
-              <Text>Like This! </Text>
+              title="I like this Snome!"
+              onPress={() => addToLikes(listing.snome_id)}>
+              <Text>I like this Snome! </Text>
             </TouchableOpacity>
           </View>
         </React.Fragment>
@@ -182,7 +181,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#448EB1',
     color: 'white',
     fontFamily: 'Arial',
-    width: '50%',
+    // width: '50%',
+    width: Dimensions.get('window').width * 0.4,
     marginLeft: '25%',
     marginRight: '25%',
     marginTop: 20,
