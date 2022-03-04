@@ -41,7 +41,7 @@ export default function Login() {
                 })
                 return res
             })
-            .then(async(res) => {
+            .then(async (res) => {
                 let user_id = res.data.auth_user.id
                 console.log('user id: ', user_id)
                 console.log('user id type: ', typeof user_id)

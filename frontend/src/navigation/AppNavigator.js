@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
@@ -47,7 +48,7 @@ export const AppNavigator = () => {
           <Tab.Screen name="Match" component={MatchScreen} />
           <Tab.Screen name="Message" component={MessageScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
-          <Tab.Screen name="Description" component={DescScreen}/>
+          <Tab.Screen name="Description" component={DescScreen} />
         </Tab.Group>
       </Tab.Navigator>
     </>

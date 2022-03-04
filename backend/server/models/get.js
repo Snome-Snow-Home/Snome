@@ -48,16 +48,29 @@ module.exports = {
     }
   },
 
+  checkLikes: async (snome_id, snome_user_id) => {
+    try {
+      let likeExists = await db.one(`SELECT CASE WHEN EXISTS
+      (SELECT id FROM snome_like WHERE snome_id = $1 AND snome_user_id = $2)
+      THEN TRUE
+      ELSE FALSE
+      END
+      `, [snome_id, snome_user_id]);
+      return likeExists;
+    } catch (err) {
+      console.log(`DATABASE ERROR:  ${err}`);
+      return err;
+    }
+  },
+
+
   // for navbar - to alert user when their property has been liked //
-  getUnreadLikes: async (snome_user_id) => {
+  getUnreadLikes: async (user_id) => {
     try {
       let result = await db.manyOrNone(`
-      SELECT COUNT (id)
-      FROM snome_like
-      WHERE snome_id IN (SELECT id FROM snome WHERE owner_id = ${snome_user_id})
-      AND has_been_read = false;
-      `);
-      return result;
+      SELECT * FROM snome_photo FULL JOIN snome_like ON snome_photo.snome_id = snome_like.snome_id FULL JOIN snome ON snome_like.snome_id = snome.id WHERE snome_like.snome_user_id = ${user_id}
+    `);
+      return result
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
