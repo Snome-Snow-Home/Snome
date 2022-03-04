@@ -48,6 +48,13 @@ export default function Login() {
                 let user_messages = await fetch(`http://localhost:3000/messages/${user_id}`)
                 let messages_json = await user_messages.json()
                 context.setMessages(messages_json)
+            }).then(async (res) => {
+                let user_id = res.data.auth_user.id
+                console.log('user id: ', user_id)
+                console.log('user id type: ', typeof user_id)
+                let snome_likes = await fetch(`http://localhost:3000/messages/${user_id}`)
+                let snome_likes_json = await user_messages.json()
+                context.setMessages(snome_likes_json)
             })
             .catch(err => {
                 console.log(err)

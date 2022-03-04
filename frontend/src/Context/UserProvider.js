@@ -6,7 +6,9 @@ function UserProvider(props) {
 
   const [location, setLocation] = useState()
   const [messages, setMessages] = useState(null);
-  let user_messages;
+  const [snome_likes, setSnomeLikes] = useState(null)
+  const [test, setTest] = useState(false)
+  //let user_messages;
 
 
   const appDataFetch = async () => {
@@ -30,9 +32,7 @@ function UserProvider(props) {
         user_id: 6,
         snome_id: [5, 4]
       },
-      snome_likes: {
-        snome_id: 3
-      },
+      snome_likes: snome_likes,
       messages: messages
     }
   );
@@ -44,7 +44,7 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ messages: messages, setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{ test: test, setTest: setTest, snome_likes: snome_likes, messages: messages, setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
     >
       {props.children}
     </UserContext.Provider>

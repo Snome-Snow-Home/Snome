@@ -62,8 +62,8 @@ const MatchScreen = () => {
           <Text>{data}</Text>
         ))} */}
 
-          <Text>'this' user id: {context.user_data.user_id}</Text>
-          <Text>snome_ids (of matches): {context.user_data.match.snome_id}</Text>
+          {/* <Text>'this' user id: {context.user_data.user_id}</Text>
+          <Text>snome_ids (of matches): {context.user_data.match.snome_id}</Text> */}
           {/* <Text>{context.snome_likes.snome_id}</Text> */}
           <FlatList
             data={DATA}
