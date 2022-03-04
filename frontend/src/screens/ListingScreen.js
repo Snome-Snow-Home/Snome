@@ -59,6 +59,7 @@ function ListingScreen({ route }) {
     }, 4500);
   };
 
+  //get request to db to see if like already exists with current user
   const checkLikes = async (snome_id) => {
     const likeObj = {
       snome_user_id: context.user_data.user_id,

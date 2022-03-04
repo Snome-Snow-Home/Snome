@@ -1,21 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useContext, useState } from 'react';
 import {
-  View,
-  Button,
+
   Text,
   Image,
-  StyleSheet,
-  SafeAreaView,
-  SectionList,
-  StatusBar,
   ScrollView,
-  Row,
-  ImageBackground,
   Dimensions,
-  Card,
+
 } from 'react-native';
 import UserContext from '../Context/UserContext';
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 
 // for testing purposes
 import card from '../localtestdata/Projects.json';
@@ -45,7 +38,8 @@ const LikesScreen = () => {
   return (
     <ScrollView>
       <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
-      <Text> Snome Likes </Text>
+
+      {/* <Text> Snome Likes </Text>
       <Button title="Get data" onPress={getData}>Get Data</Button>
       {card.map((card) => (
         <View
@@ -61,7 +55,7 @@ const LikesScreen = () => {
           {/* <Button href={card.deployed} target="_blank">
                   View Snome ETC.
                 </Button> */}
-          <Button
+      {/* <Button
             //  onPress={() =>
             //   navigation.navigate('Match')
             // }
@@ -70,7 +64,26 @@ const LikesScreen = () => {
             accessibilityLabel="Learn more about this purple button"
           />
         </View>
-      ))}
+      ))}  */}
+      {data ? data.map((item, index) => (
+
+        // <Text key={index}>{item.header}</Text>
+        <Card style={styles.container} key={index}>
+          <Card.Title title="Card Title" subtitle="Card Subtitle"
+          //left={item.header} 
+          />
+          <Card.Content>
+            <Title>{item.header}</Title>
+            <Paragraph>{item.description}</Paragraph>
+          </Card.Content>
+          <Card.Cover source={{ uri: item.url[0] }} />
+          <Card.Actions>
+            {/* //need functionality for this to be unliked */}
+            <Button>Unlike</Button>
+
+          </Card.Actions>
+        </Card>
+      )) : <Text>You don't have any liked Snome's...GO check some out!</Text>}
     </ScrollView>
   );
 };
@@ -91,6 +104,21 @@ const styles = {
     width: 50,
     height: 50,
   },
+  container: {
+    width: Dimensions.get('window').width * 0.4,
+    height: 600,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    flex: 3,
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: 5,
+    margin: 20
+
+
+
+  }
   //   pic:{
   //     width:Dimensions.get('window').width * 0.4,
   //     height:Dimensions.get('window').height * 0.2,
