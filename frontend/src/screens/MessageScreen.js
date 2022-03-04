@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import {View, Text, TextInput, StyleSheet, SafeAreaView, SectionList, ScrollView, ListView, FlatList, TouchableOpacity, Keyboard} from 'react-native';
 import UserContext from '../Context/UserContext';
+import { Dimensions } from 'react-native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
+
 
 
 const styles = {
@@ -40,12 +44,6 @@ const styles = {
     width: '100%',
     // color: 'red',
     textAlign: 'center'
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
   status: {
     padding: 10,
@@ -92,6 +90,11 @@ const MessageScreen = () => {
   const [showThread, setShowThread] = useState(false)
   const [newMessage, setNewMessage] = useState()
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  const [window, setWindow] = useState([])
+  const tabBarHeight = useBottomTabBarHeight();
+
 
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
@@ -114,12 +117,23 @@ const MessageScreen = () => {
       sortMessagesByOtherUser(messages)
     }
 
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      setKeyboardStatus("Keyboard Shown");
+    const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
+      // setKeyboardStatus(`width: ${e.endCoordinates.width} screenX: ${e.endCoordinates.screenX} height: ${e.endCoordinates.height} screenY: ${e.endCoordinates.screenY} width: ${e.startCoordinates.width} screenX: ${e.startCoordinates.screenX} height: ${e.startCoordinates.height} screenY: ${e.startCoordinates.screenY}`)
+      setKeyboardHeight(260)//()=>{e.startCoordinates.height + tabBarHeight})
+
+        // Object.keys(e).map(i => ' ' + i));
     });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardStatus("Keyboard Hidden");
-    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", (e) => {
+
+      // setKeyboardStatus(`width: ${e.endCoordinates.width} screenX: ${e.endCoordinates.screenX} height: ${e.endCoordinates.height} screenY: ${e.endCoordinates.screenY} width: ${e.startCoordinates.width} screenX: ${e.startCoordinates.screenX} height: ${e.startCoordinates.height} screenY: ${e.startCoordinates.screenY}`)
+      setKeyboardHeight(0)
+
+        });
+
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+    setWindow(`${windowWidth} ${windowHeight}`)
+
 
     return () => {
       showSubscription.remove();
@@ -140,6 +154,14 @@ const MessageScreen = () => {
       <>
 
       <Text style={styles.status}>{keyboardStatus}</Text>
+      <Text style={styles.status}>{Keyboard.endCoordinates}</Text>
+      <Text style={styles.status}>{Keyboard.startCoordinates}</Text>
+
+      <Text>{window}</Text>
+      <Text>{tabBarHeight}</Text>
+
+      <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text>
+
 
       {!showThread &&
       <>
@@ -169,6 +191,20 @@ const MessageScreen = () => {
         />
       </>
       }
+              <TextInput
+          style={{
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            padding: 10,
+            position:'absolute',
+            bottom: keyboardHeight,
+            width: '100%'
+          }}
+          onChangeText={setNewMessage}
+          value={newMessage}
+        />
+        {/* <View style={{width: '100%', height: 0, borderColor: 'red', borderWidth: '4'}}></View> */}
       </>
     )}
     </UserContext.Consumer>

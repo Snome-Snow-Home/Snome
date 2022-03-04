@@ -127,7 +127,7 @@ export default function CreateUser(props) {
 
   const emailStatus = async (email) => {
     try {
-      const emailStatusRes = await fetch('http://localhost:3000/user_email/exists/' + email);
+      const emailStatusRes = await fetch('http://10.0.0.53:3000/user_email/exists/' + email);
       const emailJsonRes = await emailStatusRes.json();
       return emailJsonRes.case
     } catch (error) {
@@ -137,7 +137,7 @@ export default function CreateUser(props) {
 
   const userNmaeStatus = async (userName) => {
     try {
-      const userNameStatusRes = await fetch('http://localhost:3000/user_name/exists/' + userName);
+      const userNameStatusRes = await fetch('http://10.0.0.53:3000/user_name/exists/' + userName);
       const userNameJsonRes = await userNameStatusRes.json();
       return userNameJsonRes.case
     } catch (error) {
