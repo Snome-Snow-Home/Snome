@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ScrollView, Text, Pressable, StyleSheet } from 'react-native'
+import { ScrollView, Text, View, Pressable, StyleSheet } from 'react-native'
 // import CreateUser from "../components/CreateUser";
 import UserContext from '../Context/UserContext'
 import { useNavigation } from '@react-navigation/native';
@@ -28,16 +28,25 @@ const ProfileScreen = () => {
 
     return (
         <ScrollView>
-            <Title style={styles.header}>Profile Settings</Title>
-            <Avatar.Image style={{ margin: 10 }} size={40} source={require('../pics/avatar.png')} />
-            <Text>{context.user_data.username}</Text>
-            {/* // <Text>{userData}</Text> */}
-            {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
-            {/* <CreateUser /> */}
+            <View style={{
+                padding: 12,
+                width: '80%',
+                backgroundColor: '',
+                alignSelf: 'center',
+                position: 'relative',
+                zIndex: 99,
+            }}>
+                <Text style={styles.title}>Profile Settings</Text>
+                <Avatar.Image style={{ margin: 10 }} size={40} source={require('../pics/avatar.png')} />
+                <Text>{context.user_data.username}</Text>
+                {/* // <Text>{userData}</Text> */}
+                {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
+                {/* <CreateUser /> */}
 
-            <Button mode="contained" style={styles.button} title="logout" onPress={logout}>
-                <Text>Logout</Text>
-            </Button >
+                <Button mode="contained" style={styles.button} title="logout" onPress={logout}>
+                    <Text>Logout</Text>
+                </Button >
+            </View>
         </ScrollView>
     )
 }
@@ -60,6 +69,15 @@ const styles = StyleSheet.create({
     //     marginRight: "25%",
     //     marginTop: 20
     // },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#34393B',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 5,
+        textShadowColor: 'blue',
+    },
     header: {
         alignItems: 'center',
         justifyContent: 'center',
