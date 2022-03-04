@@ -26,9 +26,12 @@ import { useNavigation } from '@react-navigation/native';
 function ListingScreen({ route }) {
   //
   const [flexDirection, setflexDirection] = useState('column');
-
+  const [error, setError] = useState('');
   // ability to use and change data
-  var [listing, setData] = useState([]);
+  const [listing, setData] = useState([]);
+
+  const navigation = useNavigation();
+  const context = useContext(UserContext);
 
   // fetch data from backend and set it to state
   const getListing = async () => {
@@ -49,31 +52,62 @@ function ListingScreen({ route }) {
     getListing();
   }, []);
 
-  const navigation = useNavigation();
+  const updateError = (error, stateUpdater) => {
+    stateUpdater(error);
+    setTimeout(() => {
+      stateUpdater('');
+    }, 4500);
+  };
 
-  const context = useContext(UserContext);
-
-  //post request to the db to add this listing to users likes
-  const addToLikes = (snome_id) => {
-    console.log(context)
+  const checkLikes = async (snome_id) => {
     const likeObj = {
       snome_user_id: context.user_data.user_id,
       snome_id: snome_id,
     };
-    axios.post(
-      'http://localhost:3000/snome/like/' +
-      likeObj.snome_id +
-      '/' +
-      likeObj.snome_user_id,
-      {}
-    );
-    console.log('you like me!');
-    console.log(likeObj);
-    //.catch(error)console.error(error);
+    try {
+      const checkLikes = await fetch(
+        'http://localhost:3000/snome/like/exists/' + likeObj.snome_id +
+        '/' +
+        likeObj.snome_user_id
+      );
+      const likeStatus = await checkLikes.json();
+      console.log(likeStatus)
+      return likeStatus.case;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //post request to the db to add this listing to users likes
+  const addToLikes = async (snome_id) => {
+    const status = {
+      likes: await checkLikes(snome_id),
+    };
+
+    if (status.likes) {
+      return updateError("You have already liked this Snome", setError)
+    } else {
+      //console.log(context)
+      const likeObj = {
+        snome_user_id: context.user_data.user_id,
+        snome_id: snome_id,
+      };
+      axios.post(
+        'http://localhost:3000/snome/like/' +
+        likeObj.snome_id +
+        '/' +
+        likeObj.snome_user_id,
+        {}
+      );
+      console.log('you like me!');
+      console.log(likeObj);
+      //.catch(error)console.error(error);
+    }
   };
 
   return (
     <ScrollView>
+      {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
       {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
@@ -152,6 +186,16 @@ const styles = StyleSheet.create({
     marginRight: '25%',
     marginTop: 20,
   },
+  invalidInput: {
+    color: 'red',
+    backgroundColor: 'lightgray',
+    borderColor: 'red',
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderRadius: 8,
+    padding: 8,
+    width: '95%',
+  }
 });
 
 export default ListingScreen;

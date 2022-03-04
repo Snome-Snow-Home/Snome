@@ -128,6 +128,7 @@ export default function CreateUser(props) {
       stateUpdater('');
     }, 4500);
   };
+
   const isValidEmail = (value) => {
     const regex =
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -159,7 +160,7 @@ export default function CreateUser(props) {
   };
 
   const isValidForm = async () => {
-    var status = {
+    const status = {
       email: await emailStatus(email),
       userName: await userNmaeStatus(username),
     };
@@ -248,7 +249,7 @@ export default function CreateUser(props) {
           // onChangeText={setNameText}
           onChangeText={(value) => handleOnChangeText(value, 'nameText')}
           style={styles.formInput}
-          // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.name} errorId={"name-errorBox"} errorMessage={"includes invalid characters"} /> */}
 
@@ -269,7 +270,7 @@ export default function CreateUser(props) {
           //onChangeText={setUsername}
           onChangeText={(value) => handleOnChangeText(value, 'username')}
           style={styles.formInput}
-          // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
 
         <Text style={styles.horizontal}>
@@ -289,7 +290,7 @@ export default function CreateUser(props) {
           //onChangeText={setEmail}
           onChangeText={(value) => handleOnChangeText(value, 'email')}
           style={styles.formInput}
-          // style={form.errors.email ? styles.invalidInput : styles.formInput}
+        // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
 
         {/* <ErrorMessage errorName={form.errors.email} errorId={"email-errorBox"} errorMessage={"invalid email address"} /> */}
