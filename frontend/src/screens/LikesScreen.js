@@ -41,7 +41,7 @@ const LikesScreen = () => {
       <Text>Snome's you LOVE</Text>
       {data ? data.map((item, index) => (
         <Card style={styles.container} key={index}>
-          <Card.Title title={item.header} subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`} />
+          <Card.Title numberOfLines={3} title={item.header} subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`} />
           <Card.Title style={styles.header} subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`} />
           <Card.Content>
             {/* <Title></Title> */}
@@ -50,7 +50,7 @@ const LikesScreen = () => {
           <Card.Cover source={{ uri: item.url[0] }} />
           <Card.Actions>
             {/* //need functionality for this to be unliked */}
-            <Button style={styles.button}>Unlike</Button>
+            <Button mode="outlined" style={styles.button} icon="delete">Unlike</Button>
 
           </Card.Actions>
         </Card>

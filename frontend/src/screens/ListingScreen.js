@@ -11,6 +11,7 @@ import { Dimensions } from 'react-native';
 import axios from 'axios';
 import UserContext from '../Context/UserContext';
 import { useNavigation } from '@react-navigation/native';
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 // for video player
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
@@ -92,23 +93,46 @@ function ListingScreen({ route }) {
         '/' +
         likeObj.snome_user_id,
         {}
-      );
-      console.log('you like me!');
-      console.log(likeObj);
-      //.catch(error)console.error(error);
+      )
+        // console.log('you like me!');
+        //console.log(likeObj);
+        .catch(error => {
+          console.error(error);
+          console.log('Snome not able to be added to snome_like ', error)
+        })
     }
   };
 
   return (
     <ScrollView>
+      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
       {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
-      {/* {listing.map((listing) => (
-        <React.Fragment key={listing.snome_id}>
-           <Card id="listing" style={styles.containerOne}></Card>
-      )} */}
-
-
       {listing.map((listing) => (
+        <Card id="listing" style={styles.container} key={listing.snome_id}>
+          <Title>
+            <TouchableOpacity onPress={() => navigation.navigate("Description", { snome_id: listing.snome_id })}>
+              <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            </TouchableOpacity>
+          </Title>
+
+          <Card.Content>
+            <Card.Cover source={{ uri: listing.url[0] }} />
+            {'\n'}
+            <Paragraph>{listing.description}</Paragraph>
+
+            <Button mode="outlined"
+              // style={styles.button}
+              title="I like this Snome!"
+              onPress={() => addToLikes(listing.snome_id)}>
+              <Text>I like this Snome! </Text>
+            </Button>
+
+          </Card.Content>
+        </Card>
+      ))}
+
+
+      {/* {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
           <View id="listing" style={styles.containerOne}>
 
@@ -136,21 +160,38 @@ function ListingScreen({ route }) {
             </TouchableOpacity>
           </View>
         </React.Fragment>
-      ))}
+      ))} */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  containerOne: {
+  // containerOne: {
+  //   width: Dimensions.get('window').width * 0.4,
+  //   height: Dimensions.get('window').width * 0.4,
+  //   flexDirection: 'column',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-evenly',
+  //   flex: 1,
+  //   margin: 20,
+  //   padding: 12,
+  // },
+  container: {
     width: Dimensions.get('window').width * 0.4,
-    height: Dimensions.get('window').width * 0.4,
-    flexDirection: 'column',
+    height: 600,
+    flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
-    flex: 1,
+    display: 'flex',
+    flex: 3,
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: 5,
     margin: 20,
-    padding: 12,
+    shadowColor: '#470000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.9,
+    elevation: 2
   },
   containerTwo: {
     flex: 2,
