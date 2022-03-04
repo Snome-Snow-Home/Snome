@@ -30,13 +30,11 @@ const ProfileScreen = () => {
         <ScrollView>
             <Title style={styles.header}>Profile Settings</Title>
             <Avatar.Image style={{ margin: 10 }} size={40} source={require('../pics/avatar.png')} />
-            <Text> {context.user_data.username}</Text>
+            <Text>{context.user_data.username}</Text>
             {/* // <Text>{userData}</Text> */}
             {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
             {/* <CreateUser /> */}
-            {'\n'}
-            {'\n'}
-            {'\n'}
+
             <Button mode="contained" style={styles.button} title="logout" onPress={logout}>
                 <Text>Logout</Text>
             </Button >

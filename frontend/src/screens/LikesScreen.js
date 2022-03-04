@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import {
-
+  View,
   Text,
   Image,
   ScrollView,
@@ -35,57 +35,73 @@ const LikesScreen = () => {
     getSnomeLikes();
   }, [])
 
-  return (
-    <ScrollView>
-      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
-      <Text>Snome's you LOVE</Text>
-      {data ? data.map((item, index) => (
-        <Card style={styles.container} key={index}>
-          <Card.Title numberOfLines={3} title={item.header} subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`} />
-          <Card.Title style={styles.header} subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`} />
-          <Card.Content>
-            {/* <Title></Title> */}
-            <Paragraph>{item.description}</Paragraph>
-          </Card.Content>
-          <Card.Cover source={{ uri: item.url[0] }} />
-          <Card.Actions>
-            {/* //need functionality for this to be unliked */}
-            <Button mode="outlined" style={styles.button} icon="delete">Unlike</Button>
+  const screenHeight = Dimensions.get('window').height
 
-          </Card.Actions>
-        </Card>
-      )) : <Text>You don't have any liked Snome's...GO check some out!</Text>}
-      <Button onPress={getData} title="get data">Get Data</Button>
-    </ScrollView>
+  return (
+    <View style={{ height: screenHeight }}>
+      <ScrollView>
+        {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
+        <Text style={styles.title}>Snome's you LOVE</Text>
+        {data ? data.map((item, index) => (
+          <Card style={styles.container} key={index}>
+            <Card.Title numberOfLines={3} title={item.header} subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`} />
+            <Title style={styles.header} subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`} />
+            <Card.Content>
+              {/* <Title></Title> */}
+              <Paragraph>{item.description}</Paragraph>
+            </Card.Content>
+            <Card.Cover source={{ uri: item.url[0] }} />
+            <Card.Actions>
+              {/* //need functionality for this to be unliked */}
+              <Button mode="outlined" icon="heart-off">Unlike</Button>
+
+            </Card.Actions>
+          </Card>
+        )) : <Text>You don't have any liked Snome's...GO check some out!</Text>}
+        {/* <Button onPress={getData} title="get data">Get Data</Button> */}
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = {
-  cards: {
-    width: Dimensions.get('window').width * 0.4,
-    height: 450,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
-    flex: 3,
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    padding: 5,
-  },
+  // cards: {
+  //   width: 350,
+  //   //width: Dimensions.get('window').width * 0.4,
+  //   height: 450,
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-evenly',
+  //   flex: 3,
+  //   border: '1px solid #ccc',
+  //   borderRadius: '5px',
+  //   padding: 5,
+  // },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: 150,
+    height: 150,
+  },
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34393B',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
+    textShadowColor: 'blue',
   },
   container: {
-    width: Dimensions.get('window').width * 0.4,
+    //width: Dimensions.get('window').width * 0.4,
+    width: 350,
     height: 600,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     display: 'flex',
-    flex: 3,
-    border: '1px solid #ccc',
-    borderRadius: '5px',
+    backgroundColor: "#EFEDE4",
+    //flex: 3,
+    //border: '1px solid #ccc',
+    borderRadius: 5,
     padding: 5,
     margin: 20,
     shadowColor: '#470000',
@@ -93,9 +109,9 @@ const styles = {
     shadowOpacity: 0.9,
     elevation: 2
   },
-  button: {
-    border: '1px solid #630330'
-  }
+  // button: {
+  //   border: '1px solid #630330'
+  // }
   //   pic:{
   //     width:Dimensions.get('window').width * 0.4,
   //     height:Dimensions.get('window').height * 0.2,

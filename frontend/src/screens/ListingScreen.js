@@ -93,19 +93,18 @@ function ListingScreen({ route }) {
         '/' +
         likeObj.snome_user_id,
         {}
-      )
-        // console.log('you like me!');
-        //console.log(likeObj);
-        .catch(error => {
-          console.error(error);
-          console.log('Snome not able to be added to snome_like ', error)
-        })
+      ).catch(error => {
+        console.error(error);
+        console.log('Snome not able to be added to snome_like ', error)
+      })
     }
   };
 
   return (
     <ScrollView>
-      <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} />
+      {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
+      {/* <Text style={styles.title}>{`Listing's for ${location.name}`}</Text> */}
+      <Text style={styles.title}>Listings</Text>
       {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
       {listing.map((listing) => (
         <Card id="listing" style={styles.container} key={listing.snome_id}>
@@ -117,16 +116,16 @@ function ListingScreen({ route }) {
 
           <Card.Content>
             <Card.Cover source={{ uri: listing.url[0] }} />
-            {'\n'}
+
             <Paragraph>{listing.description}</Paragraph>
-
-            <Button mode="outlined"
-              // style={styles.button}
-              title="I like this Snome!"
-              onPress={() => addToLikes(listing.snome_id)}>
-              <Text>I like this Snome! </Text>
-            </Button>
-
+            <Card.Actions>
+              <Button mode="outined"
+                // style={styles.button}
+                icon="heart-outline"
+                onPress={() => addToLikes(listing.snome_id)}>
+                <Text>I like this Snome!</Text>
+              </Button>
+            </Card.Actions>
           </Card.Content>
         </Card>
       ))}
@@ -177,21 +176,32 @@ const styles = StyleSheet.create({
   //   padding: 12,
   // },
   container: {
-    width: Dimensions.get('window').width * 0.4,
+    width: 350,
+    // width: Dimensions.get('window').width,
     height: 600,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     display: 'flex',
     flex: 3,
-    border: '1px solid #ccc',
-    borderRadius: '5px',
+    backgroundColor: "#EFEDE4",
+    //border: '1px solid #ccc',
+    borderRadius: 5,
     padding: 5,
     margin: 20,
     shadowColor: '#470000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.9,
     elevation: 2
+  },
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34393B',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
+    textShadowColor: 'blue',
   },
   containerTwo: {
     flex: 2,
