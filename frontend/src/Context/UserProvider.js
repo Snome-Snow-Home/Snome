@@ -21,9 +21,11 @@ function UserProvider(props) {
 
   const [userData, setUserData] = useState(
     {
+      //is_logged_in: true,
       is_logged_in: false,
       username: "",
       user_id: null,
+      //user_id: 1,
       match: {
         user_id: 6,
         snome_id: [5, 4]
@@ -42,7 +44,7 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ messages: messages,setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{ messages: messages, setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
     >
       {props.children}
     </UserContext.Provider>
