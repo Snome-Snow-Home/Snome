@@ -26,7 +26,7 @@
 
 //     const getPhotos = async () => {
 //         try {
-//             const response = await fetch('http://localhost:3000/snome/10/photos');
+//             const response = await fetch('http://10.0.0.53:3000/snome/10/photos');
 //             const json = await response.json();
 //             setData(json);
 //         } catch (error) {
@@ -40,7 +40,7 @@
 
 //     const isLiked = async () => {
 //         try {
-//             const response = await fetch('http://localhost:3000/snome/:id/like', {
+//             const response = await fetch('http://10.0.0.53:3000/snome/:id/like', {
 //                 method: 'POST',
 //             });
 //             const json = await response.json();
