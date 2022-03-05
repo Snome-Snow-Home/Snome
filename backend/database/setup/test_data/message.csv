@@ -1,4 +1,4 @@
-id,recipient,sender,time,message_text,has_been_read
+id,recipient_id,sender_id,time,message_text,has_been_read
 1,1,4,1999-01-08 4:05:06,"""your place is so cool!""",TRUE
 2,4,1,1999-01-08 4:06:06,"""you're gonna love it""",TRUE
 3,2,5,1999-01-08 4:07:06,"""when do you want to come?""",TRUE

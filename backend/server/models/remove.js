@@ -57,4 +57,11 @@ module.exports = {
   //     return err;
   //   }
   // },
+
+
+
+  //need to work on this need snome_user_id and snome_id
+  // deleteLike: async() => {
+  //   await db.none(`DELETE FROM snome_like WHERE snome_user_id=${id}`);
+  // }
 };

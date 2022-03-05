@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 export default function CreateUser(props) {
   const navigation = useNavigation();
 
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
   const [userData, setUserData] = useState({
     nameText: '',
     username: '',
@@ -91,16 +91,25 @@ export default function CreateUser(props) {
     state: '',
     zipCode: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+  });
 
-  })
-
-  const { nameText, username, email, address, city, state, zipCode, password, confirmPassword } = userData;
+  const {
+    nameText,
+    username,
+    email,
+    address,
+    city,
+    state,
+    zipCode,
+    password,
+    confirmPassword,
+  } = userData;
 
   //grand value of text input from user and sets the state to that value
   const handleOnChangeText = (value, fieldName) => {
-    setUserData({ ...userData, [fieldName]: value })
-  }
+    setUserData({ ...userData, [fieldName]: value });
+  };
 
   //unique component to bold letters
   const B = (props) => (
@@ -110,26 +119,27 @@ export default function CreateUser(props) {
   );
 
   const isValidObjField = (obj) => {
-    return Object.values(obj).every(value => value.trim())
-  }
+    return Object.values(obj).every((value) => value.trim());
+  };
 
   const updateError = (error, stateUpdater) => {
-    stateUpdater(error)
+    stateUpdater(error);
     setTimeout(() => {
-      stateUpdater('')
-    }, 4500)
-  }
-  const isValidEmail = (value) => {
-    const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return regex.test(value)
-  }
+      stateUpdater('');
+    }, 4500);
+  };
 
+  const isValidEmail = (value) => {
+    const regex =
+      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return regex.test(value);
+  };
 
   const emailStatus = async (email) => {
     try {
       const emailStatusRes = await fetch('http://10.0.0.53:3000/user_email/exists/' + email);
       const emailJsonRes = await emailStatusRes.json();
-      return emailJsonRes.case
+      return emailJsonRes.case;
     } catch (error) {
       console.error(error);
     }
@@ -139,32 +149,50 @@ export default function CreateUser(props) {
     try {
       const userNameStatusRes = await fetch('http://10.0.0.53:3000/user_name/exists/' + userName);
       const userNameJsonRes = await userNameStatusRes.json();
-      return userNameJsonRes.case
+      return userNameJsonRes.case;
     } catch (error) {
       console.error(error);
     }
-
-  }
+  };
 
   const isValidForm = async () => {
-
-    var theState = {  email: await  emailStatus(email),
-                      userName: await userNmaeStatus(username),
+    const status = {
+      email: await emailStatus(email),
+      userName: await userNmaeStatus(username),
     };
+
     //we accept only if all input fields have value
-    if (!isValidObjField(userData)) {return updateError("All fields required!", setError)}
+    if (!isValidObjField(userData)) {
+      return updateError('All fields required!', setError);
+    }
     //only valid email allowed
-    if (!isValidEmail(email)) {return updateError("Please enter a valid email", setError)}
+    if (!isValidEmail(email)) {
+      return updateError('Please enter a valid email', setError);
+    }
     //password must have 8 character
-    if (!password.trim() || password.length < 8) {return updateError("Please must have at least 8 characters!", setError)}
+    if (!password.trim() || password.length < 8) {
+      return updateError('Please must have at least 8 characters!', setError);
+    }
     //password must match confirm password
-    if (password !== confirmPassword) {return updateError("Please make sure passwords match", setError)}
+    if (password !== confirmPassword) {
+      return updateError('Please make sure passwords match', setError);
+    }
     //here we could query to make sure the username does not already exist
     //username !== username query to DB
-    if (theState.email) {return updateError("This email exists. Please, use another email address", setError)}
-    if (theState.userName) {return updateError("This user name has been taken, please use another one", setError)}
+    if (status.email) {
+      return updateError(
+        'This email exists. Please, use another email address',
+        setError
+      );
+    }
+    if (status.userName) {
+      return updateError(
+        'This user name has been taken, please use another one',
+        setError
+      );
+    }
     return true;
-  }
+  };
 
   function handleSubmit(e) {
     e.preventDefault;
@@ -180,11 +208,22 @@ export default function CreateUser(props) {
         source={require('../../assets/Snome.png')}
         style={{ width: 50, height: 50 }}
       />
-      <Text style={{ fontSize: 25, textAlign: 'center', margin: 5, fontFamily: 'Arial' }} >
+      <Text
+        style={{
+          fontSize: 25,
+          textAlign: 'center',
+          margin: 5,
+          fontFamily: 'Arial',
+        }}
+      >
         New User? Sign up here
       </Text>
-      <Text style={styles.link}
-        onPress={() => { navigation.navigate('Login'); }} >
+      <Text
+        style={styles.link}
+        onPress={() => {
+          navigation.navigate('Login');
+        }}
+      >
         Already have an account <B>Go to Login</B>
       </Text>
 
@@ -201,11 +240,11 @@ export default function CreateUser(props) {
           placeholder="Name"
           type="text"
           required
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
           value={nameText}
           // onChangeText={setNameText}
-          onChangeText={value => handleOnChangeText(value, 'nameText')}
+          onChangeText={(value) => handleOnChangeText(value, 'nameText')}
           style={styles.formInput}
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
@@ -222,11 +261,11 @@ export default function CreateUser(props) {
           placeholder="Username"
           type="text"
           required
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
           value={username}
           //onChangeText={setUsername}
-          onChangeText={value => handleOnChangeText(value, 'username')}
+          onChangeText={(value) => handleOnChangeText(value, 'username')}
           style={styles.formInput}
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
@@ -242,11 +281,11 @@ export default function CreateUser(props) {
           placeholder="Email"
           type="text"
           required
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
           value={email}
           //onChangeText={setEmail}
-          onChangeText={value => handleOnChangeText(value, 'email')}
+          onChangeText={(value) => handleOnChangeText(value, 'email')}
           style={styles.formInput}
         // style={form.errors.email ? styles.invalidInput : styles.formInput}
         />
@@ -264,11 +303,11 @@ export default function CreateUser(props) {
           placeholder="Address"
           type="text"
           required
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
           value={address}
           //onChangeText={setAddress}
-          onChangeText={value => handleOnChangeText(value, 'address')}
+          onChangeText={(value) => handleOnChangeText(value, 'address')}
           style={styles.formInput}
         />
 
@@ -285,11 +324,11 @@ export default function CreateUser(props) {
           placeholder="City"
           type="text"
           required
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
           value={city}
           //onChangeText={setCity}
-          onChangeText={value => handleOnChangeText(value, 'city')}
+          onChangeText={(value) => handleOnChangeText(value, 'city')}
           style={styles.formInput}
         />
 
@@ -310,7 +349,7 @@ export default function CreateUser(props) {
           autoCorrect={false}
           value={state}
           //onChangeText={setState}
-          onChangeText={value => handleOnChangeText(value, 'state')}
+          onChangeText={(value) => handleOnChangeText(value, 'state')}
           style={styles.formInput}
         />
 
@@ -329,7 +368,7 @@ export default function CreateUser(props) {
           required
           value={zipCode}
           //onChangeText={setZipcode}
-          onChangeText={value => handleOnChangeText(value, 'zipCode')}
+          onChangeText={(value) => handleOnChangeText(value, 'zipCode')}
           style={styles.formInput}
         />
 
@@ -347,12 +386,12 @@ export default function CreateUser(props) {
           type="password"
           required
           autoCorrect={false}
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoComplete="new-password"
           secureTextEntry={true}
           value={password}
           //onChangeText={setPassword}
-          onChangeText={value => handleOnChangeText(value, 'password')}
+          onChangeText={(value) => handleOnChangeText(value, 'password')}
           style={styles.formInput}
         />
         {/* <ErrorMessage errorName={form.errors.password} errorId={"password-errorBox"} errorMessage={"8-16 characters, Must contain a number, a letter and a special character"} /> */}
@@ -369,21 +408,23 @@ export default function CreateUser(props) {
           type="password"
           required
           autoCorrect={false}
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoComplete="new-password"
           secureTextEntry={true}
           value={confirmPassword}
           //onChangeText={setConformPassword}
-          onChangeText={value => handleOnChangeText(value, 'confirmPassword')}
+          onChangeText={(value) => handleOnChangeText(value, 'confirmPassword')}
           style={styles.formInput}
         />
 
-        <TouchableOpacity style={styles.button} title="Submit"
+        <TouchableOpacity
+          style={styles.button}
+          title="Submit"
           clearButtonMode="always"
-          onPress={handleSubmit}>
+          onPress={handleSubmit}
+        >
           <Text>Submit</Text>
         </TouchableOpacity>
-
       </ScrollView>
     </ScrollView>
   );
@@ -407,28 +448,28 @@ errorMessage={"includes invalid characters"}
 /> */
 }
 
-  // const form = useForm({
-  //     initialValues: {
-  //         name: '',
-  //         email: '',
-  //         address: '',
-  //         city: '',
-  //         state: '',
-  //         zipCode: '',
-  //         password: '',
-  //         confirmPassword: '',
-  //     },
-  // validationRules: {
-  //     name: (value) => /^[a-z ,.'-]+$/i.test(value),
-  //     email: (value) => /^\S+@\S+$/.test(value),
-  //     city: (value) =>
-  //         /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(
-  //             value
-  //         ),
-  //     state: (value) => value.trim().length >= 2,
-  //     zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
-  //     password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
+// const form = useForm({
+//     initialValues: {
+//         name: '',
+//         email: '',
+//         address: '',
+//         city: '',
+//         state: '',
+//         zipCode: '',
+//         password: '',
+//         confirmPassword: '',
+//     },
+// validationRules: {
+//     name: (value) => /^[a-z ,.'-]+$/i.test(value),
+//     email: (value) => /^\S+@\S+$/.test(value),
+//     city: (value) =>
+//         /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(
+//             value
+//         ),
+//     state: (value) => value.trim().length >= 2,
+//     zipCode: (value) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(value),
+//     password: (value) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(value),
 
-  //     confirmPassword: (val, values) => val === values.password,
-  // },
-  // });
+//     confirmPassword: (val, values) => val === values.password,
+// },
+// });

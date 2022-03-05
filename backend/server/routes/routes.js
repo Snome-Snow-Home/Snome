@@ -3,6 +3,8 @@ const router = require("express").Router();
 const { uploadSnomePhotos } = require("./middleware/multer.js");
 const storage = require('@react-native-async-storage/async-storage');
 const { Route53RecoveryCluster } = require("aws-sdk");
+const jwt = require('express-jwt');
+require('dotenv').config()
 
 /* define API url to handler mappings here, organized by model and CRUD */
 module.exports = router;
@@ -44,6 +46,7 @@ router.get("/snome/location/:id", controller.get.getSnomeByLocationId);
 router.get("/featured_location", controller.get.getFeaturedLocation)
 
 /* LIKES  */
+router.get("/snome/like/exists/:snome_id/:snome_user_id", controller.get.checkLikes);
 router.post("/snome/like/:snome_id/:snome_user_id", controller.post.createLike);
 router.get("/like/navbar/:user_id", controller.get.getUnreadLikes);
 
@@ -66,6 +69,17 @@ router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controll
 
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);
+
+/* Snome Desription */
+router.get("/snome/description/:id", controller.get.getSnomeDescription);
+
+
+router.get("/protected_has_token", jwt({ secret: process.env.TOKEN_SECRET, algorithms: ['HS256'] }), (req, res) => {
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.send('protected: success')
+});
 
 /* MESSAGES to-and-from a given user*/
 router.get("/messages/:user_id", controller.get.getMessages);
