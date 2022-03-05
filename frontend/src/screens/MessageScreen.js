@@ -118,16 +118,14 @@ const MessageScreen = () => {
     }
 
     const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
-      // setKeyboardStatus(`width: ${e.endCoordinates.width} screenX: ${e.endCoordinates.screenX} height: ${e.endCoordinates.height} screenY: ${e.endCoordinates.screenY} width: ${e.startCoordinates.width} screenX: ${e.startCoordinates.screenX} height: ${e.startCoordinates.height} screenY: ${e.startCoordinates.screenY}`)
-      setKeyboardHeight(260)//()=>{e.startCoordinates.height + tabBarHeight})
-
-      // Object.keys(e).map(i => ' ' + i));
+      setKeyboardHeight(()=>{
+        console.log(e.endCoordinates.height)
+        console.log(tabBarHeight)
+        return(e.endCoordinates.height - tabBarHeight)
+      })
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", (e) => {
-
-      // setKeyboardStatus(`width: ${e.endCoordinates.width} screenX: ${e.endCoordinates.screenX} height: ${e.endCoordinates.height} screenY: ${e.endCoordinates.screenY} width: ${e.startCoordinates.width} screenX: ${e.startCoordinates.screenX} height: ${e.startCoordinates.height} screenY: ${e.startCoordinates.screenY}`)
       setKeyboardHeight(0)
-
     });
 
     const windowWidth = Dimensions.get('window').width;
