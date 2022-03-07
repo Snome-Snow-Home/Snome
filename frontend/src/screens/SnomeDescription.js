@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Text,
   View,
@@ -6,18 +6,25 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Button,
 } from 'react-native';
+import UserContext from '../Context/UserContext';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const height = width * 0.6;
 
 function SnomeDescription({ route }) {
+  const context = useContext(UserContext);
   const [images, setData] = useState([]);
+  const [error, setError] = useState('');
 
   const getImageUrl = async () => {
     console.log(route);
     try {
-      const response = await fetch('http://localhost:3000/snome/' + route.params.snome_id + '/photos');
+      const response = await fetch(
+        'http://localhost:3000/snome/' + route.params.snome_id + '/photos'
+      );
       const json = await response.json();
       setData(json.url);
     } catch (error) {
@@ -29,6 +36,12 @@ function SnomeDescription({ route }) {
     getImageUrl();
   }, []);
 
+  const updateError = (error, stateUpdater) => {
+    stateUpdater(error);
+    setTimeout(() => {
+      stateUpdater('');
+    }, 5500);
+  };
 
   const [active, setActive] = useState([0]);
 
@@ -42,8 +55,59 @@ function SnomeDescription({ route }) {
     }
   };
 
+  //get request to db to see if like already exists with current user
+  const checkLikes = async (snome_id) => {
+    const likeObj = {
+      snome_user_id: context.user_data.user_id,
+      snome_id: snome_id,
+    };
+    try {
+      const checkLikes = await fetch(
+        'http://localhost:3000/snome/like/exists/' +
+          likeObj.snome_id +
+          '/' +
+          likeObj.snome_user_id
+      );
+      const likeStatus = await checkLikes.json();
+      console.log(likeStatus);
+      return likeStatus.case;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //post request to the db to add this listing to users likes
+  const addToLikes = async (snome_id = route.params.snome_id) => {
+    const status = {
+      likes: await checkLikes(snome_id),
+    };
+
+    if (status.likes) {
+      return updateError('You have already liked this Snome', setError);
+    } else {
+      //console.log(context)
+      const likeObj = {
+        snome_user_id: context.user_data.user_id,
+        snome_id: snome_id,
+      };
+      axios
+        .post(
+          'http://localhost:3000/snome/like/' +
+            likeObj.snome_id +
+            '/' +
+            likeObj.snome_user_id,
+          {}
+        )
+        .catch((error) => {
+          console.error(error);
+          console.log('Snome not able to be added to snome_like ', error);
+        });
+    }
+  };
+
   return (
     <ScrollView>
+      {error ? <Text style={style.invalidInput}>{error}</Text> : null}
       <View style={style.container}>
         <ScrollView
           pagingEnabled
@@ -68,6 +132,11 @@ function SnomeDescription({ route }) {
           ))}
         </View>
       </View>
+      <View style={style.view}>
+        <Button style={style.button} onPress={() => addToLikes()}>
+          <Text>Like This Snome</Text>
+        </Button>
+      </View>
     </ScrollView>
   );
 }
@@ -84,159 +153,32 @@ const style = StyleSheet.create({
   },
   pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
   pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
+  view: { marginTop: 50, marginBottom: 50 },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#448EB1',
+    color: 'white',
+    fontFamily: 'Arial',
+    width: Dimensions.get('window').width * 0.4,
+    marginLeft: '25%',
+    marginRight: '25%',
+    marginTop: 20,
+  },
+  invalidInput: {
+    color: 'red',
+    backgroundColor: 'lightgray',
+    borderColor: 'red',
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderRadius: 8,
+    padding: 8,
+    width: '95%',
+  },
 });
 
 export default SnomeDescription;
-
-// import React, { useState, useEffect } from 'react';
-// import {
-//     View,
-//     Button,
-//     ImageBackground,
-//     StyleSheet,
-//     Text,
-//     TouchableOpacity,
-//     ScrollView,
-//     Dimensions,
-// } from 'react-native';
-// import { useWindowDimensions } from 'react-native';
-// import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
-// import Photoslider from '../components/Photoslider';
-
-// const photo = {
-//     uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
-//     uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
-//     uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
-//     uri: 'https://snome.s3.us-east-2.amazonaws.com/langham_news_2.jpg',
-// };
-
-// const SnomeDescription = () => {
-
-//     const [photo, setData] = useState([]);
-
-//     const getPhotos = async () => {
-//         try {
-//             const response = await fetch('http://localhost:3000/snome/10/photos');
-//             const json = await response.json();
-//             setData(json);
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     };
-
-//     useEffect(() => {
-//         getPhotos();
-//     }, []);
-
-//     return (
-//         <>
-//             <ScrollView
-//                 style={styles.scrollView}
-//                 contentContainerStyle={styles.contentContainer}
-//             >
-//                 <Text style={styles.text}>Snome</Text>
-
-//                 {/* <Photoslider style={styles.slider} photos={photo} /> */}
-
-//                 <Button style={styles.button} onPress={isLiked}>  Like</Button>
-//                 <Text
-//                     style={styles.text}
-//                 >
-//                     Gorgeous 2 bedroom with views
-//                 </Text>
-
-//                 <View style={styles.descriptionContainer}>
-//                     <Text style={styles.descriptionTextHeaders}>
-//                         4.75&nbsp;&nbsp;
-//                         <FontAwesome name="star" size={20} color="black" />
-//                         <FontAwesome name="star" size={20} color="black" />
-//                         <FontAwesome name="star" size={20} color="black" />
-//                         <FontAwesome name="star" size={20} color="black" />
-//                         <FontAwesome name="star-half" size={20} color="black" />
-//                     </Text>
-//                     <Text style={styles.descriptionTextHeaders}>
-//                         Availability{'\n'}
-//                         <Text style={{ fontWeight: 'normal' }}>Dec – April</Text>
-//                     </Text>
-
-//                     <Text style={styles.descriptionTextHeaders}>
-//                         Rooms{'\n'}
-//                         <Text style={{ fontWeight: 'normal' }}>2 beds 1 bath</Text>
-//                     </Text>
-//                     <Text style={styles.descriptionTextHeaders}>
-//                         Mountain Access{'\n'}
-//                         <Text style={{ fontWeight: 'normal' }}>8 mins Ski-in</Text>
-//                     </Text>
-//                 </View>
-//             </ScrollView >
-//         </>
-//     );
-// };
-
-// const styles = StyleSheet.create({
-//     scrollView: {
-//         height: '100%',
-//         backgroundColor: 'white',
-//     },
-//     contentContainer: {
-//         margin: 25,
-//         marginTop: 55,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         backgroundColor: 'white',
-//     },
-//     photoContainer: {
-//         marginTop: 20,
-//         backgroundColor: 'white',
-//         borderWidth: 1,
-//         borderColor: 'black',
-//         flex: 1,
-//         height: Dimensions.get('window').height * 0.3,
-//         width: Dimensions.get('window').height * 0.4,
-//     },
-//     // photoGallery: {
-//     //   flex: 1,
-//     //   flexDirection: "row",
-//     //   alignItems: "center",
-//     //   height: 250,
-//     //   width: "100%",
-//     //   backgroundColor: "white",
-//     //   borderTopWidth: 1,
-//     //   borderColor: "black",
-//     // },
-
-//     descriptionContainer: {
-//         flexDirection: 'row',
-//         flexWrap: 'wrap',
-//         alignContent: 'space-around',
-//         height: 125,
-//         width: '100%',
-//         backgroundColor: 'white',
-//     },
-//     descriptionTextHeaders: {
-//         fontSize: 17,
-//         width: '50%',
-//         fontWeight: 'bold',
-//     },
-//     text: {
-//         fontSize: 40,
-//         fontWeight: 'bold',
-//         paddingTop: 20,
-//         paddingBottom: 20,
-//         textAlign: 'center',
-//     },
-//     slider: {
-//         height: 250,
-//         width: 300,
-//     },
-//     button: {
-//         backgroundColor: '#00BFFF',
-//         borderRadius: 10,
-//         width: 200,
-//         height: 150,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         marginTop: 20,
-//     }
-
-// });
