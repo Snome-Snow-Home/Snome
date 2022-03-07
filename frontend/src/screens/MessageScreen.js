@@ -42,7 +42,6 @@ const styles = {
     padding: 6,
     height: 50,
     width: '100%',
-    // color: 'red',
     textAlign: 'center'
   },
   status: {
@@ -72,11 +71,8 @@ const MessageCard = ({message, setShowThread, user_id}) => {
       {/* } */}
 
     </>
-
   )
 }
-
-
 
 const MessageScreen = () => {
 
@@ -93,9 +89,8 @@ const MessageScreen = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-  const [window, setWindow] = useState([])
+  // const [window, setWindow] = useState([])
   const tabBarHeight = useBottomTabBarHeight();
-
 
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
@@ -129,10 +124,9 @@ const MessageScreen = () => {
       setKeyboardHeight(0)
     });
 
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
-    setWindow(`${windowWidth} ${windowHeight}`)
-
+    // const windowWidth = Dimensions.get('window').width;
+    // const windowHeight = Dimensions.get('window').height;
+    // setWindow(`${windowWidth} ${windowHeight}`)
 
     return () => {
       showSubscription.remove();
@@ -152,14 +146,14 @@ const MessageScreen = () => {
       {context => (
         <>
 
-          <Text style={styles.status}>{keyboardStatus}</Text>
+          {/* <Text style={styles.status}>{keyboardStatus}</Text>
           <Text style={styles.status}>{Keyboard.endCoordinates}</Text>
-          <Text style={styles.status}>{Keyboard.startCoordinates}</Text>
+          <Text style={styles.status}>{Keyboard.startCoordinates}</Text> */}
 
-          <Text>{window}</Text>
-          <Text>{tabBarHeight}</Text>
+          {/* <Text>{window}</Text>
+          <Text>{tabBarHeight}</Text> */}
 
-          <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text>
+          {/* <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text> */}
 
 
           {!showThread &&
