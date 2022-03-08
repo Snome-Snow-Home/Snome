@@ -6,34 +6,42 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Button,
 } from 'react-native';
 import UserContext from '../Context/UserContext';
 import axios from 'axios';
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 
 const { width } = Dimensions.get('window');
 const height = width * 0.6;
 
 function SnomeDescription({ route }) {
   const context = useContext(UserContext);
-  const [images, setData] = useState([]);
+  const [images, setUrl] = useState([]);
+  const [description, setDesc] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [address, setAddress] = useState([]);
+  const [bedsNumber, setBedsNumb] = useState([]);
   const [error, setError] = useState('');
 
-  const getImageUrl = async () => {
-    console.log(route);
+  const getData = async () => {
+    const snome_id = route.params.snome_id;
     try {
       const response = await fetch(
-        'http://localhost:3000/snome/' + route.params.snome_id + '/photos'
+        'http://localhost:3000/snome/description/' + snome_id
       );
       const json = await response.json();
-      setData(json.url);
+      setUrl(json.url);
+      setDesc(json.description);
+      setTitle(json.header);
+      setAddress(json.address);
+      setBedsNumb(json.number_of_beds)
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getImageUrl();
+    getData();
   }, []);
 
   const updateError = (error, stateUpdater) => {
@@ -77,7 +85,8 @@ function SnomeDescription({ route }) {
   };
 
   //post request to the db to add this listing to users likes
-  const addToLikes = async (snome_id = route.params.snome_id) => {
+  const addToLikes = async () => {
+    const snome_id = route.params.snome_id;
     const status = {
       likes: await checkLikes(snome_id),
     };
@@ -132,6 +141,16 @@ function SnomeDescription({ route }) {
           ))}
         </View>
       </View>
+      <Card style={style.card}>
+        <Title>
+          <Text>{title}</Text>
+        </Title>
+        <Card.Content>
+          <Paragraph>Snome Desscreption: {description}</Paragraph>
+          <Text>Address: {address}</Text>
+          <Text>Number of Beds: {bedsNumber}</Text>
+        </Card.Content>
+      </Card>
       <View style={style.view}>
         <Button style={style.button} onPress={() => addToLikes()}>
           <Text>Like This Snome</Text>
@@ -157,10 +176,6 @@ const style = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
     backgroundColor: '#448EB1',
     color: 'white',
     fontFamily: 'Arial',
@@ -179,6 +194,7 @@ const style = StyleSheet.create({
     padding: 8,
     width: '95%',
   },
+  card: {marginTop: 50, width, height: width * 0.15}
 });
 
 export default SnomeDescription;
