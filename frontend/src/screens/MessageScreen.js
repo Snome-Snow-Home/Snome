@@ -3,8 +3,7 @@ import { View, Text, TextInput, StyleSheet, SafeAreaView, SectionList, ScrollVie
 import UserContext from '../Context/UserContext';
 import { Dimensions } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-
-
+const axios = require('axios');
 
 
 const styles = {
@@ -110,6 +109,18 @@ const MessageScreen = () => {
     setMessageQueue(message_queue)
   }
 
+  const sendMessage = async () => {
+
+    axios.post(
+      'http://10.0.0.53:3000/messages/',
+      {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
+    ).catch(error => {
+      console.error(error);
+      console.log('Snome not able to be added to snome_like ', error)
+    })
+
+  };
+
   useEffect(() => {
     if (messages) {
       sortMessagesByOtherUser(messages)
@@ -160,7 +171,7 @@ const MessageScreen = () => {
 
           {/* <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text> */}
 
-
+{/* <Text>{showThread}</Text> */}
           {!showThread &&
             <>
               <Text style={styles.headerButton}>Your Conversations</Text>
@@ -174,10 +185,10 @@ const MessageScreen = () => {
           {showThread &&
             <>
               <View
-              style={{
-                //the static numbers represent the text input height (with padding) and the headerButton height (padding)
-                height: windowHeight - keyboardHeight - tabBarHeight - 80 - 62
-              }}
+                style={{
+                  //the static numbers represent the text input height (with padding) and the headerButton height (padding)
+                  height: windowHeight - keyboardHeight - tabBarHeight - 80 - 62
+                }}
               >
 
                 <TouchableOpacity  >
@@ -206,6 +217,8 @@ const MessageScreen = () => {
                 }}
                 onChangeText={setNewMessage}
                 value={newMessage}
+                onSubmitEditing={sendMessage}
+
               />
 
             </>
