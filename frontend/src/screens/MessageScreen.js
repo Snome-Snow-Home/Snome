@@ -50,24 +50,24 @@ const styles = {
   }
 };
 
-const MessageCard = ({message, setShowThread, user_id}) => {
+const MessageCard = ({ message, setShowThread, user_id }) => {
 
   return (
 
     <>
-    {/* {!showThread && */}
+      {/* {!showThread && */}
 
-    <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} onPress={()=> setShowThread(message.sender_id === user_id ? message.recipient_id : message.sender_id)}>
-      <View style={[styles.card, message.sender_id === user_id && styles.selectedConvo]}
-      >
-        <View >
-          <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>message_sender: {message.sender_id}</Text>
-          <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>message_recipient: {message.recipient_id}</Text>
-          <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>{message.time}</Text>
-          <Text style= {[message.sender_id === user_id && styles.selectedConvoText]}>{message.message_text}</Text>
+      <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={() => setShowThread(message.sender_id === user_id ? message.recipient_id : message.sender_id)}>
+        <View style={[styles.card, message.sender_id === user_id && styles.selectedConvo]}
+        >
+          <View >
+            <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>message_sender: {message.sender_id}</Text>
+            <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>message_recipient: {message.recipient_id}</Text>
+            <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>{message.time}</Text>
+            <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>{message.message_text}</Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
       {/* } */}
 
     </>
@@ -77,7 +77,7 @@ const MessageCard = ({message, setShowThread, user_id}) => {
 const MessageScreen = () => {
 
   const context = useContext(UserContext)
-  const  user_id = context.user_data.user_id
+  const user_id = context.user_data.user_id
   console.log(user_id)
   console.log(typeof user_id)
 
@@ -88,8 +88,10 @@ const MessageScreen = () => {
   const [newMessage, setNewMessage] = useState()
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  // const [height, setHeight] = useState(0)
 
-  // const [window, setWindow] = useState([])
+  const [window, setWindow] = useState([])
+  const [windowHeight, setWindowHeight] = useState(0)
   const tabBarHeight = useBottomTabBarHeight();
 
   const sortMessagesByOtherUser = (messages) => {
@@ -99,7 +101,7 @@ const MessageScreen = () => {
     messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
-      if (!recentByOtherUser.hasOwnProperty(other)){
+      if (!recentByOtherUser.hasOwnProperty(other)) {
         recentByOtherUser[other] = msg
         message_queue.push(msg)
       }
@@ -114,19 +116,21 @@ const MessageScreen = () => {
     }
 
     const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
-      setKeyboardHeight(()=>{
+      // setHeight(e.endCoordinates.height - tabBarHeight)
+      setKeyboardHeight(() => {
         console.log(e.endCoordinates.height)
         console.log(tabBarHeight)
-        return(e.endCoordinates.height - tabBarHeight)
+        return (e.endCoordinates.height - tabBarHeight)
       })
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", (e) => {
       setKeyboardHeight(0)
     });
 
-    // const windowWidth = Dimensions.get('window').width;
-    // const windowHeight = Dimensions.get('window').height;
-    // setWindow(`${windowWidth} ${windowHeight}`)
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+    setWindow(`${windowWidth} ${windowHeight}`)
+    setWindowHeight(windowHeight)
 
     return () => {
       showSubscription.remove();
@@ -135,8 +139,8 @@ const MessageScreen = () => {
 
   }, [])
 
-  const renderItem = ({item}) => {
-    return <MessageCard style={{flex: 1, flexDirection: 'row-reverse',}} message={item} setShowThread = {setShowThread} user_id={user_id}
+  const renderItem = ({ item }) => {
+    return <MessageCard style={{ flex: 1, flexDirection: 'row-reverse', }} message={item} setShowThread={setShowThread} user_id={user_id}
     />
   }
 
@@ -151,7 +155,8 @@ const MessageScreen = () => {
           <Text style={styles.status}>{Keyboard.startCoordinates}</Text> */}
 
           {/* <Text>{window}</Text>
-          <Text>{tabBarHeight}</Text> */}
+          <Text>{tabBarHeight}</Text>
+          <Text>keyboard heioght: {keyboardHeight}</Text> */}
 
           {/* <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text> */}
 
@@ -168,33 +173,45 @@ const MessageScreen = () => {
           }
           {showThread &&
             <>
-              <TouchableOpacity  >
-                <Text style={styles.headerButton} onPress={() => setShowThread(false)}>Back to Messages</Text>
-              </TouchableOpacity>
-              <FlatList
-                data={messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
+              <View
+              style={{
+                //the static numbers represent the text input height (with padding) and the headerButton height (padding)
+                height: windowHeight - keyboardHeight - tabBarHeight - 80 - 62
+              }}
+              >
+
+                <TouchableOpacity  >
+                  <Text style={styles.headerButton} onPress={() => setShowThread(false)}>Back to Messages</Text>
+                </TouchableOpacity>
+                <FlatList
+                  data={messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.id}
+                />
+                {console.log(Keyboard)}
+
+              </View>
+
+              <TextInput
+                style={{
+                  height: 60,
+                  lineHeight: 20,
+                  borderWidth: 2,
+                  borderColor: '#e1861b',
+                  padding: 10,
+                  backgroundColor: "white",
+                  position: 'absolute',
+                  bottom: keyboardHeight,
+                  width: '100%'
+                }}
+                onChangeText={setNewMessage}
+                value={newMessage}
               />
-              {console.log(Keyboard)}
 
             </>
+
           }
-          <TextInput
-            style={{
-              height: 60,
-              lineHeight: 20,
-              borderWidth: 2,
-              borderColor: '#e1861b',
-              padding: 10,
-              backgroundColor: "white",
-              position: 'absolute',
-              bottom: keyboardHeight,
-              width: '100%'
-            }}
-            onChangeText={setNewMessage}
-            value={newMessage}
-          />
+
           {/* <View style={{width: '100%', height: 0, borderColor: 'red', borderWidth: '4'}}></View> */}
         </>
       )}
