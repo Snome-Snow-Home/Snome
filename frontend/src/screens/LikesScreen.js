@@ -1,6 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import UserContext from '../Context/UserContext';
+import { useNavigation } from '@react-navigation/native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 
 // for testing purposes
@@ -11,6 +19,7 @@ const { width } = Dimensions.get('window');
 const height = width * 0.6;
 
 const LikesScreen = () => {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   const context = useContext(UserContext);
   const [active, setActive] = useState([0]);
@@ -37,8 +46,6 @@ const LikesScreen = () => {
     }
   };
 
-
-
   return (
     <View style={{ height: screenHeight }}>
       <ScrollView>
@@ -47,15 +54,24 @@ const LikesScreen = () => {
         {data ? (
           data.map((item, index) => (
             <Card style={styles.container} key={index}>
-              <Card.Title
-                numberOfLines={3}
-                title={item.header}
-                subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`}
-              />
-              <Title
-                style={styles.header}
-                subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`}
-              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Description', {
+                    snome_id: item.snome_id,
+                  })
+                }
+              >
+                <Card.Title
+                  numberOfLines={3}
+                  title={item.header}
+                  subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`}
+                />
+
+                <Title
+                  style={styles.header}
+                  subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`}
+                />
+              </TouchableOpacity>
               <Card.Content>
                 <View style={styles.imageContainer}>
                   <ScrollView
