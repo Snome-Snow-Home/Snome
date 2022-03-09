@@ -94,7 +94,6 @@ module.exports = {
       try {
       await db.none(`
         INSERT INTO message (
-          id,
           recipient_id,
           sender_id,
           time,
@@ -102,9 +101,9 @@ module.exports = {
           has_been_read
         )
         VALUES (
-          $1, $2, $3, $4, $5, $6
+          $1, $2, $3, $4, $5
         )
-      `, [55, recipient_id, sender_id, current_time, message_text, 'FALSE']);
+      `, [recipient_id, sender_id, current_time, message_text, 'FALSE']);
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
