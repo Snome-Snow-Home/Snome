@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import {View, Text, TextInput, StyleSheet, SafeAreaView, SectionList, ScrollView, ListView, FlatList, TouchableOpacity, Keyboard} from 'react-native';
 import UserContext from '../Context/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 
 const styles = {
@@ -73,29 +71,6 @@ const MessageCard = ({message, setShowThread, user_id}) => {
 
 
 const MessageScreen = () => {
-
-  useEffect(async ()=>{
-
-    const token = await AsyncStorage.getItem('token')
-    // token.then(v => {console.log(v)})
-    console.log(`Bearer ${token.slice(1, token.length-1)}`)
-
-    // try {
-      axios({
-        method: 'get',
-        url: 'http://localhost:3000/protected_has_token',
-        headers: {
-          'Authorization': `Bearer ${token.slice(1, token.length-1)}`
-        }
-      })
-      .then(response => {
-        console.log('MESSAGE JWT TEST: ', response)
-      })
-      .catch(error => {
-        console.error(error);
-        console.log('MESSAGE JWT TEST FAILED: ', error)
-      })
-  })
 
   const context = useContext(UserContext)
   const  user_id = context.user_data.user_id
