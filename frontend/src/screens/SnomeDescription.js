@@ -194,7 +194,7 @@ const style = StyleSheet.create({
     padding: 8,
     width: '95%',
   },
-  card: {marginTop: 50, width, height: width * 0.15}
+  card: {marginTop: 50, width, height: width * 0.18}
 });
 
 export default SnomeDescription;

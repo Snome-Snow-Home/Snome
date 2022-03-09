@@ -110,7 +110,6 @@ function ListingScreen({ route }) {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
     );
-    console.log(slide);
     if (slide !== active) {
       setActive(slide);
     }
