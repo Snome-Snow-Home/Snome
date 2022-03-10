@@ -78,7 +78,6 @@ const MessageScreen = () => {
   const context = useContext(UserContext)
   const user_id = context.user_data.user_id
   console.log(user_id)
-  console.log(typeof user_id)
 
   const [messages, setMessages] = useState(context.messages)
 
@@ -116,7 +115,7 @@ const MessageScreen = () => {
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
     ).catch(error => {
       console.error(error);
-      console.log('Snome not able to be added to snome_like ', error)
+      console.log('Snome not able to be added to snome_message ', error)
     })
 
   };
@@ -127,10 +126,7 @@ const MessageScreen = () => {
     }
 
     const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
-      // setHeight(e.endCoordinates.height - tabBarHeight)
       setKeyboardHeight(() => {
-        console.log(e.endCoordinates.height)
-        console.log(tabBarHeight)
         return (e.endCoordinates.height - tabBarHeight)
       })
     });
@@ -199,7 +195,7 @@ const MessageScreen = () => {
                   renderItem={renderItem}
                   keyExtractor={item => item.id}
                 />
-                {console.log(Keyboard)}
+                {/* {console.log(Keyboard)} */}
 
               </View>
 
