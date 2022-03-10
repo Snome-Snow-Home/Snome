@@ -31,7 +31,7 @@ function ListingScreen({ route }) {
   const getListing = async () => {
     try {
       const response = await fetch(
-        'http://10.0.0.53:3000/listing/' + route.params.location_id
+        'http://localhost:3000/listing/' + route.params.location_id
       );
       const json = await response.json();
       console.log(json);
@@ -61,7 +61,7 @@ function ListingScreen({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://10.0.0.53:3000/snome/like/exists/' + likeObj.snome_id +
+        'http://localhost:3000/snome/like/exists/' + likeObj.snome_id +
         '/' +
         likeObj.snome_user_id
       );
@@ -88,7 +88,7 @@ function ListingScreen({ route }) {
         snome_id: snome_id,
       };
       axios.post(
-        'http://10.0.0.53:3000/snome/like/' +
+        'http://localhost:3000/snome/like/' +
         likeObj.snome_id +
         '/' +
         likeObj.snome_user_id,

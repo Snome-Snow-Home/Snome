@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault()
         axios({
             method: 'post',
-            url: 'http://10.0.0.53:3000/login',
+            url: 'http://localhost:3000/login',
             data: {
                 username: username,
                 password: password
@@ -45,7 +45,7 @@ export default function Login() {
                 let user_id = res.data.auth_user.id
                 console.log('user id: ', user_id)
                 console.log('user id type: ', typeof user_id)
-                let user_messages = await fetch(`http://10.0.0.53:3000/messages/${user_id}`)
+                let user_messages = await fetch(`http://localhost:3000/messages/${user_id}`)
                 let messages_json = await user_messages.json()
                 context.setMessages(messages_json)
             })

@@ -111,7 +111,7 @@ const MessageScreen = () => {
   const sendMessage = async () => {
 
     axios.post(
-      'http://10.0.0.53:3000/messages/',
+      'http://localhost:3000/messages/',
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
     ).catch(error => {
       console.error(error);

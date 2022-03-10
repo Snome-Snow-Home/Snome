@@ -34,7 +34,7 @@ function TownsScreen({ route }) {
   const getListing = async () => {
     try {
       const response = await fetch(
-        'http://10.0.0.53:3000/listing/' + route.params.location_id
+        'http://localhost:3000/listing/' + route.params.location_id
       );
       const json = await response.json();
       console.log(json);
@@ -75,7 +75,7 @@ function TownsScreen({ route }) {
     }
     axios.post(
 
-      'http://10.0.0.53:3000/snome/like/' + likeObj.snome_id + '/' + likeObj.snome_user_id, {}
+      'http://localhost:3000/snome/like/' + likeObj.snome_id + '/' + likeObj.snome_user_id, {}
     )
     console.log("you like me!")
     console.log(likeObj)

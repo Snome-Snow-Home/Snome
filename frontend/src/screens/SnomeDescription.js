@@ -17,7 +17,7 @@ function SnomeDescription({ route }) {
   const getImageUrl = async () => {
     console.log(route);
     try {
-      const response = await fetch('http://10.0.0.53:3000/snome/' + route.params.snome_id + '/photos');
+      const response = await fetch('http://localhost:3000/snome/' + route.params.snome_id + '/photos');
       const json = await response.json();
       setData(json.url);
     } catch (error) {
@@ -116,7 +116,7 @@ export default SnomeDescription;
 
 //     const getPhotos = async () => {
 //         try {
-//             const response = await fetch('http://10.0.0.53:3000/snome/10/photos');
+//             const response = await fetch('http://localhost:3000/snome/10/photos');
 //             const json = await response.json();
 //             setData(json);
 //         } catch (error) {
