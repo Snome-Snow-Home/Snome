@@ -18,11 +18,14 @@ import { Button, Card, Title, Paragraph } from 'react-native-paper';
 // for testing purposes
 // import location from '../localtestdata/Projects.json';
 
-function ListingScreen({ route }) {
+const { width } = Dimensions.get('window');
+const height = width * 0.6;
 
+function ListingScreen({ route }) {
   //const [flexDirection, setflexDirection] = useState('column');
   const [error, setError] = useState('');
   const [listing, setData] = useState([]);
+  const [active, setActive] = useState([0]);
 
   const navigation = useNavigation();
   const context = useContext(UserContext);
@@ -61,12 +64,13 @@ function ListingScreen({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://localhost:3000/snome/like/exists/' + likeObj.snome_id +
-        '/' +
-        likeObj.snome_user_id
+        'http://localhost:3000/snome/like/exists/' +
+          likeObj.snome_id +
+          '/' +
+          likeObj.snome_user_id
       );
       const likeStatus = await checkLikes.json();
-      console.log(likeStatus)
+      console.log(likeStatus);
       return likeStatus.case;
     } catch (error) {
       console.error(error);
@@ -80,23 +84,34 @@ function ListingScreen({ route }) {
     };
 
     if (status.likes) {
-      return updateError("You have already liked this Snome", setError)
+      return updateError('You have already liked this Snome', setError);
     } else {
       //console.log(context)
       const likeObj = {
         snome_user_id: context.user_data.user_id,
         snome_id: snome_id,
       };
-      axios.post(
-        'http://localhost:3000/snome/like/' +
-        likeObj.snome_id +
-        '/' +
-        likeObj.snome_user_id,
-        {}
-      ).catch(error => {
-        console.error(error);
-        console.log('Snome not able to be added to snome_like ', error)
-      })
+      axios
+        .post(
+          'http://localhost:3000/snome/like/' +
+            likeObj.snome_id +
+            '/' +
+            likeObj.snome_user_id,
+          {}
+        )
+        .catch((error) => {
+          console.error(error);
+          console.log('Snome not able to be added to snome_like ', error);
+        });
+    }
+  };
+
+  let change = ({ nativeEvent }) => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+    );
+    if (slide !== active) {
+      setActive(slide);
     }
   };
 
@@ -109,27 +124,64 @@ function ListingScreen({ route }) {
       {listing.map((listing) => (
         <Card id="listing" style={styles.container} key={listing.snome_id}>
           <Title>
-            <TouchableOpacity onPress={() => navigation.navigate("Description", { snome_id: listing.snome_id })}>
-              <Text style={{ margin: 15, marginTop: 20 }}>{listing.header}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Description', {
+                  snome_id: listing.snome_id,
+                })
+              }
+            >
+              <Text style={{ margin: 15, marginTop: 20 }}>
+                {listing.header}
+              </Text>
             </TouchableOpacity>
           </Title>
 
           <Card.Content>
-            <Card.Cover source={{ uri: listing.url[0] }} />
-
+            <View style={styles.imageContainer}>
+              <ScrollView
+                pagingEnabled
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                onScroll={change}
+                scrollEventThrottle={150}
+                style={styles.scroll}
+              >
+                {listing.url.map((url, index) => (
+                  <Image
+                    key={index}
+                    source={{ uri: url }}
+                    style={styles.image}
+                  />
+                ))}
+              </ScrollView>
+              <View style={styles.pagination}>
+                {listing.url.map((i, j) => (
+                  <Text
+                    key={j}
+                    style={
+                      j == active ? styles.pagingActiveText : styles.pagingText
+                    }
+                  >
+                    ⬤
+                  </Text>
+                ))}
+              </View>
+            </View>
             <Paragraph>{listing.description}</Paragraph>
             <Card.Actions>
-              <Button mode="outined"
+              <Button
+                mode="outined"
                 // style={styles.button}
                 icon="heart-outline"
-                onPress={() => addToLikes(listing.snome_id)}>
+                onPress={() => addToLikes(listing.snome_id)}
+              >
                 <Text>I like this Snome!</Text>
               </Button>
             </Card.Actions>
           </Card.Content>
         </Card>
       ))}
-
 
       {/* {listing.map((listing) => (
         <React.Fragment key={listing.snome_id}>
@@ -165,34 +217,22 @@ function ListingScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  // containerOne: {
-  //   width: Dimensions.get('window').width * 0.4,
-  //   height: Dimensions.get('window').width * 0.4,
-  //   flexDirection: 'column',
-  //   flexWrap: 'wrap',
-  //   justifyContent: 'space-evenly',
-  //   flex: 1,
-  //   margin: 20,
-  //   padding: 12,
-  // },
   container: {
-    width: 350,
-    // width: Dimensions.get('window').width,
-    height: 600,
+    width,
+    height: width * 0.8,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     display: 'flex',
     flex: 3,
-    backgroundColor: "#EFEDE4",
-    //border: '1px solid #ccc',
+    backgroundColor: '#EFEDE4',
     borderRadius: 5,
     padding: 5,
     margin: 20,
     shadowColor: '#470000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.9,
-    elevation: 2
+    elevation: 2,
   },
   title: {
     fontSize: 40,
@@ -232,7 +272,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#448EB1',
     color: 'white',
     fontFamily: 'Arial',
-    // width: '50%',
     width: Dimensions.get('window').width * 0.4,
     marginLeft: '25%',
     marginRight: '25%',
@@ -247,7 +286,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 8,
     width: '95%',
-  }
+  },
+  imageContainer: { marginTop: 50, width, height },
+  scroll: { width, height },
+  image: { width, height, resizeMode: 'cover' },
+  pagination: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+  },
+  pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
+  pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
 });
 
 export default ListingScreen;
