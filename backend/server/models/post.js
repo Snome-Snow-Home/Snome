@@ -76,12 +76,34 @@ module.exports = {
       await db.none(`
         INSERT INTO snome_like (
           snome_user_id,
-          snome_id 
+          snome_id
         )
         VALUES (
           $1, $2
         )
       `, [snome_user_id, snome_id]);
+    } catch (err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
+  createMessage: async ({sender_id, recipient_id, message_text }) => {
+
+    let current_time = new Date().toISOString();
+      try {
+      await db.none(`
+        INSERT INTO message (
+          recipient_id,
+          sender_id,
+          time,
+          message_text,
+          has_been_read
+        )
+        VALUES (
+          $1, $2, $3, $4, $5
+        )
+      `, [recipient_id, sender_id, current_time, message_text, 'FALSE']);
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;

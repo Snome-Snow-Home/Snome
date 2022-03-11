@@ -83,3 +83,4 @@ router.get("/protected_has_token", jwt({ secret: process.env.TOKEN_SECRET, algor
 
 /* MESSAGES to-and-from a given user*/
 router.get("/messages/:user_id", controller.get.getMessages);
+router.post("/messages/", controller.post.createMessage)
