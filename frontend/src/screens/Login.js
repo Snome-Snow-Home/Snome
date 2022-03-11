@@ -4,10 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import UserContext from '../Context/UserContext'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import UseTogglePasswordVisibility from '../components/useTogglePassowrdVisibility';
 
 
 export default function Login() {
-
+    const { passwordVis, rightIcon, handlePasswordVisibility } =
+        UseTogglePasswordVisibility();
     const navigation = useNavigation()
     const context = useContext(UserContext)
 
@@ -92,7 +95,8 @@ export default function Login() {
                     placeholder="password"
                     type="text"
                     required
-                    secureTextEntry={true}
+                    secureTextEntry={passwordVis}
+                    //secureTextEntry={true}
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={password}
@@ -101,6 +105,9 @@ export default function Login() {
                     // onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                     style={styles.formInput}
                 />
+                <Pressable onPress={handlePasswordVisibility}>
+                    <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                </Pressable>
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
