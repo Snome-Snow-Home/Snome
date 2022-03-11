@@ -75,15 +75,13 @@ export default function Login() {
                 <View style={styles.formInput}>
                     <TextInput
                         id="username"
-                        placeholder="username"
+                        //placeholder="username"
                         type="text"
                         required
                         autoCapitalize='none'
                         autoCorrect={false}
                         value={username}
                         onChangeText={setUsername}
-                        // value={credentials.username}
-                        // onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
                         style={styles.inputField}
                     />
                 </View>
@@ -95,7 +93,7 @@ export default function Login() {
                 <View style={styles.formInput}>
                     <TextInput
                         id="password"
-                        placeholder="password"
+                        // placeholder="password"
                         type="text"
                         required
                         secureTextEntry={passwordVis}
@@ -104,8 +102,6 @@ export default function Login() {
                         autoCorrect={false}
                         value={password}
                         onChangeText={setPassword}
-                        // value={credentials.password}
-                        // onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                         style={styles.inputField}
                     />
                     <Pressable onPress={handlePasswordVisibility}>
