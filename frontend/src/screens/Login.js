@@ -72,19 +72,21 @@ export default function Login() {
                     <Text style={styles.label} htmlFor="username">Username: </Text>
                     <Text style={styles.required}>*Required</Text>
                 </Text>
-                <TextInput
-                    id="username"
-                    placeholder="username"
-                    type="text"
-                    required
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={username}
-                    onChangeText={setUsername}
-                    // value={credentials.username}
-                    // onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-                    style={styles.formInput}
-                />
+                <View style={styles.formInput}>
+                    <TextInput
+                        id="username"
+                        placeholder="username"
+                        type="text"
+                        required
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={username}
+                        onChangeText={setUsername}
+                        // value={credentials.username}
+                        // onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                        style={styles.inputField}
+                    />
+                </View>
 
                 <Text style={styles.horizontal}>
                     <Text style={styles.label} htmlFor="password">Password: </Text>
