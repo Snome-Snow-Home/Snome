@@ -90,24 +90,26 @@ export default function Login() {
                     <Text style={styles.label} htmlFor="password">Password: </Text>
                     <Text style={styles.required}>*Required</Text>
                 </Text>
-                <TextInput
-                    id="password"
-                    placeholder="password"
-                    type="text"
-                    required
-                    secureTextEntry={passwordVis}
-                    //secureTextEntry={true}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={password}
-                    onChangeText={setPassword}
-                    // value={credentials.password}
-                    // onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                    style={styles.formInput}
-                />
-                <Pressable onPress={handlePasswordVisibility}>
-                    <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
-                </Pressable>
+                <View style={styles.formInput}>
+                    <TextInput
+                        id="password"
+                        placeholder="password"
+                        type="text"
+                        required
+                        secureTextEntry={passwordVis}
+                        //secureTextEntry={true}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={password}
+                        onChangeText={setPassword}
+                        // value={credentials.password}
+                        // onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                        style={styles.inputField}
+                    />
+                    <Pressable onPress={handlePasswordVisibility}>
+                        <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                    </Pressable>
+                </View>
 
                 <Pressable style={styles.button} title="Submit"
                     // onPress={handleSubmit}
@@ -140,12 +142,19 @@ const styles = StyleSheet.create({
         color: "black",
         backgroundColor: "lightblue",
         borderColor: "lightgray",
-        borderWidth: 1,
+        borderWidth: 2,
         borderStyle: 'solid',
         borderRadius: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
         padding: 8,
         width: "100%",
 
+    },
+    inputField: {
+        padding: 5,
+        fontSize: 13,
+        width: '90%'
     },
     label: {
         margin: 5,
