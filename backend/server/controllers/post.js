@@ -1,5 +1,7 @@
 const { post } = require("../models");
 const { uploadToS3 } = require("./helpers/s3helpers.js");
+const axios = require('axios');
+
 
 /* define post request handlers here */
 
@@ -115,6 +117,12 @@ module.exports = {
       .then((data) => {
         console.log(req.body)
         res.send(data);
+      })
+      .then(() => {
+        axios.post(`http://localhost:8080/${req.body.recipient_id}`,
+        {msg_txt: req.body.message_text},
+        {headers: {'Content-Type': 'application/json;charset=utf-8'}}
+        )
       })
       .catch(err => {
         res.status(500).send(
