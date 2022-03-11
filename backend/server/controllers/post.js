@@ -115,10 +115,12 @@ module.exports = {
     post
       .createMessage(req.body)
       .then((data) => {
-        console.log(req.body)
-        res.send(data);
+        console.log({...req.body, time: data})
+        // console.log(data)
+        res.send({...req.body, time: data});
       })
       .then(() => {
+        //once saved to db, send to recipient via websockets
         axios.post(`http://localhost:8080/${req.body.recipient_id}`,
         {msg_txt: req.body.message_text},
         {headers: {'Content-Type': 'application/json;charset=utf-8'}}

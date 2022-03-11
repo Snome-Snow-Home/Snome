@@ -92,6 +92,9 @@ const MessageScreen = () => {
   const [windowHeight, setWindowHeight] = useState(0)
   const tabBarHeight = useBottomTabBarHeight();
 
+  const [tempData, setTempData] = useState('')
+
+
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
@@ -110,13 +113,15 @@ const MessageScreen = () => {
 
   const sendMessage = async () => {
 
-    // ws.send(newMessage + user_id);
-    // ws.send(newMessage + '1' + '6');
-
     axios.post(
       'http://10.0.0.53:3000/messages/',
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
-    ).catch(error => {
+    )
+    .then((new_message)=>{
+      setMessages([new_message.data, ...messages])
+      }
+    )
+    .catch(error => {
       console.error(error);
       console.log('Snome not able to be added to snome_message ', error)
     })
@@ -129,21 +134,21 @@ const MessageScreen = () => {
 
   useEffect(() => {
 
-    const serverMessagesList = [];
+    // const serverMessagesList = [];
 
-    ws.onopen = () => {
-    };
-    ws.onclose = (e) => {
-      setServerState('Disconnected. Check internet or server.')
-      setDisableButton(true);
-    };
-    ws.onerror = (e) => {
-      setServerState(e.message);
-    };
-    ws.onmessage = (e) => {
-      serverMessagesList.push(e.data);
-      setServerMessages([...serverMessagesList])
-    };
+    // ws.onopen = () => {
+    // };
+    // ws.onclose = (e) => {
+    //   setServerState('Disconnected. Check internet or server.')
+    //   setDisableButton(true);
+    // };
+    // ws.onerror = (e) => {
+    //   setServerState(e.message);
+    // };
+    // ws.onmessage = (e) => {
+    //   serverMessagesList.push(e.data);
+    //   setServerMessages([...serverMessagesList])
+    // };
 
 
     if (messages) {
@@ -194,16 +199,6 @@ const MessageScreen = () => {
           }
           {showThread &&
             <>
-              <ScrollView>
-                {
-                  serverMessages.map((item, ind) => {
-                    return (
-                    <Text key={ind}>{item}</Text>
-                    )
-                  })
-                }
-            </ScrollView>
-
               <View
                 style={{
                   //the static numbers represent the text input height (with padding) and the headerButton height (padding)
