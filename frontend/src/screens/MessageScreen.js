@@ -110,8 +110,10 @@ const MessageScreen = () => {
 
   const sendMessage = async () => {
 
+    ws.send(newMessage);
+
     axios.post(
-      'http://localhost:3000/messages/',
+      'http://10.0.0.53:3000/messages/',
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
     ).catch(error => {
       console.error(error);
@@ -120,7 +122,29 @@ const MessageScreen = () => {
 
   };
 
+  var ws = React.useRef(new WebSocket('ws://10.0.0.53:8080')).current;
+  const [serverMessages, setServerMessages] = React.useState([]);
+
+
   useEffect(() => {
+
+    const serverMessagesList = [];
+
+    ws.onopen = () => {
+    };
+    ws.onclose = (e) => {
+      setServerState('Disconnected. Check internet or server.')
+      setDisableButton(true);
+    };
+    ws.onerror = (e) => {
+      setServerState(e.message);
+    };
+    ws.onmessage = (e) => {
+      serverMessagesList.push(e.data);
+      setServerMessages([...serverMessagesList])
+    };
+
+
     if (messages) {
       sortMessagesByOtherUser(messages)
     }
@@ -157,17 +181,6 @@ const MessageScreen = () => {
       {context => (
         <>
 
-          {/* <Text style={styles.status}>{keyboardStatus}</Text>
-          <Text style={styles.status}>{Keyboard.endCoordinates}</Text>
-          <Text style={styles.status}>{Keyboard.startCoordinates}</Text> */}
-
-          {/* <Text>{window}</Text>
-          <Text>{tabBarHeight}</Text>
-          <Text>keyboard heioght: {keyboardHeight}</Text> */}
-
-          {/* <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text> */}
-
-{/* <Text>{showThread}</Text> */}
           {!showThread &&
             <>
               <Text style={styles.headerButton}>Your Conversations</Text>
@@ -180,6 +193,16 @@ const MessageScreen = () => {
           }
           {showThread &&
             <>
+              <ScrollView>
+                {
+                  serverMessages.map((item, ind) => {
+                    return (
+                    <Text key={ind}>{item}</Text>
+                    )
+                  })
+                }
+            </ScrollView>
+
               <View
                 style={{
                   //the static numbers represent the text input height (with padding) and the headerButton height (padding)
@@ -221,7 +244,6 @@ const MessageScreen = () => {
 
           }
 
-          {/* <View style={{width: '100%', height: 0, borderColor: 'red', borderWidth: '4'}}></View> */}
         </>
       )}
     </UserContext.Consumer>
