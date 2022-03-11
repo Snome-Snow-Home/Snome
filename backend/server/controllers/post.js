@@ -100,25 +100,27 @@ module.exports = {
     }
   },
 
-  createMessage: async (req, res) => {
-    try {
-      console.log(req.body);
-      let data = await post.createMessage(req.body);
-      res.status(200).json(data);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-    // post
-    //   .createMessage(req.body)
-    //   .then((data) => {
-    //     res.send(data);
-    //   })
-    //   .catch(err => {
-    //     res.status(500).send(
-    //       "Some error occurred while creating the review."
-    //     )
-    //   })
+  createMessage: (req, res) => {
+  // createMessage: async (req, res) => {
+    // try {
+    //   console.log(req.body);
+    //   let data = await post.createMessage(req.body);
+    //   res.status(200).json(data);
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(400).send(err);
+    // }
+    post
+      .createMessage(req.body)
+      .then((data) => {
+        console.log(req.body)
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send(
+          "Some error occurred while creating the message."
+        )
+      })
   },
 
   createReview: async (req, res) => {

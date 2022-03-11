@@ -110,7 +110,8 @@ const MessageScreen = () => {
 
   const sendMessage = async () => {
 
-    ws.send(newMessage);
+    // ws.send(newMessage + user_id);
+    // ws.send(newMessage + '1' + '6');
 
     axios.post(
       'http://10.0.0.53:3000/messages/',
