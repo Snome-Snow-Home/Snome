@@ -129,6 +129,7 @@ const MessageScreen = () => {
   var ws = React.useRef(new WebSocket('ws://10.0.0.53:8080')).current;
   const [serverMessages, setServerMessages] = useState('');
 
+  const [temp, setTemp] = useState('empty')
 
   useEffect(() => {
 
@@ -150,6 +151,12 @@ const MessageScreen = () => {
     ws.onmessage = (e) => {
       console.log(e)
       console.log(e.data)
+      console.log('sender id: ', JSON.parse(e.data))
+      let new_message = JSON.parse(e.data)
+
+      setMessages([new_message, ...messages]),
+      sortMessagesByOtherUser([new_message, ...messages])
+
       // serverMessagesList.push(e.data);
       // setServerMessages([...serverMessagesList])
     };
