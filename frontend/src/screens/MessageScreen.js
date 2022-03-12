@@ -92,14 +92,11 @@ const MessageScreen = () => {
   const [windowHeight, setWindowHeight] = useState(0)
   const tabBarHeight = useBottomTabBarHeight();
 
-  const [tempData, setTempData] = useState('')
-
-
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
     // console.log(messages)
-    messages.reverse()
+    // messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
       if (!recentByOtherUser.hasOwnProperty(other)) {
@@ -119,6 +116,7 @@ const MessageScreen = () => {
     )
     .then((new_message)=>{
       setMessages([new_message.data, ...messages])
+      sortMessagesByOtherUser([new_message.data, ...messages])
       }
     )
     .catch(error => {
