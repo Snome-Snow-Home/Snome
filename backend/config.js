@@ -3,7 +3,7 @@ require('dotenv').config()
 /* COMMON CONFIGURATION */
 common = {
     server: {
-        host: 'localhost',
+        host: '10.0.0.53',
         port: 3000,
     },
 
@@ -18,7 +18,7 @@ common = {
 /* DEVELOPMENT CONFIGURATION */
 development = {
     db: {
-        host: 'localhost',
+        host: '10.0.0.53',
         port: 5432,
         database: 'postgres',
         user: 'postgres',
@@ -31,7 +31,7 @@ development = {
 // note: jest sets NODE_ENV to 'test'
 test = {
     db: {
-        host: 'localhost',
+        host: '10.0.0.53',
         port: 5432,
         database: 'postgres',
         user: 'postgres',

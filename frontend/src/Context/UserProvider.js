@@ -9,9 +9,11 @@ function UserProvider(props) {
   let user_messages;
 
 
+  const [town, setTown] = useState(101)
+
   const appDataFetch = async () => {
     try {
-      const location = await fetch('http://localhost:3000/location')
+      const location = await fetch('http://10.0.0.53:3000/location')
       const location_json = await location.json();
       setLocation(location_json)
     } catch (error) {
@@ -44,7 +46,7 @@ function UserProvider(props) {
 
   return (
     <UserContext.Provider
-      value={{ messages: messages, setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
+      value={{ town: town, setTown: setTown, messages: messages, setMessages: setMessages, user_data: userData, setUserData: setUserData, location_data: location }}
     >
       {props.children}
     </UserContext.Provider>
