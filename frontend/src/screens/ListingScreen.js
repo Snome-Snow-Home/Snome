@@ -47,7 +47,7 @@ function ListingScreen({ route }) {
   // useEffect is a hook that runs a piece of code based on a given condition
   useEffect(() => {
     getListing();
-  }, []);
+  }, [context.town]);
 
   const updateError = (error, stateUpdater) => {
     stateUpdater(error);

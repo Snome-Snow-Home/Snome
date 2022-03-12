@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from '../Context/UserContext';
 import {
   StyleSheet,
   Text,
@@ -84,18 +85,37 @@ const ShowList = ({
   toggleOptions,
   locationData,
 }) => {
-  // console.log(locationData)
+
+  const context = useContext(UserContext);
+  const town = context.town;
+  const setTown = context.setTown
+
   const navigation = useNavigation();
 
   return (
     <>
       <ScrollView>
+
+        <Text>Current town: {town}</Text>
+        {/* <TouchableOpacity
+              onPress={() => {
+                setTown(town + 1);
+              }}
+            >
+              <Text>
+                Button (setTowns)
+              </Text>
+            </TouchableOpacity> */}
+
+
         <Text style={styles.label}>{label}</Text>
         <View style={[styles.row, styles.ListMapContainer]}>
           {locationData.map((location) => (
             <TouchableOpacity
               key={location.name}
               onPress={() => {
+                setTown(location.location_id)
+                console.log('location: ', location)
                 setSelectedValue(location.name);
                 navigation.navigate('Listing', {
                   location_id: location.location_id,
