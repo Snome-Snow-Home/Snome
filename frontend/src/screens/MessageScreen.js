@@ -127,15 +127,19 @@ const MessageScreen = () => {
   };
 
   var ws = React.useRef(new WebSocket('ws://10.0.0.53:8080')).current;
-  const [serverMessages, setServerMessages] = React.useState([]);
+  const [serverMessages, setServerMessages] = useState('');
 
 
   useEffect(() => {
 
     // const serverMessagesList = [];
 
-    // ws.onopen = () => {
-    // };
+    ws.onopen = () => {
+      // ws.send(user_id)
+      // ws.send(JSON.stringify({connected: false, id: user_id}))
+      ws.send(JSON.stringify({source: 'client', id: user_id}))
+
+    };
     // ws.onclose = (e) => {
     //   setServerState('Disconnected. Check internet or server.')
     //   setDisableButton(true);
@@ -143,10 +147,12 @@ const MessageScreen = () => {
     // ws.onerror = (e) => {
     //   setServerState(e.message);
     // };
-    // ws.onmessage = (e) => {
-    //   serverMessagesList.push(e.data);
-    //   setServerMessages([...serverMessagesList])
-    // };
+    ws.onmessage = (e) => {
+      console.log(e)
+      console.log(e.data)
+      // serverMessagesList.push(e.data);
+      // setServerMessages([...serverMessagesList])
+    };
 
 
     if (messages) {
