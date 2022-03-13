@@ -22,6 +22,7 @@ const LikesScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const context = useContext(UserContext);
+  const setTracker = context.setTracker;
 
   const [active, setActive] = useState([0]);
 
