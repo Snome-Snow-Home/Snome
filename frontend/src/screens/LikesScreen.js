@@ -32,6 +32,7 @@ const LikesScreen = () => {
     console.log(response);
     let json = await response.json();
     setData(json);
+
     console.log("Here are your Snome's you've liked");
   };
 
