@@ -111,7 +111,7 @@ const MessageScreen = () => {
   const sendMessage = async () => {
 
     axios.post(
-      'http://10.0.0.53:3000/messages/',
+      'http://localhost:3000/messages/',
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
     )
     .then((new_message)=>{
@@ -126,7 +126,7 @@ const MessageScreen = () => {
 
   };
 
-  var ws = React.useRef(new WebSocket('ws://10.0.0.53:8080')).current;
+  var ws = React.useRef(new WebSocket('ws://localhost:8080')).current;
   const [serverMessages, setServerMessages] = useState('');
 
   const [temp, setTemp] = useState('empty')

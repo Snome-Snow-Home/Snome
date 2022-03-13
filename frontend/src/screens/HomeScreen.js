@@ -87,35 +87,21 @@ const ShowList = ({
 }) => {
 
   const context = useContext(UserContext);
-  const town = context.town;
-  const setTown = context.setTown
+  const stateTracker = context.stateTracker;
+  const setTracker = context.setTracker
 
   const navigation = useNavigation();
 
   return (
     <>
       <ScrollView>
-
-        <Text>Current town: {town}</Text>
-        {/* <TouchableOpacity
-              onPress={() => {
-                setTown(town + 1);
-              }}
-            >
-              <Text>
-                Button (setTowns)
-              </Text>
-            </TouchableOpacity> */}
-
-
         <Text style={styles.label}>{label}</Text>
         <View style={[styles.row, styles.ListMapContainer]}>
           {locationData.map((location) => (
             <TouchableOpacity
               key={location.name}
               onPress={() => {
-                setTown(location.location_id)
-                console.log('location: ', location)
+                setTracker(location.location_id)
                 setSelectedValue(location.name);
                 navigation.navigate('Listing', {
                   location_id: location.location_id,
@@ -321,7 +307,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      const response = await fetch('http://10.0.0.53:3000/featured_location');
+      const response = await fetch('http://localhost:3000/featured_location');
       const json = await response.json();
       setData(json);
     } catch (error) {
