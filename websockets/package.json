@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
+    "localtunnel": "^2.0.2",
     "nodemon": "^2.0.15",
     "ws": "^8.5.0"
   }

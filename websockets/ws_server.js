@@ -12,8 +12,13 @@ const wss = new WebSocket.Server({ server });
 
 const CLIENTS={};
 
+app.get('/', (req,res)=>{
+  res.send('success!')
+})
+
 app.post("/:id", (req, res) => {
   console.log('Got body:', req.body.msg_txt);
+  console.log('num of clients: ', Object.keys(CLIENTS).length)
   if (req.params.id){
     if (CLIENTS[req.params.id]){
       //pass along ws message
