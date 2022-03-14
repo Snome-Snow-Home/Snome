@@ -126,7 +126,7 @@ const MessageScreen = () => {
 
   };
 
-  var ws = React.useRef(new WebSocket('ws://quick-tiger-39.loca.lt')).current;
+  var ws = React.useRef(new WebSocket('ws://10.0.0.53:8080')).current;
   const [serverMessages, setServerMessages] = useState('');
 
   const [temp, setTemp] = useState('empty')

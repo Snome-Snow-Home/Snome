@@ -19,14 +19,18 @@ app.get('/', (req,res)=>{
 app.post("/:id", (req, res) => {
   console.log('Got body:', req.body.msg_txt);
   console.log('num of clients: ', Object.keys(CLIENTS).length)
+  console.log('params: ', req.params)
   if (req.params.id){
     if (CLIENTS[req.params.id]){
       //pass along ws message
       CLIENTS[req.params.id].send(req.body.msg_txt)
       //response to app server
+      console.log('client exists')
       res.send('client exists!')
     } else {
       res.send('no exist!')
+      console.log('no exists')
+
     }
     // res.send(req.params.id)
   }
