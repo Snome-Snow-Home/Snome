@@ -106,7 +106,7 @@ export default function CreateUser(props) {
     confirmPassword,
   } = userData;
 
-  //grand value of text input from user and sets the state to that value
+  //grab value of text input from user and sets the state to that value
   const handleOnChangeText = (value, fieldName) => {
     setUserData({ ...userData, [fieldName]: value });
   };
