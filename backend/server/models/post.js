@@ -92,7 +92,7 @@ module.exports = {
 
     let current_time = new Date().toISOString();
       try {
-      await db.none(`
+      const result = await db.none(`
         INSERT INTO message (
           recipient_id,
           sender_id,
@@ -104,6 +104,8 @@ module.exports = {
           $1, $2, $3, $4, $5
         )
       `, [recipient_id, sender_id, current_time, message_text, 'FALSE']);
+      //returning current time since it's only param generated here
+      return current_time
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
