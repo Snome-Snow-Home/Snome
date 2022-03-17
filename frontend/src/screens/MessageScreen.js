@@ -100,8 +100,6 @@ const MessageScreen = () => {
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
-    // console.log(messages)
-    // messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
       if (!recentByOtherUser.hasOwnProperty(other)) {
@@ -121,7 +119,7 @@ const MessageScreen = () => {
     )
     .then((new_message)=>{
       console.log('NEW MESSAGE DATA POST: ', new_message.data)
-      context.setMessages([...context.messages, new_message.data])
+      context.setMessages([ new_message.data, ...context.messages])
       sortMessagesByOtherUser([new_message.data, ...context.messages])
       }
     )
@@ -158,7 +156,7 @@ const MessageScreen = () => {
       console.log('NEW MESSAGE DATA WS: ', new_message)
       // sortMessagesByOtherUser([new_message, ...messages])
       console.log('messages[length-1]: ', context.messages[context.messages.length-1])
-      context.setMessages([...context.messages, new_message])
+      context.setMessages([new_message, ...context.messages])
       sortMessagesByOtherUser([new_message, ...context.messages])
     };
 
