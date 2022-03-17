@@ -6,7 +6,7 @@ module.exports = {
   getAll: async (model, query_params) => {
     try {
       //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
-      //if there are query parameters (eg. http://10.0.0.53:3000/snome?=featured)
+      //if there are query parameters (eg. http://localhost:3000/snome?=featured)
       if (Object.keys(query_params).length !== 0) {
         let filter = Object.keys(query_params)[0];
         let value = query_params[filter];
@@ -160,6 +160,16 @@ module.exports = {
       return result;
     } catch (error) {
       console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+  },
+
+  getMatches: async (user_id) => {
+    try {
+      let result = await db.manyOrNone(`SELECT * FROM match FULL JOIN snome ON match.snome_id = snome.id FULL JOIN snome_photo ON snome.id = snome_photo.snome_id WHERE user_id = ${user_id}`);
+      return result;
+    } catch (err) {
+      console.log(`DATABASE ERROR: ${err}`);
       return err;
     }
   },

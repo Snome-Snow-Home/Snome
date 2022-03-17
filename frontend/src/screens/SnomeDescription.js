@@ -16,6 +16,7 @@ const height = width * 0.6;
 
 function SnomeDescription({ route }) {
   const context = useContext(UserContext);
+  const setTracker = context.setTracker
   const [images, setUrl] = useState([]);
   const [description, setDesc] = useState([]);
   const [title, setTitle] = useState([]);
@@ -27,7 +28,7 @@ function SnomeDescription({ route }) {
     const snome_id = route.params.snome_id;
     try {
       const response = await fetch(
-        'http://10.0.0.53:3000/snome/description/' + snome_id
+        'http://localhost:3000/snome/description/' + snome_id
       );
       const json = await response.json();
       setUrl(json.url);
@@ -42,7 +43,7 @@ function SnomeDescription({ route }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [context.stateTracker]);
 
   const updateError = (error, stateUpdater) => {
     stateUpdater(error);
@@ -71,7 +72,7 @@ function SnomeDescription({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://10.0.0.53:3000/snome/like/exists/' +
+        'http://localhost:3000/snome/like/exists/' +
           likeObj.snome_id +
           '/' +
           likeObj.snome_user_id
@@ -101,7 +102,7 @@ function SnomeDescription({ route }) {
       };
       axios
         .post(
-          'http://10.0.0.53:3000/snome/like/' +
+          'http://localhost:3000/snome/like/' +
             likeObj.snome_id +
             '/' +
             likeObj.snome_user_id,
@@ -111,6 +112,7 @@ function SnomeDescription({ route }) {
           console.error(error);
           console.log('Snome not able to be added to snome_like ', error);
         });
+      setTracker(null)
     }
   };
 

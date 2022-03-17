@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from '../Context/UserContext';
 import {
   StyleSheet,
   Text,
@@ -84,7 +85,11 @@ const ShowList = ({
   toggleOptions,
   locationData,
 }) => {
-  // console.log(locationData)
+
+  const context = useContext(UserContext);
+  const stateTracker = context.stateTracker;
+  const setTracker = context.setTracker
+
   const navigation = useNavigation();
 
   return (
@@ -96,6 +101,7 @@ const ShowList = ({
             <TouchableOpacity
               key={location.name}
               onPress={() => {
+                setTracker(location.location_id)
                 setSelectedValue(location.name);
                 navigation.navigate('Listing', {
                   location_id: location.location_id,
@@ -301,7 +307,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      const response = await fetch('http://10.0.0.53:3000/featured_location');
+      const response = await fetch('http://localhost:3000/featured_location');
       const json = await response.json();
       setData(json);
     } catch (error) {

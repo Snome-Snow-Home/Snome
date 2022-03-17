@@ -117,12 +117,22 @@ module.exports = {
     }
   },
 
+  getMatches: async (req, res) => {
+    try {
+      const user_id = req.params.id
+      let data = await get.getMatches(user_id);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
+  
 
   checkLikes: async (req, res) => {
     try {
       let snome_id = req.params.snome_id
       let snome_user_id = req.params.snome_user_id
-      //console.log(snome_id, snome_user_id);
       let data = await get.checkLikes(snome_id, snome_user_id);
       res.status(200).send(data);
     } catch (err) {

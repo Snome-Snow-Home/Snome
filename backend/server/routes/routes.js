@@ -56,7 +56,7 @@ router.put("/snome/:id", controller.put.updateSnome);
 router.put("/review/:id", controller.put.updateReview);
 
 /* MATCH */
-router.get("/match", controller.get.getAll);
+router.get("/match/:id", controller.get.getMatches);
 
 /* REVIEW */
 router.post("/review", controller.post.createReview);

@@ -12,19 +12,6 @@ const DATA = [
   { id: 4, resort: "alta", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." }
 ]
 
-//MATCH DATA
-// id,user_id,snome_id,has_been_read
-// 1,4,6,TRUE
-// 2,6,5,TRUE
-// 3,4,3,TRUE
-// 4,7,1,TRUE
-// 5,6,4,TRUE
-// 6,9,1,TRUE
-// 7,8,5,TRUE
-// 8,10,3,FALSE
-// 9,3,4,FALSE
-// 10,2,2,FALSE
-
 const Item = ({ location }) => (
   <>
     <ScrollView>

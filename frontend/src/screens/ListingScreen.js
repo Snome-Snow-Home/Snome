@@ -26,15 +26,15 @@ function ListingScreen({ route }) {
   const [error, setError] = useState('');
   const [listing, setData] = useState([]);
   const [active, setActive] = useState([0]);
-
   const navigation = useNavigation();
   const context = useContext(UserContext);
+  const setTracker = context.setTracker
 
   // fetch data from backend and set it to state
   const getListing = async () => {
     try {
       const response = await fetch(
-        'http://10.0.0.53:3000/listing/' + route.params.location_id
+        'http://localhost:3000/listing/' + route.params.location_id
       );
       const json = await response.json();
       console.log(json);
@@ -47,7 +47,7 @@ function ListingScreen({ route }) {
   // useEffect is a hook that runs a piece of code based on a given condition
   useEffect(() => {
     getListing();
-  }, []);
+  }, [context.stateTracker]);
 
   const updateError = (error, stateUpdater) => {
     stateUpdater(error);
@@ -64,7 +64,7 @@ function ListingScreen({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://10.0.0.53:3000/snome/like/exists/' +
+        'http://localhost:3000/snome/like/exists/' +
           likeObj.snome_id +
           '/' +
           likeObj.snome_user_id
@@ -93,7 +93,7 @@ function ListingScreen({ route }) {
       };
       axios
         .post(
-          'http://10.0.0.53:3000/snome/like/' +
+          'http://localhost:3000/snome/like/' +
             likeObj.snome_id +
             '/' +
             likeObj.snome_user_id,
@@ -103,6 +103,7 @@ function ListingScreen({ route }) {
           console.error(error);
           console.log('Snome not able to be added to snome_like ', error);
         });
+        setTracker(snome_id)
     }
   };
 
@@ -117,19 +118,18 @@ function ListingScreen({ route }) {
 
   return (
     <ScrollView>
-      {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
-      {/* <Text style={styles.title}>{`Listing's for ${location.name}`}</Text> */}
       <Text style={styles.title}>Listings</Text>
       {error ? <Text style={styles.invalidInput}>{error}</Text> : null}
       {listing.map((listing) => (
         <Card id="listing" style={styles.container} key={listing.snome_id}>
           <Title>
             <TouchableOpacity
-              onPress={() =>
+              onPress={() =>{
+                setTracker(listing.snome_id)
                 navigation.navigate('Description', {
                   snome_id: listing.snome_id,
                 })
-              }
+              }}
             >
               <Text style={{ margin: 15, marginTop: 20 }}>
                 {listing.header}
@@ -174,7 +174,7 @@ function ListingScreen({ route }) {
                 mode="outined"
                 // style={styles.button}
                 icon="heart-outline"
-                onPress={() => addToLikes(listing.snome_id)}
+                onPress={() => {addToLikes(listing.snome_id)}}
               >
                 <Text>I like this Snome!</Text>
               </Button>
