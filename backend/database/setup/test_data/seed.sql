@@ -20,3 +20,13 @@ BEGIN;
 \copy location_media from '/setup/test_data/location_media.csv' delimiter ',' csv header;
 COMMIT;
 
+ALTER SEQUENCE snome_id_seq RESTART WITH 11;
+ALTER SEQUENCE snome_user_id_seq RESTART WITH 11;
+ALTER SEQUENCE snome_like_id_seq RESTART WITH 11;
+ALTER SEQUENCE snome_photo_id_seq RESTART WITH 11;
+ALTER SEQUENCE trip_id_seq RESTART WITH 11;
+ALTER SEQUENCE review_id_seq RESTART WITH 11;
+ALTER SEQUENCE match_id_seq RESTART WITH 3;
+ALTER SEQUENCE location_id_seq RESTART WITH 11;
+ALTER SEQUENCE location_media_id_seq RESTART WITH 11;
+ALTER SEQUENCE address_id_seq RESTART WITH 11;
