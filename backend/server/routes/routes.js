@@ -11,8 +11,8 @@ module.exports = router;
 
 /* SNOME */
 router.post(
-  "/snome",
-  uploadSnomePhotos.any("snome_photos"),
+  "/snome/:id",
+  // uploadSnomePhotos.any("snome_photos"),
   controller.post.createSnome
 );
 router.get("/snome", controller.get.getAll);

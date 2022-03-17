@@ -3,7 +3,7 @@ const db = require('../../database');
 /* define model queries for post requests here */
 
 module.exports = {
-  createSnome: async ({ owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description }) => {
+  createSnome: async ({ owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, address, bedrooms, bathrooms, number_of_beds, perks, description }) => {
     try {
       const id = await db.one(`
       INSERT INTO snome (
@@ -14,18 +14,18 @@ module.exports = {
         mountain_access,
         availability_start,
         availability_end,
-        street_address,
+        address,
         bedrooms,
         bathrooms,
         number_of_beds,
         perks,
-        snome_description
+        description
       )
       VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
       )
       RETURNING id
-      `, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, street_address, bedrooms, bathrooms, number_of_beds, perks, snome_description]);
+      `, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, address, bedrooms, bathrooms, number_of_beds, perks, description]);
       return id;
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
@@ -88,10 +88,10 @@ module.exports = {
     }
   },
 
-  createMessage: async ({sender_id, recipient_id, message_text }) => {
+  createMessage: async ({ sender_id, recipient_id, message_text }) => {
 
     let current_time = new Date().toISOString();
-      try {
+    try {
       await db.none(`
         INSERT INTO message (
           recipient_id,

@@ -44,7 +44,8 @@ const ProfileScreen = () => {
                 {/* {userData.length && userData.map(user => <div>{user.user_data}</div>)} */}
                 {/* <CreateUser /> */}
 
-                <Button mode="contained" style={styles.button} title="logout" onPress={logout}>
+                <Button mode="contained" style={styles.button} title="logout" onPress={logout}
+                >
                     <Text>Logout</Text>
                 </Button >
                 <AddSnomeListing />

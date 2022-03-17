@@ -1,49 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { TextInput, Button } from 'react-native-paper';
 import { ScrollView, StyleSheet, View, Text } from 'react-native'
+import { Input } from '@ui-kitten/components';
+import UserContext from '../Context/UserContext';
+import axios from 'axios'
 
 function AddSnomeListing() {
     const navigation = useNavigation();
+    const context = useContext(UserContext)
+    const owner_id = context.user_data.user_id;
 
     const [snome, setSnome] = useState({
-        // owner_id,
-        //location_id,
+        owner_id: owner_id,
+        location_id: 1, //this needs to be changed from hardcoded eventually
         header: '',
         time_to_mountain: '',
         mountain_access: '',
         availability_start: '',
         availability_end: '',
-        street_address: '',
+        address: '',
         bedrooms: '',
         bathrooms: '',
         number_of_beds: '',
         perks: '',
-        snome_description: ''
+        description: ''
     })
 
     const {
+
+        location_id,
         header,
         time_to_mountain,
         mountain_access,
         availability_start,
         availability_end,
-        street_address,
+        address,
         bedrooms,
         bathrooms,
         number_of_beds,
         perks,
-        snome_description
+        description
     } = snome
 
     const handleOnChangeText = (value, fieldName) => {
         setSnome({ ...snome, [fieldName]: value });
     };
 
-    //post request to add snome listing to database
-    // const addListing = async () => {
-    //  const response = axios.post('./snome', req.body)
-    // }
+    // post request to add snome listing to database
+    const addListing = async () => {
+
+        const response = axios.post('http://localhost:3000/snome/' + owner_id, snome)
+            .then(console.log("you did it"))
+            .catch(error => {
+                console.error(error);
+                console.log('Snome listing not able to be added', error)
+            })
+    }
 
     return (
         <ScrollView>
@@ -51,21 +64,23 @@ function AddSnomeListing() {
                 <Text style={styles.horizontal}>
                     <Text style={styles.label}>Snome Header:</Text>
                 </Text>
-                <TextInput
-                    mode="flat"
+                <Input
+                    mode="outlined"
                     type="text"
                     id="header"
+                    label='Header:'
                     placeholder="Two Bedroom Luxury Condo with Hot Tub"
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={header}
+                    left={<TextInput.Affix text="" />}
                     onChangeText={(value) => handleOnChangeText(value, 'header')}
-                    style={styles.formInput}
+                // style={styles.formInput}
                 />
-                <TextInput
+                <Input
                     mode="flat"
                     type="text"
-                    activeUnderlineColor='green'
+                    label="Time to Mountain:"
                     id="time_to_mountain"
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -107,13 +122,18 @@ function AddSnomeListing() {
             <TextInput
                 mode="flat"
                 type="text"
-                id="street_address"
+                id="address"
                 autoCapitalize='none'
                 autoCorrect={false}
-                value={street_address}
-                onChangeText={(value) => handleOnChangeText(value, 'street_address')}
+                value={address}
+                onChangeText={(value) => handleOnChangeText(value, 'address')}
                 style={styles.formInput}
             />
+
+            {/* drop down menu --> checkbox, <option> 1</option>
+            <option> 2</option>
+            <option> 3</option>  --- onPress={(location_id) => setLocation_id(3)} */}
+
             <TextInput
                 mode="flat"
                 type="text"
@@ -157,13 +177,19 @@ function AddSnomeListing() {
             <TextInput
                 mode="flat"
                 type="text"
-                id="snome_description"
+                id="description"
                 autoCapitalize='none'
                 autoCorrect={false}
-                value={snome_description}
-                onChangeText={(value) => handleOnChangeText(value, 'snome_description')}
+                value={description}
+                onChangeText={(value) => handleOnChangeText(value, 'description')}
                 style={styles.formInput}
             />
+            <Button
+                title='Submit Snome'
+                onPress={addListing}
+                onPressOut={() => navigation.navigate('Home')}
+            >Submit
+            </Button>
         </ScrollView>
     )
 }
