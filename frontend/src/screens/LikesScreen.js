@@ -22,7 +22,11 @@ const LikesScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const context = useContext(UserContext);
+  const setTracker = context.setTracker;
+
   const [active, setActive] = useState([0]);
+
+  console.log('TEST W/ MM ZB')
 
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
@@ -36,7 +40,7 @@ const LikesScreen = () => {
 
   useEffect(() => {
     getSnomeLikes();
-  }, []);
+  }, [context.stateTracker]);
 
   let change = ({ nativeEvent }) => {
     const slide = Math.ceil(
@@ -56,11 +60,12 @@ const LikesScreen = () => {
           data.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
-                onPress={() =>
+                onPress={() =>{
+                  setTracker(item.snome_id)
                   navigation.navigate('Description', {
                     snome_id: item.snome_id,
                   })
-                }
+                }}
               >
                 <Card.Title
                   numberOfLines={3}

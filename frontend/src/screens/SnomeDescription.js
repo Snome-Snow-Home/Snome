@@ -16,6 +16,7 @@ const height = width * 0.6;
 
 function SnomeDescription({ route }) {
   const context = useContext(UserContext);
+  const setTracker = context.setTracker
   const [images, setUrl] = useState([]);
   const [description, setDesc] = useState([]);
   const [title, setTitle] = useState([]);
@@ -42,7 +43,7 @@ function SnomeDescription({ route }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [context.stateTracker]);
 
   const updateError = (error, stateUpdater) => {
     stateUpdater(error);
@@ -111,6 +112,7 @@ function SnomeDescription({ route }) {
           console.error(error);
           console.log('Snome not able to be added to snome_like ', error);
         });
+      setTracker(null)
     }
   };
 

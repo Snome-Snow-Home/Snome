@@ -162,4 +162,14 @@ module.exports = {
       return err;
     }
   },
+
+  getMatches: async (user_id) => {
+    try {
+      let result = await db.manyOrNone(`SELECT * FROM match FULL JOIN snome ON match.snome_id = snome.id FULL JOIN snome_photo ON snome.id = snome_photo.snome_id WHERE user_id = ${user_id}`);
+      return result;
+    } catch (err) {
+      console.log(`DATABASE ERROR: ${err}`);
+      return err;
+    }
+  },
 };
