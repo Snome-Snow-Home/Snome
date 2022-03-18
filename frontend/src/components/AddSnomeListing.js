@@ -61,26 +61,23 @@ function AddSnomeListing() {
     return (
         <ScrollView>
             <View >
-                <Text style={styles.horizontal}>
-                    <Text style={styles.label}>Snome Header:</Text>
-                </Text>
                 <Input
                     mode="outlined"
                     type="text"
                     id="header"
-                    label='Header:'
+                    label='Header'
                     placeholder="Two Bedroom Luxury Condo with Hot Tub"
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={header}
-                    left={<TextInput.Affix text="" />}
+                    left={<TextInput.Affix text="/100" />}
                     onChangeText={(value) => handleOnChangeText(value, 'header')}
                 // style={styles.formInput}
                 />
                 <Input
                     mode="flat"
                     type="text"
-                    label="Time to Mountain:"
+                    label="Time to Resort Village"
                     id="time_to_mountain"
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -88,9 +85,10 @@ function AddSnomeListing() {
                     onChangeText={(value) => handleOnChangeText(value, 'time_to_mountain')}
                     style={styles.formInput}
                 />
-                <TextInput
+                <Input
                     mode="flat"
                     type="text"
+                    label="Moutain Access"
                     id="mountain_access"
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -99,9 +97,10 @@ function AddSnomeListing() {
                     style={styles.formInput}
                 />
             </View>
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Starting availability"
                 id="availability_start"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -109,9 +108,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'availability_start')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Ending availibility"
                 id="availability_end"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -119,9 +119,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'availability_end')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Address"
                 id="address"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -134,9 +135,10 @@ function AddSnomeListing() {
             <option> 2</option>
             <option> 3</option>  --- onPress={(location_id) => setLocation_id(3)} */}
 
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Bedrooms"
                 id="bedrooms"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -144,9 +146,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'bedrooms')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Bathrooms"
                 id="bathrooms"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -154,9 +157,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'bathrooms')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="# of beds"
                 id="number_of_beds"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -164,9 +168,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'number_of_beds')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Ammenities"
                 id="perks"
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -174,9 +179,10 @@ function AddSnomeListing() {
                 onChangeText={(value) => handleOnChangeText(value, 'perks')}
                 style={styles.formInput}
             />
-            <TextInput
+            <Input
                 mode="flat"
                 type="text"
+                label="Description"
                 id="description"
                 autoCapitalize='none'
                 autoCorrect={false}
