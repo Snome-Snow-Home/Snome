@@ -11,7 +11,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { MapView, Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import * as Device from 'expo-device';
 

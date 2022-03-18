@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { TextInput, Button } from 'react-native-paper';
 import { ScrollView, StyleSheet, View, Text } from 'react-native'
-import { Input } from '@ui-kitten/components';
+import { Input, Layout, Datepicker, Icon } from '@ui-kitten/components';
 import UserContext from '../Context/UserContext';
 import axios from 'axios'
 
@@ -13,7 +13,7 @@ function AddSnomeListing() {
 
     const [snome, setSnome] = useState({
         owner_id: owner_id,
-        location_id: 1, //this needs to be changed from hardcoded eventually
+        location_id: '', //this needs to be changed from hardcoded eventually
         header: '',
         time_to_mountain: '',
         mountain_access: '',
@@ -47,6 +47,10 @@ function AddSnomeListing() {
         setSnome({ ...snome, [fieldName]: value });
     };
 
+    // const CalendarIcon = (props) => (
+    //     <Icon {...props} name='calender' />
+    // );
+
     // post request to add snome listing to database
     const addListing = async () => {
 
@@ -62,7 +66,7 @@ function AddSnomeListing() {
         <ScrollView>
             <View >
                 <Input
-                    mode="outlined"
+
                     type="text"
                     id="header"
                     label='Header'
@@ -70,14 +74,13 @@ function AddSnomeListing() {
                     autoCapitalize='none'
                     autoCorrect={false}
                     value={header}
-                    left={<TextInput.Affix text="/100" />}
                     onChangeText={(value) => handleOnChangeText(value, 'header')}
                 // style={styles.formInput}
                 />
                 <Input
-                    mode="flat"
+
                     type="text"
-                    label="Time to Resort Village"
+                    label="TTM"
                     id="time_to_mountain"
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -86,7 +89,7 @@ function AddSnomeListing() {
                     style={styles.formInput}
                 />
                 <Input
-                    mode="flat"
+
                     type="text"
                     label="Moutain Access"
                     id="mountain_access"
@@ -97,30 +100,45 @@ function AddSnomeListing() {
                     style={styles.formInput}
                 />
             </View>
+            <Layout style={styles.rowContainer} level='4'>
+                {/* <Input
+
+                    type="text"
+                    label="Starting availability"
+                    id="availability_start"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={availability_start}
+                    onChangeText={(value) => handleOnChangeText(value, 'availability_start')}
+                    style={styles.input}
+                /> */}
+                <Input
+
+                    type="text"
+                    label="Ending availibility"
+                    id="availability_end"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={availability_end}
+                    onChangeText={(value) => handleOnChangeText(value, 'availability_end')}
+                    style={styles.input}
+                />
+            </Layout>
+            <Layout style={styles.container} level='3'>
+
+                <Datepicker
+                    label='Availability start'
+                    //caption='Caption'
+                    //placeholder='Pick Date'
+                    date={availability_start}
+                    //onSelect={nextDate => setDate(nextDate)}
+                    onSelect={(value) => handleOnChangeText(value, 'availability_start')}
+                // accessoryRight={CalendarIcon}
+                />
+
+            </Layout>
             <Input
-                mode="flat"
-                type="text"
-                label="Starting availability"
-                id="availability_start"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={availability_start}
-                onChangeText={(value) => handleOnChangeText(value, 'availability_start')}
-                style={styles.formInput}
-            />
-            <Input
-                mode="flat"
-                type="text"
-                label="Ending availibility"
-                id="availability_end"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={availability_end}
-                onChangeText={(value) => handleOnChangeText(value, 'availability_end')}
-                style={styles.formInput}
-            />
-            <Input
-                mode="flat"
+
                 type="text"
                 label="Address"
                 id="address"
@@ -136,7 +154,7 @@ function AddSnomeListing() {
             <option> 3</option>  --- onPress={(location_id) => setLocation_id(3)} */}
 
             <Input
-                mode="flat"
+
                 type="text"
                 label="Bedrooms"
                 id="bedrooms"
@@ -147,7 +165,7 @@ function AddSnomeListing() {
                 style={styles.formInput}
             />
             <Input
-                mode="flat"
+
                 type="text"
                 label="Bathrooms"
                 id="bathrooms"
@@ -158,7 +176,7 @@ function AddSnomeListing() {
                 style={styles.formInput}
             />
             <Input
-                mode="flat"
+
                 type="text"
                 label="# of beds"
                 id="number_of_beds"
@@ -169,7 +187,7 @@ function AddSnomeListing() {
                 style={styles.formInput}
             />
             <Input
-                mode="flat"
+
                 type="text"
                 label="Ammenities"
                 id="perks"
@@ -180,7 +198,7 @@ function AddSnomeListing() {
                 style={styles.formInput}
             />
             <Input
-                mode="flat"
+
                 type="text"
                 label="Description"
                 id="description"
@@ -220,15 +238,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    inputForm: {
-        color: 'black',
-        backgroundColor: 'lightblue',
-        borderColor: 'lightgray',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderRadius: 8,
-        padding: 8,
-        width: '100%',
+    rowContainer: {
+        flexDirection: 'row',
+        //justifyContent: 'space-between',
+        alignItems: 'center',
     },
+    input: {
+        flex: 1,
+        margin: 2,
+    },
+    container: {
+        minHeight: 360,
+    }
 })
 export default AddSnomeListing
