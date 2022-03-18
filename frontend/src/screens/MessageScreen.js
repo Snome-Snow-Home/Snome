@@ -96,7 +96,7 @@ const MessageScreen = () => {
     const recentByOtherUser = {}
     const message_queue = []
     // console.log(messages)
-    messages.reverse()
+    // messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
       if (!recentByOtherUser.hasOwnProperty(other)) {
@@ -113,14 +113,55 @@ const MessageScreen = () => {
     axios.post(
       'http://localhost:3000/messages/',
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
-    ).catch(error => {
+    )
+    .then((new_message)=>{
+      setMessages([new_message.data, ...messages])
+      sortMessagesByOtherUser([new_message.data, ...messages])
+      }
+    )
+    .catch(error => {
       console.error(error);
       console.log('Snome not able to be added to snome_message ', error)
     })
 
   };
 
+  var ws = React.useRef(new WebSocket('ws://localhost:8080')).current;
+  const [serverMessages, setServerMessages] = useState('');
+
+  const [temp, setTemp] = useState('empty')
+
   useEffect(() => {
+
+    // const serverMessagesList = [];
+
+    ws.onopen = () => {
+      // ws.send(user_id)
+      // ws.send(JSON.stringify({connected: false, id: user_id}))
+      ws.send(JSON.stringify({source: 'client', id: user_id}))
+
+    };
+    // ws.onclose = (e) => {
+    //   setServerState('Disconnected. Check internet or server.')
+    //   setDisableButton(true);
+    // };
+    // ws.onerror = (e) => {
+    //   setServerState(e.message);
+    // };
+    ws.onmessage = (e) => {
+      console.log(e)
+      console.log(e.data)
+      console.log('sender id: ', JSON.parse(e.data))
+      let new_message = JSON.parse(e.data)
+
+      setMessages([new_message, ...messages]),
+      sortMessagesByOtherUser([new_message, ...messages])
+
+      // serverMessagesList.push(e.data);
+      // setServerMessages([...serverMessagesList])
+    };
+
+
     if (messages) {
       sortMessagesByOtherUser(messages)
     }
@@ -157,17 +198,6 @@ const MessageScreen = () => {
       {context => (
         <>
 
-          {/* <Text style={styles.status}>{keyboardStatus}</Text>
-          <Text style={styles.status}>{Keyboard.endCoordinates}</Text>
-          <Text style={styles.status}>{Keyboard.startCoordinates}</Text> */}
-
-          {/* <Text>{window}</Text>
-          <Text>{tabBarHeight}</Text>
-          <Text>keyboard heioght: {keyboardHeight}</Text> */}
-
-          {/* <Text style={styles.status}>{Object.keys(Keyboard).map(i => ' ' + i)}</Text> */}
-
-{/* <Text>{showThread}</Text> */}
           {!showThread &&
             <>
               <Text style={styles.headerButton}>Your Conversations</Text>
@@ -221,7 +251,6 @@ const MessageScreen = () => {
 
           }
 
-          {/* <View style={{width: '100%', height: 0, borderColor: 'red', borderWidth: '4'}}></View> */}
         </>
       )}
     </UserContext.Consumer>

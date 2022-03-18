@@ -77,7 +77,7 @@ CREATE TABLE "snome_like" (
 DROP TABLE IF EXISTS "match";
 CREATE TABLE "match" (
     "id" serial PRIMARY KEY,
-    "snome_user_id" int NOT NULL REFERENCES "snome_user",
+    "user_id" int NOT NULL REFERENCES "snome_user",
     "snome_id" int NOT NULL REFERENCES "snome",
     "has_been_read" boolean  DEFAULT false NOT NULL
 );

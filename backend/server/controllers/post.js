@@ -1,5 +1,7 @@
 const { post } = require("../models");
 const { uploadToS3 } = require("./helpers/s3helpers.js");
+const axios = require('axios');
+
 
 /* define post request handlers here */
 
@@ -102,25 +104,38 @@ module.exports = {
     }
   },
 
-  createMessage: async (req, res) => {
-    try {
-      console.log(req.body);
-      let data = await post.createMessage(req.body);
-      res.status(200).json(data);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-    // post
-    //   .createMessage(req.body)
-    //   .then((data) => {
-    //     res.send(data);
-    //   })
-    //   .catch(err => {
-    //     res.status(500).send(
-    //       "Some error occurred while creating the review."
-    //     )
-    //   })
+  createMessage: (req, res) => {
+  // createMessage: async (req, res) => {
+    // try {
+    //   console.log(req.body);
+    //   let data = await post.createMessage(req.body);
+    //   res.status(200).json(data);
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(400).send(err);
+    // }
+    post
+      .createMessage(req.body)
+      .then((data) => {
+        console.log({...req.body, time: data})
+        // console.log(data)
+        res.send({...req.body, time: data});
+        return data
+      })
+      .then((data) => {
+        // console.log(JSON.stringify({...req.body, time: data}))
+        //once saved to db, send to recipient via websockets
+        axios.post(`http://localhost:8080/${req.body.recipient_id}`,
+        {msg_txt: JSON.stringify({...req.body, time: data})},
+        // {msg_txt: req.body.message_text},
+        {headers: {'Content-Type': 'application/json;charset=utf-8'}}
+        )
+      })
+      .catch(err => {
+        res.status(500).send(
+          "Some error occurred while creating the message."
+        )
+      })
   },
 
   createReview: async (req, res) => {
