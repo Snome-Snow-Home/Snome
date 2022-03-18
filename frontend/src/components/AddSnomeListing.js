@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { TextInput, Button } from 'react-native-paper';
 import { ScrollView, StyleSheet, View, Text } from 'react-native'
-import { Input, Layout, Datepicker, Icon } from '@ui-kitten/components';
+import { Input, Layout, Datepicker, Icon, Select, SelectItem, IndexPath } from '@ui-kitten/components';
 import UserContext from '../Context/UserContext';
 import axios from 'axios'
 
@@ -11,6 +11,8 @@ function AddSnomeListing() {
     const context = useContext(UserContext)
     const owner_id = context.user_data.user_id;
 
+    const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+    const [locationId, setLocationId] = useState([])
     const [snome, setSnome] = useState({
         owner_id: owner_id,
         location_id: '', //this needs to be changed from hardcoded eventually
@@ -47,9 +49,27 @@ function AddSnomeListing() {
         setSnome({ ...snome, [fieldName]: value });
     };
 
-    // const CalendarIcon = (props) => (
-    //     <Icon {...props} name='calender' />
-    // );
+    useEffect(() => {
+        getListingIds()
+    }, []);
+
+    const data = locationId.map((locationId) =>
+        <SelectItem key={locationId.id} title={locationId.name} />);
+    const displayValue = data[selectedIndex.row];
+    console.log(data);
+    console.log(displayValue)
+
+    const getListingIds = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/location');
+            const locationId = await response.json()
+            console.log(locationId)
+            console.log(locationId[0].id)
+            setLocationId(locationId)
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     // post request to add snome listing to database
     const addListing = async () => {
@@ -64,6 +84,21 @@ function AddSnomeListing() {
 
     return (
         <ScrollView>
+            {/* <Button onPress={getListingIds}>get IDS</Button> */}
+            <Layout style={styles.container} level='1'>
+                <Select
+                    label='Select Your Location'
+                    selectedIndex={selectedIndex}
+                    value={displayValue}
+                    onSelect={index => setSelectedIndex(index)}>
+                    {/* onSelect={locationId => setLocationId(locationId)}> */}
+                    {locationId && locationId.map((locationId) => (<SelectItem key={locationId.id} title={locationId.name} />
+                    ))}
+                </Select>
+            </Layout>
+            {/* <SelectItem title='Option 2' />
+                   <SelectItem title='Option 3' /> */}
+
             <View style={styles.formContainer}>
 
                 <Layout style={styles.rowContainer} level='1'>
@@ -187,7 +222,7 @@ function AddSnomeListing() {
                 >Submit
                 </Button>
             </View>
-        </ScrollView>
+        </ScrollView >
     )
 };
 
