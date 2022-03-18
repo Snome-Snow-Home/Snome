@@ -30,8 +30,8 @@ const ProfileScreen = () => {
     return (
         <ScrollView>
             <View style={{
-                padding: 12,
-                width: '80%',
+                padding: 8,
+                width: '95%',
                 backgroundColor: '',
                 alignSelf: 'center',
                 position: 'relative',
