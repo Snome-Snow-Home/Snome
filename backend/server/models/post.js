@@ -27,7 +27,6 @@ module.exports = {
       RETURNING id
       `, [owner_id, location_id, header, time_to_mountain, mountain_access, availability_start, availability_end, address, bedrooms, bathrooms, number_of_beds, perks, description]);
       return id;
-      console.log("SUCESS")
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;

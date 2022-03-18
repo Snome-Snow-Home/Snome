@@ -56,8 +56,8 @@ function AddSnomeListing() {
     const data = locationId.map((locationId) =>
         <SelectItem key={locationId.id} title={locationId.name} />);
     const displayValue = data[selectedIndex.row];
-    console.log(data);
-    console.log(displayValue)
+    // console.log(data);
+    //console.log(displayValue)
 
     const getListingIds = async () => {
         try {
@@ -73,34 +73,34 @@ function AddSnomeListing() {
 
     // post request to add snome listing to database
     const addListing = async () => {
-
-        const response = axios.post('http://localhost:3000/snome/' + owner_id, snome)
-            .then(console.log("you did it"))
-            .catch(error => {
-                console.error(error);
-                console.log('Snome listing not able to be added', error)
-            })
+        try {
+            const response = axios.post('http://localhost:3000/snome/' + owner_id, snome)
+                .then(console.log("you did it"))
+                .then(console.log(owner_id))
+                .then(console.log(snome))
+        } catch (error) {
+            console.error(error);
+        }
+        // .catch(error => {
+        //     console.error(error);
+        //     console.log('Snome listing not able to be added', error)
+        // })
     }
 
     return (
         <ScrollView>
-            {/* <Button onPress={getListingIds}>get IDS</Button> */}
-            <Layout style={styles.container} level='1'>
-                <Select
-                    label='Select Your Location'
-                    selectedIndex={selectedIndex}
-                    value={displayValue}
-                    onSelect={index => setSelectedIndex(index)}>
-                    {/* onSelect={locationId => setLocationId(locationId)}> */}
-                    {locationId && locationId.map((locationId) => (<SelectItem key={locationId.id} title={locationId.name} />
-                    ))}
-                </Select>
-            </Layout>
-            {/* <SelectItem title='Option 2' />
-                   <SelectItem title='Option 3' /> */}
-
             <View style={styles.formContainer}>
-
+                <Layout style={styles.rowContainer} level='1'>
+                    <Select
+                        label='Select Your Location'
+                        selectedIndex={selectedIndex}
+                        value={displayValue}
+                        onSelect={index => setSelectedIndex(index)}>
+                        {/* onSelect={locationId => setLocationId(locationId)}> */}
+                        {locationId && locationId.map((locationId) => (<SelectItem key={locationId.id} title={locationId.name} />
+                        ))}
+                    </Select>
+                </Layout>
                 <Layout style={styles.rowContainer} level='1'>
                     <Datepicker
                         label='Availability start'
