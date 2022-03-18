@@ -64,6 +64,9 @@ const MessageCard = ({ message, setShowThread, user_id }) => {
             <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>message_recipient: {message.recipient_id}</Text>
             <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>{message.time}</Text>
             <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>{message.message_text}</Text>
+            <Text style={[message.sender_id === user_id && styles.selectedConvoText]}>{message.id}</Text>
+
+
           </View>
         </View>
       </TouchableOpacity>
@@ -79,7 +82,9 @@ const MessageScreen = () => {
   const user_id = context.user_data.user_id
   console.log(user_id)
 
-  const [messages, setMessages] = useState(context.messages)
+  let cm = context.mess
+
+  // const [messages, setMessages] = useState(context.messages)
 
   const [messageQueue, setMessageQueue] = useState([])
   const [showThread, setShowThread] = useState(false)
@@ -95,8 +100,6 @@ const MessageScreen = () => {
   const sortMessagesByOtherUser = (messages) => {
     const recentByOtherUser = {}
     const message_queue = []
-    // console.log(messages)
-    // messages.reverse()
     messages.forEach(msg => {
       let other = msg.recipient_id === user_id ? msg.sender_id : msg.recipient_id
       if (!recentByOtherUser.hasOwnProperty(other)) {
@@ -115,8 +118,9 @@ const MessageScreen = () => {
       {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
     )
     .then((new_message)=>{
-      setMessages([new_message.data, ...messages])
-      sortMessagesByOtherUser([new_message.data, ...messages])
+      console.log('NEW MESSAGE DATA POST: ', new_message.data)
+      context.setMessages([ new_message.data, ...context.messages])
+      sortMessagesByOtherUser([new_message.data, ...context.messages])
       }
     )
     .catch(error => {
@@ -133,11 +137,7 @@ const MessageScreen = () => {
 
   useEffect(() => {
 
-    // const serverMessagesList = [];
-
     ws.onopen = () => {
-      // ws.send(user_id)
-      // ws.send(JSON.stringify({connected: false, id: user_id}))
       ws.send(JSON.stringify({source: 'client', id: user_id}))
 
     };
@@ -148,22 +148,21 @@ const MessageScreen = () => {
     // ws.onerror = (e) => {
     //   setServerState(e.message);
     // };
-    ws.onmessage = (e) => {
+    ws.onmessage = async (e) => {
       console.log(e)
       console.log(e.data)
-      console.log('sender id: ', JSON.parse(e.data))
+      console.log('parsed data: ', JSON.parse(e.data))
       let new_message = JSON.parse(e.data)
-
-      setMessages([new_message, ...messages]),
-      sortMessagesByOtherUser([new_message, ...messages])
-
-      // serverMessagesList.push(e.data);
-      // setServerMessages([...serverMessagesList])
+      console.log('NEW MESSAGE DATA WS: ', new_message)
+      // sortMessagesByOtherUser([new_message, ...messages])
+      console.log('messages[length-1]: ', context.messages[context.messages.length-1])
+      context.setMessages([new_message, ...context.messages])
+      sortMessagesByOtherUser([new_message, ...context.messages])
     };
 
 
-    if (messages) {
-      sortMessagesByOtherUser(messages)
+    if (context.messages) {
+      sortMessagesByOtherUser(context.messages)
     }
 
     const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
@@ -185,10 +184,10 @@ const MessageScreen = () => {
       hideSubscription.remove();
     };
 
-  }, [])
+  }, [context.messages])
 
   const renderItem = ({ item }) => {
-    return <MessageCard style={{ flex: 1, flexDirection: 'row-reverse', }} message={item} setShowThread={setShowThread} user_id={user_id}
+    return <MessageCard key ={item.id} style={{ flex: 1, flexDirection: 'row-reverse', }} message={item} setShowThread={setShowThread} user_id={user_id}
     />
   }
 
@@ -221,7 +220,7 @@ const MessageScreen = () => {
                   <Text style={styles.headerButton} onPress={() => setShowThread(false)}>Back to Messages</Text>
                 </TouchableOpacity>
                 <FlatList
-                  data={messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
+                  data={context.messages.filter(msg => msg.sender_id === showThread || msg.recipient_id === showThread)}
                   renderItem={renderItem}
                   keyExtractor={item => item.id}
                 />

@@ -117,16 +117,16 @@ module.exports = {
     post
       .createMessage(req.body)
       .then((data) => {
-        console.log({...req.body, time: data})
+        console.log({...req.body, time: data.time, id:data.id})
         // console.log(data)
-        res.send({...req.body, time: data});
+        res.send({...req.body, time: data.time, id:data.id});
         return data
       })
       .then((data) => {
         // console.log(JSON.stringify({...req.body, time: data}))
         //once saved to db, send to recipient via websockets
         axios.post(`http://localhost:8080/${req.body.recipient_id}`,
-        {msg_txt: JSON.stringify({...req.body, time: data})},
+        {msg_txt: JSON.stringify({...req.body, time: data.time, id: data.id})},
         // {msg_txt: req.body.message_text},
         {headers: {'Content-Type': 'application/json;charset=utf-8'}}
         )
