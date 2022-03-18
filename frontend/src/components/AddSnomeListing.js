@@ -64,43 +64,40 @@ function AddSnomeListing() {
 
     return (
         <ScrollView>
-            <View >
-                <Input
+            <View style={styles.formContainer}>
+                <Layout style={styles.rowContainerOne}>
+                    <Input
+                        type="text"
+                        id="header"
+                        label='Header'
+                        placeholder="Two Bedroom Luxury Condo with Hot Tub"
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={header}
+                        onChangeText={(value) => handleOnChangeText(value, 'header')}
+                    />
+                    <Input
+                        type="text"
+                        label="TTM"
+                        id="time_to_mountain"
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={time_to_mountain}
+                        onChangeText={(value) => handleOnChangeText(value, 'time_to_mountain')}
+                    //style={styles.formInput}
+                    />
+                    <Input
+                        type="text"
+                        label="Moutain Access"
+                        id="mountain_access"
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={mountain_access}
+                        onChangeText={(value) => handleOnChangeText(value, 'mountain_access')}
+                    />
+                </Layout>
 
-                    type="text"
-                    id="header"
-                    label='Header'
-                    placeholder="Two Bedroom Luxury Condo with Hot Tub"
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={header}
-                    onChangeText={(value) => handleOnChangeText(value, 'header')}
-                // style={styles.formInput}
-                />
-                <Input
-
-                    type="text"
-                    label="TTM"
-                    id="time_to_mountain"
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={time_to_mountain}
-                    onChangeText={(value) => handleOnChangeText(value, 'time_to_mountain')}
-                    style={styles.formInput}
-                />
-                <Input
-
-                    type="text"
-                    label="Moutain Access"
-                    id="mountain_access"
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={mountain_access}
-                    onChangeText={(value) => handleOnChangeText(value, 'mountain_access')}
-                    style={styles.formInput}
-                />
-            </View>
-            <Layout style={styles.rowContainer} level='4'>
+                {/* <Layout style={styles.rowContainer} level='4'> */}
                 {/* <Input
 
                     type="text"
@@ -112,7 +109,7 @@ function AddSnomeListing() {
                     onChangeText={(value) => handleOnChangeText(value, 'availability_start')}
                     style={styles.input}
                 /> */}
-                <Input
+                {/* <Input
 
                     type="text"
                     label="Ending availibility"
@@ -122,98 +119,104 @@ function AddSnomeListing() {
                     value={availability_end}
                     onChangeText={(value) => handleOnChangeText(value, 'availability_end')}
                     style={styles.input}
+                /> */}
+                {/* </Layout> */}
+                <Layout style={styles.rowContainer} level='1'>
+                    <Datepicker
+                        label='Availability start'
+                        //caption='Caption'
+                        //placeholder='Pick Date'
+                        date={availability_start}
+                        onSelect={(value) => handleOnChangeText(value, 'availability_start')}
+                    // accessoryRight={CalendarIcon}
+                    />
+                    <Datepicker
+                        label='Availability end'
+                        //caption='Caption'
+                        //placeholder='Pick Date'
+                        date={availability_end}
+                        onSelect={(value) => handleOnChangeText(value, 'availability_end')}
+                    // accessoryRight={CalendarIcon}
+                    />
+                </Layout>
+                <Input
+
+                    type="text"
+                    label="Address"
+                    id="address"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={address}
+                    onChangeText={(value) => handleOnChangeText(value, 'address')}
+                    style={styles.formInput}
                 />
-            </Layout>
-            <Layout style={styles.container} level='3'>
 
-                <Datepicker
-                    label='Availability start'
-                    //caption='Caption'
-                    //placeholder='Pick Date'
-                    date={availability_start}
-                    //onSelect={nextDate => setDate(nextDate)}
-                    onSelect={(value) => handleOnChangeText(value, 'availability_start')}
-                // accessoryRight={CalendarIcon}
-                />
-
-            </Layout>
-            <Input
-
-                type="text"
-                label="Address"
-                id="address"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={address}
-                onChangeText={(value) => handleOnChangeText(value, 'address')}
-                style={styles.formInput}
-            />
-
-            {/* drop down menu --> checkbox, <option> 1</option>
+                {/* drop down menu --> checkbox, <option> 1</option>
             <option> 2</option>
             <option> 3</option>  --- onPress={(location_id) => setLocation_id(3)} */}
 
-            <Input
+                <Input
 
-                type="text"
-                label="Bedrooms"
-                id="bedrooms"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={bedrooms}
-                onChangeText={(value) => handleOnChangeText(value, 'bedrooms')}
-                style={styles.formInput}
-            />
-            <Input
+                    type="text"
+                    label="Bedrooms"
+                    id="bedrooms"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={bedrooms}
+                    onChangeText={(value) => handleOnChangeText(value, 'bedrooms')}
+                    style={styles.formInput}
+                />
+                <Input
 
-                type="text"
-                label="Bathrooms"
-                id="bathrooms"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={bathrooms}
-                onChangeText={(value) => handleOnChangeText(value, 'bathrooms')}
-                style={styles.formInput}
-            />
-            <Input
+                    type="text"
+                    label="Bathrooms"
+                    id="bathrooms"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={bathrooms}
+                    onChangeText={(value) => handleOnChangeText(value, 'bathrooms')}
+                    style={styles.formInput}
+                />
+                <Input
 
-                type="text"
-                label="# of beds"
-                id="number_of_beds"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={number_of_beds}
-                onChangeText={(value) => handleOnChangeText(value, 'number_of_beds')}
-                style={styles.formInput}
-            />
-            <Input
+                    type="text"
+                    label="# of beds"
+                    id="number_of_beds"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={number_of_beds}
+                    onChangeText={(value) => handleOnChangeText(value, 'number_of_beds')}
+                    style={styles.formInput}
+                />
+                <Input
 
-                type="text"
-                label="Ammenities"
-                id="perks"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={perks}
-                onChangeText={(value) => handleOnChangeText(value, 'perks')}
-                style={styles.formInput}
-            />
-            <Input
+                    type="text"
+                    label="Ammenities"
+                    id="perks"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={perks}
+                    onChangeText={(value) => handleOnChangeText(value, 'perks')}
+                    style={styles.formInput}
+                />
+                <Input
 
-                type="text"
-                label="Description"
-                id="description"
-                autoCapitalize='none'
-                autoCorrect={false}
-                value={description}
-                onChangeText={(value) => handleOnChangeText(value, 'description')}
-                style={styles.formInput}
-            />
-            <Button
-                title='Submit Snome'
-                onPress={addListing}
-                onPressOut={() => navigation.navigate('Home')}
-            >Submit
-            </Button>
+                    type="text"
+                    label="Description"
+                    id="description"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    value={description}
+                    onChangeText={(value) => handleOnChangeText(value, 'description')}
+                    style={styles.formInput}
+                />
+                <Button
+                    title='Submit Snome'
+                    onPress={addListing}
+                    onPressOut={() => navigation.navigate('Home')}
+                >Submit
+                </Button>
+            </View>
         </ScrollView>
     )
 }
@@ -222,10 +225,11 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 2
     },
-    label: {
-        margin: 5,
-        color: '#464545',
-        fontFamily: 'Arial',
+    formContainer: {
+        backgroundColor: "white",
+        borderSyle: 'solid',
+        borderColor: 'black',
+        borderRadius: 2
     },
     required: {
         margin: 5,
@@ -240,12 +244,18 @@ const styles = StyleSheet.create({
     },
     rowContainer: {
         flexDirection: 'row',
-        //justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
+        margin: 5
+    },
+    rowContainerOne: {
+        justifyContent: 'space-between',
+
+        margin: 5
     },
     input: {
         flex: 1,
-        margin: 2,
+        margin: 5,
     },
     container: {
         minHeight: 360,
