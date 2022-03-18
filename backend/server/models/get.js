@@ -143,7 +143,8 @@ module.exports = {
       let result = await db.manyOrNone(`
       SELECT * FROM message
       WHERE recipient_id = ${user_id}
-      OR sender_id = ${user_id}`);
+      OR sender_id = ${user_id}
+      ORDER BY id DESC`);
       return result;
     } catch (err) {
       console.log(`DATABASE ERROR - GET: ${err}`);
