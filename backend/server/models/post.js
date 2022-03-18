@@ -92,13 +92,8 @@ module.exports = {
   createMessage: async ({ sender_id, recipient_id, message_text }) => {
 
     let current_time = new Date().toISOString();
-<<<<<<< HEAD
     try {
-      await db.none(`
-=======
-      try {
       const result = await db.none(`
->>>>>>> eb16e807e98d024f07024ee9abff2fbbd89691a5
         INSERT INTO message (
           recipient_id,
           sender_id,
