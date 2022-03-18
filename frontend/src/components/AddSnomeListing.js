@@ -12,10 +12,11 @@ function AddSnomeListing() {
     const owner_id = context.user_data.user_id;
 
     const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+    const [location_id, setLocationIdTwo] = useState('')
     const [locationId, setLocationId] = useState([])
     const [snome, setSnome] = useState({
         owner_id: owner_id,
-        location_id: '', //this needs to be changed from hardcoded eventually
+        //location_id: '', //this needs to be changed from hardcoded eventually
         header: '',
         time_to_mountain: '',
         mountain_access: '',
@@ -31,7 +32,6 @@ function AddSnomeListing() {
 
     const {
 
-        location_id,
         header,
         time_to_mountain,
         mountain_access,
@@ -57,8 +57,14 @@ function AddSnomeListing() {
         <SelectItem key={locationId.id} title={locationId.name} />);
     const displayValue = data[selectedIndex.row];
     // console.log(data);
-    //console.log(displayValue)
 
+    function grabData() {
+        console.log(displayValue)
+        console.log(displayValue.key)
+        const location_id = displayValue.key
+        setLocationIdTwo(displayValue.key)
+        console.log(location_id)
+    }
     const getListingIds = async () => {
         try {
             const response = await fetch('http://localhost:3000/location');
@@ -89,13 +95,14 @@ function AddSnomeListing() {
 
     return (
         <ScrollView>
+            <Button onPress={grabData}>grab data</Button>
             <View style={styles.formContainer}>
                 <Layout style={styles.rowContainer} level='1'>
                     <Select
                         label='Select Your Location'
                         selectedIndex={selectedIndex}
                         value={displayValue}
-                        onSelect={index => setSelectedIndex(index)}>
+                        onSelect={(index) => setSelectedIndex(index)}>
                         {/* onSelect={locationId => setLocationId(locationId)}> */}
                         {locationId && locationId.map((locationId) => (<SelectItem key={locationId.id} title={locationId.name} />
                         ))}
