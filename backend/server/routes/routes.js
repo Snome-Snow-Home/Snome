@@ -11,7 +11,7 @@ module.exports = router;
 
 /* SNOME */
 router.post(
-  "/snome/:id",
+  "/snome/:id/:location_id",
   // uploadSnomePhotos.any("snome_photos"),
   controller.post.createSnome
 );

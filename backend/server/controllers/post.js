@@ -12,7 +12,7 @@ module.exports = {
     try {
       const snomedata = {
         owner_id: req.params.id,
-        location_id: 1,
+        location_id: parseInt(req.params.location_id),
         header: req.body.header,
         time_to_mountain: req.body.time_to_mountain,
         mountain_access: req.body.mountain_access,

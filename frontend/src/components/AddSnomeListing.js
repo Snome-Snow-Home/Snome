@@ -16,7 +16,7 @@ function AddSnomeListing() {
     const [locationId, setLocationId] = useState([])
     const [snome, setSnome] = useState({
         owner_id: owner_id,
-        //location_id: '', //this needs to be changed from hardcoded eventually
+        //this needs to be changed from hardcoded eventually
         header: '',
         time_to_mountain: '',
         mountain_access: '',
@@ -62,7 +62,7 @@ function AddSnomeListing() {
         console.log(displayValue)
         console.log(displayValue.key)
         const location_id = displayValue.key
-        setLocationIdTwo(displayValue.key)
+        setLocationIdTwo(location_id)
         console.log(location_id)
     }
     const getListingIds = async () => {
@@ -79,8 +79,10 @@ function AddSnomeListing() {
 
     // post request to add snome listing to database
     const addListing = async () => {
+        const location_id = displayValue.key
+        setLocationIdTwo(location_id)
         try {
-            const response = axios.post('http://localhost:3000/snome/' + owner_id, snome)
+            const response = axios.post('http://localhost:3000/snome/' + owner_id + '/' + location_id, snome)
                 .then(console.log("you did it"))
                 .then(console.log(owner_id))
                 .then(console.log(snome))
