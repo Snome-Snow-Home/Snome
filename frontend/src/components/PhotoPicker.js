@@ -16,15 +16,15 @@ function PhotoPicker() {
         }
     }, [])
 
-    const addPhoto = async () => {
-        const snome_id = 16
-        try {
-            axios.post('http://localhost:3000/snome/' + snome_id + '/photos')
-                .then(console.log(snome_id))
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // const addPhoto = async () => {
+    //     const snome_id = 16
+    //     try {
+    //         axios.post('http://localhost:3000/snome/' + snome_id + '/photos')
+    //             .then(console.log(snome_id))
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
 
     const pickImage = async () => {

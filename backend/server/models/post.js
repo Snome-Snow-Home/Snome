@@ -43,9 +43,10 @@ module.exports = {
   // },
   createSnomePhoto: async (snome_id, photosUrl) => {
     try {
-      await db.none(`INSERT INTO snome_photo (snome_id, url) values ($1, $2)`, [snome_id, photosUrl])
+      await db.none(`INSERT INTO snome_photo(snome_id, url) values ($1, $2)`, [snome_id, photosUrl])
+      console.log(snome_id)
     } catch (err) {
-      console.log(`DATABASE ERROR - POST: ${err}`);
+      console.log(`DATABASE ERROR - POSTONE: ${err}`);
       return err;
     }
   },
