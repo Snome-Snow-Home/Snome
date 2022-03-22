@@ -74,6 +74,7 @@ module.exports = {
     let uploadPhotoPromises = [];
     // 3. loop over req.files...
     let photos = req.files;
+    console.log(photos);
     photos.forEach((photo) => {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
@@ -92,6 +93,8 @@ module.exports = {
         photosUrl.push(url);
       });
     });
+
+    console.log(photosUrl);
 
     try {
       await post.createSnomePhoto(snome_id, photosUrl);
