@@ -30,7 +30,7 @@ const LikesScreen = () => {
 
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
-    let response = await fetch('http://localhost:3000/like/navbar/' + user_id);
+    let response = await fetch('http://LOCALHOST:3000/like/navbar/' + user_id);
     console.log(response);
     let json = await response.json();
     setData(json);
@@ -60,7 +60,7 @@ const LikesScreen = () => {
           data.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
-                onPress={() =>{
+                onPress={() => {
                   setTracker(item.snome_id)
                   navigation.navigate('Description', {
                     snome_id: item.snome_id,

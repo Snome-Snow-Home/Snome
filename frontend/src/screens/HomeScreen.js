@@ -307,7 +307,7 @@ const HomeScreen = () => {
 
   const getLocations = async () => {
     try {
-      const response = await fetch('http://localhost:3000/featured_location');
+      const response = await fetch('http://LOCALHOST:3000/featured_location');
       const json = await response.json();
       setData(json);
     } catch (error) {

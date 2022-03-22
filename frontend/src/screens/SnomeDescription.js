@@ -28,7 +28,7 @@ function SnomeDescription({ route }) {
     const snome_id = route.params.snome_id;
     try {
       const response = await fetch(
-        'http://localhost:3000/snome/description/' + snome_id
+        'http://LOCALHOST:3000/snome/description/' + snome_id
       );
       const json = await response.json();
       setUrl(json.url);
@@ -72,10 +72,10 @@ function SnomeDescription({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://localhost:3000/snome/like/exists/' +
-          likeObj.snome_id +
-          '/' +
-          likeObj.snome_user_id
+        'http://LOCALHOST:3000/snome/like/exists/' +
+        likeObj.snome_id +
+        '/' +
+        likeObj.snome_user_id
       );
       const likeStatus = await checkLikes.json();
       console.log(likeStatus);
@@ -102,10 +102,10 @@ function SnomeDescription({ route }) {
       };
       axios
         .post(
-          'http://localhost:3000/snome/like/' +
-            likeObj.snome_id +
-            '/' +
-            likeObj.snome_user_id,
+          'http://LOCALHOST:3000/snome/like/' +
+          likeObj.snome_id +
+          '/' +
+          likeObj.snome_user_id,
           {}
         )
         .catch((error) => {
@@ -196,7 +196,7 @@ const style = StyleSheet.create({
     padding: 8,
     width: '95%',
   },
-  card: {marginTop: 50, width, height: width * 0.18}
+  card: { marginTop: 50, width, height: width * 0.18 }
 });
 
 export default SnomeDescription;

@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, View, Text } from 'react-native'
 import { Input, Layout, Datepicker, Icon, Select, SelectItem, IndexPath } from '@ui-kitten/components';
 import UserContext from '../Context/UserContext';
 import axios from 'axios'
+import PhotoPicker from './PhotoPicker';
 
 function AddSnomeListing() {
     const navigation = useNavigation();
@@ -58,16 +59,16 @@ function AddSnomeListing() {
     const displayValue = data[selectedIndex.row];
     // console.log(data);
 
-    function grabData() {
-        console.log(displayValue)
-        console.log(displayValue.key)
-        const location_id = displayValue.key
-        setLocationIdTwo(location_id)
-        console.log(location_id)
-    }
+    // function grabData() {
+    //     console.log(displayValue)
+    //     console.log(displayValue.key)
+    //     const location_id = displayValue.key
+    //     setLocationIdTwo(location_id)
+    //     console.log(location_id)
+    // }
     const getListingIds = async () => {
         try {
-            const response = await fetch('http://localhost:3000/location');
+            const response = await fetch('http://LOCALHOST:3000/location');
             const locationId = await response.json()
             console.log(locationId)
             console.log(locationId[0].id)
@@ -82,22 +83,17 @@ function AddSnomeListing() {
         const location_id = displayValue.key
         setLocationIdTwo(location_id)
         try {
-            const response = axios.post('http://localhost:3000/snome/' + owner_id + '/' + location_id, snome)
+            const response = axios.post('http://LOCALHOST:3000/snome/' + owner_id + '/' + location_id, snome)
                 .then(console.log("you did it"))
                 .then(console.log(owner_id))
                 .then(console.log(snome))
         } catch (error) {
-            console.error(error);
+            console.error("Snome listing not able to be added", error);
         }
-        // .catch(error => {
-        //     console.error(error);
-        //     console.log('Snome listing not able to be added', error)
-        // })
     }
 
     return (
         <ScrollView>
-            <Button onPress={grabData}>grab data</Button>
             <View style={styles.formContainer}>
                 <Layout style={styles.rowContainer} level='1'>
                     <Select
@@ -224,6 +220,7 @@ function AddSnomeListing() {
                         onChangeText={(value) => handleOnChangeText(value, 'address')}
                     />
                 </Layout>
+                <PhotoPicker />
                 <Button
                     title='Submit Snome'
                     onPress={addListing}
