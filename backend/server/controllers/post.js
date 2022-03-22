@@ -123,7 +123,7 @@ module.exports = {
       .then((data) => {
         // console.log(JSON.stringify({...req.body, time: data}))
         //once saved to db, send to recipient via websockets
-        axios.post(`http://10.0.0.53:8080/${req.body.recipient_id}`,
+        axios.post(`http://localhost:8080/${req.body.recipient_id}`,
         {msg_txt: JSON.stringify({...req.body, time: data.time, id: data.id})},
         // {msg_txt: req.body.message_text},
         {headers: {'Content-Type': 'application/json;charset=utf-8'}}

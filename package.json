@@ -1,0 +1,13 @@
+{
+    "name": "snome",
+    "version": "1.0.0",
+    "description": "Express API for Snome",
+    "main": "config.example.js",
+    "scripts": {
+        "start": "concurrently \"cd backend && npm run server\" \"cd websockets && npm start\" \"cd frontend && npm start\"",
+        "server:deploy": "forever start server/index.js"
+    },
+    "dependencies": {
+        "concurrently": "^7.0.0"
+    }
+}
