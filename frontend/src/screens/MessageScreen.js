@@ -80,7 +80,7 @@ const MessageScreen = () => {
 
   const context = useContext(UserContext)
   const user_id = context.user_data.user_id
-  console.log(user_id)
+  //console.log(user_id)
 
   let cm = context.mess
 
@@ -115,18 +115,18 @@ const MessageScreen = () => {
 
     axios.post(
       'http://localhost:3000/messages/',
-      {sender_id:user_id, recipient_id:showThread, message_text:newMessage}
+      { sender_id: user_id, recipient_id: showThread, message_text: newMessage }
     )
-    .then((new_message)=>{
-      console.log('NEW MESSAGE DATA POST: ', new_message.data)
-      context.setMessages([ new_message.data, ...context.messages])
-      sortMessagesByOtherUser([new_message.data, ...context.messages])
+      .then((new_message) => {
+        // console.log('NEW MESSAGE DATA POST: ', new_message.data)
+        context.setMessages([new_message.data, ...context.messages])
+        sortMessagesByOtherUser([new_message.data, ...context.messages])
       }
-    )
-    .catch(error => {
-      console.error(error);
-      console.log('Snome not able to be added to snome_message ', error)
-    })
+      )
+      .catch(error => {
+        console.error(error);
+        console.log('Snome not able to be added to snome_message ', error)
+      })
 
   };
 
@@ -138,7 +138,7 @@ const MessageScreen = () => {
   useEffect(() => {
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({source: 'client', id: user_id}))
+      ws.send(JSON.stringify({ source: 'client', id: user_id }))
 
     };
     // ws.onclose = (e) => {
@@ -149,13 +149,13 @@ const MessageScreen = () => {
     //   setServerState(e.message);
     // };
     ws.onmessage = async (e) => {
-      console.log(e)
-      console.log(e.data)
-      console.log('parsed data: ', JSON.parse(e.data))
+      // console.log(e)
+      // console.log(e.data)
+      // console.log('parsed data: ', JSON.parse(e.data))
       let new_message = JSON.parse(e.data)
-      console.log('NEW MESSAGE DATA WS: ', new_message)
+      // console.log('NEW MESSAGE DATA WS: ', new_message)
       // sortMessagesByOtherUser([new_message, ...messages])
-      console.log('messages[length-1]: ', context.messages[context.messages.length-1])
+      //console.log('messages[length-1]: ', context.messages[context.messages.length - 1])
       context.setMessages([new_message, ...context.messages])
       sortMessagesByOtherUser([new_message, ...context.messages])
     };
@@ -187,7 +187,7 @@ const MessageScreen = () => {
   }, [context.messages])
 
   const renderItem = ({ item }) => {
-    return <MessageCard key ={item.id} style={{ flex: 1, flexDirection: 'row-reverse', }} message={item} setShowThread={setShowThread} user_id={user_id}
+    return <MessageCard key={item.id} style={{ flex: 1, flexDirection: 'row-reverse', }} message={item} setShowThread={setShowThread} user_id={user_id}
     />
   }
 

@@ -10,18 +10,18 @@ app.use(bodyParser.json());
 
 const wss = new WebSocket.Server({ server });
 
-const CLIENTS={};
+const CLIENTS = {};
 
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
   res.send('success!')
 })
 
 app.post("/:id", (req, res) => {
-  console.log('Got body:', req.body.msg_txt);
-  console.log('num of clients: ', Object.keys(CLIENTS).length)
-  console.log('params: ', req.params)
-  if (req.params.id){
-    if (CLIENTS[req.params.id]){
+  // console.log('Got body:', req.body.msg_txt);
+  // console.log('num of clients: ', Object.keys(CLIENTS).length)
+  // console.log('params: ', req.params)
+  if (req.params.id) {
+    if (CLIENTS[req.params.id]) {
       //pass along ws message
       CLIENTS[req.params.id].send(req.body.msg_txt)
       //response to app server
@@ -41,7 +41,7 @@ wss.on("connection", function connection(ws) {
 
   ws.on("message", function incoming(message, isBinary) {
     message = JSON.parse(message)
-    if (message.source === 'client'){
+    if (message.source === 'client') {
       //if client connects
       CLIENTS[message.id] = ws
     } else {
