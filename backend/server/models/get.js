@@ -63,6 +63,22 @@ module.exports = {
     }
   },
 
+  checkMatch: async ({snome_id, snome_user_id}) => {
+    try {
+      let data = await db.manyOrNone(`SELECT owner_id AS user_id, id AS snome_id FROM snome WHERE owner_id = $1 OR id = $2`, [snome_user_id, snome_id]);
+      let matchCondition = await db.one(`SELECT CASE WHEN EXISTS (SELECT snome_user_id, snome_id FROM snome_like 
+        WHERE snome_user_id = $1 AND snome_id = $2) THEN TRUE 
+        ELSE FALSE
+        END`, [data[1].user_id, data[0].snome_id]);
+        let result = {state: matchCondition.case,
+          data: data};
+        return result;
+    } catch (error) {
+      console.log(`DATABASE ERROR: ${error}`);
+      return error;
+    }
+  },
+
 
   // for navbar - to alert user when their property has been liked //
   getUnreadLikes: async (user_id) => {
