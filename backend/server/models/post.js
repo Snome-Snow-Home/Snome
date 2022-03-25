@@ -114,6 +114,16 @@ module.exports = {
     }
   },
 
+  createMatch: async (data) => {
+    try{
+      await db.none(`INSERT INTO match (user_id, snome_id) VALUES ($1, $2), ($3, $4)`, [data[0].user_id, data[1].snome_id, data[1].user_id, data[0].snome_id]);
+    } catch(err) { 
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+
+  },
+
   createReview: async ({ snome_user_id, snome_id, date, stars, review }) => {
     try {
       await db.none(`

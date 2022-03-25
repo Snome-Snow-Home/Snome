@@ -1,105 +1,175 @@
-import React, { useState } from "react";
-
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView, View, Image } from "react-native";
+import React, { useEffect, useContext, useState  } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  View,
+  Image,
+} from 'react-native';
 import { Dimensions } from 'react-native';
 import UserContext from '../Context/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 
+const screenHeight = Dimensions.get('window').height;
+const { width } = Dimensions.get('window');
+const height = width * 0.6;
 
-const DATA = [
-  { id: 1, resort: "parkcity", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night mfin during ski season." },
-  { id: 2, resort: "crestedbutte", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
-  { id: 3, resort: "aspen", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." },
-  { id: 4, resort: "alta", header: "Gorgeous Mountain Home w/ Indoor Hot Tub", perks: "ski-in", time_to_mountain: "8 minutes", description: "Conveniently located apartment with a southern view of town, mountain peaks and the ski area. From the parking lot, you are 20 steps away from river and downtown. Ski down 4 O'Clock run and you're across the street from Studio. There is a 3 night min during ski season." }
-]
+function MatchScreen() {
+  const [data, setData] = useState([]);
+  const context = useContext(UserContext);
+  const user_id = context.user_data.user_id;
+  const setTracker = context.setTracker;
+  const tracker = context.stateTracker;
 
-const Item = ({ location }) => (
-  <>
-    <ScrollView>
-      <View style={styles.item}>
-        <View style={styles.img_with_description}>
-          <Image style={styles.img} source={require('../pics/snome_location_img.jpg')} />
-          <View>
-            <Text style={styles.location_info}>{location.resort}</Text>
-            <Text style={[styles.location_info, { width: '50%' }]}>{location.header}</Text>
-            <Text style={styles.location_info}>{location.perks}</Text>
-            <Text style={styles.location_info}>{location.time_to_mountain}</Text>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.location}>{location.description}</Text>
-        </View>
-      </View>
-    </ScrollView>
-  </>
+  const [active, setActive] = useState([0]);
 
-);
+  const getMatches = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/match/' + user_id);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-const MatchScreen = () => {
+  useEffect(() => {
+    getMatches();
+  }, [tracker]);
 
-  const renderItem = ({ item }) => (
-    <Item location={item} />
-  );
+  const change = ({ nativeEvent }) => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+    );
+    if (slide !== active) {
+      setActive(slide);
+    }
+  };
 
   return (
-    // <SafeAreaView>
-    <UserContext.Consumer>
-      {context => (
-        <>
-          {/* {Object.keys(context.USER_DATA).map(data => (
-          <Text>{data}</Text>
-        ))} */}
+    <View style={{ height: screenHeight }}>
+      <ScrollView>
+        {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
+        <Text style={styles.title}>Snome's you LOVE</Text>
+        {data ? (
+          data.map((item, index) => (
+            <Card style={styles.container} key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  setTracker(item.snome_id);
+                  navigation.navigate('Description', {
+                    snome_id: item.snome_id,
+                  });
+                }}
+              >
+                <Card.Title
+                  numberOfLines={3}
+                  title={item.header}
+                  subtitle={`Bedrooms: ${item.bedrooms}  Bathrooms: ${item.bathrooms}`}
+                />
 
-          <Text>'this' user id: {context.user_data.user_id}</Text>
-          <Text>snome_ids (of matches): {context.user_data.match.snome_id}</Text>
-          {/* <Text>{context.snome_likes.snome_id}</Text> */}
-          <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </>
-
-      )}
-      {/* </SafeAreaView> */}
-    </UserContext.Consumer>
+                <Title
+                  style={styles.header}
+                  subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`}
+                />
+              </TouchableOpacity>
+              <Card.Content>
+                <View style={styles.imageContainer}>
+                  <ScrollView
+                    pagingEnabled
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    onScroll={change}
+                    scrollEventThrottle={150}
+                    style={styles.scroll}
+                  >
+                    {item.url.map((url, index) => (
+                      <Image
+                        key={index}
+                        source={{ uri: url }}
+                        style={styles.image}
+                      />
+                    ))}
+                  </ScrollView>
+                  <View style={styles.pagination}>
+                    {item.url.map((i, j) => (
+                      <Text
+                        key={j}
+                        style={
+                          j == active
+                            ? styles.pagingActiveText
+                            : styles.pagingText
+                        }
+                      >
+                        ⬤
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+                <Paragraph>{item.description}</Paragraph>
+              </Card.Content>
+              <Card.Actions>
+                {/* //need functionality for this to be unliked */}
+                <Button mode="outlined" icon="heart-off">
+                  Unlike
+                </Button>
+              </Card.Actions>
+            </Card>
+          ))
+        ) : (
+          <Text>You don't have any liked Snome's...GO check some out!</Text>
+        )}
+        {/* <Button onPress={getData} title="get data">Get Data</Button> */}
+      </ScrollView>
+    </View>
   );
-};
+}
 
-
-const styles = StyleSheet.create({
-  location_info: {
-    margin: 6,
+const styles = {
+  tinyLogo: {
+    width: 150,
+    height: 150,
   },
-  topContainer: {
-    marginTop: 8,
-    backgroundColor: "aliceblue",
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34393B',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
+    textShadowColor: 'blue',
   },
   container: {
-    flex: 1,
-    marginTop: 8,
-    backgroundColor: "aliceblue",
+    width,
+    height: width * 0.8,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    display: 'flex',
+    flex: 3,
+    backgroundColor: '#EFEDE4',
+    borderRadius: 5,
+    padding: 5,
+    margin: 20,
+    shadowColor: '#470000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.9,
+    elevation: 2,
   },
-  item: {
-    borderRadius: 4,
-    backgroundColor: "oldlace",
-    marginBottom: 16,
-    // width: Dimensions.get('window').width * 0.4,
-    // height: Dimensions.get('window').height * 0.25,
-    // textAlign: "center",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  imageContainer: { marginTop: 50, width, height },
+  scroll: { width, height },
+  image: { width, height, resizeMode: 'cover' },
+  pagination: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
   },
-  img_with_description: {
-    flexDirection: "row"
-  },
-  img: {
-    width: '50%',
-    height: '100%',
-  },
+  pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
+  pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
+};
 
-
-});
-
-export default MatchScreen
-
+export default MatchScreen;

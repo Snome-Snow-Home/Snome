@@ -42,7 +42,7 @@ const LikesScreen = () => {
     getSnomeLikes();
   }, [context.stateTracker]);
 
-  let change = ({ nativeEvent }) => {
+  const change = ({ nativeEvent }) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
     );
@@ -131,18 +131,6 @@ const LikesScreen = () => {
 };
 
 const styles = {
-  // cards: {
-  //   width: 350,
-  //   //width: Dimensions.get('window').width * 0.4,
-  //   height: 450,
-  //   flexDirection: 'row',
-  //   flexWrap: 'wrap',
-  //   justifyContent: 'space-evenly',
-  //   flex: 3,
-  //   border: '1px solid #ccc',
-  //   borderRadius: '5px',
-  //   padding: 5,
-  // },
   tinyLogo: {
     width: 150,
     height: 150,
@@ -184,12 +172,5 @@ const styles = {
   },
   pagingText: { fontSize: width / 30, color: '#888', margin: 3 },
   pagingActiveText: { fontSize: width / 30, color: '#fff', margin: 3 },
-  // button: {
-  //   border: '1px solid #630330'
-  // }
-  //   pic:{
-  //     width:Dimensions.get('window').width * 0.4,
-  //     height:Dimensions.get('window').height * 0.2,
-  //  },
 };
 export default LikesScreen;
