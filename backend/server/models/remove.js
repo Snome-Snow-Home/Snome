@@ -21,7 +21,24 @@ module.exports = {
   },
 
   deleteMatch: async ({ snome_id, snome_user_id }, match_id) => {
-    console.log(`DELETE MATCH: ${match_id}`);
+    try {
+      const odd = match_id % 2;
+      console.log(odd);
+      switch (odd) {
+        case 0:
+          id = match_id - 1;
+          break;
+      
+        default:
+          id = match_id + 1;
+          break;
+      }
+      await db.none(`DELETE FROM match WHERE user_id=$1 AND snome_id=$2`, [snome_user_id, snome_id]);
+      await db.none(`DELETE FROM match WHERE id = ${id}`); 
+    } catch (error) {
+      console.log(`DATABASE ERROR - DELETE: ${error}`);
+      return error;
+    }
   },
 
   // deleteUser: async (id) => {
