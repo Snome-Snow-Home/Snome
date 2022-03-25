@@ -1,4 +1,4 @@
-const { remove, helpers } = require("../models");
+const { remove, helpers, get } = require("../models");
 /* define delete request handlers here */
 
 module.exports = {
@@ -26,6 +26,10 @@ module.exports = {
   deleteLike: async (req, res) => {
     try {
       await remove.deleteLike(req.params);
+      const status = await get.checkForMatch(req.params);
+      if(status.id){
+        await remove.deleteMatch(req.params, status.id);
+      }
       res.status(202).send("Like Deleted");
     } catch (err) {
       console.log(err);

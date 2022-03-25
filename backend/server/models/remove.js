@@ -20,6 +20,10 @@ module.exports = {
     }
   },
 
+  deleteMatch: async ({ snome_id, snome_user_id }, match_id) => {
+    console.log(`DELETE MATCH: ${match_id}`);
+  },
+
   // deleteUser: async (id) => {
   //   try {
   //     await db.none(`
