@@ -11,6 +11,15 @@ module.exports = {
     }
   },
 
+  deleteLike: async ({ snome_id, snome_user_id }) => {
+    try {
+      await db.none(`DELETE FROM snome_like WHERE snome_user_id=${snome_user_id} AND snome_id=${snome_id}`);
+    } catch (error) {
+      console.log(`DATABASE ERROR - DELETE: ${error}`);
+      return error;
+    }
+  },
+
   // deleteUser: async (id) => {
   //   try {
   //     await db.none(`
