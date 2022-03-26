@@ -66,7 +66,6 @@ router.get("/review", controller.get.getAll);
 /* SNOME PHOTO */
 router.get("/snome/:id/photos", controller.get.getSnomePhotos);
 router.post("/photos/:id",
-  uploadSnomePhotos.any('snome_photos'),
   // (req, res) => { console.log("hello") });
   controller.post.createSnomePhotos);  // for development only
 

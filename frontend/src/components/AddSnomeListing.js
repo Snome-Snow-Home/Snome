@@ -95,6 +95,7 @@ function AddSnomeListing() {
     return (
         <ScrollView>
             <View style={styles.formContainer}>
+                <PhotoPicker />
                 <Layout style={styles.rowContainer} level='1'>
                     <Select
                         label='Select Your Location'
@@ -220,7 +221,7 @@ function AddSnomeListing() {
                         onChangeText={(value) => handleOnChangeText(value, 'address')}
                     />
                 </Layout>
-                <PhotoPicker />
+
                 <Button
                     title='Submit Snome'
                     onPress={addListing}
