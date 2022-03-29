@@ -29,8 +29,8 @@ const LikesScreen = () => {
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
     let response = await fetch('http://localhost:3000/like/navbar/' + user_id);
-    console.log(response);
     let json = await response.json();
+    console.log(json);
     setData(json);
 
     console.log("Here are your Snome's you've liked");
