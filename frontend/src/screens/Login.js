@@ -39,6 +39,7 @@ export default function Login() {
                 context.setUserData({
                     ...context.user_data,
                     user_id: res.data.auth_user.id,
+                    users_snome_id: res.data.users_snome_id,
                     is_logged_in: true,
                     username: username
                 })

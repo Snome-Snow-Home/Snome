@@ -26,8 +26,6 @@ const LikesScreen = () => {
 
   const [active, setActive] = useState([0]);
 
-  console.log('TEST W/ MM ZB')
-
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
     let response = await fetch('http://localhost:3000/like/navbar/' + user_id);
@@ -38,8 +36,20 @@ const LikesScreen = () => {
     console.log("Here are your Snome's you've liked");
   };
 
+  const getWhoLikesMe = async () => {
+    const users_snome_id = context.user_data.users_snome_id;
+    console.log('users_snome_id', users_snome_id)
+    let response = await fetch('http://localhost:3000/like/who_likes_me/' + users_snome_id);
+    let json = await response.json();
+    console.log('who_likes_me', json);
+    // setData(json);
+
+    console.log("Here are your Snome's you've liked");
+  };  
+
   useEffect(() => {
     getSnomeLikes();
+    getWhoLikesMe();
   }, [context.stateTracker]);
 
   const change = ({ nativeEvent }) => {
