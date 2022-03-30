@@ -40,21 +40,18 @@ const LikesScreen = () => {
     const user_id = context.user_data.user_id;
     let response = await fetch('http://localhost:3000/like/navbar/' + user_id);
     let json = await response.json();
-    console.log(json);
+    // console.log(json);
     setSnomesIlike(json);
     setSnomes({ category: 'Snomes I Like', array: json })
-    console.log("Here are your Snome's you've liked");
+    // console.log("Here are your Snome's you've liked");
   };
 
   const getWhoLikesMe = async () => {
     const users_snome_id = context.user_data.users_snome_id;
-    console.log('users_snome_id', users_snome_id)
     let response = await fetch('http://localhost:3000/like/who_likes_me/' + users_snome_id);
     let json = await response.json();
-    console.log('who_likes_me', json);
+    // console.log('who_likes_me', json);
     setSnomesThatLikeMe(json);
-
-    console.log("Here are your Snome's you've liked");
   };
 
   useEffect(() => {
