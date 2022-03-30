@@ -62,6 +62,16 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+  getWhoLikesMe: async (req, res) => {
+    try {
+      const snome_id = req.params.snome_id;
+      let data = await get.getWhoLikesMe(snome_id);
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(`SERVER ERROR: ${err}`);
+      res.status(400).send(err);
+    }
+  },
   getFeaturedLocation: async (req, res) => {
     try {
       let data = await get.getFeaturedLocation();

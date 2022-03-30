@@ -89,7 +89,7 @@ const LikesScreen = () => {
                   subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`}
                 />
               </TouchableOpacity>
-              {/* <Card.Content>
+              <Card.Content>
                 <View style={styles.imageContainer}>
                   <ScrollView
                     pagingEnabled
@@ -123,7 +123,7 @@ const LikesScreen = () => {
                   </View>
                 </View>
                 <Paragraph>{item.description}</Paragraph>
-              </Card.Content> */}
+              </Card.Content>
               <Card.Actions>
                 {/* //need functionality for this to be unliked */}
                 <Button mode="outlined" icon="heart-off">

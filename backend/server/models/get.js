@@ -117,7 +117,8 @@ module.exports = {
   getWhoLikesMe: async (snome_id) => {
     try {
       let result = await db.manyOrNone(`
-      SELECT * FROM snome
+      SELECT * FROM snome_photo
+      FULL JOIN snome ON snome_photo.snome_id = snome.id
       INNER JOIN snome_like ON snome_like.snome_user_id = snome.owner_id
       WHERE snome_like.snome_id = ${snome_id}
     `);
