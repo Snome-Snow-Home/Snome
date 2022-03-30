@@ -24,8 +24,17 @@ const LikesScreen = () => {
   const [snomesThatLikeMe, setSnomesThatLikeMe] = useState([]);
   const context = useContext(UserContext);
   const setTracker = context.setTracker;
+  const [snomes, setSnomes] = useState();
 
   const [active, setActive] = useState([0]);
+
+  const toggleSnomes = () => {
+    if (snomes.category === 'Snomes I Like'){
+      setSnomes({category: 'Snomes That Like Me', array: snomesThatLikeMe})
+    } else {
+      setSnomes({category: 'Snomes I Like', array: snomesILike})
+    }
+  }
 
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
@@ -33,7 +42,7 @@ const LikesScreen = () => {
     let json = await response.json();
     console.log(json);
     setSnomesIlike(json);
-
+    setSnomes({category: 'Snomes I Like', array: json})
     console.log("Here are your Snome's you've liked");
   };
 
@@ -63,12 +72,17 @@ const LikesScreen = () => {
   };
 
   return (
+
+
     <View style={{ height: screenHeight }}>
+
+<TouchableOpacity onPress={toggleSnomes}><Text>toggle</Text></TouchableOpacity>
+
       <ScrollView>
         {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
         <Text style={styles.title}>Snome's you LOVE</Text>
-        {snomesThatLikeMe ? (
-          snomesThatLikeMe.map((item, index) => (
+        {snomes?.array ? (
+          snomes.array.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
                 onPress={() =>{
