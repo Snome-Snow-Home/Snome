@@ -29,10 +29,10 @@ const LikesScreen = () => {
   const [active, setActive] = useState([0]);
 
   const toggleSnomes = () => {
-    if (snomes.category === 'Snomes I Like'){
-      setSnomes({category: 'Snomes That Like Me', array: snomesThatLikeMe})
+    if (snomes.category === 'Snomes I Like') {
+      setSnomes({ category: 'Snomes That Like Me', array: snomesThatLikeMe })
     } else {
-      setSnomes({category: 'Snomes I Like', array: snomesILike})
+      setSnomes({ category: 'Snomes I Like', array: snomesILike })
     }
   }
 
@@ -42,7 +42,7 @@ const LikesScreen = () => {
     let json = await response.json();
     console.log(json);
     setSnomesIlike(json);
-    setSnomes({category: 'Snomes I Like', array: json})
+    setSnomes({ category: 'Snomes I Like', array: json })
     console.log("Here are your Snome's you've liked");
   };
 
@@ -55,7 +55,7 @@ const LikesScreen = () => {
     setSnomesThatLikeMe(json);
 
     console.log("Here are your Snome's you've liked");
-  };  
+  };
 
   useEffect(() => {
     getSnomeLikes();
@@ -76,16 +76,30 @@ const LikesScreen = () => {
 
     <View style={{ height: screenHeight }}>
 
-<TouchableOpacity onPress={toggleSnomes}><Text>toggle</Text></TouchableOpacity>
+      <TouchableOpacity onPress={toggleSnomes}>
+        {snomes?.category === 'Snomes I Like'
+          ?
+          <Text style={styles.headerButton}>View Snomes that Love YOU</Text>
+          :
+          <Text style={styles.headerButton}>View Snomes that You Love</Text>
+        }
+      </TouchableOpacity>
 
       <ScrollView>
         {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
-        <Text style={styles.title}>Snome's you LOVE</Text>
+        
+        {snomes?.category === 'Snomes I Like'
+          ?
+          <Text style={styles.title}>Snome's you LOVE</Text>
+          :
+          <Text style={styles.title}>View Snomes that Love YOU</Text>
+        }
+        
         {snomes?.array ? (
           snomes.array.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
-                onPress={() =>{
+                onPress={() => {
                   setTracker(item.snome_id)
                   navigation.navigate('Description', {
                     snome_id: item.snome_id,
@@ -155,6 +169,13 @@ const LikesScreen = () => {
 };
 
 const styles = {
+  headerButton: {
+    backgroundColor: "white",
+    padding: 6,
+    height: 50,
+    width: '100%',
+    textAlign: 'center'
+  },
   tinyLogo: {
     width: 150,
     height: 150,
