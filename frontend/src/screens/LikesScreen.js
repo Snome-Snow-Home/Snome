@@ -20,7 +20,8 @@ const height = width * 0.6;
 
 const LikesScreen = () => {
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
+  const [snomesILike, setSnomesIlike] = useState([]);
+  const [snomesThatLikeMe, setSnomesThatLikeMe] = useState([]);
   const context = useContext(UserContext);
   const setTracker = context.setTracker;
 
@@ -31,7 +32,7 @@ const LikesScreen = () => {
     let response = await fetch('http://localhost:3000/like/navbar/' + user_id);
     let json = await response.json();
     console.log(json);
-    setData(json);
+    setSnomesIlike(json);
 
     console.log("Here are your Snome's you've liked");
   };
@@ -42,7 +43,7 @@ const LikesScreen = () => {
     let response = await fetch('http://localhost:3000/like/who_likes_me/' + users_snome_id);
     let json = await response.json();
     console.log('who_likes_me', json);
-    // setData(json);
+    setSnomesThatLikeMe(json);
 
     console.log("Here are your Snome's you've liked");
   };  
@@ -66,8 +67,8 @@ const LikesScreen = () => {
       <ScrollView>
         {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
         <Text style={styles.title}>Snome's you LOVE</Text>
-        {data ? (
-          data.map((item, index) => (
+        {snomesThatLikeMe ? (
+          snomesThatLikeMe.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
                 onPress={() =>{
@@ -88,7 +89,7 @@ const LikesScreen = () => {
                   subtitle={`Availability: ${item.availability_start} - ${item.availability_end}`}
                 />
               </TouchableOpacity>
-              <Card.Content>
+              {/* <Card.Content>
                 <View style={styles.imageContainer}>
                   <ScrollView
                     pagingEnabled
@@ -122,7 +123,7 @@ const LikesScreen = () => {
                   </View>
                 </View>
                 <Paragraph>{item.description}</Paragraph>
-              </Card.Content>
+              </Card.Content> */}
               <Card.Actions>
                 {/* //need functionality for this to be unliked */}
                 <Button mode="outlined" icon="heart-off">
@@ -134,7 +135,6 @@ const LikesScreen = () => {
         ) : (
           <Text>You don't have any liked Snome's...GO check some out!</Text>
         )}
-        {/* <Button onPress={getData} title="get data">Get Data</Button> */}
       </ScrollView>
     </View>
   );
