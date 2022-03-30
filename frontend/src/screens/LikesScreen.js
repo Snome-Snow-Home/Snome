@@ -87,14 +87,14 @@ const LikesScreen = () => {
 
       <ScrollView>
         {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
-        
+
         {snomes?.category === 'Snomes I Like'
           ?
           <Text style={styles.title}>Snome's you LOVE</Text>
           :
           <Text style={styles.title}>View Snomes that Love YOU</Text>
         }
-        
+
         {snomes?.array ? (
           snomes.array.map((item, index) => (
             <Card style={styles.container} key={index}>
@@ -154,9 +154,11 @@ const LikesScreen = () => {
               </Card.Content>
               <Card.Actions>
                 {/* //need functionality for this to be unliked */}
-                <Button mode="outlined" icon="heart-off">
-                  Unlike
-                </Button>
+                {snomes?.category === 'Snomes I Like' &&
+                  <Button mode="outlined" icon="heart-off">
+                    Unlike
+                  </Button>
+                }
               </Card.Actions>
             </Card>
           ))
