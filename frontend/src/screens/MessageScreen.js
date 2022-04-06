@@ -114,19 +114,11 @@ const MessageScreen = () => {
   const sendMessage = async () => {
 
     axios.post(
-<<<<<<< HEAD
-      'http://LOCALHOST:3000/messages/',
-      { sender_id: user_id, recipient_id: showThread, message_text: newMessage }
-    )
-      .then((new_message) => {
-        console.log('NEW MESSAGE DATA POST: ', new_message.data)
-=======
       'http://localhost:3000/messages/',
       { sender_id: user_id, recipient_id: showThread, message_text: newMessage }
     )
       .then((new_message) => {
         // console.log('NEW MESSAGE DATA POST: ', new_message.data)
->>>>>>> 9697308b3e3f7cbde029eb16f912166857d6c56d
         context.setMessages([new_message.data, ...context.messages])
         sortMessagesByOtherUser([new_message.data, ...context.messages])
       }
@@ -163,11 +155,7 @@ const MessageScreen = () => {
       let new_message = JSON.parse(e.data)
       // console.log('NEW MESSAGE DATA WS: ', new_message)
       // sortMessagesByOtherUser([new_message, ...messages])
-<<<<<<< HEAD
-      console.log('messages[length-1]: ', context.messages[context.messages.length - 1])
-=======
       //console.log('messages[length-1]: ', context.messages[context.messages.length - 1])
->>>>>>> 9697308b3e3f7cbde029eb16f912166857d6c56d
       context.setMessages([new_message, ...context.messages])
       sortMessagesByOtherUser([new_message, ...context.messages])
     };

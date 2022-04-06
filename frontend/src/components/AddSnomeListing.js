@@ -97,7 +97,6 @@ function AddSnomeListing() {
             console.error("Snome listing not able to be added", error);
         }
     }
-    console.log(snome_id)
 
     return (
         <ScrollView>

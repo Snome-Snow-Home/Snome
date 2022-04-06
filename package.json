@@ -8,11 +8,7 @@
         "server:deploy": "forever start server/index.js"
     },
     "dependencies": {
-<<<<<<< HEAD
         "concurrently": "^7.0.0",
         "expo-image-picker": "^12.0.2"
-=======
-        "concurrently": "^7.0.0"
->>>>>>> 9697308b3e3f7cbde029eb16f912166857d6c56d
     }
 }
