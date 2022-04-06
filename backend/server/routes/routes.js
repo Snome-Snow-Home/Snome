@@ -11,8 +11,8 @@ module.exports = router;
 
 /* SNOME */
 router.post(
-  "/snome",
-  uploadSnomePhotos.any("snome_photos"),
+  "/snome/:id/:location_id",
+  // uploadSnomePhotos.any("snome_photos"),
   controller.post.createSnome
 );
 router.get("/snome", controller.get.getAll);
@@ -66,7 +66,10 @@ router.get("/review", controller.get.getAll);
 
 /* SNOME PHOTO */
 router.get("/snome/:id/photos", controller.get.getSnomePhotos);
-router.post('/snome/:id/photos', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);  // for development only
+router.post('/photos/:id', uploadSnomePhotos.any('snome_photos'), controller.post.createSnomePhotos);
+// router.post("/photos/:id",
+//   // (req, res) => { console.log("hello") });
+//   controller.post.createSnomePhotos);  // for development only
 
 /* Listing */
 router.get("/listing/:id", controller.get.getListing);

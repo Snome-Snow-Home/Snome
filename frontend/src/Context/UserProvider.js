@@ -7,12 +7,13 @@ function UserProvider(props) {
   const [location, setLocation] = useState()
   const [messages, setMessages] = useState(null);
   const [stateTracker, setTracker] = useState(null)
+
   let user_messages;
 
 
   const appDataFetch = async () => {
     try {
-      const location = await fetch('http://localhost:3000/location')
+      const location = await fetch('http://LOCALHOST:3000/location')
       const location_json = await location.json();
       setLocation(location_json)
     } catch (error) {

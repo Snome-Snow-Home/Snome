@@ -1,6 +1,9 @@
 const { post, get } = require("../models");
 const { uploadToS3 } = require("./helpers/s3helpers.js");
 const axios = require('axios');
+const multer = require('multer');
+
+
 
 
 /* define post request handlers here */
@@ -10,46 +13,65 @@ module.exports = {
     // 0. Accept request from client - uploadSnomePhotos middleware provides access to request.files
     // 1. create a snome record in db using non-file data from request returning id of inserted snome
     try {
-      const inserted_id = await post.createSnome(req.body);
-      res.status(201).send('Success!');
+      const snomedata = {
+        owner_id: req.params.id,
+        location_id: parseInt(req.params.location_id),
+        header: req.body.header,
+        time_to_mountain: req.body.time_to_mountain,
+        mountain_access: req.body.mountain_access,
+        availability_start: req.body.availability_start,
+        availability_end: req.body.availability_end,
+        address: req.body.address,
+        bedrooms: req.body.bedrooms,
+        bathrooms: req.body.bathrooms,
+        number_of_beds: req.body.number_of_beds,
+        perks: req.body.perks,
+        description: req.body.description
+      }
+      const inserted_id = await post.createSnome(snomedata);
+      // console.log(inserted_id)
+      // const result = res.json()
+      // console.log(result.body)
+      // return result
+      res.status(201).json({ snome_id: inserted_id });
     } catch (err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`)
       res.status(500).send(err);
     }
 
-    // 2. instantiate empty Promise array
-    let uploadPhotoPromises = [];
+    //2. instantiate empty Promise array
+    //   let uploadPhotoPromises = [];
 
-    // 3. loop over req.files...
-    let photos = req.files;
-    photos.forEach((photo) => {
-      // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
-      // push each Promise onto Promise array
-      try {
-        uploadPhotoPromises.push(uploadToS3(photo, "snome_photo"));
-      } catch (err) {
-        console.log(`SERVER SIDE ERROR - POST: ${err}`);
-        res.status(500).send(err);
-      }
-    });
-    photosUrl = [];
-    // 4. call Promise.all on promise array to upload files in parallel
-    await Promise.all(uploadPhotoPromises).then(async (urls) => {
-      // 5. create snomePhotos in db using snome_id and s3 urls
-      urls.forEach(async (url) => {
-        photosUrl.push(url);
-      });
-    });
+    //   // 3. loop over req.files...
+    //   let photos = req.files;
+    //   photos.forEach((photo) => {
+    //     // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
+    //     // push each Promise onto Promise array
+    //     try {
+    //       uploadPhotoPromises.push(uploadToS3(photo, "snome_photo"));
+    //     } catch (err) {
+    //       console.log(`SERVER SIDE ERROR - POST: ${err}`);
+    //       res.status(500).send(err);
+    //     }
+    //   });
+    //   photosUrl = [];
+    //   // 4. call Promise.all on promise array to upload files in parallel
+    //   await Promise.all(uploadPhotoPromises).then(async (urls) => {
+    //     // 5. create snomePhotos in db using snome_id and s3 urls
+    //     urls.forEach(async (url) => {
+    //       photosUrl.push(url);
+    //     });
+    //   });
 
-    try {
-      await post.createSnomePhoto(snome_id, photosUrl);
-    } catch (error) {
-      console.log(`SERVER SIDE ERROR - POST: ${err}`);
-      res.status(500).send(err);
-    }
+    //   try {
+    //     await post.createSnomePhoto(snome_id, photosUrl);
+    //   } catch (error) {
+    //     console.log(`SERVER SIDE ERROR - POST: ${err}`);
+    //     res.status(500).send(err);
+    //   }
 
-    // 5. respond with success to client if loop completes
-    res.status(201).send("SUCCESS!");
+    //   //5. respond with success to client if loop completes
+    //   res.status(201).send("SUCCESS!");
   },
 
   createSnomePhotos: async (req, res) => {
@@ -89,6 +111,50 @@ module.exports = {
     res.status(201).send("SUCCESS!");
   },
 
+  // createSnomePhotos: async (req, res) => {
+  //   // 1. get snome id from request.params
+  //   const snome_id = parseInt(req.params.id);
+  //   // 2. instantiate empty Promise array
+  //   let uploadPhotoPromises = [];
+  //   console.log(req.body)
+  //   // 3. loop over req.files...
+  //   let photos = [req.body];
+  //   console.log(photos);
+
+  //   photos.forEach((photo) => {
+  //     // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
+  //     // push each Promise onto Promise array
+  //     try {
+  //       // uploadPhotoPromises.push(uploadToS3(photo));
+  //       uploadToS3(photo)
+  //     } catch (err) {
+  //       console.log(`SERVER SIDE ERROR - POST: ${err}`);
+  //       res.status(500).send(err);
+  //     }
+  //   });
+  // photosUrl = [];
+  // // 4. call Promise.all on promise array to upload files in parallel
+  // await Promise.all(uploadPhotoPromises).then(async (urls) => {
+  //   // 5. create snomePhotos in db using snome_id and s3 urls
+  //   urls.forEach(async (url) => {
+  //     photosUrl.push(url);
+  //   });
+  // });
+
+  // console.log(photosUrl);
+
+  // try {
+  //   console.log(snome_id)
+  //   await post.createSnomePhoto(snome_id, photosUrl);
+  // } catch (error) {
+  //   console.log(`SERVER SIDE ERROR - POST: ${err}`);
+  //   res.status(500).send(err);
+  // }
+
+  // // 5. create snomePhotos in db using snome_id and s3 urls
+  // res.status(201).send("SUCCESS on your quest!");
+  //},
+
   //createUser moved to './user'
 
   createLike: async (req, res) => {
@@ -107,7 +173,7 @@ module.exports = {
   },
 
   createMessage: (req, res) => {
-  // createMessage: async (req, res) => {
+    // createMessage: async (req, res) => {
     // try {
     //   console.log(req.body);
     //   let data = await post.createMessage(req.body);
@@ -119,18 +185,18 @@ module.exports = {
     post
       .createMessage(req.body)
       .then((data) => {
-        console.log({...req.body, time: data.time, id:data.id})
+        console.log({ ...req.body, time: data.time, id: data.id })
         // console.log(data)
-        res.send({...req.body, time: data.time, id:data.id});
+        res.send({ ...req.body, time: data.time, id: data.id });
         return data
       })
       .then((data) => {
         // console.log(JSON.stringify({...req.body, time: data}))
         //once saved to db, send to recipient via websockets
         axios.post(`http://localhost:8080/${req.body.recipient_id}`,
-        {msg_txt: JSON.stringify({...req.body, time: data.time, id: data.id})},
-        // {msg_txt: req.body.message_text},
-        {headers: {'Content-Type': 'application/json;charset=utf-8'}}
+          { msg_txt: JSON.stringify({ ...req.body, time: data.time, id: data.id }) },
+          // {msg_txt: req.body.message_text},
+          { headers: { 'Content-Type': 'application/json;charset=utf-8' } }
         )
       })
       .catch(err => {

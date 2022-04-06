@@ -34,7 +34,7 @@ function ListingScreen({ route }) {
   const getListing = async () => {
     try {
       const response = await fetch(
-        'http://localhost:3000/listing/' + route.params.location_id
+        'http://LOCALHOST:3000/listing/' + route.params.location_id
       );
       const json = await response.json();
       console.log(json);
@@ -64,10 +64,10 @@ function ListingScreen({ route }) {
     };
     try {
       const checkLikes = await fetch(
-        'http://localhost:3000/snome/like/exists/' +
-          likeObj.snome_id +
-          '/' +
-          likeObj.snome_user_id
+        'http://LOCALHOST:3000/snome/like/exists/' +
+        likeObj.snome_id +
+        '/' +
+        likeObj.snome_user_id
       );
       const likeStatus = await checkLikes.json();
       console.log(likeStatus);
@@ -93,17 +93,17 @@ function ListingScreen({ route }) {
       };
       axios
         .post(
-          'http://localhost:3000/snome/like/' +
-            likeObj.snome_id +
-            '/' +
-            likeObj.snome_user_id,
+          'http://LOCALHOST:3000/snome/like/' +
+          likeObj.snome_id +
+          '/' +
+          likeObj.snome_user_id,
           {}
         )
         .catch((error) => {
           console.error(error);
           console.log('Snome not able to be added to snome_like ', error);
         });
-        setTracker(snome_id)
+      setTracker(snome_id)
     }
   };
 
@@ -124,7 +124,7 @@ function ListingScreen({ route }) {
         <Card id="listing" style={styles.container} key={listing.snome_id}>
           <Title>
             <TouchableOpacity
-              onPress={() =>{
+              onPress={() => {
                 setTracker(listing.snome_id)
                 navigation.navigate('Description', {
                   snome_id: listing.snome_id,
@@ -174,7 +174,7 @@ function ListingScreen({ route }) {
                 mode="outined"
                 // style={styles.button}
                 icon="heart-outline"
-                onPress={() => {addToLikes(listing.snome_id)}}
+                onPress={() => { addToLikes(listing.snome_id) }}
               >
                 <Text>I like this Snome!</Text>
               </Button>
