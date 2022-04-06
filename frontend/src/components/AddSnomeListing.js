@@ -102,7 +102,6 @@ function AddSnomeListing() {
     return (
         <ScrollView>
             <View style={styles.formContainer}>
-                <PhotoPicker snome_id={snome_id} />
                 <Layout style={styles.rowContainer} level='1'>
                     <Select
                         label='Select Your Location'
@@ -235,6 +234,7 @@ function AddSnomeListing() {
                     onPressOut={() => navigation.navigate('Home')}
                 >Submit
                 </Button>
+                {snome_id ? <PhotoPicker snome_id={snome_id} /> : null}
             </View>
         </ScrollView >
     )

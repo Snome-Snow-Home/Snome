@@ -46,10 +46,7 @@ function PhotoPicker(props) {
             //we need something beginning with data:
             body: createFormData(photo),
         })
-            .then((response) => response.json())
-            .then((response) => {
-                console.log('response', response);
-            })
+
             .catch((error) => {
                 console.log('error', error);
             });
@@ -78,6 +75,7 @@ function PhotoPicker(props) {
     return (
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text> Please add photos pf your home to complete your listing!</Text>
             <Button title="Add image from Gallery" onPress={pickImage} />
             {photo && <Image source={{ uri: photo.uri }} style={{ width: 200, height: 200 }} />}
             <Button title="addphoto" onPress={addPhoto}>Save Photo</Button>

@@ -29,7 +29,7 @@ module.exports = {
         description: req.body.description
       }
       const inserted_id = await post.createSnome(snomedata);
-      console.log(inserted_id)
+      // console.log(inserted_id)
       // const result = res.json()
       // console.log(result.body)
       // return result
