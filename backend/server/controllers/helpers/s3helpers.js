@@ -1,7 +1,8 @@
 const config = require('../../../config.js');
 const aws = require('aws-sdk');
 const fs = require('fs-extra');
-const dataUriToBuffer = require('data-uri-to-buffer');
+//remove from package.json as dep if not using before pushing
+//const dataUriToBuffer = require('data-uri-to-buffer');
 
 // credit: https://iamsohail.medium.com/how-to-upload-multiple-files-parallelly-to-amazon-s3-3b9ac3630806
 
@@ -16,14 +17,42 @@ const s3 = new aws.S3({
     secretAccessKey
 })
 
-function uploadToS3(file) {
+async function uploadToS3(file) {
 
     // this function should accept a file object and ranomly generated filename...
     // RETURN a promise of S3 URL
 
-    uri = file;
-    decoded = dataUriToBuffer(uri);
-    console.log(decoded);
+    console.log(fs.createReadStream(file.path));
+
+    return new Promise(async function (resolve, reject) {
+        const params = ({
+            Bucket: bucketName,
+            Key: file.filename,
+            Body: fs.createReadStream(file.path)
+        });
+
+        // send request to S3 API
+        await s3.upload(params, function (err, data) {
+            if (err) {
+                console.log("Error", err);
+                reject(err);
+            } if (data) {
+                console.log("Upload Success", data.Location);
+                const path = file.destination + file.filename
+                fs.remove(path, (err) => {
+                    if (err) return console.error(err)
+                    console.log('The file was successfully removed!')
+                })
+                resolve(data.Location);
+            }
+        })
+    })
+    // this function should accept a file object and ranomly generated filename...
+    // RETURN a promise of S3 URL
+
+    // uri = file;
+    // decoded = dataUriToBuffer(uri);
+    // console.log(decoded);
 
 
 

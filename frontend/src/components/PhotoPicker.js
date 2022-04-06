@@ -8,7 +8,7 @@ import * as FileSystem from 'expo-file-system';
 
 
 function PhotoPicker() {
-    const [image, setImage] = useState(null);
+    const [photo, setPhoto] = useState(null);
 
     useEffect(async () => {
         if (Platform.OS !== 'web') {
@@ -19,38 +19,39 @@ function PhotoPicker() {
         }
     }, [])
 
+    const createFormData = (photo, body = {}) => {
+        const data = new FormData();
+
+        data.append('photo', {
+            name: 'photoone',
+            type: photo.type,
+            uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+        });
+
+        Object.keys(body).forEach((key) => {
+            data.append(key, body[key]);
+        });
+
+        return data;
+    };
+
+
     const addPhoto = async () => {
-        //const uriToString = image.toString()
-
-        //   console.log(image)
-        //console.log(image.data)
-        // const imagePath = image;
-        const imageExt = image.split('.').pop();
-        const imageMime = `image/${imageExt}`;
-        // let picture = await fetch(imagePath);
-        // picture = await picture.blob();
-        // const imageData = new File([picture], `photo.${imageExt}`);
-        // // console.log(imageData)
-        // console.log(imageData.name)
-
+        //we need to change this to dynamic, after the snmoe has been created
         const snome_id = 6
         await fetch('http://localhost:3000/photos/' + snome_id, {
             method: 'POST',
             //we need something beginning with data:
-            body: image,
-            headers: {
-                "Content-Type": imageMime
-            }
-        });
-
-        // try {
-        //     axios.post('http://localhost:3000/photos/' + snome_id, {})
-        //         .then(console.log(snome_id))
-        // } catch (error) {
-        //     console.error(error);
-        // }
-    }
-
+            body: createFormData(photo),
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                console.log('response', response);
+            })
+            .catch((error) => {
+                console.log('error', error);
+            });
+    };
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -65,8 +66,8 @@ function PhotoPicker() {
 
         if (!result.cancelled) {
 
-            setImage(result.uri);
-            console.log(result.uri)
+            setPhoto(result);
+            console.log(result)
         }
     };
 
@@ -74,7 +75,7 @@ function PhotoPicker() {
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Button title="Add image from Gallery" onPress={pickImage} />
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            {photo && <Image source={{ uri: photo.uri }} style={{ width: 200, height: 200 }} />}
             <Button title="addphoto" onPress={addPhoto}>Save Photo</Button>
         </View>
     );

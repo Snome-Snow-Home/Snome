@@ -72,47 +72,84 @@ module.exports = {
 
   createSnomePhotos: async (req, res) => {
     // 1. get snome id from request.params
-    const snome_id = parseInt(req.params.id);
+    const snome_id = req.params.id;
     // 2. instantiate empty Promise array
     let uploadPhotoPromises = [];
-    console.log(req.body)
     // 3. loop over req.files...
-    let photos = [req.body];
-    console.log(photos);
-
+    let photos = req.files;
     photos.forEach((photo) => {
       // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
       // push each Promise onto Promise array
       try {
-        // uploadPhotoPromises.push(uploadToS3(photo));
-        uploadToS3(photo)
+        uploadPhotoPromises.push(uploadToS3(photo));
       } catch (err) {
         console.log(`SERVER SIDE ERROR - POST: ${err}`);
         res.status(500).send(err);
       }
     });
-    // photosUrl = [];
-    // // 4. call Promise.all on promise array to upload files in parallel
-    // await Promise.all(uploadPhotoPromises).then(async (urls) => {
-    //   // 5. create snomePhotos in db using snome_id and s3 urls
-    //   urls.forEach(async (url) => {
-    //     photosUrl.push(url);
-    //   });
-    // });
+    photosUrl = [];
+    // 4. call Promise.all on promise array to upload files in parallel
+    await Promise.all(uploadPhotoPromises).then(async (urls) => {
+      // 5. create snomePhotos in db using snome_id and s3 urls
+      urls.forEach(async (url) => {
+        photosUrl.push(url);
+      });
+    });
 
-    // console.log(photosUrl);
+    try {
+      await post.createSnomePhoto(snome_id, photosUrl);
+    } catch (error) {
+      console.log(`SERVER SIDE ERROR - POST: ${err}`);
+      res.status(500).send(err);
+    }
 
-    // try {
-    //   console.log(snome_id)
-    //   await post.createSnomePhoto(snome_id, photosUrl);
-    // } catch (error) {
-    //   console.log(`SERVER SIDE ERROR - POST: ${err}`);
-    //   res.status(500).send(err);
-    // }
-
-    // // 5. create snomePhotos in db using snome_id and s3 urls
-    // res.status(201).send("SUCCESS on your quest!");
+    // 5. create snomePhotos in db using snome_id and s3 urls
+    res.status(201).send("SUCCESS!");
   },
+
+  // createSnomePhotos: async (req, res) => {
+  //   // 1. get snome id from request.params
+  //   const snome_id = parseInt(req.params.id);
+  //   // 2. instantiate empty Promise array
+  //   let uploadPhotoPromises = [];
+  //   console.log(req.body)
+  //   // 3. loop over req.files...
+  //   let photos = [req.body];
+  //   console.log(photos);
+
+  //   photos.forEach((photo) => {
+  //     // call uploadToS3 function with fileName (object in array itself) and fileKey -> return promise
+  //     // push each Promise onto Promise array
+  //     try {
+  //       // uploadPhotoPromises.push(uploadToS3(photo));
+  //       uploadToS3(photo)
+  //     } catch (err) {
+  //       console.log(`SERVER SIDE ERROR - POST: ${err}`);
+  //       res.status(500).send(err);
+  //     }
+  //   });
+  // photosUrl = [];
+  // // 4. call Promise.all on promise array to upload files in parallel
+  // await Promise.all(uploadPhotoPromises).then(async (urls) => {
+  //   // 5. create snomePhotos in db using snome_id and s3 urls
+  //   urls.forEach(async (url) => {
+  //     photosUrl.push(url);
+  //   });
+  // });
+
+  // console.log(photosUrl);
+
+  // try {
+  //   console.log(snome_id)
+  //   await post.createSnomePhoto(snome_id, photosUrl);
+  // } catch (error) {
+  //   console.log(`SERVER SIDE ERROR - POST: ${err}`);
+  //   res.status(500).send(err);
+  // }
+
+  // // 5. create snomePhotos in db using snome_id and s3 urls
+  // res.status(201).send("SUCCESS on your quest!");
+  //},
 
   //createUser moved to './user'
 
