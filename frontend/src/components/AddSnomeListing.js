@@ -15,6 +15,7 @@ function AddSnomeListing() {
     const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
     const [location_id, setLocationIdTwo] = useState('')
     const [locationId, setLocationId] = useState([])
+    const [snome_id, setSnome_id] = useState(null)
     const [snome, setSnome] = useState({
         owner_id: owner_id,
         //this needs to be changed from hardcoded eventually
@@ -70,8 +71,8 @@ function AddSnomeListing() {
         try {
             const response = await fetch('http://LOCALHOST:3000/location');
             const locationId = await response.json()
-            console.log(locationId)
-            console.log(locationId[0].id)
+            // console.log(locationId)
+            //console.log(locationId[0].id)
             setLocationId(locationId)
         } catch (error) {
             console.error(error);
@@ -83,19 +84,25 @@ function AddSnomeListing() {
         const location_id = displayValue.key
         setLocationIdTwo(location_id)
         try {
-            const response = axios.post('http://LOCALHOST:3000/snome/' + owner_id + '/' + location_id, snome)
+            axios.post('http://LOCALHOST:3000/snome/' + owner_id + '/' + location_id, snome)
                 .then(console.log("you did it"))
                 .then(console.log(owner_id))
                 .then(console.log(snome))
-        } catch (error) {
+                .then((res) => {
+                    console.log(res.data.snome_id.id)
+                    setSnome_id(res.data.snome_id.id)
+                })
+        }
+        catch (error) {
             console.error("Snome listing not able to be added", error);
         }
     }
+    console.log(snome_id)
 
     return (
         <ScrollView>
             <View style={styles.formContainer}>
-                <PhotoPicker />
+                <PhotoPicker snome_id={snome_id} />
                 <Layout style={styles.rowContainer} level='1'>
                     <Select
                         label='Select Your Location'

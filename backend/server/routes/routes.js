@@ -10,11 +10,11 @@ require('dotenv').config()
 module.exports = router;
 
 /* SNOME */
-// router.post(
-//   "/snome/:id/:location_id",
-//   // uploadSnomePhotos.any("snome_photos"),
-//   controller.post.createSnome
-// );
+router.post(
+  "/snome/:id/:location_id",
+  // uploadSnomePhotos.any("snome_photos"),
+  controller.post.createSnome
+);
 router.get("/snome", controller.get.getAll);
 router.get("/snome/:id", controller.get.getOne);
 router.put("/snome/:id", controller.put.updateSnome);

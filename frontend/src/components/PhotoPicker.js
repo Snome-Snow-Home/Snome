@@ -7,8 +7,11 @@ import * as FileSystem from 'expo-file-system';
 
 
 
-function PhotoPicker() {
+function PhotoPicker(props) {
     const [photo, setPhoto] = useState(null);
+
+    const snome_id = props.snome_id
+    console.log(snome_id)
 
     useEffect(async () => {
         if (Platform.OS !== 'web') {
@@ -37,8 +40,7 @@ function PhotoPicker() {
 
 
     const addPhoto = async () => {
-        //we need to change this to dynamic, after the snmoe has been created
-        const snome_id = 6
+        console.log(snome_id)
         await fetch('http://localhost:3000/photos/' + snome_id, {
             method: 'POST',
             //we need something beginning with data:
@@ -71,12 +73,15 @@ function PhotoPicker() {
         }
     };
 
+
+
     return (
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Button title="Add image from Gallery" onPress={pickImage} />
             {photo && <Image source={{ uri: photo.uri }} style={{ width: 200, height: 200 }} />}
             <Button title="addphoto" onPress={addPhoto}>Save Photo</Button>
+
         </View>
     );
 }

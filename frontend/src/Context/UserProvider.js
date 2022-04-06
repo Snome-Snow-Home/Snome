@@ -7,6 +7,7 @@ function UserProvider(props) {
   const [location, setLocation] = useState()
   const [messages, setMessages] = useState(null);
   const [stateTracker, setTracker] = useState(null)
+
   let user_messages;
 
 
