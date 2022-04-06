@@ -50,16 +50,50 @@ module.exports = {
 
   checkLikes: async (snome_id, snome_user_id) => {
     try {
-      let likeExists = await db.one(`SELECT CASE WHEN EXISTS
+      let likeExists = await db.one(
+        `SELECT CASE WHEN EXISTS
       (SELECT id FROM snome_like WHERE snome_id = $1 AND snome_user_id = $2)
       THEN TRUE
       ELSE FALSE
       END
-      `, [snome_id, snome_user_id]);
+      `,
+        [snome_id, snome_user_id]
+      );
       return likeExists;
     } catch (err) {
       console.log(`DATABASE ERROR:  ${err}`);
       return err;
+    }
+  },
+
+  checkMatch: async ({ snome_id, snome_user_id }) => {
+    try {
+      let data = await db.manyOrNone(
+        `SELECT owner_id AS user_id, id AS snome_id FROM snome WHERE owner_id = $1 OR id = $2`,
+        [snome_user_id, snome_id]
+      );
+      let matchCondition = await db.one(
+        `SELECT CASE WHEN EXISTS (SELECT snome_user_id, snome_id FROM snome_like 
+        WHERE snome_user_id = $1 AND snome_id = $2) THEN TRUE 
+        ELSE FALSE
+        END`,
+        [data[1].user_id, data[0].snome_id]
+      );
+      let result = { state: matchCondition.case, data: data };
+      return result;
+    } catch (error) {
+      console.log(`DATABASE ERROR: ${error}`);
+      return error;
+    }
+  },
+
+  checkForMatch: async ({ snome_id, snome_user_id }) => {
+    try {
+      const checkStatus = await db.one(`SELECT * FROM match WHERE user_id = $1 AND snome_id = $2`, [snome_user_id, snome_id]);
+      return checkStatus;
+    } catch (error) {
+      console.log(`DATABASE ERROR: ${error}`);
+      return error;
     }
   },
 
@@ -70,7 +104,7 @@ module.exports = {
       let result = await db.manyOrNone(`
       SELECT * FROM snome_photo FULL JOIN snome_like ON snome_photo.snome_id = snome_like.snome_id FULL JOIN snome ON snome_like.snome_id = snome.id WHERE snome_like.snome_user_id = ${user_id}
     `);
-      return result
+      return result;
     } catch (err) {
       console.log(`DATABASE ERROR - POST: ${err}`);
       return err;
@@ -166,7 +200,9 @@ module.exports = {
 
   getMatches: async (user_id) => {
     try {
-      let result = await db.manyOrNone(`SELECT * FROM match FULL JOIN snome ON match.snome_id = snome.id FULL JOIN snome_photo ON snome.id = snome_photo.snome_id WHERE user_id = ${user_id}`);
+      let result = await db.manyOrNone(
+        `SELECT * FROM match FULL JOIN snome ON match.snome_id = snome.id FULL JOIN snome_photo ON snome.id = snome_photo.snome_id WHERE user_id = ${user_id}`
+      );
       return result;
     } catch (err) {
       console.log(`DATABASE ERROR: ${err}`);

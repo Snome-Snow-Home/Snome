@@ -1,4 +1,4 @@
-const { post } = require("../models");
+const { post, get } = require("../models");
 const { uploadToS3 } = require("./helpers/s3helpers.js");
 const axios = require('axios');
 const multer = require('multer');
@@ -159,9 +159,13 @@ module.exports = {
 
   createLike: async (req, res) => {
     try {
-      console.log(req.params);
-      let data = await post.createLike(req.params);
-      res.status(200).json(data);
+      await post.createLike(req.params);
+      let result = await get.checkMatch(req.params);
+      if(result.state) {
+        await post.createMatch(result.data);
+      }
+      console.log(result);
+      res.status(200).send('Success!');
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

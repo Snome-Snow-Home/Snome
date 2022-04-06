@@ -6,6 +6,6 @@ id,snome_user_id,snome_id,has_been_read
 5,7,5,TRUE
 6,3,4,TRUE
 7,4,2,TRUE
-8,6,3,FALSE
+8,6,5,FALSE
 9,7,2,FALSE
 10,6,4,FALSE
