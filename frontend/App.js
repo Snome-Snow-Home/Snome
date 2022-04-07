@@ -7,6 +7,8 @@ import { theme } from './src/theme';
 // import { Navigation } from './src/navigation';
 import Router from './src/navigation/index';
 import UserProvider from './src/Context/UserProvider'
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
 
 export default function App() {
 
@@ -16,13 +18,15 @@ export default function App() {
 
   return (
     <>
-      <UserProvider>
-        <ThemeProvider theme={theme}>
-          {/* <Navigation /> */}
-          <Router />
-        </ThemeProvider>
-        <StatusBar style="auto" />
-      </UserProvider>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <UserProvider>
+          <ThemeProvider theme={theme}>
+            {/* <Navigation /> */}
+            <Router />
+          </ThemeProvider>
+          <StatusBar style="auto" />
+        </UserProvider>
+      </ApplicationProvider>
     </>
   );
 }

@@ -21,10 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/Snome.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "config": {
-        "googleMapsAPIKey": "AIzaSyD8PMznNljHqBi-kn7aLgv0YT5xON9EdpE"
       }
+    
     },
     "web": {
       "favicon": "./assets/Snome.png"

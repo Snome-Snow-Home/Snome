@@ -6,7 +6,7 @@ module.exports = {
   getAll: async (model, query_params) => {
     try {
       //http://vitaly-t.github.io/pg-promise/Database.html#manyOrNone
-      //if there are query parameters (eg. http://localhost:3000/snome?=featured)
+      //if there are query parameters (eg. http://LOCALHOST:3000/snome?=featured)
       if (Object.keys(query_params).length !== 0) {
         let filter = Object.keys(query_params)[0];
         let value = query_params[filter];
