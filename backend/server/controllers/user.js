@@ -17,6 +17,10 @@ module.exports = {
     // res.send(['input controller working', req.body.name, req.body.password])
     try {
       const auth_user = await user.getUserByName(req.body.username);
+      const users_snome = await get.getSnomeByUserId(auth_user.id)
+      const users_snome_id = users_snome[0].id
+      console.log('users_snome_id ', users_snome_id )
+
 
       let is_auth = authenticate(req.body.password, auth_user.password)
 
@@ -24,7 +28,7 @@ module.exports = {
       const token = jsonwebtoken.sign('null', process.env.TOKEN_SECRET);
       console.log('token: ', token)
       res.header("auth-token", token)
-      res.status(200).send({ auth_user, token });
+      res.status(200).send({ auth_user, token, users_snome_id });
     } catch (err) {
       console.log(`SERVER SIDE ERROR - POST: ${err}`);
       res.status(500).send(err);

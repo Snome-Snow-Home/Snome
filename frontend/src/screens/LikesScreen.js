@@ -20,26 +20,44 @@ const height = width * 0.6;
 
 const LikesScreen = () => {
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
+  const [snomesILike, setSnomesIlike] = useState([]);
+  const [snomesThatLikeMe, setSnomesThatLikeMe] = useState([]);
   const context = useContext(UserContext);
   const setTracker = context.setTracker;
+  const [snomes, setSnomes] = useState();
 
   const [active, setActive] = useState([0]);
 
-  console.log('TEST W/ MM ZB')
+  const toggleSnomes = () => {
+    if (snomes.category === 'Snomes I Like') {
+      setSnomes({ category: 'Snomes That Like Me', array: snomesThatLikeMe })
+    } else {
+      setSnomes({ category: 'Snomes I Like', array: snomesILike })
+    }
+  }
 
   const getSnomeLikes = async () => {
     const user_id = context.user_data.user_id;
     let response = await fetch('http://LOCALHOST:3000/like/navbar/' + user_id);
     console.log(response);
     let json = await response.json();
-    setData(json);
+    // console.log(json);
+    setSnomesIlike(json);
+    setSnomes({ category: 'Snomes I Like', array: json })
+    // console.log("Here are your Snome's you've liked");
+  };
 
-    console.log("Here are your Snome's you've liked");
+  const getWhoLikesMe = async () => {
+    const users_snome_id = context.user_data.users_snome_id;
+    let response = await fetch('http://localhost:3000/like/who_likes_me/' + users_snome_id);
+    let json = await response.json();
+    // console.log('who_likes_me', json);
+    setSnomesThatLikeMe(json);
   };
 
   useEffect(() => {
     getSnomeLikes();
+    getWhoLikesMe();
   }, [context.stateTracker]);
 
   const change = ({ nativeEvent }) => {
@@ -52,12 +70,31 @@ const LikesScreen = () => {
   };
 
   return (
+
+
     <View style={{ height: screenHeight }}>
+
+      <TouchableOpacity onPress={toggleSnomes}>
+        {snomes?.category === 'Snomes I Like'
+          ?
+          <Text style={styles.headerButton}>View Snomes that Love YOU</Text>
+          :
+          <Text style={styles.headerButton}>View Snomes that You Love</Text>
+        }
+      </TouchableOpacity>
+
       <ScrollView>
         {/* <Image style={styles.tinyLogo} source={require('../pics/Snome.png')} /> */}
-        <Text style={styles.title}>Snome's you LOVE</Text>
-        {data ? (
-          data.map((item, index) => (
+
+        {snomes?.category === 'Snomes I Like'
+          ?
+          <Text style={styles.title}>Snome's you LOVE</Text>
+          :
+          <Text style={styles.title}>View Snomes that Love YOU</Text>
+        }
+
+        {snomes?.array ? (
+          snomes.array.map((item, index) => (
             <Card style={styles.container} key={index}>
               <TouchableOpacity
                 onPress={() => {
@@ -115,22 +152,30 @@ const LikesScreen = () => {
               </Card.Content>
               <Card.Actions>
                 {/* //need functionality for this to be unliked */}
-                <Button mode="outlined" icon="heart-off">
-                  Unlike
-                </Button>
+                {snomes?.category === 'Snomes I Like' &&
+                  <Button mode="outlined" icon="heart-off">
+                    Unlike
+                  </Button>
+                }
               </Card.Actions>
             </Card>
           ))
         ) : (
           <Text>You don't have any liked Snome's...GO check some out!</Text>
         )}
-        {/* <Button onPress={getData} title="get data">Get Data</Button> */}
       </ScrollView>
     </View>
   );
 };
 
 const styles = {
+  headerButton: {
+    backgroundColor: "white",
+    padding: 6,
+    height: 50,
+    width: '100%',
+    textAlign: 'center'
+  },
   tinyLogo: {
     width: 150,
     height: 150,

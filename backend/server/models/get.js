@@ -102,7 +102,10 @@ module.exports = {
   getUnreadLikes: async (user_id) => {
     try {
       let result = await db.manyOrNone(`
-      SELECT * FROM snome_photo FULL JOIN snome_like ON snome_photo.snome_id = snome_like.snome_id FULL JOIN snome ON snome_like.snome_id = snome.id WHERE snome_like.snome_user_id = ${user_id}
+      SELECT * FROM snome_photo
+      FULL JOIN snome_like ON snome_photo.snome_id = snome_like.snome_id
+      FULL JOIN snome ON snome_like.snome_id = snome.id
+      WHERE snome_like.snome_user_id = ${user_id}
     `);
       return result;
     } catch (err) {
@@ -110,6 +113,22 @@ module.exports = {
       return err;
     }
   },
+
+  getWhoLikesMe: async (snome_id) => {
+    try {
+      let result = await db.manyOrNone(`
+      SELECT * FROM snome_photo
+      FULL JOIN snome ON snome_photo.snome_id = snome.id
+      INNER JOIN snome_like ON snome_like.snome_user_id = snome.owner_id
+      WHERE snome_like.snome_id = ${snome_id}
+    `);
+      return result;
+    } catch (err) {
+      console.log(`DATABASE ERROR - POST: ${err}`);
+      return err;
+    }
+  },
+
 
   getSnomeReviews: async (snome_id) => {
     try {
@@ -128,6 +147,18 @@ module.exports = {
     try {
       let result = await db.manyOrNone(
         `SELECT * FROM snome WHERE location_id = ${location_id}`
+      );
+      return result;
+    } catch (err) {
+      console.log(`DATABASE ERROR - GET: ${err}`);
+      return err;
+    }
+  },
+
+  getSnomeByUserId: async (user_id) => {
+    try {
+      let result = await db.manyOrNone(
+        `SELECT * FROM snome WHERE owner_id = ${user_id}`
       );
       return result;
     } catch (err) {
